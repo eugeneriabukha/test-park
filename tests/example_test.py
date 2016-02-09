@@ -2,6 +2,9 @@ from time import sleep
 
 import stbt
 
+def test_able_to_send_commands():
+    stbt.press('Menu')  # Close any open menus
+    assert stbt.wait_for_motion()
 
 def test_that_live_tv_is_playing():
     stbt.press('KEY_CLOSE')  # Close any open menus
