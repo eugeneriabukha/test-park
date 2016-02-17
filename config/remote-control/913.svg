@@ -64,107 +64,6 @@
        height="994"
        width="290" />
     <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3795"
-       width="38.571426"
-       height="22.142855"
-       x="159.28572"
-       y="252.36218"
-       class="key"
-       key="KEY_BACK" />
-    <rect
-       y="252.36218"
-       x="203.63927"
-       height="22.142855"
-       width="38.571426"
-       id="rect3801"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       class="key"
-       key="KEY_HOME" />
-    <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3803"
-       width="38.571426"
-       height="22.142855"
-       x="204.22508"
-       y="383.06927"
-       class="key"
-       key="KEY_INFO" />
-    <rect
-       y="383.06927"
-       x="158.22508"
-       height="22.142855"
-       width="38.571426"
-       id="rect3805"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       class="key"
-       key="KEY_AGAIN" />
-    <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3807"
-       width="25.455845"
-       height="21.920311"
-       x="158.03836"
-       y="411.36987"
-       class="key"
-       key="KEY_REWIND" />
-    <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3830"
-       width="25.455845"
-       height="21.920311"
-       x="188.03836"
-       y="411.36987"
-       class="key"
-       key="KEY_PLAYPAUSE" />
-    <rect
-       y="411.36987"
-       x="217.33127"
-       height="21.920311"
-       width="25.455845"
-       id="rect3832"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       class="key"
-       key="KEY_FASTFORWARD" />
-    <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3834"
-       width="33.23402"
-       height="23.688078"
-       x="184.20131"
-       y="287.27264"
-       class="key"
-       key="KEY_UP" />
-    <rect
-       y="346.9191"
-       x="184.20131"
-       height="23.688078"
-       width="33.23402"
-       id="rect3836"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       class="key"
-       key="KEY_DOWN" />
-    <rect
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="rect3838"
-       width="33.23402"
-       height="23.688078"
-       x="312.14612"
-       y="-241.95526"
-       transform="matrix(0,1,-1,0,0,0)"
-       class="key"
-       key="KEY_RIGHT" />
-    <rect
-       transform="matrix(0,1,-1,0,0,0)"
-       y="-182.66235"
-       x="312.14612"
-       height="23.688078"
-       width="33.23402"
-       id="rect3840"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       class="key"
-       key="KEY_LEFT" />
-    <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect0"
        width="58.729866"
@@ -172,83 +71,105 @@
        x="126.39268"
        y="820.09674"
        class="key"
-       key="KEY_INFO" />
+       key="KEY_0" />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect1"
        width="55.87273"
        height="23.188946"
        x="56.479332"
-       y="686.9079" />
+       y="685.67682"
+       class="key"
+       key="KEY_1"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect2"
        width="60.609154"
        height="25.758892"
        x="123.74369"
-       y="685.17169" />
+       y="685.67682"
+       class="key"
+       key="KEY_2"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect3"
        width="56.063465"
        height="24.243662"
        x="194.45436"
-       y="685.67682" />
+       y="685.67682"
+       class="key"
+       key="KEY_3"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect4"
        width="56.063461"
        height="23.23349"
        x="55.053314"
-       y="731.63873" />
+       y="731.63873"
+       class="key"
+       key="KEY_4"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect5"
        width="60.104076"
        height="24.243643"
        x="124.75384"
-       y="730.6286" />
+       y="731.63873"
+       class="key"
+       key="KEY_5"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect6"
        width="56.063461"
        height="22.728485"
        x="195.96959"
-       y="732.14386" />
+       y="731.63873"
+       class="key"
+       key="KEY_6"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect7"
        width="55.558392"
        height="23.738586"
        x="56.063465"
-       y="775.58038" />
+       y="775.58038"
+       class="key"
+       key="KEY_7"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect8"
        width="58.588848"
        height="23.2335"
        x="126.26906"
-       y="776.08545" />
+       y="775.58038"
+       class="key"
+       key="KEY_8"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rect9"
        width="55.05331"
        height="23.233522"
        x="195.96959"
-       y="775.58038" />
+       y="775.58038"
+       class="key"
+       key="KEY_9"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="rectstar"
        width="54.043159"
        height="22.223379"
        x="56.568542"
-       y="819.52197" />
+       y="819.52197"
+       class="key"
+       key="KEY_0"  />
     <rect
        style="opacity:1;fill:#000000;fill-opacity:0.00392157"
        id="recthash"
        width="55.053318"
        height="22.223328"
        x="196.97975"
-       y="819.52203" />
+       y="819.52203"
+       class="key"
+       key="KEY_0"  />
   </g>
 </svg>
