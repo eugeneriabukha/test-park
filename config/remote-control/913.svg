@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="-142.85715"
+     inkscape:cx="-351.42858"
      inkscape:cy="462.85714"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -164,27 +164,14 @@
        style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
        class="key"
        key="KEY_LEFT" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#000000;stroke:none;fill-opacity:0.00392157000000000"
-       id="path3842"
-       sodipodi:cx="201.17188"
-       sodipodi:cy="329.69907"
-       sodipodi:rx="13.081475"
-       sodipodi:ry="12.727922"
-       d="m 214.25335,329.69907 a 13.081475,12.727922 0 0 1 -13.08148,12.72792 13.081475,12.727922 0 0 1 -13.08147,-12.72792 13.081475,12.727922 0 0 1 13.08147,-12.72793 13.081475,12.727922 0 0 1 13.08148,12.72793 z"
-       transform="matrix(1.1159484,0,0,1.116067,-23.753331,-39.087991)"
-       class="key"
-       key="KEY_OK" />
     <rect
-       style="opacity:1;fill:#000000;fill-opacity:0.00392157"
+       style="opacity:1;fill:#000000;fill-opacity:1"
        id="rect4146"
-       width="57.142857"
-       height="25.714285"
-       x="125.71429"
-       y="819.505"
-       transform="matrix(0,1,-1,0,0,0)"
+       width="64.285713"
+       height="27.142857"
+       x="122.85715"
+       y="818.07642"
        class="key"
-       key="KEY_0" />
+       key="KEY_INFO" />
   </g>
 </svg>
