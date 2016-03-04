@@ -2,8 +2,12 @@ from time import sleep
 import stbt
 import os
 
-from scripts.Constants import Constants
-#from scripts import *
+from scripts.Constants import *
+from scripts.DataDriver import *
+from scripts.CustomException import *
+from scripts.KeywordDriver import *
+from scripts.KeywordFactory import *
+from scripts.Keywords import *
 
 def test_able_to_send_commands():
     stbt.press('KEY_MENU')  # Close any open menus
