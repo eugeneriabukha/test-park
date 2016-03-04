@@ -1,13 +1,8 @@
 from time import sleep
 import stbt
-
 import os
-dir = os.path.dirname(__file__)
-print dir
-filename = os.path.join(dir, '/shared/scripts/KeywordDriver.py')
-print filename
-import filename
-
+import scripts
+import data
 
 def test_able_to_send_commands():
     stbt.press('KEY_MENU')  # Close any open menus
@@ -31,4 +26,8 @@ def test_read_menu():
     print stbt.ocr()
 
 def test_run_keyworddriver():
-    print "x"
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_Login.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
