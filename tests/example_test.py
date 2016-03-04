@@ -26,6 +26,8 @@ def test_read_menu():
 
 def test_run_keyworddriver():
     # Create an Object for DataDriver
+    print "test"
+    print Constants.TESTCASE_START
     oDataDriver = DataDriver("Instructions_Login.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
