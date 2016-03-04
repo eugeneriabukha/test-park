@@ -78,11 +78,11 @@ class KeywordFactory:
         raise IndexError(sTemp)
 
     # Raises an error for unknown class or known class with unknown methods
-    sModuleName=arKeyword[0]
-    sClassName=arKeyword[1]
-    sMethodName=arKeyword[2]
-    oModule=__import__("scripts.Keywords")
-    oClass=getattr(oModule,sClassName)
+    sModuleName = arKeyword[0]
+    sClassName = arKeyword[1]
+    sMethodName = arKeyword[2]
+    oModule = __import__('scripts.Keywords', fromlist=['*'])
+    oClass = getattr(oModule,sClassName)
     oObject = oClass(self.instruction)
     getattr(oObject,sMethodName)()
 
