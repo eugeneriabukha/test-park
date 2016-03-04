@@ -2,7 +2,7 @@ from time import sleep
 import stbt
 import os
 
-import scripts.Constants
+from scripts.Constants import Constants
 #from scripts import *
 
 def test_able_to_send_commands():
