@@ -1,8 +1,9 @@
 from time import sleep
 import stbt
 import os
+
 import scripts
-import data
+from scripts import *
 
 def test_able_to_send_commands():
     stbt.press('KEY_MENU')  # Close any open menus
