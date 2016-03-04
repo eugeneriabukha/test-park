@@ -81,7 +81,7 @@ class KeywordFactory:
     sModuleName=arKeyword[0]
     sClassName=arKeyword[1]
     sMethodName=arKeyword[2]
-    oModule=__import__(sModuleName)
+    oModule=__import__("scripts.Keywords")
     oClass=getattr(oModule,sClassName)
     oObject = oClass(self.instruction)
     getattr(oObject,sMethodName)()
