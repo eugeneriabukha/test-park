@@ -76,6 +76,7 @@ class DataDriver(dict):
 
         # find the current path of the data file
         #sPath = str(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))+"/data/"
+        print os.getcwd()
         sPath = "/data/"
         sPath = sPath + str(fileName)
         if not (os.path.exists(sPath)):
