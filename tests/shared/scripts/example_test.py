@@ -1,13 +1,6 @@
 from time import sleep
+
 import stbt
-
-import os
-dir = os.path.dirname(__file__)
-print dir
-filename = os.path.join(dir, '/shared/scripts/KeywordDriver.py')
-print filename
-import filename
-
 
 def test_able_to_send_commands():
     stbt.press('KEY_MENU')  # Close any open menus
@@ -29,6 +22,3 @@ def test_read_menu():
     stbt.press('KEY_MENU')
     sleep(1)
     print stbt.ocr()
-
-def test_run_keyworddriver():
-    print "x"
