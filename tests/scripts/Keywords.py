@@ -1,5 +1,7 @@
 from KeywordDriver import Instruction
 from Constants import Constants
+import stbt
+
 #=============================================================================#
 # File: Keywords.py
 #
@@ -151,3 +153,44 @@ class AccessData:
 #=============================================================================#
 # End Of Class: AccessData
 #=============================================================================#
+
+#=============================================================================#
+# Class: STB
+#=============================================================================#
+#
+# Description: Functions for class STB
+#    These functions and methods are platform dependent
+#
+#  Key:   () = No parameters,  (...) = parameters required
+#
+# Methods:
+#   __init__(oInstruction)
+#   PressMenu()
+#
+# Pre-requisites:
+# ++
+#=============================================================================#
+class STB:
+    #=============================================================================#
+    # Method: initialize()
+    # Description: Initializes the service class with information required for running the test
+    # Returns: NA
+    # Usage Examples: STB.new(oInstruction)
+    # where oInstruction should be of class Instruction
+    #=============================================================================#
+    def __init__(self,oInstruction):
+        self.instruction = oInstruction
+
+    #=============================================================================#
+    # Method: FetchData
+    # Description: Launches specific browser
+    # Returns: NA
+    # Usage Examples: Service.LaunchBrowser
+    #=============================================================================#
+    def PressMenu(self):
+        #fetches the URL to launch
+        stbt.press('KEY_MENU')  # Close any open menus
+        assert stbt.wait_for_motion()
+
+        # Updates success on successful launch of browser
+        self.instruction.actualresult = self.instruction.expectedresult
