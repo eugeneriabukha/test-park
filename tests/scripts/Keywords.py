@@ -1,7 +1,6 @@
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
-from Encode import EncodeWord
 import stbt
 
 #=============================================================================#
@@ -207,6 +206,7 @@ class STB:
         stbt.press('KEY_DOWN')
         stbt.press('KEY_SELECT')
     def EnterTitle(self):
+        
         for inst in Encode.EncodeTitle('GAME OF THRONES','P'):
             stbt.press(inst)
     
