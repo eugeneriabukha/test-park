@@ -1,5 +1,7 @@
 from KeywordDriver import Instruction
 from Constants import Constants
+from Encode import EncodeTitle
+from Encode import EncodeWord
 import stbt
 
 #=============================================================================#
@@ -187,10 +189,24 @@ class STB:
     # Returns: NA
     # Usage Examples: Service.LaunchBrowser
     #=============================================================================#
-    def PressMenu(self):
-        #fetches the URL to launch
-        stbt.press('KEY_MENU')  # Close any open menus
+    def PressViewTV(self):
+        stbt.press('KEY_TV') # Switches to live tv
         assert stbt.wait_for_motion()
-
         # Updates success on successful launch of browser
         self.instruction.actualresult = self.instruction.expectedresult
+    def PressMenu(self):
+        stbt.press('KEY_MENU')  # Close any open menus
+        assert stbt.wait_for_motion()
+        # Updates success on successful launch of browser
+        self.instruction.actualresult = self.instruction.expectedresult
+    def PressKey(self,key):
+        stbt.press(key)
+    def NavigatetoSearch(self):
+        stbt.press('KEY_TV')
+        stbt.press('KEY_MENU')
+        stbt.press('KEY_DOWN')
+        stbt.press('KEY_SELECT')
+    def EnterTitle(self):
+        for inst in Encode.EncodeTitle('GAME OF THRONES','P'):
+            stbt.press(inst)
+    

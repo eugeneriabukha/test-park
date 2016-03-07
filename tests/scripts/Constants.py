@@ -23,7 +23,9 @@
 # Pre-requisites: None
 # ++
 #=============================================================================#
+
 class Constants(object):
+    HELLOA='HEllo'
     #Delimiter(s)
     DELIMITER_UNDERSCORE = "_"
     DELIMITER_SEMICOLON = ";"
@@ -57,7 +59,6 @@ class Constants(object):
     STATUS_SUCCESS = "Success"
     STATUS_FAILURE = "Failure"
     STATUS_NOT_EXECUTED = "NotExecuted"
-
     #Option related
     COMMENT = "Comment"
     EXIT_ON_ERROR = "ExitOnError"
@@ -65,6 +66,11 @@ class Constants(object):
     DEPENDS_ON = "DependsOn"
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
-
+    CHARACTER_MAP = { 'A':(0,0),'B':(0,1),'C':(0,2),'D':(0,3),'E':(0,4),'F':(0,5),
+             'G':(1,0),'H':(1,1),'I':(1,2),'J':(1,3),'K':(1,4),'L':(1,5),
+             'M':(2,0),'N':(2,1),'O':(2,2),'P':(2,3),'Q':(2,4),'R':(2,5),
+             'S':(3,0),'T':(3,1),'U':(3,2),'V':(3,3),'W':(3,4),'X':(3,5),
+             'Y':(4,0),'Z':(4,1),'0':(4,2),'1':(4,3),'2':(4,4),'3':(4,5),
+             '4':(5,0),'5':(5,1),'6':(5,2),'7':(5,3),'8':(5,4),'9':(5,5) }
     # Hashes
     OPTIONS_ORDER = { COMMENT : 1, DEPENDS_ON : 2, DIRECT_INPUT : 3, EXIT_ON_ERROR : 4, EXIT_TC_ON_ERROR : 5 }
