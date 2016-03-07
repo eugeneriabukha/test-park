@@ -206,7 +206,7 @@ class STB:
         stbt.press('KEY_DOWN')
         stbt.press('KEY_SELECT')
     def EnterTitle(self):
-        
-        for inst in Encode.EncodeTitle('GAME OF THRONES','P'):
+
+        for inst in EncodeTitle('GAME OF THRONES','P'):
             stbt.press(inst)
     
