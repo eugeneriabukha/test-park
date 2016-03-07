@@ -2,6 +2,7 @@ from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
 import stbt
+import time
 
 #=============================================================================#
 # File: Keywords.py
@@ -209,4 +210,5 @@ class STB:
 
         for inst in EncodeTitle('GAME OF THRONES','P'):
             stbt.press(inst)
+            time.sleep(1)
     
