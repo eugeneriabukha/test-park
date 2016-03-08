@@ -238,6 +238,7 @@ class STB:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         print "Direct Input Data: %s" %(sDirectInput)
+        print DEFAULT_SEARCH_CHAR
         lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
         for keyStroke in lKeyStrokes:
             stbt.press(keyStroke)
