@@ -232,5 +232,5 @@ class STB:
     def EnterTitle(self):
         for inst in EncodeTitle('THE DEPARTED','P'):
             stbt.press(inst)
-            time.sleep(0.05)
+            #time.sleep(0.05)
 
