@@ -116,7 +116,7 @@ class EncodeTitle(list):
     # Variables:    sProgramName: 
     #               InitialCharacter: 
     #=============================================================================#
-    def __init__(self, sProgramName,sInitialCharacter):
+    def __init__(self, sProgramName, sInitialCharacter):
         sProgramName = str(sProgramName)
         sProgramName = sProgramName.upper()
         self.ProgramName = sProgramName
