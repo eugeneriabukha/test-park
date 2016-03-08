@@ -210,5 +210,5 @@ class STB:
 
         for inst in EncodeTitle('THE DEPARTED','P'):
             stbt.press(inst)
-            time.sleep(1)
+            #time.sleep(1)
     
