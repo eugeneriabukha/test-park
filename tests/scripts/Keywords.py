@@ -29,6 +29,10 @@ import time
 #
 #++
 #=============================================================================#
+
+# COMMON CONSTANTS
+DEFAULT_SEARCH_CHAR = 'P'
+
 #=============================================================================#
 # Class: Service
 #
@@ -230,7 +234,12 @@ class STB:
     # Usage Examples: 
     #=============================================================================#
     def EnterTitle(self):
-        for inst in EncodeTitle('THE DEPARTED','P'):
-            stbt.press(inst)
+        # fetch data from the instruction
+        oTestData = self.instruction.testdata_detailed
+        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        print "Direct Input Data: %s" %(sDirectInput)
+        lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
+        for keyStroke in lKeyStrokes:
+            stbt.press(keyStroke)
             #time.sleep(0.05)
 
