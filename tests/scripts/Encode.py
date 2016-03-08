@@ -117,6 +117,7 @@ class EncodeTitle(list):
     #               InitialCharacter: 
     #=============================================================================#
     def __init__(self, sProgramName,sInitialCharacter):
+        sProgramName = sProgramName.uppercase
         self.ProgramName = sProgramName
         self.InitialCharacter = sInitialCharacter
         self.ListofWord = self.ProgramName.split()
