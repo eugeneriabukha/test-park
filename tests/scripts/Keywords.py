@@ -208,7 +208,7 @@ class STB:
         stbt.press('KEY_SELECT')
     def EnterTitle(self):
 
-        for inst in EncodeTitle('GAME OF THRRONES','P'):
+        for inst in EncodeTitle('THE DEPARTED','P'):
             stbt.press(inst)
             time.sleep(1)
     
