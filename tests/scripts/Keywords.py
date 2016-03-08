@@ -31,7 +31,6 @@ import time
 #=============================================================================#
 #=============================================================================#
 # Class: Service
-#=============================================================================#
 #
 # Description: Functions for class Service
 #    These functions and methods are platform dependent
@@ -47,8 +46,8 @@ import time
 #   __init__(oInstruction)
 #   TestCaseStart()
 #   TestCaseEnd()
-#   ClearCacheAndCookies()
-#   LaunchBrowser()
+#   SampleDummyKeyword()
+#   FailureKeyword()
 #
 # Pre-requisites:
 # ++
@@ -110,7 +109,6 @@ class Service:
 
 #=============================================================================#
 # Class: AccessData
-#=============================================================================#
 #
 # Description: Functions for class DataAccess
 #    These functions and methods are platform dependent
@@ -158,7 +156,6 @@ class AccessData:
 
 #=============================================================================#
 # Class: STB
-#=============================================================================#
 #
 # Description: Functions for class STB
 #    These functions and methods are platform dependent
@@ -184,31 +181,56 @@ class STB:
         self.instruction = oInstruction
 
     #=============================================================================#
-    # Method: FetchData
-    # Description: Launches specific browser
+    # Method: PressViewTV
+    # Description: 
     # Returns: NA
-    # Usage Examples: Service.LaunchBrowser
+    # Usage Examples: 
     #=============================================================================#
     def PressViewTV(self):
         stbt.press('KEY_TV') # Switches to live tv
         assert stbt.wait_for_motion()
-        # Updates success on successful launch of browser
         self.instruction.actualresult = self.instruction.expectedresult
+
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
     def PressMenu(self):
         stbt.press('KEY_MENU')  # Close any open menus
         assert stbt.wait_for_motion()
-        # Updates success on successful launch of browser
         self.instruction.actualresult = self.instruction.expectedresult
-    def PressKey(self,key):
-        stbt.press(key)
+
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def PressKey(self,sKey):
+        stbt.press(sKey)
+
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
     def NavigatetoSearch(self):
         stbt.press('KEY_TV')
         stbt.press('KEY_MENU')
         stbt.press('KEY_DOWN')
         stbt.press('KEY_SELECT')
-    def EnterTitle(self):
 
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def EnterTitle(self):
         for inst in EncodeTitle('THE DEPARTED','P'):
             stbt.press(inst)
-            #time.sleep(1)
-    
+            time.sleep(0.1)
+
