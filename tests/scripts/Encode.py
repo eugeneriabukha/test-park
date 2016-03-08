@@ -1,69 +1,137 @@
+#=============================================================================#
+# File: Encode.py
+#
+#  Copyright (c) 2016, Prithvi Nath Manikonda, Vinoth Kumar Ravichandran
+#  All rights reserved.
+#
+# Description: Functions and methods for Encode functionality
+#    These functions and methods are application and platform independent, and
+#    are NOT specific to Web based applications.
+#
+# Modules:
+#
+# Classes Added or Extended:
+#    Constants
+#
+#=============================================================================#
+
+#=============================================================================#
+# Require and Include section
+# Entries for additional files or methods needed by these methods
+#=============================================================================#
 from Constants import Constants as C
+
+#=============================================================================#
+# Class: EncodeWord
+#=============================================================================#
+
 class EncodeWord(list):
-    def __init__(self, ProgramWord,InitialCharacter):
-        self.charmap=C.CHARACTER_MAP
-        self.ProgramWord=ProgramWord
-        self.ListofTupples=[]
-        self.DiffTupple=[]
-        self.ListofInst=[]
-        self.InitialCharacter=InitialCharacter
-        self.InitialCharacterTupple=self.getCoordinates(self.InitialCharacter)
-        self.StringArray=self.returnStringArray(self.ProgramWord)
-        for i in self.StringArray:
-            self.ListofTupples.append(self.getCoordinates(i))
-        self.getDiff(self.ListofTupples)
-        self.getKeyStrokes(self.DiffTupple)
-        self.InitialCharacterTupple=self.getCoordinates(i)
+    #=============================================================================#
+    # Method: __init__(self, sWord, InitialCharacter)
+    # Description:
+    # Variables:    sWord: 
+    #               InitialCharacter: 
+    #=============================================================================#
+    def __init__(self, sWord, sInitialCharacter):
+        self.charmap = C.CHARACTER_MAP
+        self.word = sWord
+        self.ListofTuples = []
+        self.DiffTuple = []
+        self.ListofInst = []
+        self.InitialCharacter = sInitialCharacter
+        self.InitialCharacterTuple = self.getCoordinates(self.InitialCharacter)
+        self.StringArray = self.returnStringArray(self.word)
+
+        for iCounter in self.StringArray:
+            self.ListofTuples.append(self.getCoordinates(iCounter))
+
+        self.getDiff(self.ListofTuples)
+        self.getKeyStrokes(self.DiffTuple)
+        self.InitialCharacterTuple = self.getCoordinates(iCounter)
+
         for Inst in self.ListofInst:
             self.append(Inst)
-    def returnStringArray(self,ProgramWord):
-        self.ProgramWord=ProgramWord.upper()
-        return list(self.ProgramWord)
 
-    def getCoordinates(self,Character):
-        return self.charmap[Character]
-    def getDiff(self,ListofTupples):
-        i=0
-        for tupple in ListofTupples:
-            if i==0:
-                diff=(ListofTupples[0][0]-self.InitialCharacterTupple[0],ListofTupples[0][1]-self.InitialCharacterTupple[1])
-                self.DiffTupple.append(diff)
+    #=============================================================================#
+    # Method: returnStringArray(self, sWord)
+    # Description : 
+    # Variables :    sWord: 
+    #=============================================================================#
+    def returnStringArray(self, sWord):
+        self.word = sWord.upper()
+        return list(self.word)
+
+    #=============================================================================#
+    # Method: getCoordinates(self, sCharacter)
+    # Description : 
+    # Variables :    sCharacter: 
+    #=============================================================================#
+    def getCoordinates(self, sCharacter):
+        return self.charmap[sCharacter]
+
+    #=============================================================================#
+    # Method: getDiff(self, ListofTuples)
+    # Description : 
+    # Variables :    sCharacter: 
+    #=============================================================================#
+    def getDiff(self, ListofTuples):
+        iCounter = 0
+        for tuple in ListofTuples:
+            if iCounter == 0:
+                diff = (ListofTuples[0][0]-self.InitialCharacterTuple[0],ListofTuples[0][1]-self.InitialCharacterTuple[1])
+                self.DiffTuple.append(diff)
             else:
-                diff=(ListofTupples[i][0]-ListofTupples[i-1][0],ListofTupples[i][1]-ListofTupples[i-1][1])
-                self.DiffTupple.append(diff)
-            i= i+1
-    def getKeyStrokes(self,DiffTupple):
-        for diff in DiffTupple:
-            if diff[0]>0:
-                for i in range(0,abs(diff[0])):
+                diff = (ListofTuples[iCounter][0]-ListofTuples[iCounter-1][0],ListofTuples[iCounter][1]-ListofTuples[iCounter-1][1])
+                self.DiffTuple.append(diff)
+            iCounter = iCounter + 1
+
+    #=============================================================================#
+    # Method: getKeyStrokes(self,DiffTuple)
+    # Description : 
+    # Variables :    DiffTuple: 
+    #=============================================================================#
+    def getKeyStrokes(self, DiffTuple):
+        for diff in DiffTuple:
+            if diff[0] > 0:
+                for iCounter in range(0,abs(diff[0])):
                     self.ListofInst.append("KEY_DOWN")
-            if diff[0]<=0:
-                for i in range(0,abs(diff[0])):
+            if diff[0] <= 0:
+                for iCounter in range(0,abs(diff[0])):
                     self.ListofInst.append("KEY_UP")
-            if diff[1]>0:
-                for i in range(0,abs(diff[1])):
+            if diff[1] > 0:
+                for iCounter in range(0,abs(diff[1])):
                     self.ListofInst.append("KEY_RIGHT")
-            if diff[1]<=0:
-                for i in range(0,abs(diff[1])):
+            if diff[1] <= 0:
+                for iCounter in range(0,abs(diff[1])):
                     self.ListofInst.append("KEY_LEFT")
             self.ListofInst.append("KEY_SELECT")
+
+#=============================================================================#
+# Class: EncodeTitle
+#=============================================================================#
 class EncodeTitle(list):
-    def __init__(self, ProgramName,InitialCharacter):
-        self.ProgramName=ProgramName
-        self.InitialCharacter=InitialCharacter
-        self.ListofWord=self.ProgramName.split()
-        self.InitialCharacter=InitialCharacter
-        InteratorWords=0
-        self.InstructionSet=[]
+    #=============================================================================#
+    # Method: __init__(self, sWord, InitialCharacter)
+    # Description:
+    # Variables:    sProgramName: 
+    #               InitialCharacter: 
+    #=============================================================================#
+    def __init__(self, sProgramName,sInitialCharacter):
+        self.ProgramName = sProgramName
+        self.InitialCharacter = sInitialCharacter
+        self.ListofWord = self.ProgramName.split()
+        self.InitialCharacter = sInitialCharacter
+        InteratorWords = 0
+        self.InstructionSet = []
         for Word in self.ListofWord:
-            if InteratorWords==0:
+            if InteratorWords == 0:
                 for Inst in EncodeWord(Word,self.InitialCharacter):
                     self.InstructionSet.append(Inst)
             else:
                 for Inst in EncodeWord(Word,self.ListofWord[InteratorWords-1][-1]):
                     self.InstructionSet.append(Inst)
-            InteratorWords=InteratorWords+1
-            if InteratorWords<len(self.ListofWord):
+            InteratorWords = InteratorWords+1
+            if InteratorWords < len(self.ListofWord):
                 self.InstructionSet.append('KEY_PAUSE')
         for Inst in self.InstructionSet:
             self.append(Inst)
