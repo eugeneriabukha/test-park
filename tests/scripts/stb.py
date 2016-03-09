@@ -164,7 +164,7 @@ class Search:
             bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
             print "Provided data: %s | %s" %(sTitle,bIncludeNetflix)
 
-
+        print "Provided data: %s | %s" %(sTitle,bIncludeNetflix)
         #sDirectInput = oTestData[Constants.DIRECT_INPUT]
         #lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
         #for keyStroke in lKeyStrokes:
