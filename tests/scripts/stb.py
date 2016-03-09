@@ -159,6 +159,7 @@ class Search:
     def Title(self):
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
+        print oTestData
         sTitle = oTestData[Constants.SEARCH_COL_TITLE]
         bIncludeNetflix = oTestData[Constants.SEARCH_COL_INCLUDE_NETFLIX]
         print sTitle
