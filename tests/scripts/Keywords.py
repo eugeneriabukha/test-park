@@ -2,6 +2,7 @@ from KeywordDriver import Instruction
 from Constants import Constants
 import stbt
 import time
+import urllib2
 
 #=============================================================================#
 # File: Keywords.py
@@ -149,6 +150,17 @@ class AccessData:
 
         # Updates success on successful launch of browser
         self.instruction.actualresult = self.instruction.expectedresult
+
+    #=============================================================================#
+    # Method: GoToInternet
+    # Description: Fetch details from internet
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def GoToInternet(self):
+        response = urllib2.urlopen('http://www.google.com/')
+        html = response.read()
+        print html
 
 #=============================================================================#
 # End Of Class: AccessData
