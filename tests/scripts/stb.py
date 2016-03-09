@@ -162,14 +162,26 @@ class Search:
         for dValue in oTestData.values():
             sTitle = dValue[Constants.SEARCH_COL_TITLE]
             bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
-            print "Provided data: %s | %s" %(sTitle,bIncludeNetflix)
 
-        print "Provided data: %s | %s" %(sTitle,bIncludeNetflix)
-        #sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        #lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
-        #for keyStroke in lKeyStrokes:
-        #    stbt.press(keyStroke)
+        # once the title is fetched, get the keystrokes for the title
+        lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
+        # run the key strokes on the set top box
+        for keyStroke in lKeyStrokes:
+            stbt.press(keyStroke)
             #time.sleep(0.05)
+
+        # TODO: to get output information about the current netflix level and set it in the flag bFlag
+        # TODO: make use of the variables
+        bFlag = False
+
+        # netflix would be set to run when bFlag information is false
+        if bFlag == False:
+            stbt.press('KEY_RED')
+            time.sleep(0.05)
+            stbt.press('KEY_SELECT')
+            time.sleep(0.05)
+
+
 
 #=============================================================================#
 # End Of Class: stb
