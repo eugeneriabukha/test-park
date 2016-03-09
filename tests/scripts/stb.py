@@ -159,11 +159,11 @@ class Search:
     def Title(self):
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
-        print oTestData
-        sTitle = oTestData[Constants.SEARCH_COL_TITLE]
-        bIncludeNetflix = oTestData[Constants.SEARCH_COL_INCLUDE_NETFLIX]
-        print sTitle
-        print bIncludeNetflix
+        for dValue in oTestData.values():
+            sTitle = dValue[Constants.SEARCH_COL_TITLE]
+            bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
+            print "Provided data: %s | %s" %(sTitle,bIncludeNetflix)
+
 
         #sDirectInput = oTestData[Constants.DIRECT_INPUT]
         #lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
