@@ -66,6 +66,15 @@ class Constants(object):
     DEPENDS_ON = "DependsOn"
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
+
+    # set top box constants
+    STB_INCLUDING_NETFLIX = "Including Netflix in Search Results"
+    STB_NOT_INCLUDING_NETFLIX = "Not including Netflix in Search Results"
+
+    # Datatable constants
+    SEARCH_COL_TITLE = "Title"
+    SEARCH_COL_INCLUDE_NETFLIX = "IncludeNetflix"
+
     CHARACTER_MAP = { 'A':(0,0),'B':(0,1),'C':(0,2),'D':(0,3),'E':(0,4),'F':(0,5),
              'G':(1,0),'H':(1,1),'I':(1,2),'J':(1,3),'K':(1,4),'L':(1,5),
              'M':(2,0),'N':(2,1),'O':(2,2),'P':(2,3),'Q':(2,4),'R':(2,5),

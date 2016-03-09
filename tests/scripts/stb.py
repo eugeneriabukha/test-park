@@ -159,10 +159,14 @@ class Search:
     def Title(self):
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
-        sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
-        for keyStroke in lKeyStrokes:
-            stbt.press(keyStroke)
+        sTitle = oTestData[Constants.SEARCH_COL_TITLE]
+        bIncludeNetflix = oTestData[Constants.SEARCH_COL_INCLUDE_NETFLIX]
+        puts sTitle
+        puts bIncludeNetflix
+        #sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        #lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
+        #for keyStroke in lKeyStrokes:
+        #    stbt.press(keyStroke)
             #time.sleep(0.05)
 
 #=============================================================================#
