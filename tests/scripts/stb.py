@@ -161,8 +161,9 @@ class Search:
         oTestData = self.instruction.testdata_detailed
         sTitle = oTestData[Constants.SEARCH_COL_TITLE]
         bIncludeNetflix = oTestData[Constants.SEARCH_COL_INCLUDE_NETFLIX]
-        puts sTitle
-        puts bIncludeNetflix
+        print sTitle
+        print bIncludeNetflix
+
         #sDirectInput = oTestData[Constants.DIRECT_INPUT]
         #lKeyStrokes = EncodeTitle(sDirectInput,DEFAULT_SEARCH_CHAR)
         #for keyStroke in lKeyStrokes:
