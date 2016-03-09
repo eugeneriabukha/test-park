@@ -119,9 +119,12 @@ class Navigate:
     # Usage Examples: 
     #=============================================================================#
     def Search(self):
-        stbt.press('KEY_TV')
+        # press search button
+        stbt.press('KEY_EPG')
+        # press menu button
         stbt.press('KEY_MENU')
         stbt.press('KEY_DOWN')
+        # get down to select search
         stbt.press('KEY_SELECT')
 
 #=============================================================================#
