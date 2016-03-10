@@ -30,6 +30,9 @@ import urllib2
 #++
 #=============================================================================#
 
+# global variables
+global_wait = Constants.NO_WAIT
+
 #=============================================================================#
 # Class: Service
 #
@@ -182,9 +185,6 @@ class AccessData:
 # ++
 #=============================================================================#
 class Common:
-    # global variables
-    global global_wait
-
     #=============================================================================#
     # Method: initialize()
     # Description: Initializes the service class with information required for running the test
