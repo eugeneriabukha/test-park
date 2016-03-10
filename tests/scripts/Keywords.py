@@ -221,8 +221,6 @@ class Common:
                 self.global_wait = Constants.SHORT_WAIT
                 print "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT"
 
-        print self.global_wait
-
     #=============================================================================#
     # Method: PressViewTV
     # Description: 

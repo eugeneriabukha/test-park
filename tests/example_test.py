@@ -8,7 +8,7 @@ from scripts.CustomException import *
 from scripts.KeywordDriver import *
 from scripts.KeywordFactory import *
 
-def test_able_to_send_commands():
+'''def test_able_to_send_commands():
     stbt.press('KEY_MENU')  # Close any open menus
     assert stbt.wait_for_motion()
 
@@ -25,11 +25,15 @@ def test_read_menu():
     sleep(1)
     stbt.press('KEY_MENU')
     sleep(1)
-    print stbt.ocr()
+    print stbt.ocr()'''
 
+#=============================================================================#
+# Method: test_run_keyworddriver()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
 def test_run_keyworddriver():
     # Create an Object for DataDriver
-    print Constants.TESTCASE_START
     oDataDriver = DataDriver("Instructions_RealTest.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
