@@ -183,7 +183,7 @@ class AccessData:
 #=============================================================================#
 class Common:
     # global variables
-    global global_wait = Constants.NO_WAIT
+    global global_wait
 
     #=============================================================================#
     # Method: initialize()
@@ -193,7 +193,9 @@ class Common:
     # where oInstruction should be of class Instruction
     #=============================================================================#
     def __init__(self, oInstruction):
-        self.instruction = oInstruction 
+        global global_wait
+        self.instruction = oInstruction
+        global_wait = Constants.SHORT_WAIT
 
     #=============================================================================#
     # Method: set_global_wait()
