@@ -1,7 +1,7 @@
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
-from Keywords import all
+from Keywords import *
 import stbt
 import time
 
