@@ -67,6 +67,12 @@ class Constants(object):
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
 
+    # wait related constants
+    NO_WAIT = 0
+    SHORT_WAIT = 0.5
+    MEDIUM_WAIT = 1
+    LONG_WAIT = 2
+
     # set top box constants
     STB_INCLUDING_NETFLIX = "Including Netflix in Search Results"
     STB_NOT_INCLUDING_NETFLIX = "Not including Netflix in Search Results"

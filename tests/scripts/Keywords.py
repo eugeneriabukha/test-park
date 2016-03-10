@@ -165,3 +165,90 @@ class AccessData:
 #=============================================================================#
 # End Of Class: AccessData
 #=============================================================================#
+
+#=============================================================================#
+# Class: Common
+#
+# Description: Functions for class Common
+#    These functions and methods are platform dependent
+#
+#  Key:   () = No parameters,  (...) = parameters required
+#
+# Methods:
+#   __init__(oInstruction)
+#   ()
+#
+# Pre-requisites:
+# ++
+#=============================================================================#
+class Common:
+    #=============================================================================#
+    # Method: initialize()
+    # Description: Initializes the service class with information required for running the test
+    # Returns: NA
+    # Usage Examples: STB.new(oInstruction)
+    # where oInstruction should be of class Instruction
+    #=============================================================================#
+    def __init__(self,oInstruction):
+        self.instruction = oInstruction
+        self.global_wait = Constants.NO_WAIT
+
+    #=============================================================================#
+    # Method: set_global_wait()
+    # Description: sets the global wait
+    # Returns: NA
+    # Usage Examples: 
+    # where 
+    #=============================================================================#
+    def SetGlobalWait(self,sWait):
+        if sWait == "NO_WAIT":
+            self.global_wait = Constants.NO_WAIT
+        elif sWait == "SHORT_WAIT":
+            self.global_wait = Constants.SHORT_WAIT
+        elif sWait == "MEDIUM_WAIT":
+            self.global_wait = Constants.MEDIUM_WAIT
+        elif sWait == "LONG_WAIT":
+            self.global_wait = Constants.LONG_WAIT
+        else:
+            try:
+                self.global_wait = int(sWait)
+            except ValueError:
+                self.global_wait = Constants.SHORT_WAIT
+                print "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT"
+
+        print self.global_wait
+
+    #=============================================================================#
+    # Method: PressViewTV
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def PressViewTV(self):
+        stbt.press('KEY_TV') # Switches to live tv
+        assert stbt.wait_for_motion()
+        self.instruction.actualresult = self.instruction.expectedresult
+
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def PressMenu(self):
+        stbt.press('KEY_MENU')  # Close any open menus
+        assert stbt.wait_for_motion()
+        self.instruction.actualresult = self.instruction.expectedresult
+
+    #=============================================================================#
+    # Method: 
+    # Description: 
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def PressKey(self,sKey):
+        stbt.press(sKey)
+
+#=============================================================================#
+# End Of Class: Common
+#=============================================================================#

@@ -30,63 +30,6 @@ import time
 DEFAULT_SEARCH_CHAR = 'P'
 
 #=============================================================================#
-# Class: Common
-#
-# Description: Functions for class Common
-#    These functions and methods are platform dependent
-#
-#  Key:   () = No parameters,  (...) = parameters required
-#
-# Methods:
-#   __init__(oInstruction)
-#   ()
-#
-# Pre-requisites:
-# ++
-#=============================================================================#
-class Common:
-    #=============================================================================#
-    # Method: initialize()
-    # Description: Initializes the service class with information required for running the test
-    # Returns: NA
-    # Usage Examples: STB.new(oInstruction)
-    # where oInstruction should be of class Instruction
-    #=============================================================================#
-    def __init__(self,oInstruction):
-        self.instruction = oInstruction
-
-    #=============================================================================#
-    # Method: PressViewTV
-    # Description: 
-    # Returns: NA
-    # Usage Examples: 
-    #=============================================================================#
-    def PressViewTV(self):
-        stbt.press('KEY_TV') # Switches to live tv
-        assert stbt.wait_for_motion()
-        self.instruction.actualresult = self.instruction.expectedresult
-
-    #=============================================================================#
-    # Method: 
-    # Description: 
-    # Returns: NA
-    # Usage Examples: 
-    #=============================================================================#
-    def PressMenu(self):
-        stbt.press('KEY_MENU')  # Close any open menus
-        assert stbt.wait_for_motion()
-        self.instruction.actualresult = self.instruction.expectedresult
-
-    #=============================================================================#
-    # Method: 
-    # Description: 
-    # Returns: NA
-    # Usage Examples: 
-    #=============================================================================#
-    def PressKey(self,sKey):
-        stbt.press(sKey)
-
-#=============================================================================#
 # Class: Navigate
 #
 # Description: Functions for class Navigate
