@@ -222,6 +222,16 @@ class Common:
                 print "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT"
 
     #=============================================================================#
+    # Method: get_global_wait()
+    # Description: gets the global wait
+    # Returns: NA
+    # Usage Examples: 
+    # where 
+    #=============================================================================#
+    def GetGlobalWait(self):
+        return self.global_wait
+
+    #=============================================================================#
     # Method: PressViewTV
     # Description: 
     # Returns: NA

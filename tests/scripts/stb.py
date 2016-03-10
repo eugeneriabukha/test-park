@@ -115,7 +115,7 @@ class Search:
         # run the key strokes on the set top box
         for keyStroke in lKeyStrokes:
             stbt.press(keyStroke)
-            time.sleep(Common.global_wait)
+            time.sleep(Common.GetGlobalWait())
 
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
