@@ -182,6 +182,9 @@ class AccessData:
 # ++
 #=============================================================================#
 class Common:
+    # global variables
+    global global_wait = Constants.NO_WAIT
+
     #=============================================================================#
     # Method: initialize()
     # Description: Initializes the service class with information required for running the test
@@ -190,8 +193,7 @@ class Common:
     # where oInstruction should be of class Instruction
     #=============================================================================#
     def __init__(self, oInstruction):
-        self.instruction = oInstruction
-        self.global_wait = Constants.NO_WAIT
+        self.instruction = oInstruction 
 
     #=============================================================================#
     # Method: set_global_wait()
@@ -201,35 +203,26 @@ class Common:
     # where 
     #=============================================================================#
     def SetGlobalWait(self):
+        global global_wait
         # fetch value for the global wait
         oTestData = self.instruction.testdata_detailed
         sWait = oTestData[Constants.DIRECT_INPUT]
 
         # find the input type and set the global wait based on the provided value
         if sWait == "NO_WAIT":
-            self.global_wait = Constants.NO_WAIT
+            global_wait = Constants.NO_WAIT
         elif sWait == "SHORT_WAIT":
-            self.global_wait = Constants.SHORT_WAIT
+            global_wait = Constants.SHORT_WAIT
         elif sWait == "MEDIUM_WAIT":
-            self.global_wait = Constants.MEDIUM_WAIT
+            global_wait = Constants.MEDIUM_WAIT
         elif sWait == "LONG_WAIT":
-            self.global_wait = Constants.LONG_WAIT
+            global_wait = Constants.LONG_WAIT
         else:
             try:
-                self.global_wait = int(sWait)
+                global_wait = int(sWait)
             except ValueError:
-                self.global_wait = Constants.SHORT_WAIT
+                global_wait = Constants.SHORT_WAIT
                 print "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT"
-
-    #=============================================================================#
-    # Method: get_global_wait()
-    # Description: gets the global wait
-    # Returns: NA
-    # Usage Examples: 
-    # where 
-    #=============================================================================#
-    def GetGlobalWait(self):
-        return self.global_wait
 
     #=============================================================================#
     # Method: PressViewTV
