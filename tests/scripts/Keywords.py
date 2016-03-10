@@ -189,7 +189,7 @@ class Common:
     # Usage Examples: STB.new(oInstruction)
     # where oInstruction should be of class Instruction
     #=============================================================================#
-    def __init__(self,oInstruction):
+    def __init__(self, oInstruction):
         self.instruction = oInstruction
         self.global_wait = Constants.NO_WAIT
 
@@ -200,7 +200,12 @@ class Common:
     # Usage Examples: 
     # where 
     #=============================================================================#
-    def SetGlobalWait(self,sWait):
+    def SetGlobalWait(self):
+        # fetch value for the global wait
+        oTestData = self.instruction.testdata_detailed
+        sWait = oTestData[Constants.DIRECT_INPUT]
+
+        # find the input type and set the global wait based on the provided value
         if sWait == "NO_WAIT":
             self.global_wait = Constants.NO_WAIT
         elif sWait == "SHORT_WAIT":
