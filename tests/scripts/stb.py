@@ -1,6 +1,7 @@
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
+from Keywords import Common
 import stbt
 import time
 
@@ -114,7 +115,7 @@ class Search:
         # run the key strokes on the set top box
         for keyStroke in lKeyStrokes:
             stbt.press(keyStroke)
-            #time.sleep(0.05)
+            time.sleep(Common.global_wait)
 
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
@@ -123,9 +124,9 @@ class Search:
         # netflix would be set to run when bFlag information is false
         if bFlag == False:
             stbt.press('KEY_RED')
-            time.sleep(0.05)
+            time.sleep(Constants.SHORT_WAIT)
             stbt.press('KEY_SELECT')
-            time.sleep(0.05)
+            time.sleep(Constants.SHORT_WAIT)
 
 
 
