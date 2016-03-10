@@ -1,7 +1,7 @@
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
-from Keywords import Common
+from Keywords import all
 import stbt
 import time
 
@@ -104,6 +104,7 @@ class Search:
     # Usage Examples: 
     #=============================================================================#
     def Title(self):
+        global global_wait
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
