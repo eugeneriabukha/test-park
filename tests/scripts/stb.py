@@ -129,7 +129,7 @@ class Search:
 
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
-        oResults = stbt.match_text("DELETE")
+        oResults = stbt.match_text("Including Netflix")
         print oResults.match
         print stbt.ocr()
 
