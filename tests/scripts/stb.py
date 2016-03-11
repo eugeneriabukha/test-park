@@ -132,7 +132,8 @@ class Search:
         # TODO: make use of the variables
         oResults = stbt.match_text("Netflix")
         print oResults.match
-        print stbt.ocr(None,Region(1000,200,width=100,height=100))
+        a = Region(1000,200,width=100,height=100)
+        print stbt.ocr(None,a)
 
 
         bFlag = False
