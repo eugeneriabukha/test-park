@@ -70,10 +70,13 @@ class Navigate:
         stbt.press('KEY_DOWN')
         # get down to select search
         stbt.press('KEY_SELECT')
-        m = stbt.match_text("Search")
-        assert m.match
-        print "match"
-        print m.match
+
+        # this checks if we are on the right screen, and updates actual result
+        oResults = stbt.match_text("Search")
+        if oResults.match == True:
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
 #=============================================================================#
 # Class: Search
