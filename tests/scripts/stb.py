@@ -131,7 +131,7 @@ class Search:
         # TODO: make use of the variables
         #a = stbt.Region(800,100,width=500,height=500)
         #oResults = stbt.match_text("Net",None,a,4)
-        for x in range(0, 10):
+        for x in range(0, 9):
             print stbt.match_text("Netflix",None,None,x)
             print stbt.ocr(None,None,x)
 
