@@ -129,9 +129,8 @@ class Search:
 
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
-        stbt.OcrMode 1
         a = stbt.Region(800,100,width=500,height=500)
-        oResults = stbt.match_text("Net",None,a)
+        oResults = stbt.match_text("Net",None,a,1)
         print oResults.match
         print stbt.ocr()
 
