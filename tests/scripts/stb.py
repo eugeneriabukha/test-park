@@ -133,7 +133,7 @@ class Search:
         #oResults = stbt.match_text("Net",None,a,4)
         for x in range(1,5):
             print stbt.match_text("Netflix",None,None,x)
-            print stbt.ocr(None,None,x)
+            #print stbt.ocr(None,None,x)
 
 
         bFlag = False
