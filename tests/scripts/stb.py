@@ -58,9 +58,9 @@ class Navigate:
 
     #=============================================================================#
     # Method: Search
-    # Description: 
+    # Description:
     # Returns: NA
-    # Usage Examples: 
+    # Usage Examples:
     #=============================================================================#
     def Search(self):
         # press search button
@@ -70,6 +70,8 @@ class Navigate:
         stbt.press('KEY_DOWN')
         # get down to select search
         stbt.press('KEY_SELECT')
+        m = stbt.match_text("Search")
+        assert m.match
 
 #=============================================================================#
 # Class: Search
@@ -98,10 +100,10 @@ class Search:
         self.instruction = oInstruction
 
     #=============================================================================#
-    # Method: 
-    # Description: 
+    # Method:
+    # Description:
     # Returns: NA
-    # Usage Examples: 
+    # Usage Examples:
     #=============================================================================#
     def Title(self):
         global global_wait
