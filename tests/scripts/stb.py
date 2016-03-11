@@ -72,6 +72,7 @@ class Navigate:
         stbt.press('KEY_SELECT')
         m = stbt.match_text("Search")
         assert m.match
+        print "match" +m.match
 
 #=============================================================================#
 # Class: Search
