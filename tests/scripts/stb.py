@@ -131,15 +131,18 @@ class Search:
         # TODO: make use of the variables
         #a = stbt.Region(800,100,width=500,height=500)
         #oResults = stbt.match_text("Net",None,a,4)
-        print stbt.ocr(None,stbt.Region.ALL,1)
-        print "+++++++"
-        print stbt.ocr(None,stbt.Region.ALL,6)
-        print "+++++++"
-        print stbt.ocr(None,stbt.Region.ALL,3)
-        print "+++++++"
-        print stbt.ocr(None,stbt.Region.ALL,4)
-        print "+++++++"
-        print stbt.ocr(None,stbt.Region.ALL,5)
+        # print stbt.ocr(None,stbt.Region.ALL,1)
+        # print "+++++++"
+        # print stbt.ocr(None,stbt.Region.ALL,6)
+        # print "+++++++"
+        # print stbt.ocr(None,stbt.Region.ALL,3)
+        # print "+++++++"
+        # print stbt.ocr(None,stbt.Region.ALL,4)
+        # print "+++++++"
+        # print stbt.ocr(None,stbt.Region.ALL,5)
+        print stbt.match("../data/Search_Logo.png")
+        print "++++++++++"
+        print stbt.match("../data/Search_No_Netflix.png")
 
 
         bFlag = False
