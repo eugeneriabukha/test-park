@@ -130,9 +130,9 @@ class Search:
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
         a = stbt.Region(800,100,width=500,height=500)
-        oResults = stbt.match_text("Netflix",None,a)
+        oResults = stbt.match_text("Net",None,a)
         print oResults.match
-        #print stbt.ocr(None,a)
+        print stbt.ocr(None,a)
 
 
         bFlag = False
