@@ -132,7 +132,7 @@ class Search:
         a = stbt.Region(800,100,width=500,height=500)
         oResults = stbt.match_text("Net",None,a)
         print oResults.match
-        print stbt.ocr(None,a)
+        print stbt.ocr()
 
 
         bFlag = False
