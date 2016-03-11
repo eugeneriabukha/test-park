@@ -78,6 +78,8 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
+        print oResults.region
+
 #=============================================================================#
 # Class: Search
 #
