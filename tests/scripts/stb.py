@@ -127,6 +127,10 @@ class Search:
 
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
+        oResults = stbt.match_text(Constants.STB_NOT_INCLUDING_NETFLIX)
+        print oResults.match
+
+
         bFlag = False
 
         # netflix would be set to run when bFlag information is false
