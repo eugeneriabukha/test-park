@@ -127,12 +127,11 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
 
-        time.sleep(2)
         # TODO: to get output information about the current netflix level and set it in the flag bFlag
         # TODO: make use of the variables
         oResults = stbt.match_text("Netflix")
         print oResults.match
-        a = stbt.Region(900,200,width=200,height=200)
+        a = stbt.Region(800,100,width=500,height=500)
         print stbt.ocr(None,a)
 
 
