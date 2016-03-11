@@ -132,8 +132,8 @@ class Search:
         #a = stbt.Region(800,100,width=500,height=500)
         #oResults = stbt.match_text("Net",None,a,4)
         for x in range(1,5):
-            print stbt.match_text("Netflix",None,stbt.Region.ALL,x)
-            #print stbt.ocr(None,None,x)
+            #print stbt.match_text("Netflix",None,)
+            print stbt.ocr(None,stbt.Region.ALL,x)
 
 
         bFlag = False
