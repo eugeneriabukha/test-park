@@ -140,7 +140,7 @@ class Search:
         # print stbt.ocr(None,stbt.Region.ALL,4)
         # print "+++++++"
         # print stbt.ocr(None,stbt.Region.ALL,5)
-        print stbt.match("../data/Search_Logo.png")
+        print stbt.match("../data/Search_Logo.png",None,stbt.MatchParameters(None, 0.5))
         print "++++++++++"
         print stbt.match("../data/Search_No_Netflix.png")
 
