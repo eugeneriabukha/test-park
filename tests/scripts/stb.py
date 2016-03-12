@@ -114,6 +114,10 @@ class Search:
     #=============================================================================#
     def Title(self):
         global global_wait
+
+        # check for presence of Search Logo
+        oSearchLogo = stbt.match("../data/Search_Logo.png")
+
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
@@ -141,8 +145,7 @@ class Search:
         # print "+++++++"
         # print stbt.ocr(None,stbt.Region.ALL,5)
         #print stbt.match("../data/Search_Logo.png",None,stbt.MatchParameters(None, 0.5))
-        stbt.match("../data/Search_Logo.png")
-        print "++++++++++"
+        
         stbt.match("../data/Search_NoNetflix.png")
         stbt.match("../data/Search_Netflix.png")
 
