@@ -132,23 +132,38 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
         
+        # Fetch the current status for netflix results
         if bIncludeNetflix == True:
-            print "true"
-        elif bIncludeNetflix == False:
-            print "false"
+            sImagePath = "../images/Search_Netflix.png"
+        else:
+            sImagePath = "../images/Search_NoNetflix.png"
+
+        # Check for presence of netflix
+        bCurrentNetflixStatus = stbt.match(sImagePath).match
+        if bCurrentNetflixStatus == True:
+            print "The existing setting of Netflix is correct. No further changes"
+        else:
+            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+            # fixing netflix results
+            stbt.press('KEY_RED')
+            time.sleep(Constants.SHORT_WAIT)
+            stbt.press('KEY_SELECT')
+
+        # Check status after fixing Netflix results
+        bCurrentNetflixStatus = stbt.match(sImagePath).match
+        if bCurrentNetflixStatus == True:
+            self.instruction.actualresult = self.instruction.expectedresult
+            print "Search performed successfully"
+        else:
+            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+            print "Search Failure: Error in performing search"
 
         #stbt.match("../images/Search_NoNetflix.png")
         #stbt.match("../images/Search_Netflix.png")
 
 
-        bFlag = True
 
-        # netflix would be set to run when bFlag information is false
-        if bFlag == False:
-            stbt.press('KEY_RED')
-            time.sleep(Constants.SHORT_WAIT)
-            stbt.press('KEY_SELECT')
-            time.sleep(Constants.SHORT_WAIT)
+
 
 
 

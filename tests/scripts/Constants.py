@@ -67,7 +67,9 @@ class Constants(object):
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
 
+    # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"
+    STATUS_SEARCH_FAILURE = "SearchFailure"
 
     # wait related constants
     NO_WAIT = 0
