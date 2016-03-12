@@ -142,11 +142,11 @@ class Search:
         # print stbt.ocr(None,stbt.Region.ALL,5)
         #print stbt.match("../data/Search_Logo.png",None,stbt.MatchParameters(None, 0.5))
         stbt.wait_for_match("../data/Search_Logo.png")
-        #print "++++++++++"
-        #print stbt.match("../data/Search_No_Netflix.png")
+        print "++++++++++"
+        stbt.wait_for_match("../data/Search_NoNetflix.png")
 
 
-        bFlag = False
+        bFlag = True
 
         # netflix would be set to run when bFlag information is false
         if bFlag == False:
