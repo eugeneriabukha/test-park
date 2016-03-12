@@ -144,6 +144,7 @@ class Search:
         stbt.wait_for_match("../data/Search_Logo.png")
         print "++++++++++"
         stbt.wait_for_match("../data/Search_NoNetflix.png")
+        stbt.wait_for_match("../data/Search_Netflix.png")
 
 
         bFlag = True
