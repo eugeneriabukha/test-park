@@ -75,11 +75,6 @@ class Constants(object):
     MEDIUM_WAIT = 1
     LONG_WAIT = 2
 
-    # set top box constants
-    #STB_INCLUDING_NETFLIX = "Including Netflix in Search Results"
-    #STB_NOT_INCLUDING_NETFLIX = "Not including Netflix in Search Results"
-    STB_NOT_INCLUDING_NETFLIX = "Netflix"
-
     # Datatable constants
     SEARCH_COL_TITLE = "Title"
     SEARCH_COL_INCLUDE_NETFLIX = "IncludeNetflix"

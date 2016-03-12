@@ -72,13 +72,14 @@ class Navigate:
         stbt.press('KEY_SELECT')
 
         # this checks if we are on the right screen, and updates actual result
-        oResults = stbt.match_text("Search")
-        if oResults.match == True:
+        # check for presence of Search Logo
+        oSearchLogo = stbt.match("../images/Search_Logo.png")
+
+        # if the search page do not exist, then exit the test case
+        if oSearchLogo.match == True:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-
-        print oResults.region
 
 #=============================================================================#
 # Class: Search
@@ -115,9 +116,6 @@ class Search:
     def Title(self):
         global global_wait
 
-        # check for presence of Search Logo
-        oSearchLogo = stbt.match("../images/Search_Logo.png")
-
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
@@ -130,24 +128,14 @@ class Search:
         for keyStroke in lKeyStrokes:
             stbt.press(keyStroke)
             time.sleep(global_wait)
-
-        # TODO: to get output information about the current netflix level and set it in the flag bFlag
-        # TODO: make use of the variables
-        #a = stbt.Region(800,100,width=500,height=500)
-        #oResults = stbt.match_text("Net",None,a,4)
-        # print stbt.ocr(None,stbt.Region.ALL,1)
-        # print "+++++++"
-        # print stbt.ocr(None,stbt.Region.ALL,6)
-        # print "+++++++"
-        # print stbt.ocr(None,stbt.Region.ALL,3)
-        # print "+++++++"
-        # print stbt.ocr(None,stbt.Region.ALL,4)
-        # print "+++++++"
-        # print stbt.ocr(None,stbt.Region.ALL,5)
-        #print stbt.match("../data/Search_Logo.png",None,stbt.MatchParameters(None, 0.5))
         
-        stbt.match("../images/Search_NoNetflix.png")
-        stbt.match("../images/Search_Netflix.png")
+        if bIncludeNetflix == True:
+            print "true"
+        elif bIncludeNetflix == False:
+            print "false"
+
+        #stbt.match("../images/Search_NoNetflix.png")
+        #stbt.match("../images/Search_Netflix.png")
 
 
         bFlag = True
