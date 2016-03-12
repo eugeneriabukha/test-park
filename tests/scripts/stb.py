@@ -73,6 +73,7 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         # check for presence of Search Logo
+        time.sleep(Constants.LONG_WAIT)
         oSearchLogo = stbt.match("../images/Search_Logo.png")
 
         # if the search page do not exist, then exit the test case
