@@ -79,8 +79,10 @@ class Navigate:
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
             self.instruction.actualresult = self.instruction.expectedresult
+            print "Navigation To Search Screen: Successful"
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            print "Navigation Failure: Unable to navigate to Search screen"
 
 #=============================================================================#
 # Class: Search
