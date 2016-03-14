@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="71.971807"
-     inkscape:cy="865.97874"
+     inkscape:zoom="1.4"
+     inkscape:cx="135.72181"
+     inkscape:cy="694.55017"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -241,36 +241,36 @@
        width="35.355339"
        height="43.436558"
        x="137.88582"
-       y="412.93558" 
+       y="412.93558"
        class="key"
-       key="KEY_SEARCH"/>
+       key="KEY_SEARCH" />
     <rect
        style="opacity:0"
        id="pathviewtv"
        width="39.39595"
        height="32.324883"
        x="189.40359"
-       y="403.33914" 
+       y="403.33914"
        class="key"
-       key="KEY_TV"/>
+       key="KEY_TV" />
     <rect
        style="opacity:0"
        id="pathcancel"
        width="27.779194"
        height="38.385796"
        x="233.34523"
-       y="360.40765" 
+       y="360.40765"
        class="key"
-       key="KEY_CANCEL"/>
+       key="KEY_CANCEL" />
     <rect
        style="opacity:0"
        id="pathrecall"
        width="25"
        height="25"
        x="48.571426"
-       y="368.07642" 
+       y="368.07642"
        class="key"
-       key="KEY_LAST"/>
+       key="KEY_LAST" />
     <rect
        style="opacity:0"
        id="pathskipback"
@@ -279,60 +279,107 @@
        x="74.751289"
        y="530.11328"
        class="key"
-       key="KEY_FRAMEBACK"/>
+       key="KEY_FRAMEBACK" />
     <rect
        style="opacity:0"
        id="pathpause"
        width="49.642857"
        height="28.214285"
        x="129.64285"
-       y="578.43359" 
+       y="578.43359"
        class="key"
-       key="KEY_PAUSE"/>
+       key="KEY_PAUSE" />
     <rect
        style="opacity:0"
        id="pathfwd"
        width="32.5"
        height="28.571428"
        x="201.78571"
-       y="529.14789" 
+       y="529.14789"
        class="key"
-       key="KEY_FRAMEFORWARD"/>
+       key="KEY_FRAMEFORWARD" />
     <rect
        style="opacity:0"
        id="pathred"
        width="50.357143"
        height="18.214285"
        x="41.785713"
-       y="475.57642" 
+       y="475.57642"
        class="key"
-       key="KEY_RED"/>
+       key="KEY_RED" />
     <rect
        style="opacity:0"
        id="pathgreen"
        width="45"
        height="14.285714"
        x="102.85714"
-       y="477.71927" 
+       y="477.71927"
        class="key"
-       key="KEY_GREEN"/>
+       key="KEY_GREEN" />
     <rect
        style="opacity:0"
        id="pathyellow"
        width="46.071426"
        height="14.642857"
        x="160.71428"
-       y="478.43356" 
+       y="478.43356"
        class="key"
-       key="KEY_YELLOW"/>
+       key="KEY_YELLOW" />
     <rect
        style="opacity:0"
        id="pathblue"
        width="42.5"
        height="11.785714"
        x="220.35715"
-       y="480.21927" 
+       y="480.21927"
        class="key"
-       key="KEY_BLUE"/>
+       key="KEY_BLUE" />
+    <rect
+       style="opacity:0"
+       id="pathup"
+       width="77.14286"
+       height="25.714285"
+       x="115"
+       y="258.79071" 
+       class="key"
+       key="KEY_UP"/>
+    <rect
+       style="opacity:0"
+       id="rect4166"
+       width="28.571428"
+       height="70"
+       x="88.571426"
+       y="291.64786"
+       inkscape:label="#pathleft" 
+       class="key"
+       key="KEY_LEFT"/>
+    <rect
+       style="opacity:0"
+       id="pathdown"
+       width="62.142857"
+       height="27.142857"
+       x="125.71429"
+       y="365.21927" 
+       class="key"
+       key="KEY_DOWN"/>
+    <rect
+       style="opacity:0"
+       id="rect4170"
+       width="27.142857"
+       height="66.428574"
+       x="198.57143"
+       y="292.36215"
+       inkscape:label="#pathright" 
+       class="key"
+       key="KEY_RIGHT"/>
+    <rect
+       style="opacity:0"
+       id="pathepg"
+       width="24.285715"
+       height="27.142857"
+       x="236.42857"
+       y="260.2193" 
+       class="key"
+       key="KEY_EPG"/>
   </g>
 </svg>
