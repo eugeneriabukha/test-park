@@ -132,7 +132,7 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
         time.sleep(Constants.SHORT_WAIT)
-        textOnScreen = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix','including','Not','Including']) 
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
         print textOnScreen
         if textOnScreen.find("Including Netflix") != -1:
             print "The existing setting of Netflix is correct. No further changes"
@@ -162,7 +162,7 @@ class Search:
         #bCurrentNetflixStatus = stbt.match(sImagePath).match
         print "+++++++++++++++++"
         time.sleep(Constants.SHORT_WAIT)
-        textOnScreen = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix','including','Not','Including']) 
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
         print textOnScreen
         if textOnScreen.find("Including Netflix") != -1:
             self.instruction.actualresult = self.instruction.expectedresult
