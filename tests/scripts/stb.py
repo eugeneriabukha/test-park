@@ -134,7 +134,7 @@ class Search:
         
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
         print text
-        print ++++++++++++++
+        print "++++++++++++++"
         print stbt.ocr()
         # Fetch the current status for netflix results
         if bIncludeNetflix == True:
