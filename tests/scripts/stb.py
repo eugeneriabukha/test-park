@@ -155,6 +155,7 @@ class Search:
 
         # Check status after fixing Netflix results
         bCurrentNetflixStatus = stbt.match(sImagePath).match
+        text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
         if text.find("Including Netflix") == True:
             self.instruction.actualresult = self.instruction.expectedresult
             print "Search performed successfully"
