@@ -144,7 +144,7 @@ class Search:
             stbt.press('KEY_SELECT')
 
         resultsRegion=stbt.Region(x=500, y=200, width=500, height=600)
-        print stbt.ocr(region=resultsRegion, tesseract_user_words=['Netflix','including','Not','Including']) 
+        print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON']) 
         '''print text.find("Including Netflix")
         print text
         print "++++++++++++++"
