@@ -131,9 +131,10 @@ class Search:
         for keyStroke in lKeyStrokes:
             stbt.press(keyStroke)
             time.sleep(global_wait)
-        
+        time.sleep(Constants.SHORT_WAIT)
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
         print text.find("Including Netflix")
+        print text
         print "++++++++++++++"
         print stbt.ocr()
         # Fetch the current status for netflix results
@@ -155,7 +156,9 @@ class Search:
 
         # Check status after fixing Netflix results
         bCurrentNetflixStatus = stbt.match(sImagePath).match
+        time.sleep(Constants.SHORT_WAIT)
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
+        print text
         if text.find("Including Netflix") != -1:
             self.instruction.actualresult = self.instruction.expectedresult
             print "Search performed successfully"
