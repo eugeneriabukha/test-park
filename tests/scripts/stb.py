@@ -134,6 +134,8 @@ class Search:
         time.sleep(Constants.SHORT_WAIT)
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix','including','Not','Including']) 
         print stbt.match_text("Game")
+        region1=stbt.Region(x=500, y=200, width=500, height=600)
+        print stbt.ocr(region=region1, tesseract_user_words=['Netflix','including','Not','Including']) 
         print text.find("Including Netflix")
         print text
         print "++++++++++++++"
