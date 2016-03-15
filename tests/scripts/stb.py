@@ -143,7 +143,7 @@ class Search:
             time.sleep(Constants.SHORT_WAIT)
             stbt.press('KEY_SELECT')
 
-        resultsRegion=stbt.Region(x=400, y=100, width=500, height=600)
+        resultsRegion=stbt.Region(x=400, y=100, width=600, height=700)
         print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON']) 
         '''print text.find("Including Netflix")
         print text
