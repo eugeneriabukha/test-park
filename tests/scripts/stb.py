@@ -132,6 +132,9 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
         
+        text = stbt.ocr(region=stbt.Region(52, 34, 120, 50))
+        print text
+        print stbt.ocr()
         # Fetch the current status for netflix results
         if bIncludeNetflix == True:
             sImagePath = "../images/Search_Netflix.png"
