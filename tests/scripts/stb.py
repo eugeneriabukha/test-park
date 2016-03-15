@@ -155,7 +155,7 @@ class Search:
 
         # Check status after fixing Netflix results
         bCurrentNetflixStatus = stbt.match(sImagePath).match
-        if ext.find("Including Netflix") == True:
+        if text.find("Including Netflix") == True:
             self.instruction.actualresult = self.instruction.expectedresult
             print "Search performed successfully"
         else:
