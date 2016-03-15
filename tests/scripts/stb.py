@@ -133,34 +133,76 @@ class Search:
             time.sleep(global_wait)
         time.sleep(Constants.SHORT_WAIT)
 
-        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        if bIncludeNetflix==True:
-            if textOnScreen.find("Including Netflix") != -1:
-                print "The existing setting of Netflix is correct. No further changes"
-            else:
-                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
-                # fixing netflix results
-                stbt.press('KEY_RED')
-                time.sleep(Constants.SHORT_WAIT)
-                stbt.press('KEY_SELECT')
-                time.sleep(Constants.LONG_WAIT)
-        else:
-            if textOnScreen.find("Not including Netflix") != -1:
-                print "The existing setting of Netflix is correct. No further changes"
-            else:
-                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
-                # fixing netflix results
-                stbt.press('KEY_RED')
-                time.sleep(Constants.SHORT_WAIT)
-                stbt.press('KEY_SELECT')
-                time.sleep(Constants.LONG_WAIT)
+        bActualNetflixStatus = False
+        if(textOnScreen.find("Including Netflix") != -1):
+            bActualNetflixStatus = True
 
-        resultsRegion=stbt.Region(x=400, y=100, width=600, height=700)
-        print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
+        if(bIncludeNetflix == bActualNetflixStatus):
+            print "The existing setting of Netflix is correct. No further changes"
+        else:
+            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+            # fixing netflix results
+            stbt.press('KEY_RED')
+            time.sleep(Constants.SHORT_WAIT)
+            stbt.press('KEY_SELECT')
+            time.sleep(Constants.LONG_WAIT)
+
+        resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
+        #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
         time.sleep(Constants.LONG_WAIT)
 
+        # 
+        if bIncludeNetflix == True:
+            sLookForMessage = "Including Netflix"
+        else:
+            sLookForMessage = "Not including Netflix"
 
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
+        if textOnScreen.find(sLookForMessage) != -1:
+            self.instruction.actualresult = self.instruction.expectedresult
+            print "Search performed successfully"
+        else:
+            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+            print "Search Failure: Error in performing search"
+
+
+'''
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
+        if bIncludeNetflix==True:
+            if textOnScreen.find("Including Netflix") != -1:
+                print "The existing setting of Netflix is correct. No further changes"
+            else:
+                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+                # fixing netflix results
+                stbt.press('KEY_RED')
+                time.sleep(Constants.SHORT_WAIT)
+                stbt.press('KEY_SELECT')
+                time.sleep(Constants.LONG_WAIT)
+        else:
+            if textOnScreen.find("Not including Netflix") != -1:
+                print "The existing setting of Netflix is correct. No further changes"
+            else:
+                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+                # fixing netflix results
+                stbt.press('KEY_RED')
+                time.sleep(Constants.SHORT_WAIT)
+                stbt.press('KEY_SELECT')
+                time.sleep(Constants.LONG_WAIT)
+
+'''
+
+'''
+        bActualNetflixStatus = False
+        if textOnScreen.find("Including Netflix") != -1:
+            bActualNetflixStatus = True
+        if(bIncludeNetflix == bActualNetflixStatus):
+            self.instruction.actualresult = self.instruction.expectedresult
+            print "Search performed successfully"
+        else:
+'''
+
+
+'''
         if bIncludeNetflix==True:
             if textOnScreen.find("Including Netflix") != -1:
                 self.instruction.actualresult = self.instruction.expectedresult
@@ -176,7 +218,7 @@ class Search:
                 self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
                 print "Search Failure: Error in performing search"
 
-
+'''
 
 
 
