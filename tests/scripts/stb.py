@@ -133,7 +133,7 @@ class Search:
             time.sleep(global_wait)
         time.sleep(Constants.SHORT_WAIT)
         textOnScreen = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix','including','Not','Including']) 
-        print textOnScreen.find("Including Netflix")
+        print textOnScreen
         if textOnScreen.find("Including Netflix") != -1:
             print "The existing setting of Netflix is correct. No further changes"
         else:
