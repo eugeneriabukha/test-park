@@ -132,7 +132,7 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
         
-        text = stbt.ocr(region=REGION.ALL, tesseract_user_words=['Netflix']) 
+        text = stbt.ocr(region=Region.ALL, tesseract_user_words=['Netflix']) 
         print text
         print stbt.ocr()
         # Fetch the current status for netflix results
