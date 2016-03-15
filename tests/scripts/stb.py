@@ -134,6 +134,7 @@ class Search:
         time.sleep(Constants.SHORT_WAIT)
 
         bActualNetflixStatus = False
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
         if(textOnScreen.find("Including Netflix") != -1):
             bActualNetflixStatus = True
 
