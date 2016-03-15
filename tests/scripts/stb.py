@@ -132,47 +132,49 @@ class Search:
             stbt.press(keyStroke)
             time.sleep(global_wait)
         time.sleep(Constants.SHORT_WAIT)
+
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        print textOnScreen
-        if textOnScreen.find("Including Netflix") != -1:
-            print "The existing setting of Netflix is correct. No further changes"
+        if bIncludeNetflix==True:
+            if textOnScreen.find("Including Netflix") != -1:
+                print "The existing setting of Netflix is correct. No further changes"
+            else:
+                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+                # fixing netflix results
+                stbt.press('KEY_RED')
+                time.sleep(Constants.SHORT_WAIT)
+                stbt.press('KEY_SELECT')
+                time.sleep(Constants.LONG_WAIT)
         else:
-            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
-            # fixing netflix results
-            stbt.press('KEY_RED')
-            time.sleep(Constants.SHORT_WAIT)
-            stbt.press('KEY_SELECT')
+            if textOnScreen.find("Not including Netflix") != -1:
+                print "The existing setting of Netflix is correct. No further changes"
+            else:
+                print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+                # fixing netflix results
+                stbt.press('KEY_RED')
+                time.sleep(Constants.SHORT_WAIT)
+                stbt.press('KEY_SELECT')
+                time.sleep(Constants.LONG_WAIT)
 
         resultsRegion=stbt.Region(x=400, y=100, width=600, height=700)
         print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
-        '''print text.find("Including Netflix")
-        print text
-        print "++++++++++++++"
-        print stbt.ocr()
-        # Fetch the current status for netflix results
-        if bIncludeNetflix == True:
-            sImagePath = "../images/Search_Netflix.png"
-        else:
-            sImagePath = "../images/Search_NoNetflix.png"'''
+        time.sleep(Constants.LONG_WAIT)
 
-        # Check for presence of netflix
-        #bCurrentNetflixStatus = stbt.match(sImagePath).match
-        
-        # Check status after fixing Netflix results
-        #bCurrentNetflixStatus = stbt.match(sImagePath).match
-        print "+++++++++++++++++"
-        time.sleep(Constants.SHORT_WAIT)
+
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        print textOnScreen
-        if textOnScreen.find("Including Netflix") != -1:
-            self.instruction.actualresult = self.instruction.expectedresult
-            print "Search performed successfully"
+        if bIncludeNetflix==True:
+            if textOnScreen.find("Including Netflix") != -1:
+                self.instruction.actualresult = self.instruction.expectedresult
+                print "Search performed successfully"
+            else:
+                self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+                print "Search Failure: Error in performing search"
         else:
-            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            print "Search Failure: Error in performing search"
-
-        #stbt.match("../images/Search_NoNetflix.png")
-        #stbt.match("../images/Search_Netflix.png")
+            if textOnScreen.find("Not including Netflix") != -1:
+                self.instruction.actualresult = self.instruction.expectedresult
+                print "Search performed successfully"
+            else:
+                self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+                print "Search Failure: Error in performing search"
 
 
 
