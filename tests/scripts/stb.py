@@ -133,7 +133,7 @@ class Search:
             time.sleep(global_wait)
         
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
-        print text.find("Netflix")
+        print text.find("Including Netflix")
         print "++++++++++++++"
         print stbt.ocr()
         # Fetch the current status for netflix results
@@ -144,7 +144,7 @@ class Search:
 
         # Check for presence of netflix
         bCurrentNetflixStatus = stbt.match(sImagePath).match
-        if text.find("Including Netflix") == True:
+        if text.find("Including Netflix") != -1:
             print "The existing setting of Netflix is correct. No further changes"
         else:
             print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
@@ -156,7 +156,7 @@ class Search:
         # Check status after fixing Netflix results
         bCurrentNetflixStatus = stbt.match(sImagePath).match
         text = stbt.ocr(region=stbt.Region.ALL, tesseract_user_words=['Netflix']) 
-        if text.find("Including Netflix") == True:
+        if text.find("Including Netflix") != -1:
             self.instruction.actualresult = self.instruction.expectedresult
             print "Search performed successfully"
         else:
