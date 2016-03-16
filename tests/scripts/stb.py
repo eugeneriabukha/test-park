@@ -125,10 +125,18 @@ class Search:
             resultsString=''.join(resultsString)
             resultsString=resultsString.splitlines()
             resultsString = [line.strip() for line in resultsString if line.strip()]
-            indexTV= resultsString.index('TV')
-            indexMovie= resultsString.index('MOVIE')
-            indexSports=resultsString.index('SPORTS')
-            indexPeople= resultsString.index('PERSON')
+            indexTV=-1
+            indexMovie=-1
+            indexSports=-1
+            indexPeople=-1
+            if 'TV' in resultsString:
+                indexTV= resultsString.index('TV')
+            if 'MOVIE' in resultsString:
+                indexMovie= resultsString.index('MOVIE')
+            if 'SPORTS' in resultsString:
+                indexSports=resultsString.index('SPORTS')
+            if 'PERSON' in resultsString:
+                indexPeople= resultsString.index('PERSON')
             listResults=resultsString[:1]
             listTV=[]
             listMovie=[]
