@@ -166,7 +166,63 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print "Search Failure: Error in performing search"
 
+        def getResults(self):
+            resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
+            resultsString= stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
+            resultsString=resultsString.strip()
+            resultsString=list(resultsString)
+            resultsString[0]='0'
+            resultsString=''.join(resultsString)
+            resultsString=resultsString.splitresultsString()
+            resultsString = [line.strip() for line in resultsString if line.strip()]
+            indexTV= resultsString.index('TV')
+            indexMovie= resultsString.index('MOVIE')
+            indexSports=resultsString.index('SPORTS')
+            indexPeople= resultsString.index('PERSON')
+            listResults=resultsString[:1]
+            listTV=[]
+            listMovie=[
+            listPeople=[]
+            listSports=[]
+            if(indexTV!=-1):
+                if(indexMovie!=-1):
+                    listTV=resultsString[indexTV+1:indexMovie]
+                elif(indexSports!=-1):
+                    listTV=resultsString[indexTV+1:indexSports]
+                elif(indexPeople !=-1):
+                    listTV=resultsString[indexTV+1:indexPeople]
+                else:
+                    listTV=resultsString[indexTV+1:]
+            if(indexMovie!=-1):
+                if(indexSports!=-1):
+                    listMovie=resultsString[indexMovie+1:indexSports]
+                elif(indexPeople !=-1):
+                    listMovie=resultsString[indexMovie+1:indexPeople]
+                else:
+                    listMovie=resultsString[indexMovie+1:]
+            if(indexSports !=-1):
+                if(indexPeople !=-1):
+                    listSports=resultsString[indexSports+1:indexPeople]
+                else:
+                    listSports=resultsString[indexSports+1:]
+            if(indexPeople!=-1):
+                listPeople=resultsString[indexPeople+1:]
 
+            ListofTupples=[]
+            dictResults={'Firstline':listResults,'TV':listTV,'Movie':listMovie,'Person':listPeople,'Sports':listSports}
+            for key in dictResults.keys():
+                for value in dictResults[key]:
+                    index=value.split(' ',1)[0]
+                    title=value.split(' ',1)[1]
+                    ListofTupples.append((key,index,title))
+            time.sleep(Constants.LONG_WAIT)
+            return ListofTupples
+
+        def SearchResultbyIndex(self,index):  
+            print [item for item in ListofTupples if item[0] == 'TV']
+            print '+++++++++++++'
+            return [item for item in ListofTupples if item[1] == '1']           
+            
 '''
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
         if bIncludeNetflix==True:
