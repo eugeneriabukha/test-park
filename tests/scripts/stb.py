@@ -109,7 +109,7 @@ class Search:
     #=============================================================================#
     def __init__(self,oInstruction):
         self.instruction = oInstruction
-
+        self.ResultMatrix=[]
     #=============================================================================#
     # Method:
     # Description:
@@ -150,6 +150,7 @@ class Search:
 
         resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
         #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
+        print getResults()
         time.sleep(Constants.LONG_WAIT)
 
         # 
@@ -181,7 +182,7 @@ class Search:
             indexPeople= resultsString.index('PERSON')
             listResults=resultsString[:1]
             listTV=[]
-            listMovie=[
+            listMovie=[]
             listPeople=[]
             listSports=[]
             if(indexTV!=-1):
@@ -208,20 +209,23 @@ class Search:
             if(indexPeople!=-1):
                 listPeople=resultsString[indexPeople+1:]
 
-            ListofTupples=[]
+            self.ResultMatrix=[]
             dictResults={'Firstline':listResults,'TV':listTV,'Movie':listMovie,'Person':listPeople,'Sports':listSports}
             for key in dictResults.keys():
                 for value in dictResults[key]:
                     index=value.split(' ',1)[0]
                     title=value.split(' ',1)[1]
-                    ListofTupples.append((key,index,title))
+                    self.ResultMatrix.append((key,index,title))
             time.sleep(Constants.LONG_WAIT)
-            return ListofTupples
+            return self.ResultMatrix
 
         def SearchResultbyIndex(self,index):  
-            print [item for item in ListofTupples if item[0] == 'TV']
-            print '+++++++++++++'
-            return [item for item in ListofTupples if item[1] == '1']           
+            return [item for item in self.ResultMatrix if item[1] == index]     
+
+        def SearchResultsbyType(self,typevideo):
+            return [item for item in self.ResultMatrix if item[0] == typevideo]
+        def SearchResultsbyTitle(self,title):
+            return [item for item in self.ResultMatrix if item[2] == title]               
             
 '''
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
