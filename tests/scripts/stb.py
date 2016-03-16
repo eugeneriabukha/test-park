@@ -168,13 +168,13 @@ class Search:
             time.sleep(Constants.LONG_WAIT)
             return self.ResultMatrix
 
-        def SearchResultbyIndex(self,index):  
-            return [item for item in self.ResultMatrix if item[1] == index]     
+    def SearchResultbyIndex(self,index):  
+        return [item for item in self.ResultMatrix if item[1] == index]     
 
-        def SearchResultsbyType(self,typevideo):
-            return [item for item in self.ResultMatrix if item[0] == typevideo]
-        def SearchResultsbyTitle(self,title):
-            return [item for item in self.ResultMatrix if item[2] == title]              
+    def SearchResultsbyType(self,typevideo):
+        return [item for item in self.ResultMatrix if item[0] == typevideo]
+    def SearchResultsbyTitle(self,title):
+        return [item for item in self.ResultMatrix if item[2] == title]              
     def Title(self):
         global global_wait
 
