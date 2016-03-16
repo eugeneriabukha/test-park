@@ -29,8 +29,8 @@ import time
 
 # COMMON CONSTANTS
 DEFAULT_SEARCH_CHAR = "P"
-SEARCH_NAVIGATION_SUCCESS = "Navigation To Search Screen: Successful"
-SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Unable to navigate to Search screen"
+SEARCH_NAVIGATION_SUCCESS = "Navigation Success: Search"
+SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Search"
 SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No further changes"
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -62,18 +62,33 @@ class Navigate:
         self.instruction = oInstruction
 
     #=============================================================================#
+    # Method: PressListOfKeyStrokes(self,lListOfKeyStrokes)
+    # Description: Press the list of provided keystrokes
+    # Returns: NA
+    # Usage Examples: 
+    #=============================================================================#
+    def PressListOfKeyStrokes(self,lListOfKeyStrokes):
+        global global_wait
+
+        # press keystrokes for search
+        for sKeyStroke in lListOfKeyStrokes:
+            stbt.press(sKeyStroke)
+            time.sleep(global_wait)        
+
+    #=============================================================================#
     # Method: Search
     # Description:
     # Returns: NA
     # Usage Examples:
     #=============================================================================#
     def Search(self):
-        global global_wait
-
+        #global global_wait
         # press keystrokes for search
-        for sKeyStroke in SEARCH_KEYSTROKES:
-            stbt.press(sKeyStroke)
-            time.sleep(global_wait)
+        #for sKeyStroke in SEARCH_KEYSTROKES:
+        #    stbt.press(sKeyStroke)
+        #    time.sleep(global_wait)
+
+        self.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
@@ -82,10 +97,8 @@ class Navigate:
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
             self.instruction.actualresult = self.instruction.expectedresult
-            print SEARCH_NAVIGATION_SUCCESS
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            print SEARCH_NAVIGATION_FAILURE
 
 #=============================================================================#
 # Class: Search
@@ -97,7 +110,7 @@ class Navigate:
 #
 # Methods:
 #   __init__(oInstruction)
-#   EnterTitle()
+#   Title()
 #
 # Pre-requisites:
 # ++
