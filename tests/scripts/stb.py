@@ -33,6 +33,7 @@ SEARCH_NAVIGATION_SUCCESS = "Navigation To Search Screen: Successful"
 SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Unable to navigate to Search screen"
 SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No further changes"
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
+IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 
 #=============================================================================#
 # Class: Navigate
@@ -75,10 +76,9 @@ class Navigate:
             time.sleep(global_wait)
 
         # this checks if we are on the right screen, and updates actual result
-        # check for presence of Search Logo
         time.sleep(Constants.LONG_WAIT)
-        oSearchLogo = stbt.match("../images/Search_Logo.png")
-        oSearchLogo.match = True
+        oSearchLogo = stbt.match(IMAGE_SEARCH_LOGO)
+
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
             self.instruction.actualresult = self.instruction.expectedresult
