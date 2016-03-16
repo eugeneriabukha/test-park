@@ -116,58 +116,7 @@ class Search:
     # Returns: NA
     # Usage Examples:
     #=============================================================================#
-    def Title(self):
-        global global_wait
-
-        # fetch data from the instruction
-        oTestData = self.instruction.testdata_detailed
-        for dValue in oTestData.values():
-            sTitle = dValue[Constants.SEARCH_COL_TITLE]
-            bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
-
-        # once the title is fetched, get the keystrokes for the title
-        lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
-        # run the key strokes on the set top box
-        for keyStroke in lKeyStrokes:
-            stbt.press(keyStroke)
-            time.sleep(global_wait)
-        time.sleep(Constants.SHORT_WAIT)
-
-        bActualNetflixStatus = False
-        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        if(textOnScreen.find("Including Netflix") != -1):
-            bActualNetflixStatus = True
-
-        if(bIncludeNetflix == bActualNetflixStatus):
-            print "The existing setting of Netflix is correct. No further changes"
-        else:
-            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
-            # fixing netflix results
-            stbt.press('KEY_RED')
-            time.sleep(Constants.SHORT_WAIT)
-            stbt.press('KEY_SELECT')
-            time.sleep(Constants.LONG_WAIT)
-
-        resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
-        #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
-        print self.getResults()
-        time.sleep(Constants.LONG_WAIT)
-
-        # 
-        if bIncludeNetflix == True:
-            sLookForMessage = "Including Netflix"
-        else:
-            sLookForMessage = "Not including Netflix"
-
-        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        if textOnScreen.find(sLookForMessage) != -1:
-            self.instruction.actualresult = self.instruction.expectedresult
-            print "Search performed successfully"
-        else:
-            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            print "Search Failure: Error in performing search"
-
-        def getResults(self):
+    def getResults(self):
             resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
             resultsString= stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
             resultsString=resultsString.strip()
@@ -225,7 +174,59 @@ class Search:
         def SearchResultsbyType(self,typevideo):
             return [item for item in self.ResultMatrix if item[0] == typevideo]
         def SearchResultsbyTitle(self,title):
-            return [item for item in self.ResultMatrix if item[2] == title]               
+            return [item for item in self.ResultMatrix if item[2] == title]              
+    def Title(self):
+        global global_wait
+
+        # fetch data from the instruction
+        oTestData = self.instruction.testdata_detailed
+        for dValue in oTestData.values():
+            sTitle = dValue[Constants.SEARCH_COL_TITLE]
+            bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
+
+        # once the title is fetched, get the keystrokes for the title
+        lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
+        # run the key strokes on the set top box
+        for keyStroke in lKeyStrokes:
+            stbt.press(keyStroke)
+            time.sleep(global_wait)
+        time.sleep(Constants.SHORT_WAIT)
+
+        bActualNetflixStatus = False
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
+        if(textOnScreen.find("Including Netflix") != -1):
+            bActualNetflixStatus = True
+
+        if(bIncludeNetflix == bActualNetflixStatus):
+            print "The existing setting of Netflix is correct. No further changes"
+        else:
+            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+            # fixing netflix results
+            stbt.press('KEY_RED')
+            time.sleep(Constants.SHORT_WAIT)
+            stbt.press('KEY_SELECT')
+            time.sleep(Constants.LONG_WAIT)
+
+        resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
+        #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
+        print self.getResults()
+        time.sleep(Constants.LONG_WAIT)
+
+        # 
+        if bIncludeNetflix == True:
+            sLookForMessage = "Including Netflix"
+        else:
+            sLookForMessage = "Not including Netflix"
+
+        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
+        if textOnScreen.find(sLookForMessage) != -1:
+            self.instruction.actualresult = self.instruction.expectedresult
+            print "Search performed successfully"
+        else:
+            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+            print "Search Failure: Error in performing search"
+
+         
             
 '''
         textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
