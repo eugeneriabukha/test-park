@@ -150,7 +150,7 @@ class Search:
 
         resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
         #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
-        print getResults()
+        print self.getResults()
         time.sleep(Constants.LONG_WAIT)
 
         # 
