@@ -123,7 +123,7 @@ class Search:
             resultsString=list(resultsString)
             resultsString[0]='0'
             resultsString=''.join(resultsString)
-            resultsString=resultsString.splitresultsString()
+            resultsString=resultsString.splitlines()
             resultsString = [line.strip() for line in resultsString if line.strip()]
             indexTV= resultsString.index('TV')
             indexMovie= resultsString.index('MOVIE')
