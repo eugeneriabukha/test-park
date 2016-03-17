@@ -244,6 +244,8 @@ class Search:
     #=============================================================================#
     def Title(self):
         global global_wait
+        global Common
+        
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
