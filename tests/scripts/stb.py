@@ -33,8 +33,15 @@ SEARCH_NAVIGATION_SUCCESS = "Navigation Success: Search"
 SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Search"
 SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No further changes"
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
+SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
+SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
-
+POSITIVE_NETFLIX = "The existing setting of Netflix is correct. No further changes"
+NEGATIVE_NETFLIX = "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
+INCLUDE_NETFLIX = "Including Netflix"
+NOT_INCLUDE_NETFLIX = "Not including Netflix"
+SEARCH_POSITIVE = "Search performed successfully"
+SEARCH_NEGATIVE = "Search Failure: Error in performing search"
 
 class cCommon:
     """
@@ -65,44 +72,48 @@ class cCommon:
             stbt.press(sKeyStroke)
             time.sleep(global_wait)
 
+# public instantition of the cCommon class to be used by other Classes
 Common = cCommon()
-"""
-public instantition of the cCommon class to be used by other Classes
-"""
 
-#=============================================================================#
-# Class: Navigate
-#
-# Description: Functions for class Navigate
-#    These functions and methods are platform dependent
-#
-#  Key:   () = No parameters,  (...) = parameters required
-#
-# Methods:
-#   __init__(oInstruction)
-#   ()
-#
-# Pre-requisites:
-# ++
-#=============================================================================#
 class Navigate:
-    #=============================================================================#
-    # Method: initialize()
-    # Description: Initializes the service class with information required for running the test
-    # Returns: NA
-    # Usage Examples: STB.new(oInstruction)
-    # where oInstruction should be of class Instruction
-    #=============================================================================#
+    """
+    Functions required for performing Navigation
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
     def __init__(self,oInstruction):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+            option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
         self.instruction = oInstruction
 
-    #=============================================================================#
-    # Method: Search
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
     def Search(self):
+        """
+        Navigates to search screen. Updates actual result based on presence of Search image
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # press the required key strokes for navigating to search screen
         Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
@@ -115,134 +126,46 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-#=============================================================================#
-# Class: Search
-#
-# Description: Functions for class Search
-#    These functions and methods are platform dependent
-#
-#  Key:   () = No parameters,  (...) = parameters required
-#
-# Methods:
-#   __init__(oInstruction)
-#   Title()
-#
-# Pre-requisites:
-# ++
-#=============================================================================#
 class Search:
-    #=============================================================================#
-    # Method: initialize()
-    # Description: Initializes the service class with information required for running the test
-    # Returns: NA
-    # Usage Examples: STB.new(oInstruction)
-    # where oInstruction should be of class Instruction
-    #=============================================================================#
+    """
+    Functions required for Search like entering Title, verifying results
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+
     def __init__(self,oInstruction):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
         self.instruction = oInstruction
 
-    #=============================================================================#
-    # Method:
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
-    def getResults(self):
-            resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
-            resultsString = stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
-            resultsString = resultsString.strip()
-            resultsString = list(resultsString)
-            resultsString[0] = '0'
-            resultsString = ''.join(resultsString)
-            resultsString =resultsString.splitlines()
-            resultsString = [line.strip() for line in resultsString if line.strip()]
-            indexTV = -1
-            indexMovie = -1
-            indexSports = -1
-            indexPeople = -1
-            if 'TV' in resultsString:
-                indexTV = resultsString.index('TV')
-            if 'MOVIE' in resultsString:
-                indexMovie = resultsString.index('MOVIE')
-            if 'SPORTS' in resultsString:
-                indexSports = resultsString.index('SPORTS')
-            if 'PERSON' in resultsString:
-                indexPeople = resultsString.index('PERSON')
-            listResults = resultsString[:1]
-            listTV = []
-            listMovie = []
-            listPeople = []
-            listSports = []
-            if(indexTV != -1):
-                if(indexMovie != -1):
-                    listTV = resultsString[indexTV+1:indexMovie]
-                elif(indexSports != -1):
-                    listTV = resultsString[indexTV+1:indexSports]
-                elif(indexPeople != -1):
-                    listTV = resultsString[indexTV+1:indexPeople]
-                else:
-                    listTV = resultsString[indexTV+1:]
-            if(indexMovie != -1):
-                if(indexSports != -1):
-                    listMovie = resultsString[indexMovie+1:indexSports]
-                elif(indexPeople != -1):
-                    listMovie = resultsString[indexMovie+1:indexPeople]
-                else:
-                    listMovie = resultsString[indexMovie+1:]
-            if(indexSports != -1):
-                if(indexPeople != -1):
-                    listSports = resultsString[indexSports+1:indexPeople]
-                else:
-                    listSports = resultsString[indexSports+1:]
-            if(indexPeople != -1):
-                listPeople = resultsString[indexPeople+1:]
-
-            self.ResultMatrix = []
-            dictResults = {'Firstline':listResults,'TV':listTV,'Movie':listMovie,'Person':listPeople,'Sports':listSports}
-            for key in dictResults.keys():
-                for value in dictResults[key]:
-                    index = value.split(' ',1)[0]
-                    title = value.split(' ',1)[1]
-                    self.ResultMatrix.append((key,index,title))
-            time.sleep(Constants.LONG_WAIT)
-            return self.ResultMatrix
-
-    #=============================================================================#
-    # Method:
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
-    def SearchResultbyIndex(self,index):  
-        return [item for item in self.ResultMatrix if item[1] == index]     
-
-    #=============================================================================#
-    # Method:
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
-    def SearchResultsbyType(self,typevideo):
-        return [item for item in self.ResultMatrix if item[0] == typevideo]
-
-    #=============================================================================#
-    # Method:
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
-    def SearchResultsbyTitle(self,title):
-        return [item for item in self.ResultMatrix if item[2] == title]
-
-    #=============================================================================#
-    # Method:
-    # Description:
-    # Returns: NA
-    # Usage Examples:
-    #=============================================================================#
     def Title(self):
+        """
+        Enters the provided title in the testdata_detailed in the Instruction object while initialize
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
         global global_wait
-        #global Common
 
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
@@ -254,47 +177,34 @@ class Search:
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
         Common.PressListOfKeyStrokes(lKeyStrokes)
 
-        # run the key strokes on the set top box
-        #for keyStroke in lKeyStrokes:
-        #    stbt.press(keyStroke)
-        #    time.sleep(global_wait)
-        
-        # Needed a short wait before capturing the details from the screen
-        time.sleep(Constants.SHORT_WAIT)
-
+        # Performing advanced options
         bActualNetflixStatus = False
-        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
-        if(textOnScreen.find("Including Netflix") != -1):
+        textOnScreen = stbt.ocr(region = stbt.Region(x = 1000, y = 200, width = 500, height = 600), tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
+        if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
 
         if(bIncludeNetflix == bActualNetflixStatus):
-            print "The existing setting of Netflix is correct. No further changes"
+            print POSITIVE_NETFLIX
         else:
-            print "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
-            # fixing netflix results
-            stbt.press('KEY_RED')
-            time.sleep(Constants.SHORT_WAIT)
-            stbt.press('KEY_SELECT')
-            time.sleep(Constants.LONG_WAIT)
+            print NEGATIVE_NETFLIX
+            # performing advanced search : netflix inclusion or removal
+            Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
-        resultsRegion = stbt.Region(x=400, y=100, width=600, height=700)
-        #print stbt.ocr(region=resultsRegion, tesseract_user_words=['MOVIE','TV','SPORTS','PERSON','0']) 
-        print self.getResults()
-        time.sleep(Constants.LONG_WAIT)
+        #resultsRegion = stbt.Region(x = 400, y = 100, width = 600, height = 700)
 
-        # 
+        # Test after performing advanced search options
         if bIncludeNetflix == True:
-            sLookForMessage = "Including Netflix"
+            sLookForMessage = INCLUDE_NETFLIX
         else:
-            sLookForMessage = "Not including Netflix"
+            sLookForMessage = NOT_INCLUDE_NETFLIX
 
-        textOnScreen = stbt.ocr(region=stbt.Region(x=1000, y=200, width=500, height=600), tesseract_user_words=['Netflix','including','Not','Including']) 
+        textOnScreen = stbt.ocr(region = stbt.Region(x = 1000, y = 200, width = 500, height = 600), tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
         if textOnScreen.find(sLookForMessage) != -1:
             self.instruction.actualresult = self.instruction.expectedresult
-            print "Search performed successfully"
+            print SEARCH_POSITIVE
         else:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            print "Search Failure: Error in performing search"
+            print SEARCH_NEGATIVE
 
 
 #=============================================================================#
