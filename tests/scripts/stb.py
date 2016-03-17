@@ -103,8 +103,6 @@ class Navigate:
     # Usage Examples:
     #=============================================================================#
     def Search(self):
-        #global Common
-
         Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
@@ -254,6 +252,7 @@ class Search:
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
+        puts "bul bul thara"
         Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # run the key strokes on the set top box
