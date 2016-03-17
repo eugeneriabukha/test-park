@@ -35,6 +35,41 @@ SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 
+
+class cCommon:
+    """
+    We use this as a common class to hold all common functions.
+
+    .. note::
+       A public object is instantiated which can be used by all other classes 
+
+    """
+    def PressListOfKeyStrokes(self,lListOfKeyStrokes):
+        """
+        This function performs the list of key strokes provided on the parameter
+
+        Args:
+            lListOfKeyStrokes (list):  list of valid keystrokes
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+
+        """
+        global global_wait
+
+        # press keystrokes for search
+        for sKeyStroke in lListOfKeyStrokes:
+            stbt.press(sKeyStroke)
+            time.sleep(global_wait)
+
+Common = cCommon
+"""
+public instantition of the cCommon class to be used by other Classes
+"""
+
 #=============================================================================#
 # Class: Navigate
 #
@@ -62,33 +97,13 @@ class Navigate:
         self.instruction = oInstruction
 
     #=============================================================================#
-    # Method: PressListOfKeyStrokes(self,lListOfKeyStrokes)
-    # Description: Press the list of provided keystrokes
-    # Returns: NA
-    # Usage Examples: 
-    #=============================================================================#
-    def PressListOfKeyStrokes(self,lListOfKeyStrokes):
-        global global_wait
-
-        # press keystrokes for search
-        for sKeyStroke in lListOfKeyStrokes:
-            stbt.press(sKeyStroke)
-            time.sleep(global_wait)        
-
-    #=============================================================================#
     # Method: Search
     # Description:
     # Returns: NA
     # Usage Examples:
     #=============================================================================#
     def Search(self):
-        #global global_wait
-        # press keystrokes for search
-        #for sKeyStroke in SEARCH_KEYSTROKES:
-        #    stbt.press(sKeyStroke)
-        #    time.sleep(global_wait)
-
-        self.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+        Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
@@ -125,7 +140,6 @@ class Search:
     #=============================================================================#
     def __init__(self,oInstruction):
         self.instruction = oInstruction
-        self.ResultMatrix = []
 
     #=============================================================================#
     # Method:
@@ -236,10 +250,12 @@ class Search:
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
+        Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+
         # run the key strokes on the set top box
-        for keyStroke in lKeyStrokes:
-            stbt.press(keyStroke)
-            time.sleep(global_wait)
+        #for keyStroke in lKeyStrokes:
+        #    stbt.press(keyStroke)
+        #    time.sleep(global_wait)
         
         # Needed a short wait before capturing the details from the screen
         time.sleep(Constants.SHORT_WAIT)
