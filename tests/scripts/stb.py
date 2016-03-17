@@ -1,31 +1,18 @@
+"""
+.. module:: stb
+   :platform: Unix, Windows
+   :synopsis: module which holds the classes and functions related to set top box.
+
+.. moduleauthor:: Vinoth Kumar Ravichandran <vinoth.ravichandran@echostar.com>, Prithvi Manikonda <Prithvi.Manikonda@echostar.com>
+
+"""
+
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
 from Keywords import *
 import stbt
 import time
-
-#=============================================================================#
-# File: stb.py
-#
-#  Copyright (c) 2015, Vinoth Kumar Ravichandran, Prithvi Nath Manikonda
-#  All rights reserved.
-#
-# Description: Classes and functions for set top box
-#    These classes and functions are application dependent, performs activities based
-#    on the user input from the instruction sheet
-#
-#    The keyword passed on from instruction sheet is analyzed and appropriate
-#    class and its methods would be dynamically called based on instruction
-#
-#--
-# Depends On:
-#    KeywordDriver
-#    Encode
-#    Constants
-#
-#++
-#=============================================================================#
 
 # COMMON CONSTANTS
 DEFAULT_SEARCH_CHAR = "P"
@@ -42,6 +29,7 @@ INCLUDE_NETFLIX = "Including Netflix"
 NOT_INCLUDE_NETFLIX = "Not including Netflix"
 SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
+REGION_ADVANCED_SEARCH = {'x': 1000, 'y': 200, 'width': 500, 'height':600};
 
 class cCommon:
     """
@@ -179,10 +167,12 @@ class Search:
 
         # Performing advanced options
         bActualNetflixStatus = False
-        textOnScreen = stbt.ocr(region = stbt.Region(x = 1000, y = 200, width = 500, height = 600), tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
+        oAdvancedSearchRegion = stbt.Region(x = REGION_ADVANCED_SEARCH['x'], y = REGION_ADVANCED_SEARCH['y'], width = REGION_ADVANCED_SEARCH['width'], height = REGION_ADVANCED_SEARCH['height'])
+        textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
         if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
 
+        # Check the current advanced search setting if it matches with the existing setting
         if(bIncludeNetflix == bActualNetflixStatus):
             print POSITIVE_NETFLIX
         else:
@@ -190,15 +180,13 @@ class Search:
             # performing advanced search : netflix inclusion or removal
             Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
-        #resultsRegion = stbt.Region(x = 400, y = 100, width = 600, height = 700)
-
         # Test after performing advanced search options
         if bIncludeNetflix == True:
             sLookForMessage = INCLUDE_NETFLIX
         else:
             sLookForMessage = NOT_INCLUDE_NETFLIX
 
-        textOnScreen = stbt.ocr(region = stbt.Region(x = 1000, y = 200, width = 500, height = 600), tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
+        textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
         if textOnScreen.find(sLookForMessage) != -1:
             self.instruction.actualresult = self.instruction.expectedresult
             print SEARCH_POSITIVE
@@ -206,6 +194,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
 
+        #resultsRegion = stbt.Region(x = 400, y = 100, width = 600, height = 700)
 
 #=============================================================================#
 # End Of Class: stb
