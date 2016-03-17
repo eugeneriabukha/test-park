@@ -65,7 +65,7 @@ class cCommon:
             stbt.press(sKeyStroke)
             time.sleep(global_wait)
 
-Common = cCommon
+Common = cCommon()
 """
 public instantition of the cCommon class to be used by other Classes
 """
@@ -103,7 +103,7 @@ class Navigate:
     # Usage Examples:
     #=============================================================================#
     def Search(self):
-        global Common
+        #global Common
 
         Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
@@ -244,8 +244,8 @@ class Search:
     #=============================================================================#
     def Title(self):
         global global_wait
-        global Common
-        
+        #global Common
+
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
