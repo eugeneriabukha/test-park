@@ -252,8 +252,7 @@ class Search:
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
-        print "bul bul thara"
-        Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+        Common.PressListOfKeyStrokes(lKeyStrokes)
 
         # run the key strokes on the set top box
         #for keyStroke in lKeyStrokes:
