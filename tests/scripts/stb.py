@@ -103,6 +103,8 @@ class Navigate:
     # Usage Examples:
     #=============================================================================#
     def Search(self):
+        global Common
+
         Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
