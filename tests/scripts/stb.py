@@ -214,6 +214,7 @@ class Search:
                 sCurrentLine = lResults[iCounter]
                 if sCurrentLine in dicIndex:
                     sTempType = sCurrentLine
+                else:
                     print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
 
 
