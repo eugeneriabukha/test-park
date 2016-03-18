@@ -225,7 +225,8 @@ class Search:
                     ResultsDict["Title"]=sTitle
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
-        print ListofDict
+        Utils.SetSearchResults(ListofDict)
+        print Utils.GetSearchResults(ListofDict)
 
                     
 
