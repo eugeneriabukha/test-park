@@ -172,6 +172,7 @@ class Search:
         else:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
+        self.FetchResults()
 
     def FetchResults(self):
         """
