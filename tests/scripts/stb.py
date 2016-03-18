@@ -32,7 +32,7 @@ SEARCH_NEGATIVE = "Search Failure: Error in performing search"
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
-SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON']
+SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -214,7 +214,7 @@ class Search:
                 sCurrentLine = lResults[iCounter]
                 if sCurrentLine in dicIndex:
                     sTempType = sCurrentLine
-                print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
+                    print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
 
 
 
