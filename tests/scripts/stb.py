@@ -174,7 +174,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
         self.FetchResults()
-        self.ResultsPrint()
+        
 
     def FetchResults(self):
         """
@@ -278,8 +278,8 @@ class Search:
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
 
-    def ResultsPrint(self):
-        print Utils.GetSearchResults()
+   # def ResultsPrint(self):
+   #     print Utils.GetSearchResults()
 
 #=============================================================================#
 # End Of Class: stb
