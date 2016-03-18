@@ -66,6 +66,11 @@ class cUtils:
         """
         return self.search_results
 
+'''
+Helpful in future
+list1=[{'id':1,'name':'hello','type':'TV'},{'id':2,'name':'hel','type':'TV'}]
+#print list1
+print [item for item in list1 if item["type"] == 'TV']'''
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

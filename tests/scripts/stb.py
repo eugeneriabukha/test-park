@@ -174,6 +174,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
         self.FetchResults()
+        self.ResultsPrint()
 
     def FetchResults(self):
         """
@@ -236,11 +237,10 @@ class Search:
                     #Gets the index and title by spliting the Current line
                     sIndex=sCurrentLine.split(' ',1)[0]
                     sTitle=sCurrentLine.split(' ',1)[1]
-                    sType=sTempType
                     ResultsDict["ID"]=iIndexCounter
                     # Striping the .. Characters that show up if the result is too long
                     ResultsDict["Title"]=sTitle.strip(".")
-                    ResultsDict["Type"]=sType
+                    ResultsDict["Type"]=sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter=iIndexCounter+1
@@ -248,7 +248,7 @@ class Search:
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) !=None:
                     ResultsDict["ID"]=iIndexCounter
                     ResultsDict["Title"]=sCurrentLine.strip(".")
-                    ResultsDict["Type"]=sType
+                    ResultsDict["Type"]=sTempType
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter=iIndexCounter+1
                 # Ignoring any other read on the search which is not alphanumeric
@@ -267,17 +267,18 @@ class Search:
                     sIndex=iIndexCounter
                     #Gets the title by spliting the Current line
                     sTitle=sCurrentLine.split(' ',1)[1]
-                    sType=sTempType
                     ResultsDict["ID"]=sIndex
                     # Striping the .. Characters that show up if the result is too long
                     ResultsDict["Title"]=sTitle.strip(".")
-                    ResultsDict["Type"]=sType
+                    ResultsDict["Type"]=sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
                     # incrementing the Index Counter which keeps track of the ID
                     iIndexCounter=iIndexCounter+1
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
+
+    def ResultsPrint(self):
         print Utils.GetSearchResults(ListofDict)
 
 #=============================================================================#
