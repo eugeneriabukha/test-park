@@ -207,6 +207,7 @@ class Search:
 
         sTempType = ""
         if lResults[0] == SEARCH_RESULTS[0]:
+            print lResults
             lResults.remove(SEARCH_RESULTS[0])
         else:
             iLastCounter = len(lResults)
