@@ -218,12 +218,12 @@ class Search:
                     sTempType = sCurrentLine
                 else:
                     print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
-                    index=sCurrentLine.split(' ',1)[0]
-                    title=sCurrentLine.split(' ',1)[1]
+                    sIndex=sCurrentLine.split(' ',1)[0]
+                    sTitle=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
-                    ResultsDict["ID"]=index
-                    ResultsDict["Title"]=title
-                    ResultsDict["Type"]=stype
+                    ResultsDict["ID"]=sIndex
+                    ResultsDict["Title"]=sTitle
+                    ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
         print ListofDict
 
