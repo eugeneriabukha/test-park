@@ -51,7 +51,7 @@ class cUtils:
         """
         self.search_results = oSearchResults
 
-    def GetSearchResults(self,oSearchResults):
+    def GetSearchResults(self):
         """
         This function fetches the values saved as search results
 

@@ -279,7 +279,7 @@ class Search:
         Utils.SetSearchResults(ListofDict)
 
     def ResultsPrint(self):
-        print Utils.GetSearchResults(ListofDict)
+        print Utils.GetSearchResults()
 
 #=============================================================================#
 # End Of Class: stb
