@@ -220,7 +220,7 @@ class Search:
                     index=sCurrentLine.split(' ',1)[0]
                     title=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
-                    ResultsDict[sTempType]=sCurrentLine
+                    ResultsDict[(index,title))]=sCurrentLine
         print ResultsDict
 
                     
