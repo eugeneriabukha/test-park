@@ -11,57 +11,36 @@ from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
 from Keywords import *
+from Utils import *
 import stbt
 import time
+import collections
 
-# COMMON CONSTANTS
+# text constants
 DEFAULT_SEARCH_CHAR = "P"
 SEARCH_NAVIGATION_SUCCESS = "Navigation Success: Search"
 SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Search"
 SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No further changes"
-SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
-SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
-SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
-IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 POSITIVE_NETFLIX = "The existing setting of Netflix is correct. No further changes"
 NEGATIVE_NETFLIX = "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
 INCLUDE_NETFLIX = "Including Netflix"
 NOT_INCLUDE_NETFLIX = "Not including Netflix"
 SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
-REGION_ADVANCED_SEARCH = {'x': 1000, 'y': 200, 'width': 500, 'height':600};
 
-class cCommon:
-    """
-    We use this as a common class to hold all common functions.
+# list constants
+SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
+SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
+SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
+SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON']
 
-    .. note::
-       A public object is instantiated which can be used by all other classes 
+# Image related
+IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 
-    """
-    def PressListOfKeyStrokes(self,lListOfKeyStrokes):
-        """
-        This function performs the list of key strokes provided on the parameter
+# Region related
+REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
+REGION_RESULTS = {'x': 400, 'y': 100, 'width': 600, 'height': 700}
 
-        Args:
-            lListOfKeyStrokes (list):  list of valid keystrokes
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
-
-        """
-        global global_wait
-
-        # press keystrokes for search
-        for sKeyStroke in lListOfKeyStrokes:
-            stbt.press(sKeyStroke)
-            time.sleep(global_wait)
-
-# public instantition of the cCommon class to be used by other Classes
-Common = cCommon()
 
 class Navigate:
     """
@@ -102,7 +81,7 @@ class Navigate:
             Nothing
         """
         # press the required key strokes for navigating to search screen
-        Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+        Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
@@ -163,11 +142,11 @@ class Search:
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
-        Common.PressListOfKeyStrokes(lKeyStrokes)
+        Utils.PressListOfKeyStrokes(lKeyStrokes)
 
         # Performing advanced options
         bActualNetflixStatus = False
-        oAdvancedSearchRegion = stbt.Region(x = REGION_ADVANCED_SEARCH['x'], y = REGION_ADVANCED_SEARCH['y'], width = REGION_ADVANCED_SEARCH['width'], height = REGION_ADVANCED_SEARCH['height'])
+        oAdvancedSearchRegion = stbt.Region(x = REGION_NETFLIX['x'], y = REGION_NETFLIX['y'], width = REGION_NETFLIX['width'], height = REGION_NETFLIX['height'])
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
         if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
@@ -193,6 +172,57 @@ class Search:
         else:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
+
+    def FetchResults(self):
+        """
+        Saves the provided result into appropriate data structure
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # fetch the results region
+        oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
+        sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS)
+        # trimming down unwanted space
+        sGivenString = sGivenString.strip()
+        # split the different lines captured and strip spaces off each line
+        lResults = sGivenString.splitlines()
+        lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
+        dicIndex = collections.OrderedDict()
+        
+        # fetch index of headers
+        for sResult in SEARCH_RESULTS:
+            try:
+                iIndex = lResults.index(sResult)
+                dicIndex[sResult] = iIndex
+            except Exception as eError:
+                continue
+
+        sTempType = ""
+        if lResults[0] == SEARCH_RESULTS[0]:
+            lResults.remove(SEARCH_RESULTS[0])
+        else:
+            iLastCounter = len(lResults)
+            for iCounter in range(1, iLastCounter):
+                sCurrentLine = lResults[iCounter]
+                if sCurrentLine in dicIndex:
+                    sTempType = sCurrentLine
+                print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
+
+
+
+
+
+
+
+
+        
 
         #resultsRegion = stbt.Region(x = 400, y = 100, width = 600, height = 700)
 
