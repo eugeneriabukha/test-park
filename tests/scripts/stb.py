@@ -157,7 +157,7 @@ class Search:
         else:
             print NEGATIVE_NETFLIX
             # performing advanced search : netflix inclusion or removal
-            Common.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
+            Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
         # Test after performing advanced search options
         if bIncludeNetflix == True:
