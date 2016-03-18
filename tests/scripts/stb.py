@@ -204,7 +204,7 @@ class Search:
                 dicIndex[sResult] = iIndex
             except Exception as eError:
                 continue
-
+        ResultsDict={}
         sTempType = ""
         if lResults[0] == SEARCH_RESULTS[0]:
             print lResults
@@ -217,6 +217,13 @@ class Search:
                     sTempType = sCurrentLine
                 else:
                     print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
+                    index=sCurrentLine.split(' ',1)[0]
+                    title=sCurrentLine.split(' ',1)[1]
+                    sType=sTempType
+                    ResultsDict[sTempType]=sCurrentLine
+        print ResultsDict
+
+                    
 
 
 
