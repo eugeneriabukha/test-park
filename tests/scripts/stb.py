@@ -223,7 +223,7 @@ class Search:
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
                     iCounter=iCounter+1
-                elif re.search('[^a-zA-Z0-9]\S', sline) !=None:
+                elif re.search('^[a-zA-Z0-9]\S', sline) !=None:
                     ResultsDict["ID"]=iCounter
                     ResultsDict["Title"]=sLine
                     ResultsDict["Type"]=sType
