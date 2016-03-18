@@ -196,18 +196,6 @@ class Search:
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
         lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
-        dicIndex = collections.OrderedDict()
-        
-        # fetch index of headers
-        for sResult in SEARCH_RESULTS:
-            try:
-                iIndex = lResults.index(sResult)
-                dicIndex[sResult] = iIndex
-            except Exception as eError:
-                continue
-        ResultsDict={}
-        ListofDict=[]
-        sTempType = ""
         self.ParseResults(lResults)
 
     def ParseResults(self,lResults):
@@ -224,6 +212,19 @@ class Search:
             Nothing
         """
         # Parse the results for most popular searches
+        dicIndex = collections.OrderedDict()
+        
+        # fetch index of headers
+        for sResult in SEARCH_RESULTS:
+            try:
+                iIndex = lResults.index(sResult)
+                dicIndex[sResult] = iIndex
+            except Exception as eError:
+                continue
+        ResultsDict={}
+        ListofDict=[]
+        sTempType = ""
+
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
             sTempType=' '
