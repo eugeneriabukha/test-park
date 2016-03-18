@@ -209,55 +209,46 @@ class Search:
         ListofDict=[]
         sTempType = ""
         if lResults[0] == SEARCH_RESULTS[0]:
-            
             lResults.remove(SEARCH_RESULTS[0])
             sTempType=''
-            iCounter=0
-            print lResults
-            for sline in lResults:
-                if re.search('^[0-9O] ', sline) !=None:
-                    sIndex=sline.split(' ',1)[0]
-                    sTitle=sline.split(' ',1)[1]
+            iIndexCounter=0
+            for sCurrentLine in lResults:
+                if re.search('^[0-9O]\s', sCurrentLine) !=None:
+                    sIndex=sCurrentLine.split(' ',1)[0]
+                    sTitle=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
-                    ResultsDict["ID"]=iCounter
-                    ResultsDict["Title"]=sTitle
+                    ResultsDict["ID"]=iIndexCounter
+                    ResultsDict["Title"]=sTitle.strip(".")
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
-                    iCounter=iCounter+1
-                elif re.search('^[a-zA-Z0-9]\S', sline) !=None:
-                    ResultsDict["ID"]=iCounter
-                    ResultsDict["Title"]=sline
+                    iIndexCounter=iIndexCounter+1
+                elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) !=None:
+                    ResultsDict["ID"]=iIndexCounter
+                    ResultsDict["Title"]=sCurrentLine.strip(".")
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
-                    iCounter=iCounter+1
+                    iIndexCounter=iIndexCounter+1
                 else:
                     pass
         else:
             iLastCounter = len(lResults)
+            iIndexCounter=0
             for iCounter in range(1, iLastCounter):
                 sCurrentLine = lResults[iCounter]
                 if sCurrentLine in dicIndex:
                     sTempType = sCurrentLine
                 else:
                     print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
-                    sIndex=sCurrentLine.split(' ',1)[0]
+                    sIndex=iIndexCounter
                     sTitle=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
                     ResultsDict["ID"]=sIndex
-                    ResultsDict["Title"]=sTitle
+                    ResultsDict["Title"]=sTitle.strip(".")
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
+                    iIndexCounter=iIndexCounter+1
         Utils.SetSearchResults(ListofDict)
         print Utils.GetSearchResults(ListofDict)
-
-                    
-
-
-
-
-
-
-
 
         
 
