@@ -39,7 +39,7 @@ IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 
 # Region related
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
-REGION_RESULTS = {'x': 380, 'y': 100, 'width': 600, 'height': 700}
+REGION_RESULTS = {'x': 400, 'y': 100, 'width': 600, 'height': 700}
 
 
 class Navigate:
