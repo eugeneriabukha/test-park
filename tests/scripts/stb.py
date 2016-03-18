@@ -209,10 +209,11 @@ class Search:
         ListofDict=[]
         sTempType = ""
         if lResults[0] == SEARCH_RESULTS[0]:
-            print lResults
+            
             lResults.remove(SEARCH_RESULTS[0])
             sTempType=''
             iCounter=0
+            print lResults
             for sline in lResults:
                 if re.search('^[0-9O] ', sline) !=None:
                     sIndex=sline.split(' ',1)[0]
@@ -225,7 +226,7 @@ class Search:
                     iCounter=iCounter+1
                 elif re.search('^[a-zA-Z0-9]\S', sline) !=None:
                     ResultsDict["ID"]=iCounter
-                    ResultsDict["Title"]=sLine
+                    ResultsDict["Title"]=sline
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
                     iCounter=iCounter+1
