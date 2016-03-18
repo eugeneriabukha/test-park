@@ -205,6 +205,7 @@ class Search:
             except Exception as eError:
                 continue
         ResultsDict={}
+        ListofDict=[]
         sTempType = ""
         if lResults[0] == SEARCH_RESULTS[0]:
             print lResults
@@ -220,8 +221,11 @@ class Search:
                     index=sCurrentLine.split(' ',1)[0]
                     title=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
-                    ResultsDict[(index,title)]=sCurrentLine
-        print ResultsDict
+                    ResultsDict["ID"]=index
+                    ResultsDict["Title"]=title
+                    ResultsDict["Type"]=stype
+                    ListofDict.append(ResultsDict.copy())
+        print ListofDict
 
                     
 
