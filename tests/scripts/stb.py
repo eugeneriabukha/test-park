@@ -177,7 +177,7 @@ class Search:
 
     def FetchResults(self):
         """
-        Saves the provided result into appropriate data structure
+        Fetches the results on the search screen
 
         Args:
             Nothing
@@ -208,29 +208,54 @@ class Search:
         ResultsDict={}
         ListofDict=[]
         sTempType = ""
+        self.ParseResults(lResults)
+
+    def ParseResults(self,lResults):
+        """
+        Saves the provided result into appropriate data structure in Ultils.py
+
+        Args:
+            Takes in String of result set
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # Parse the results for most popular searches
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
-            sTempType=''
+            sTempType=' '
+            # Keeps the counter for the ID in the search results
             iIndexCounter=0
             for sCurrentLine in lResults:
+                # Searches for the pattern match of any string that starts with number and followed by space
                 if re.search('^[0-9O]\s', sCurrentLine) !=None:
+                    #Gets the index and title by spliting the Current line
                     sIndex=sCurrentLine.split(' ',1)[0]
                     sTitle=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
                     ResultsDict["ID"]=iIndexCounter
+                    # Striping the .. Characters that show up if the result is too long
                     ResultsDict["Title"]=sTitle.strip(".")
                     ResultsDict["Type"]=sType
+                    # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter=iIndexCounter+1
+                # Searches the pattern which starts with any alphanumber char followed by anything that is not space
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) !=None:
                     ResultsDict["ID"]=iIndexCounter
                     ResultsDict["Title"]=sCurrentLine.strip(".")
                     ResultsDict["Type"]=sType
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter=iIndexCounter+1
+                # Ignoring any other read on the search which is not alphanumeric
                 else:
                     pass
+        # Parse the results when a search is made
         else:
+            # Get the length of the Result string
             iLastCounter = len(lResults)
             iIndexCounter=0
             for iCounter in range(1, iLastCounter):
@@ -238,21 +263,21 @@ class Search:
                 if sCurrentLine in dicIndex:
                     sTempType = sCurrentLine
                 else:
-                    print "Current Line: %s | Type: %s " %(sCurrentLine,sTempType)
                     sIndex=iIndexCounter
+                    #Gets the title by spliting the Current line
                     sTitle=sCurrentLine.split(' ',1)[1]
                     sType=sTempType
                     ResultsDict["ID"]=sIndex
+                    # Striping the .. Characters that show up if the result is too long
                     ResultsDict["Title"]=sTitle.strip(".")
                     ResultsDict["Type"]=sType
+                    # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
+                    # incrementing the Index Counter which keeps track of the ID
                     iIndexCounter=iIndexCounter+1
+        # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
         print Utils.GetSearchResults(ListofDict)
-
-        
-
-        #resultsRegion = stbt.Region(x = 400, y = 100, width = 600, height = 700)
 
 #=============================================================================#
 # End Of Class: stb
