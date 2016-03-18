@@ -15,6 +15,7 @@ from Utils import *
 import stbt
 import time
 import collections
+import re
 
 # text constants
 DEFAULT_SEARCH_CHAR = "P"
@@ -210,6 +211,26 @@ class Search:
         if lResults[0] == SEARCH_RESULTS[0]:
             print lResults
             lResults.remove(SEARCH_RESULTS[0])
+            sTempType=''
+            iCounter=0
+            for sline in lResults:
+                if re.search('^[0-9O] ', sline) !=None:
+                    sIndex=sline.split(' ',1)[0]
+                    sTitle=sline.split(' ',1)[1]
+                    sType=sTempType
+                    ResultsDict["ID"]=iCounter
+                    ResultsDict["Title"]=sTitle
+                    ResultsDict["Type"]=sType
+                    ListofDict.append(ResultsDict.copy())
+                    iCounter=iCounter+1
+                elif re.search('[^a-zA-Z0-9]\S', sline) !=None:
+                    ResultsDict["ID"]=iCounter
+                    ResultsDict["Title"]=sLine
+                    ResultsDict["Type"]=sType
+                    ListofDict.append(ResultsDict.copy())
+                    iCounter=iCounter+1
+                else:
+                    pass
         else:
             iLastCounter = len(lResults)
             for iCounter in range(1, iLastCounter):
