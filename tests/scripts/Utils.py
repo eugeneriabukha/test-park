@@ -28,7 +28,6 @@ class cUtils:
 
         Raises:
             Nothing
-
         """
         global global_wait
 
@@ -37,7 +36,37 @@ class cUtils:
             stbt.press(sKeyStroke)
             time.sleep(global_wait)
 
+    def SetSearchResults(self,oSearchResults):
+        """
+        This function saves the search results
 
-# public instantition of the cCommon class to be used by other Classes
+        Args:
+            oSearchResults (list):  list of dictionary with search results
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        self.search_results = oSearchResults
+
+    def GetSearchResults(self,oSearchResults):
+        """
+        This function fetches the values saved as search results
+
+        Args:
+            Nothing
+
+        Returns:
+            (list):  list of dictionary with search results
+
+        Raises:
+            Nothing
+        """
+        return self.search_results
+
+
+# public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()
 
