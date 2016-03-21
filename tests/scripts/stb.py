@@ -16,8 +16,6 @@ import stbt
 import time
 import collections
 import re
-import pyes
-from pyes.queryset import generate_model  # Serious Hoopyness
 import elasticsearch
 
 # text constants
