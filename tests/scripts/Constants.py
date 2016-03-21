@@ -79,6 +79,7 @@ class Constants(object):
 
     # List of URL(s)
     POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
+    TMS_SEARCH_URL = 'thrift://tms-catalog.dishanywhere.com:9500'
 
     # Datatable constants
     SEARCH_COL_TITLE = "Title"

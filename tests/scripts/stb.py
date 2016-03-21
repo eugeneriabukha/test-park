@@ -16,6 +16,9 @@ import stbt
 import time
 import collections
 import re
+import pyes
+from pyes.queryset import generate_model  # Serious Hoopyness
+import elasticsearch
 
 # text constants
 DEFAULT_SEARCH_CHAR = "P"
@@ -291,10 +294,27 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        Utils.GetHTTPResponse(Constants.POPULAR_SEARCH_URL)
+        oPopularSearchResults = Utils.GetHTTPResponse(Constants.POPULAR_SEARCH_URL)
+        dicPopularSearch = OrderedDict({})
+        for eachPopularSearchItem in oPopularSearchResults:
+            iWeight = eachPopularSearchItem["weight"]
+            sTMSID = eachPopularSearchItem["tms_id"]
+            dicPopularSearch[sTMSID] = iWeight
 
-   # def ResultsPrint(self):
-   #     print Utils.GetSearchResults()
+        for eachTMSID in dicPopularSearch.keys():
+            #eachTMSID
+            #dicPopularSearch[eachTMSID]
+            constructed_query = {"query":
+                 {"match": 
+                    {
+                        "tms_id": eachTMSID
+                    }
+                }}
+            tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
+            result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
+            print result
+
+
 
 #=============================================================================#
 # End Of Class: stb
