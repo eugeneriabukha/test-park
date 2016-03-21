@@ -6,6 +6,8 @@
 .. moduleauthor:: Vinoth Kumar Ravichandran <vinoth.ravichandran@echostar.com>, Prithvi Manikonda <Prithvi.Manikonda@echostar.com>
 
 """
+import urllib2
+import json
 from Keywords import *
 
 class cUtils:
@@ -65,6 +67,24 @@ class cUtils:
             Nothing
         """
         return self.search_results
+
+    def GetHTTPResponse(self,sURL):
+        """
+        This function hits a URL and provides back the response to the calling script
+
+        Args:
+            sURL: URL to fetch response from
+
+        Returns:
+            (json):  http response of the provided URL
+
+        Raises:
+            Nothing
+        """
+        oResponse = urllib2.urlopen(sURL)
+        oJSON = json.load(oResponse)  
+        print oJSON
+        return oJSON
 
 '''
 Helpful in future

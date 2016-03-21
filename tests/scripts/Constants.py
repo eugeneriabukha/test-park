@@ -77,6 +77,9 @@ class Constants(object):
     MEDIUM_WAIT = 1
     LONG_WAIT = 2
 
+    # List of URL(s)
+    POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
+
     # Datatable constants
     SEARCH_COL_TITLE = "Title"
     SEARCH_COL_INCLUDE_NETFLIX = "IncludeNetflix"

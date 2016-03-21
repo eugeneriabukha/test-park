@@ -278,6 +278,21 @@ class Search:
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
 
+    def VerifyPopularSearchResults(self):
+        """
+        Fetches the popular search results from supair and compares it with stb
+
+        Args:
+            None
+
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
+        Utils.GetHTTPResponse(Constants.POPULAR_SEARCH_URL)
+
    # def ResultsPrint(self):
    #     print Utils.GetSearchResults()
 
