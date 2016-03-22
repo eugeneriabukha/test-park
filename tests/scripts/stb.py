@@ -17,6 +17,7 @@ import time
 import collections
 import re
 import elasticsearch
+from collections import OrderedDict
 
 # text constants
 DEFAULT_SEARCH_CHAR = "P"
