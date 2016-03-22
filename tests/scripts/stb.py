@@ -299,14 +299,13 @@ class Search:
             iWeight = eachPopularSearchItem["weight"]
             sTMSID = eachPopularSearchItem["tms_id"]
             dicPopularSearch[sTMSID] = iWeight
-            print sTMSID
 
         #print "dicPopularSearch.keys()\n", dicPopularSearch.keys()
 
+        tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
         for eachTMSID in dicPopularSearch.keys():
             #eachTMSID
             #dicPopularSearch[eachTMSID]
-            print "Title Name"
             print eachTMSID
             constructed_query = {"query":
                  {"match": 
@@ -314,9 +313,8 @@ class Search:
                         "tms_id": eachTMSID
                     }
                 }}
-            tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
             result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
-            print "\nResult::", result
+            print "Result:", result
 
 
 
