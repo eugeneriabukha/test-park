@@ -299,9 +299,9 @@ class Search:
             iWeight = eachPopularSearchItem["weight"]
             sTMSID = eachPopularSearchItem["tms_id"]
             dicPopularSearch[sTMSID] = iWeight
+        print "dicPopularSearch.keys()\n", dicPopularSearch.keys()
 
         for eachTMSID in dicPopularSearch.keys():
-            print "eachTMSID\n". eachTMSID
             #eachTMSID
             #dicPopularSearch[eachTMSID]
             constructed_query = {"query":
