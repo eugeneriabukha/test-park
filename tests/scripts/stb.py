@@ -313,8 +313,9 @@ class Search:
                         "tms_id": eachTMSID
                     }
                 }}
+            print constructed_query
             result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
-            print "Result:", result
+            #print "Result:", result
 
 
 
