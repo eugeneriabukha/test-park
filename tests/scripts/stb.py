@@ -203,7 +203,7 @@ class Search:
         sGivenString = sGivenString.strip()
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
-        lResults = [str(sLine.strip()) for sLine in lResults if sLine.strip()]
+        lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
         self.ParseResults(lResults)
 
     def ParseResults(self,lResults):
@@ -320,6 +320,7 @@ class Search:
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
             sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+            sTitle = str(sTitle)
             iWeightForTitle = dicPopularSearch[eachTMSID]
             dictExpectedResult[sTitle] = iWeightForTitle
 
