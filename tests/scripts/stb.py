@@ -306,7 +306,8 @@ class Search:
             args = {'TMS_ID': eachTMSID,
                     }
             sURL = sFullURL + '%(TMS_ID)s' % args
-            print sURL
+            oProgramDetail = Utils.GetHTTPResponse(sURL)
+            print oProgramDetail
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]
