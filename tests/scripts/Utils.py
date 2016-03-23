@@ -140,6 +140,7 @@ class cUtils:
                 ResultDict[oExpectedSearchResults.keys()[iCounter]]=True
             else:
                 ResultDict[oExpectedSearchResults.keys()[iCounter]]=False
+            iCounter=iCounter+1
         print ResultDict
 
 
