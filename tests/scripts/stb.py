@@ -283,9 +283,9 @@ class Search:
         Utils.SetSearchResults(ListofDict)
 
 
-    def VerifyPopularSearchResults(self):
+    def FetchPopularSearchResults(self):
         """
-        Fetches the popular search results from supair and compares it with stb
+        Fetches the popular search results from supair
 
         Args:
             None
@@ -305,7 +305,7 @@ class Search:
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
-        dicExpected = OrderedDict({})
+        self.dictExpectedResult = OrderedDict({})
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
                     }
@@ -313,16 +313,32 @@ class Search:
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
             iWeightForTitle = dicPopularSearch[eachTMSID]
-            dicExpected[sTitle] = iWeightForTitle
+            self.dictExpectedResult[sTitle] = iWeightForTitle
 
+        for title in dictExpectedResult.keys():
+            SEARCH_ADVANCED_OPTIONS.append(title)
+        print SEARCH_ADVANCED_OPTIONS
+    def VerifyPopularSearchResults(self):
+        """
+        Verifies the popular search results from supair
+
+        Args:
+            None
+
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
         listActual = Utils.GetSearchResults()
 
         print "Expected Data:"
-        print dicExpected
+        print self.dictExpectedResult
 
         print "Actual Data"
         print listActual
-        Utils.CompareResults(dicExpected,listActual)
+        Utils.CompareResults(self.dictExpectedResult,listActual)
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]
