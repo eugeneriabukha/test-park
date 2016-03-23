@@ -315,12 +315,12 @@ class Search:
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
             sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-            print sTitle
             iWeightForTitle = dicPopularSearch[eachTMSID]
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
         for sTitle in self.dictExpectedResult.keys():
             SEARCH_ADVANCED_OPTIONS.append(sTitle)
+        
     print SEARCH_ADVANCED_OPTIONS
     def VerifyPopularSearchResults(self):
         """
