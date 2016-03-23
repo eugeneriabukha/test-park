@@ -129,21 +129,20 @@ class cUtils:
             Nothing
         """
         iCounter=0
-        
+        oResultTitles=[]
+        ResultDict={}
         for eachSearchResult in oActualSearchResults:
-            print self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title']
+            oResultTitles.append( self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
             iCounter=iCounter+1
+        iCounter=0
+        for eachTitle in oResultTitles:
+            if eachTitle in oExpectedSearchResults.keys()[iCounter]:
+                ResultDict[oExpectedSearchResults.keys()[iCounter]]=True
+            else:
+                ResultDict[oExpectedSearchResults.keys()[iCounter]]=False
+        print ResultDict
 
 
-
-
-
-
-'''
-Helpful in future
-list1=[{'id':1,'name':'hello','type':'TV'},{'id':2,'name':'hel','type':'TV'}]
-#print list1
-print [item for item in list1 if item["type"] == 'TV']'''
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()
