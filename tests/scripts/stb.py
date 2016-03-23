@@ -345,6 +345,9 @@ class Search:
         # fetch expected and actual results
         dicExpected = Utils.GetExpectedSearchResults()
         listActual = Utils.GetSearchResults()
+        print dicExpected
+        print "--------"
+        print listActual
 
         # perform comparison between expected and actual
         Utils.CompareResults(dicExpected,listActual)
