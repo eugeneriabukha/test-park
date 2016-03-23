@@ -304,7 +304,7 @@ class Search:
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
-        dicActualData = OrderedDict({})
+        dicExpected = OrderedDict({})
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
                     }
@@ -312,9 +312,15 @@ class Search:
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
             iWeightForTitle = dicPopularSearch[eachTMSID]
-            dicActualData[sTitle] = iWeightForTitle
+            dicExpected[sTitle] = iWeightForTitle
 
-        print Utils.GetSearchResults()
+        listActual = Utils.GetSearchResults()
+
+        print "Expected Data:"
+        print dicExpected
+
+        print "Actual Data"
+        print listActual
 
 
             #eachTMSID
