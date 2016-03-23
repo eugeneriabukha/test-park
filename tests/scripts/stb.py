@@ -203,7 +203,7 @@ class Search:
         sGivenString = sGivenString.strip()
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
-        lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
+        lResults = [str(sLine.strip()) for sLine in lResults if sLine.strip()]
         self.ParseResults(lResults)
 
     def ParseResults(self,lResults):
