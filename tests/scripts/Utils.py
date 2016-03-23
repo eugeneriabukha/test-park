@@ -130,10 +130,8 @@ class cUtils:
         """
         iCounter=0
         for eachSearchResult in oExpectedSearchResults.keys():
-            if self.GetTitleByType(oActualSearchResults,iCounter)[0]['Title'] in eachSearchResult:
-                print eachSearchResult
-                print "sucess"
-            
+            print self.GetTitleByType(oActualSearchResults,iCounter):
+
 
 
 
