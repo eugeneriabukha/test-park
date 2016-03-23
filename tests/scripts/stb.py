@@ -98,7 +98,6 @@ class Navigate:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-        print "test1"
 
 class Search:
     """
@@ -141,6 +140,7 @@ class Search:
         """
         global global_wait
 
+        print "rest"
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
