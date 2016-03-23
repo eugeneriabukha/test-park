@@ -281,6 +281,7 @@ class Search:
                     iIndexCounter = iIndexCounter + 1
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
+        print Utils.GetTitleByType(Utils.GetSearchResults(),"TV")
 
     def VerifyPopularSearchResults(self):
         """

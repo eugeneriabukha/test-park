@@ -85,19 +85,20 @@ class cUtils:
         oJSON = json.load(oResponse)
         return oJSON
 
-    def GetTitleByType(self,sInputType):
+    def GetTitleByType(self,oSearchResults,sInputType):
         """
         This function fetches the response title for the provided input type
 
         Args:
+            oSearchResults (list):  list of dictionary with search results
             sInputType: Type to search for
-
         Returns:
             (list):  list of title(s) which matches provided type
 
         Raises:
             Nothing
         """
+        return [title for title in oSearchResults if item["Type"] == sInputType]
         
 
 
