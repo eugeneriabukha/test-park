@@ -349,6 +349,7 @@ class Search:
 
         print "Expected Data:"
         dicExpected = Utils.GetExpectedSearchResults()
+        print dicExpected
 
         print "Actual Data"
         print listActual
