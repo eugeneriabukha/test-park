@@ -230,12 +230,12 @@ class Search:
 
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
-            sTempType=' '
+            sTempType = Constants.EMPTY
             # Keeps the counter for the ID in the search results
-            iIndexCounter=0
+            iIndexCounter = 0
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
-                if re.search('^[0-9O]\s', sCurrentLine) !=None:
+                if re.search('^[0-9O]\s', sCurrentLine) != None:
                     #Gets the index and title by spliting the Current line
                     sIndex = sCurrentLine.split(' ',1)[0]
                     sTitle = sCurrentLine.split(' ',1)[1]
@@ -245,14 +245,14 @@ class Search:
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
-                    iIndexCounter = iIndexCounter+1
+                    iIndexCounter = iIndexCounter + 1
                 # Searches the pattern which starts with any alphanumber char followed by anything that is not space
-                elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) !=None:
+                elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) != None:
                     ResultsDict["ID"] = iIndexCounter
                     ResultsDict["Title"] = sCurrentLine.strip(".")
                     ResultsDict["Type"] = sTempType
                     ListofDict.append(ResultsDict.copy())
-                    iIndexCounter = iIndexCounter+1
+                    iIndexCounter = iIndexCounter + 1
                 # Ignoring any other read on the search which is not alphanumeric
                 else:
                     pass
@@ -278,7 +278,7 @@ class Search:
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
                     # incrementing the Index Counter which keeps track of the ID
-                    iIndexCounter=iIndexCounter+1
+                    iIndexCounter = iIndexCounter + 1
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
 

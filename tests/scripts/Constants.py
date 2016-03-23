@@ -67,6 +67,7 @@ class Constants(object):
     DEPENDS_ON = "DependsOn"
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
+    EMPTY = "!EMPTY!"
 
     # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"
