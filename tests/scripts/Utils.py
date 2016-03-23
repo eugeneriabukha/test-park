@@ -171,7 +171,7 @@ class cUtils:
             else:
                 ResultDict[oExpectedSearchResults.keys()[iCounter]] = False
             iCounter = iCounter + 1
-        print ResultDict
+        #print ResultDict
 
 
 

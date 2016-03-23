@@ -195,6 +195,8 @@ class Search:
         Raises:
             Nothing
         """
+        print "search results:"
+        print SEARCH_RESULTS
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS)
