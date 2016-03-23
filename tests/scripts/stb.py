@@ -300,7 +300,7 @@ class Search:
             sTMSID = eachPopularSearchItem["tms_id"]
             dicPopularSearch[sTMSID] = iWeight
 
-        sFullURL = Constants.TMS_BASE_URL + ((Constants.DELIMITER_SLASH + Constants.INDEX_TMS_MOVIES_PROGRAMS) * 2) + Constants.DELIMITER_SLASH
+        sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
