@@ -319,8 +319,9 @@ class Search:
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
         for sTitle in self.dictExpectedResult.keys():
+            print sTitle
             SEARCH_ADVANCED_OPTIONS.append(sTitle)
-        
+
     print SEARCH_ADVANCED_OPTIONS
     def VerifyPopularSearchResults(self):
         """
