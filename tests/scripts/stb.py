@@ -39,6 +39,7 @@ SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
+SEARCH_RESULTS_EXTENDED = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -197,7 +198,7 @@ class Search:
         """
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
-        sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS)
+        sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
         sGivenString = sGivenString.strip()
         # split the different lines captured and strip spaces off each line
@@ -328,7 +329,7 @@ class Search:
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
             sTitle = str(sTitle)
-            SEARCH_RESULTS.append(sTitle)
+            SEARCH_RESULTS_EXTENDED.append(sTitle)
 
     def VerifyPopularSearchResults(self):
         """
