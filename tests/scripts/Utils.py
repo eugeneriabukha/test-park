@@ -82,8 +82,7 @@ class cUtils:
             Nothing
         """
         oResponse = urllib2.urlopen(sURL)
-        oJSON = json.load(oResponse)  
-        print oJSON
+        oJSON = json.load(oResponse)
         return oJSON
 
 
