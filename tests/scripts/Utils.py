@@ -68,6 +68,36 @@ class cUtils:
         """
         return self.search_results
 
+    def SetExpectedSearchResults(self,dicSearchResults):
+        """
+        This function saves the expected search results
+
+        Args:
+            oSearchResults (dict): dictionary with expected search results
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        self.expected_search_results = dicSearchResults
+
+    def GetExpectedSearchResults(self):
+        """
+        This function fetches the values saved as expected search results
+
+        Args:
+            Nothing
+
+        Returns:
+            (dict):  dictionary of expected search results
+
+        Raises:
+            Nothing
+        """
+        return self.expected_search_results
+
     def GetHTTPResponse(self,sURL):
         """
         This function hits a URL and provides back the response to the calling script
@@ -128,19 +158,19 @@ class cUtils:
         Raises:
             Nothing
         """
-        iCounter=0
-        oResultTitles=[]
-        ResultDict={}
+        iCounter = 0
+        oResultTitles =[]
+        ResultDict = {}
         for eachSearchResult in oActualSearchResults:
-            oResultTitles.append( self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
-            iCounter=iCounter+1
-        iCounter=0
+            oResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
+            iCounter = iCounter + 1
+        iCounter = 0
         for eachTitle in oResultTitles:
             if eachTitle in oExpectedSearchResults.keys()[iCounter]:
-                ResultDict[oExpectedSearchResults.keys()[iCounter]]=True
+                ResultDict[oExpectedSearchResults.keys()[iCounter]] = True
             else:
-                ResultDict[oExpectedSearchResults.keys()[iCounter]]=False
-            iCounter=iCounter+1
+                ResultDict[oExpectedSearchResults.keys()[iCounter]] = False
+            iCounter = iCounter + 1
         print ResultDict
 
 

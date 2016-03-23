@@ -154,6 +154,11 @@ class Search:
         # Performing advanced options
         bActualNetflixStatus = False
         oAdvancedSearchRegion = stbt.Region(x = REGION_NETFLIX['x'], y = REGION_NETFLIX['y'], width = REGION_NETFLIX['width'], height = REGION_NETFLIX['height'])
+
+
+        print SEARCH_ADVANCED_OPTIONS
+        
+
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
         if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
@@ -308,7 +313,7 @@ class Search:
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
-        self.dictExpectedResult = OrderedDict({})
+        dictExpectedResult = OrderedDict({})
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
                     }
@@ -317,12 +322,14 @@ class Search:
             sTitle = oProgramDetail['_source']['title']
             sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
             iWeightForTitle = dicPopularSearch[eachTMSID]
-            self.dictExpectedResult[sTitle] = iWeightForTitle
+            dictExpectedResult[sTitle] = iWeightForTitle
 
-        for sTitle in self.dictExpectedResult.keys():
+        # save the expected results into utils for future retrieval
+        Utils.SetExpectedSearchResults(dictExpectedResult)
+
+        # updated advanced options with collected expected results
+        for sTitle in dictExpectedResult.keys():
             SEARCH_ADVANCED_OPTIONS.append(sTitle)
-        
-        print SEARCH_ADVANCED_OPTIONS
 
     def VerifyPopularSearchResults(self):
         """
@@ -341,11 +348,11 @@ class Search:
         listActual = Utils.GetSearchResults()
 
         print "Expected Data:"
-        print self.dictExpectedResult
+        dicExpected = Utils.GetExpectedSearchResults()
 
         print "Actual Data"
         print listActual
-        Utils.CompareResults(self.dictExpectedResult,listActual)
+        Utils.CompareResults(dicExpected,listActual)
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]
