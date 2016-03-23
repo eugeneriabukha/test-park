@@ -31,6 +31,9 @@ NOT_INCLUDE_NETFLIX = "Not including Netflix"
 SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
 
+# limit constants
+SEARCH_CHAR_UPPER_LIMIT = 30
+
 # list constants
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
@@ -282,7 +285,6 @@ class Search:
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
 
-
     def FetchPopularSearchResults(self):
         """
         Fetches the popular search results from supair
@@ -312,12 +314,14 @@ class Search:
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
+            sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
             iWeightForTitle = dicPopularSearch[eachTMSID]
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
-        for title in self.dictExpectedResult.keys():
-            SEARCH_ADVANCED_OPTIONS.append(title)
+        for sTitle in self.dictExpectedResult.keys():
+            SEARCH_ADVANCED_OPTIONS.append(sTitle)
         print SEARCH_ADVANCED_OPTIONS
+
     def VerifyPopularSearchResults(self):
         """
         Verifies the popular search results from supair
