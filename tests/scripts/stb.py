@@ -336,6 +336,7 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
+        print "test"
         listActual = Utils.GetSearchResults()
 
         print "Expected Data:"
