@@ -327,7 +327,7 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            SEARCH_ADVANCED_OPTIONS.append(sTitle)
+            SEARCH_RESULTS.append(sTitle)
 
     def VerifyPopularSearchResults(self):
         """

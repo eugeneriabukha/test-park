@@ -143,7 +143,7 @@ class cUtils:
         Raises:
             Nothing
         """
-        return [title for title in oSearchResults if title["ID"] == int(sInputID)]
+        return [sTitle for sTitle in oSearchResults if sTitle["ID"] == int(sInputID)]
 
     def CompareResults(self,oExpectedSearchResults,oActualSearchResults):
         """
