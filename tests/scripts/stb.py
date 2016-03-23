@@ -140,7 +140,7 @@ class Search:
         """
         global global_wait
 
-        print "rest"
+        self.FetchPopularSearchResults()
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
