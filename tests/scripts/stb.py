@@ -314,14 +314,13 @@ class Search:
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
-            sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+            sTitle = str(sTitle[0:SEARCH_CHAR_UPPER_LIMIT])
             iWeightForTitle = dicPopularSearch[eachTMSID]
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
         for sTitle in self.dictExpectedResult.keys():
             SEARCH_ADVANCED_OPTIONS.append(sTitle)
-        print SEARCH_ADVANCED_OPTIONS
-
+    print SEARCH_ADVANCED_OPTIONS
     def VerifyPopularSearchResults(self):
         """
         Verifies the popular search results from supair
