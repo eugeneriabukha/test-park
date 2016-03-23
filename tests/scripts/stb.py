@@ -237,22 +237,22 @@ class Search:
                 # Searches for the pattern match of any string that starts with number and followed by space
                 if re.search('^[0-9O]\s', sCurrentLine) !=None:
                     #Gets the index and title by spliting the Current line
-                    sIndex=sCurrentLine.split(' ',1)[0]
-                    sTitle=sCurrentLine.split(' ',1)[1]
-                    ResultsDict["ID"]=iIndexCounter
+                    sIndex = sCurrentLine.split(' ',1)[0]
+                    sTitle = sCurrentLine.split(' ',1)[1]
+                    ResultsDict["ID"] = iIndexCounter
                     # Striping the .. Characters that show up if the result is too long
-                    ResultsDict["Title"]=sTitle.strip(".")
-                    ResultsDict["Type"]=sTempType
+                    ResultsDict["Title"] = sTitle.strip(".")
+                    ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
-                    iIndexCounter=iIndexCounter+1
+                    iIndexCounter = iIndexCounter+1
                 # Searches the pattern which starts with any alphanumber char followed by anything that is not space
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) !=None:
-                    ResultsDict["ID"]=iIndexCounter
-                    ResultsDict["Title"]=sCurrentLine.strip(".")
-                    ResultsDict["Type"]=sTempType
+                    ResultsDict["ID"] = iIndexCounter
+                    ResultsDict["Title"] = sCurrentLine.strip(".")
+                    ResultsDict["Type"] = sTempType
                     ListofDict.append(ResultsDict.copy())
-                    iIndexCounter=iIndexCounter+1
+                    iIndexCounter = iIndexCounter+1
                 # Ignoring any other read on the search which is not alphanumeric
                 else:
                     pass
@@ -268,6 +268,8 @@ class Search:
                 else:
                     sIndex = iIndexCounter
                     #Gets the title by spliting the Current line
+                    if sCurrentLine.strip(" ") == "":
+                        continue
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = sIndex
                     # Striping the .. Characters that show up if the result is too long
