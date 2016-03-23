@@ -314,7 +314,8 @@ class Search:
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
-            sTitle = str(sTitle[0:SEARCH_CHAR_UPPER_LIMIT])
+            sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+            print sTitle
             iWeightForTitle = dicPopularSearch[eachTMSID]
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
