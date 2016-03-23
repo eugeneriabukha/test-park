@@ -312,7 +312,7 @@ class Search:
             iWeightForTitle = dicPopularSearch[eachTMSID]
             dicActualData[sTitle] = iWeightForTitle
 
-        
+        print Utils.GetSearchResults()
 
 
             #eachTMSID
