@@ -260,19 +260,19 @@ class Search:
         else:
             # Get the length of the Result string
             iLastCounter = len(lResults)
-            iIndexCounter=0
+            iIndexCounter = 0
             for iCounter in range(1, iLastCounter):
                 sCurrentLine = lResults[iCounter]
                 if sCurrentLine in dicIndex:
                     sTempType = sCurrentLine
                 else:
-                    sIndex=iIndexCounter
+                    sIndex = iIndexCounter
                     #Gets the title by spliting the Current line
-                    sTitle=sCurrentLine.split(' ',1)[1]
-                    ResultsDict["ID"]=sIndex
+                    sTitle = sCurrentLine.split(' ',1)[1]
+                    ResultsDict["ID"] = sIndex
                     # Striping the .. Characters that show up if the result is too long
-                    ResultsDict["Title"]=sTitle.strip(".")
-                    ResultsDict["Type"]=sTempType
+                    ResultsDict["Title"] = sTitle.strip(".")
+                    ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
                     # incrementing the Index Counter which keeps track of the ID
@@ -302,13 +302,17 @@ class Search:
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
+        dicActualData = OrderedDict({})
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
                     }
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
-            print sTitle
+            iWeightForTitle = dicPopularSearch[eachTMSID]
+            dicActualData[sTitle] = iWeightForTitle
+
+        print dicActualData
 
 
             #eachTMSID
@@ -324,11 +328,6 @@ class Search:
             #result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
             #print "Result:", result
 
-        #xSimple = "http://tms-catalog.dishanywhere.com:9200/tms_movies_programs/tms_movies_programs/_search"
-        #oRes = Utils.GetHTTPResponse(xSimple)
-        #print oRes
-
-        #print "dicPopularSearch.keys()\n", dicPopularSearch.keys()
         #tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
 
 #=============================================================================#
