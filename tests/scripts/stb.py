@@ -98,6 +98,7 @@ class Navigate:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+        print "test1"
 
 class Search:
     """
