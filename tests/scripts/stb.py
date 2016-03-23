@@ -315,7 +315,7 @@ class Search:
             iWeightForTitle = dicPopularSearch[eachTMSID]
             self.dictExpectedResult[sTitle] = iWeightForTitle
 
-        for title in dictExpectedResult.keys():
+        for title in self.dictExpectedResult.keys():
             SEARCH_ADVANCED_OPTIONS.append(title)
         print SEARCH_ADVANCED_OPTIONS
     def VerifyPopularSearchResults(self):
