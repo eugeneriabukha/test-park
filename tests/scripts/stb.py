@@ -307,7 +307,9 @@ class Search:
                     }
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
-            print oProgramDetail
+            sTitle = oProgramDetail['_source']['title']
+            print sTitle
+
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]
