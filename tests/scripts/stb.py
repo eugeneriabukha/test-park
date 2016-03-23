@@ -255,7 +255,7 @@ class Search:
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) != None:
                     ResultsDict["ID"] = iIndexCounter
                     #ResultsDict["Title"] = sCurrentLine.strip(".")
-                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                    ResultsDict["Title"] = sCurrentLine[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter = iIndexCounter + 1
