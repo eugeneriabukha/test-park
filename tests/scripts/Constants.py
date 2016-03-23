@@ -34,6 +34,7 @@ class Constants(object):
     DELIMITER_COMMA = ","
     DELIMITER_HIFEN = "-"
     DELIMITER_STOP = "."
+    DELIMITER_SLASH = "/"
 
     # Keyword related
     TESTCASE_START = "TestCaseStart"
@@ -79,7 +80,10 @@ class Constants(object):
 
     # List of URL(s)
     POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
-    TMS_SEARCH_URL = 'thrift://tms-catalog.dishanywhere.com:9500'
+    TMS_BASE_URL = "http://tms-catalog.dishanywhere.com:9200/"
+
+    # List of index(es)
+    INDEX_TMS_MOVIES_PROGRAMS = "tms_movies_programs"
 
     # Datatable constants
     SEARCH_COL_TITLE = "Title"

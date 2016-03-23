@@ -300,14 +300,13 @@ class Search:
             sTMSID = eachPopularSearchItem["tms_id"]
             dicPopularSearch[sTMSID] = iWeight
 
-        xSimple = "http://tms-catalog.dishanywhere.com:9200/tms_movies_programs/tms_movies_programs/_search"
-        oRes = Utils.GetHTTPResponse(xSimple)
-        print oRes
+        sFullURL = Constants.TMS_BASE_URL + ((Constants.DELIMITER_SLASH + Constants.INDEX_TMS_MOVIES_PROGRAMS) * 2) + Constants.DELIMITER_SLASH
 
-        #print "dicPopularSearch.keys()\n", dicPopularSearch.keys()
-
-        #tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
-        #for eachTMSID in dicPopularSearch.keys():
+        for eachTMSID in dicPopularSearch.keys():
+            args = {'TMS_ID': eachTMSID,
+                    }
+            sURL = sFullURL + '%(TMS_ID)s' % args
+            print sURL
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]
@@ -322,7 +321,12 @@ class Search:
             #result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
             #print "Result:", result
 
+        #xSimple = "http://tms-catalog.dishanywhere.com:9200/tms_movies_programs/tms_movies_programs/_search"
+        #oRes = Utils.GetHTTPResponse(xSimple)
+        #print oRes
 
+        #print "dicPopularSearch.keys()\n", dicPopularSearch.keys()
+        #tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
 
 #=============================================================================#
 # End Of Class: stb
