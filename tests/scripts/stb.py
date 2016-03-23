@@ -195,8 +195,6 @@ class Search:
         Raises:
             Nothing
         """
-        print "search results:"
-        print SEARCH_RESULTS
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS)
@@ -329,6 +327,7 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
+            sTitle = str(sTitle)
             SEARCH_RESULTS.append(sTitle)
 
     def VerifyPopularSearchResults(self):
