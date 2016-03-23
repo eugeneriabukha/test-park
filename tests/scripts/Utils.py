@@ -129,8 +129,10 @@ class cUtils:
             Nothing
         """
         iCounter=0
+        
         for eachSearchResult in oExpectedSearchResults.keys():
-            print self.GetTitleByType(oActualSearchResults,iCounter)
+            print self.GetTitleByID(oActualSearchResults,iCounter)
+            iCounter=iCounter+1
 
 
 
