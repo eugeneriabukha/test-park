@@ -281,7 +281,7 @@ class Search:
                     iIndexCounter = iIndexCounter + 1
         # Set the Result set under utils
         Utils.SetSearchResults(ListofDict)
-        print Utils.GetTitleByType(Utils.GetSearchResults(),"!EMPTY!")
+
 
     def VerifyPopularSearchResults(self):
         """
@@ -322,7 +322,7 @@ class Search:
 
         print "Actual Data"
         print listActual
-
+        Utils.CompareResults(dicExpected,listActual)
 
             #eachTMSID
             #dicPopularSearch[eachTMSID]

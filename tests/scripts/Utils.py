@@ -99,7 +99,41 @@ class cUtils:
             Nothing
         """
         return [title for title in oSearchResults if title["Type"] == sInputType]
-        
+
+    def GetTitleByID(self,oSearchResults,sInputID):
+        """
+        This function fetches the response title for the provided input type
+
+        Args:
+            oSearchResults (list):  list of dictionary with search results
+            sInputID: ID to search for
+        Returns:
+            (list):  list of title(s) which matches provided type
+
+        Raises:
+            Nothing
+        """
+        return [title for title in oSearchResults if title["ID"] == sInputID]
+
+    def CompareResults(self,oExpectedSearchResults,oActualSearchResults):
+        """
+        This function compares the actual results with the expected results
+
+        Args:
+            oExpectedSearchResults (list):  list of ordered dictionary with expected search results
+            oActualSearchResults(list): list of dictionary with actual search results
+        Returns:
+            (list):  list of title(s) which matches provided type
+
+        Raises:
+            Nothing
+        """
+        iCounter=0
+        for eachSearchResult in oExpectedSearchResults.key():
+            if self.GetTitleByType(oActualSearchResults,iCounter)['Title'] in eachSearchResult:
+                print eachSearchResult
+                print "sucess"
+            
 
 
 
