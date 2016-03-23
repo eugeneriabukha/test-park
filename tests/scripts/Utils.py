@@ -98,7 +98,7 @@ class cUtils:
         Raises:
             Nothing
         """
-        return [title for title in oSearchResults if item["Type"] == sInputType]
+        return [title for title in oSearchResults if title["Type"] == sInputType]
         
 
 
