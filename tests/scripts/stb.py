@@ -154,11 +154,6 @@ class Search:
         # Performing advanced options
         bActualNetflixStatus = False
         oAdvancedSearchRegion = stbt.Region(x = REGION_NETFLIX['x'], y = REGION_NETFLIX['y'], width = REGION_NETFLIX['width'], height = REGION_NETFLIX['height'])
-
-
-        print SEARCH_ADVANCED_OPTIONS
-        
-
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
         if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
@@ -250,7 +245,8 @@ class Search:
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = iIndexCounter
                     # Striping the .. Characters that show up if the result is too long
-                    ResultsDict["Title"] = sTitle.strip(".")
+                    #ResultsDict["Title"] = sTitle.strip(".")
+                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
@@ -258,7 +254,8 @@ class Search:
                 # Searches the pattern which starts with any alphanumber char followed by anything that is not space
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) != None:
                     ResultsDict["ID"] = iIndexCounter
-                    ResultsDict["Title"] = sCurrentLine.strip(".")
+                    #ResultsDict["Title"] = sCurrentLine.strip(".")
+                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter = iIndexCounter + 1
@@ -282,7 +279,8 @@ class Search:
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = sIndex
                     # Striping the .. Characters that show up if the result is too long
-                    ResultsDict["Title"] = sTitle.strip(".")
+                    #ResultsDict["Title"] = sTitle.strip(".")
+                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
@@ -344,31 +342,12 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        print "test"
+        # fetch expected and actual results
+        dicExpected = Utils.GetExpectedSearchResults()
         listActual = Utils.GetSearchResults()
 
-        print "Expected Data:"
-        dicExpected = Utils.GetExpectedSearchResults()
-        print dicExpected
-
-        print "Actual Data"
-        print listActual
+        # perform comparison between expected and actual
         Utils.CompareResults(dicExpected,listActual)
-
-            #eachTMSID
-            #dicPopularSearch[eachTMSID]
-            #print eachTMSID
-            #constructed_query = {"query":
-            #     {"match": 
-            #        {
-            #            "tms_id": eachTMSID
-            #        }
-            #    }}
-            #print constructed_query
-            #result = tms.search(index='tms_movies_programs',doc_type='tms_movies_programs', body=constructed_query, size=10)
-            #print "Result:", result
-
-        #tms = elasticsearch.Elasticsearch(hosts = Constants.TMS_SEARCH_URL, connection_class = elasticsearch.ThriftConnection, timeout = 80)
 
 #=============================================================================#
 # End Of Class: stb
