@@ -165,7 +165,7 @@ class cUtils:
         ResultDict = {}
         ListofDict=[]
         for eachSearchResult in oActualSearchResults:
-            oResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
+            oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
             iCounter = iCounter + 1
         iCounter = 0
         for iCounter in range(0,10):
