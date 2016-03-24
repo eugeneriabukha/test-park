@@ -224,10 +224,11 @@ class cUtils:
                 for sTitle in oExpectedResultTitles:
                     if oExpectedSearchResults[sTitle]==iExpectedWeight:
                         oExpectedlist.append(sTitle)
+                print oExpectedlist
                 for sTitle in oExpectedlist:
-                    if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
+                    if oActualResultTitles[iCounter] in sTitle:
                         ResultsDict["Result"] = 'In List'
-                        oExpectedResultTitles.remove(oExpectedResultTitles[iCounter])
+                        oExpectedResultTitles.remove(sTitle)
                         break
             ListofDict.append(ResultsDict.copy())
         if len(oExpectedResultTitles)==5:
