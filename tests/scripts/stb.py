@@ -46,8 +46,7 @@ IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 
 # Region related
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
-REGION_RESULTS = {'x': 395, 'y': 100, 'width': 500, 'height': 535}
-
+REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 
 class Navigate:
     """
@@ -328,7 +327,6 @@ class Search:
             dictExpectedResult[sTitle] = iWeightForTitle
 
         # save the expected results into utils for future retrieval
-        dictExpectedResult = OrderedDict([('The Walking Dead', 8), ('The Big Bang Theory', 8), ('The People v. O.J. Simpson: Am', 8), ('Vikings', 8), ('Better Call Saul', 8), ("Grey's Anatomy", 8), ('Game of Thrones', 8), ('Shameless', 8), ('Cricket', 8), ('The Americans', 8)])
         Utils.SetExpectedSearchResults(dictExpectedResult)
 
         # updated advanced options with collected expected results
