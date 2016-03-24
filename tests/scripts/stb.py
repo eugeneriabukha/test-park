@@ -328,12 +328,13 @@ class Search:
             dictExpectedResult[sTitle] = iWeightForTitle
 
         # save the expected results into utils for future retrieval
+        dictExpectedResult = OrderedDict([('The Walking Dead', 8), ('The Big Bang Theory', 8), ('The People v. O.J. Simpson: Am', 8), ('Vikings', 8), ('Better Call Saul', 8), ("Grey's Anatomy", 8), ('Game of Thrones', 8), ('Shameless', 8), ('Cricket', 8), ('The Americans', 8)])
         Utils.SetExpectedSearchResults(dictExpectedResult)
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
             sTitle = str(sTitle)
-            lTitle = sTitle.split(' ')
+            lTitle = sTitle.split(" ")
             SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
     def VerifyPopularSearchResults(self):
