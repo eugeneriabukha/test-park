@@ -163,8 +163,10 @@ class cUtils:
         oExpectedResultTitles=oExpectedSearchResults.keys()
         ResultsDict = {}
         ListofDict=[]
+        iCounter=0
         for eachSearchResult in oActualSearchResults:
             oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
+            iCounter=iCounter+1
         for iCounter in range(0,10):
             ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
             ResultsDict["Actual"] = oActualResultTitles[iCounter]
@@ -201,8 +203,10 @@ class cUtils:
         oActualResultTitles =[]
         ResultsDict = {}
         ListofDict=[]
+        iCounter=0
         for eachSearchResult in oActualSearchResults:
             oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
+            iCounter=iCounter+1
         for iCounter in range(0,10):
             ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
             ResultsDict["Actual"] = oActualResultTitles[iCounter]
