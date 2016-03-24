@@ -204,7 +204,7 @@ class cUtils:
             Nothing
         """
         oExpectedResultTitles=oExpectedSearchResults.keys()
-        oActualResultTitles =[]
+        oExpectedResultTitlesRemaining=oExpectedSearchResults.keys()
         ResultsDict = {}
         ListofDict=[]
         iCounter=0
@@ -216,7 +216,7 @@ class cUtils:
             ResultsDict["Actual"] = oActualResultTitles[iCounter]
             if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
                 ResultsDict["Result"] = 'Sucess'
-                oExpectedResultTitles.remove(oExpectedResultTitles[iCounter])
+                oExpectedResultTitlesRemaining.remove(oExpectedResultTitles[iCounter])
             else:
                 ResultsDict["Result"] = 'Failure'
                 iExpectedWeight=oExpectedSearchResults[oExpectedResultTitles[iCounter]]
@@ -228,7 +228,7 @@ class cUtils:
                 for sTitle in oExpectedlist:
                     if oActualResultTitles[iCounter] in sTitle:
                         ResultsDict["Result"] = 'In List'
-                        oExpectedResultTitles.remove(sTitle)
+                        oExpectedResultTitlesRemaining.remove(sTitle)
                         break
             ListofDict.append(ResultsDict.copy())
         if len(oExpectedResultTitles)==5:
