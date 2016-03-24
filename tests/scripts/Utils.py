@@ -183,7 +183,7 @@ class cUtils:
                 break
         if callCompareWeightMatch== True:
             print "WARNING: Results may not be in proper order."
-            ListofDict=CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
+            ListofDict=self.CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
             print ListofDict
             return ListofDict
         else:
