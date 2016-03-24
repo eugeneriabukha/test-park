@@ -146,98 +146,52 @@ class cUtils:
         """
         return [sTitle for sTitle in oSearchResults if sTitle["ID"] == int(sInputID)]
 
-    def CompareResults(self,oExpectedSearchResults,oActualSearchResults):
+    def CompareResults(self,dicExpectedSearchResults,lActualSearchResults):
         """
         This function compares the actual results with the expected results to find a one to one match
 
         Args:
-            oExpectedSearchResults (list):  list of ordered dictionary with expected search results
-            oActualSearchResults(list): list of dictionary with actual search results
+            dicExpectedSearchResults (dictionary):  ordered dictionary with expected search results
+            lActualSearchResults(list): list of dictionary with actual search results
         Returns:
             (list):  list of dictionary with search results
 
         Raises:
-            Nothing
+            (boolean): based on comparison
         """
-        oActualResultTitles =[]
-        oExpectedResultTitles=oExpectedSearchResults.keys()
-        ResultsDict = {}
-        ListofDict=[]
-        iCounter=0
-        for eachSearchResult in oActualSearchResults:
-            oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
-            iCounter=iCounter+1
+        # declaration of required variables for comparison
+        lActualResultTitles =[]
+        lExpectedResultTitles = dicExpectedSearchResults.keys()
+        dicResults = {}
+        lResults = []
+        iCounter = 0
+
+        # Fetching the titles on the screen into a list lActualResultTitles
+        for eachSearchResult in lActualSearchResults:
+            lActualResultTitles.append(self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title'])
+            iCounter = iCounter + 1
+
+        # comparing both expected and actual titles
         for iCounter in range(0,10):
-            ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
-            ResultsDict["Actual"] = oActualResultTitles[iCounter]
-            if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
-                ResultsDict["Result"] = 'Sucess'
+            dicResults["Expected"] = lExpectedResultTitles[iCounter]
+            dicResults["Actual"] = lActualResultTitles[iCounter]
+            if lActualResultTitles[iCounter] in lExpectedResultTitles[iCounter]:
+                dicResults["Result"] = Constants.STATUS_SUCCESS
             else:
-                ResultsDict["Result"] = 'Failure'
+                dicResults["Result"] = Constants.STATUS_FAILURE
             # Appending the results dict into the list
-            ListofDict.append(ResultsDict.copy())
-        callCompareWeightMatch=False
-        for ResultsDict in ListofDict:
-            if ResultsDict["Result"] !='Sucess':
-                callCompareWeightMatch=True
-                break
-        if callCompareWeightMatch== True:
-            print "WARNING: Results may not be in proper order."
-            ListofDict=self.CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
-            print ListofDict
-            return ListofDict
-        else:
-            print "List of titles match"
-            print ListofDict
-            return ListofDict
-    def CompareWeightMatch(self,oExpectedSearchResults,oActualSearchResults):
-        """
-        This function compares the actual results with the expected results to find for weight match
+            lResults.append(dicResults.copy())
 
-        Args:
-            oExpectedSearchResults (list):  list of ordered dictionary with expected search results
-            oActualSearchResults(list): list of dictionary with actual search results
-        Returns:
-            (list):  list of dictionary with search results
+        # Determine success or failure for the comparison and update flag
+        bSuccess = True
+        lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
+        if len(lFailures) > 0:
+            bSuccess = False
 
-        Raises:
-            Nothing
-        """
-        oExpectedResultTitles=oExpectedSearchResults.keys()
-        oExpectedResultTitlesRemaining=oExpectedSearchResults.keys()
-        oActualResultTitles =[]
-        ResultsDict = {}
-        ListofDict=[]
-        iCounter=0
-        for eachSearchResult in oActualSearchResults:
-            oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
-            iCounter=iCounter+1
-        for iCounter in range(0,10):
-            ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
-            ResultsDict["Actual"] = oActualResultTitles[iCounter]
-            if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
-                ResultsDict["Result"] = 'Sucess'
-                oExpectedResultTitlesRemaining.remove(oExpectedResultTitles[iCounter])
-            else:
-                ResultsDict["Result"] = 'Failure'
-                iExpectedWeight=oExpectedSearchResults[oExpectedResultTitles[iCounter]]
-                oExpectedlist=[]
-                for sTitle in oExpectedResultTitles:
-                    if oExpectedSearchResults[sTitle]==iExpectedWeight:
-                        oExpectedlist.append(sTitle)
-                for sTitle in oExpectedlist:
-                    if oActualResultTitles[iCounter] in sTitle:
-                        ResultsDict["Result"] = 'In List'
-                        oExpectedResultTitlesRemaining.remove(sTitle)
-                        break
-            ListofDict.append(ResultsDict.copy())
-        if len(oExpectedResultTitlesRemaining)==5:
-            print "Len 5"
-        else:
-            print 'Failure'
-        return ListofDict
-
-
+        # Printing comparison results
+        print "Comparison Results:"
+        print lResults
+        return bSuccess
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

@@ -30,6 +30,8 @@ INCLUDE_NETFLIX = "Including Netflix"
 NOT_INCLUDE_NETFLIX = "Not including Netflix"
 SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
+POPULAR_SEARCH_RESULTS_MATCH = "The Top 10 most popular search results matches with expected results"
+POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
 
 # limit constants
 SEARCH_CHAR_UPPER_LIMIT = 30
@@ -351,12 +353,15 @@ class Search:
         # fetch expected and actual results
         dicExpected = Utils.GetExpectedSearchResults()
         listActual = Utils.GetSearchResults()
-        print dicExpected
-        print "--------"
-        print listActual
 
         # perform comparison between expected and actual
-        Utils.CompareResults(dicExpected,listActual)
+        bStatus = Utils.CompareResults(dicExpected,listActual)
+        if bStatus == True:
+            self.instruction.actualresult = self.instruction.expectedresult
+            print POPULAR_SEARCH_RESULTS_MATCH
+        else:
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+            print POPULAR_SEARCH_RESULTS_FAILURE
 
 #=============================================================================#
 # End Of Class: stb
