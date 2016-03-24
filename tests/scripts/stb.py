@@ -333,6 +333,8 @@ class Search:
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
             sTitle = str(sTitle)
+            lTitle = sTitle.split(' ')
+            print lTitle
             SEARCH_RESULTS_EXTENDED.append(sTitle)
 
     def VerifyPopularSearchResults(self):
