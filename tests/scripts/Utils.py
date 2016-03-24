@@ -9,6 +9,7 @@
 import urllib2
 import json
 from Keywords import *
+from collections import OrderedDict
 
 class cUtils:
     """
@@ -159,19 +160,24 @@ class cUtils:
             Nothing
         """
         iCounter = 0
-        oResultTitles =[]
+        oActualResultTitles =[]
+        oExpectedResultTitles=oExpectedSearchResults.keys()
         ResultDict = {}
+        ListofDict=[]
         for eachSearchResult in oActualSearchResults:
             oResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
             iCounter = iCounter + 1
         iCounter = 0
-        for eachTitle in oResultTitles:
-            if eachTitle in oExpectedSearchResults.keys()[iCounter]:
-                ResultDict[oExpectedSearchResults.keys()[iCounter]] = True
+        for iCounter in range(0,10):
+            ResultsDict["Expected"] = ExpectedResultTitles[i]
+            ResultsDict["Actual"] = oActualResultTitles[i]
+            if oActualResultTitles[i]==oExpectedResultTitles[i]:
+                ResultsDict["Result"] = 'Sucess'
             else:
-                ResultDict[oExpectedSearchResults.keys()[iCounter]] = False
-            iCounter = iCounter + 1
-        #print ResultDict
+                ResultsDict["Result"] = 'Failure'
+            # Appending the results dict into the list
+            ListofDict.append(ResultsDict.copy())
+        print ListofDict
 
 
 
