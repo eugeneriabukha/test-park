@@ -289,7 +289,7 @@ class Search:
                     iIndexCounter = iIndexCounter + 1
         # Set the Result set under utils
         if len(ListofDict) == 11:
-            print "test"
+            print "testingu"
             ListofDict[-1]
 
         Utils.SetSearchResults(ListofDict)
