@@ -205,6 +205,7 @@ class cUtils:
         """
         oExpectedResultTitles=oExpectedSearchResults.keys()
         oExpectedResultTitlesRemaining=oExpectedSearchResults.keys()
+        oActualResultTitles =[]
         ResultsDict = {}
         ListofDict=[]
         iCounter=0
