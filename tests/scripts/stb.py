@@ -288,6 +288,10 @@ class Search:
                     # incrementing the Index Counter which keeps track of the ID
                     iIndexCounter = iIndexCounter + 1
         # Set the Result set under utils
+        if len(ListofDict) == 11:
+            sLastKey = ListofDict.keys()[-1]
+            print sLastKey
+        
         Utils.SetSearchResults(ListofDict)
 
     def FetchPopularSearchResults(self):
