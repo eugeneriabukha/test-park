@@ -232,6 +232,8 @@ class cUtils:
             ListofDict.append(ResultsDict.copy())
         if len(oExpectedResultTitles)==5:
             print "Len 5"
+        print ListofDict
+        print "--------------"
         return ListofDict
 
 
