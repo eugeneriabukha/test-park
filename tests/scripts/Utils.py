@@ -176,16 +176,20 @@ class cUtils:
                 ResultsDict["Result"] = 'Failure'
             # Appending the results dict into the list
             ListofDict.append(ResultsDict.copy())
+        callCompareWeightMatch=False
         for ResultsDict in ListofDict:
             if ResultsDict["Result"] !='Sucess':
-                print "WARNING: Results may not be in proper order."
-                ListofDict=CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
-                print ListofDict
-                return ListofDict
-            else:
-                print "List of titles match"
-                print ListofDict
-                return ListofDict
+                callCompareWeightMatch=True
+                break
+        if callCompareWeightMatch== True:
+            print "WARNING: Results may not be in proper order."
+            ListofDict=CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
+            print ListofDict
+            return ListofDict
+        else:
+            print "List of titles match"
+            print ListofDict
+            return ListofDict
     def CompareWeightMatch(self,oExpectedSearchResults,oActualSearchResults):
         """
         This function compares the actual results with the expected results to find for weight match
