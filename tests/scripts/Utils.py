@@ -148,36 +148,83 @@ class cUtils:
 
     def CompareResults(self,oExpectedSearchResults,oActualSearchResults):
         """
-        This function compares the actual results with the expected results
+        This function compares the actual results with the expected results to find a one to one match
 
         Args:
             oExpectedSearchResults (list):  list of ordered dictionary with expected search results
             oActualSearchResults(list): list of dictionary with actual search results
         Returns:
-            (list):  list of title(s) which matches provided type
+            (list):  list of dictionary with search results
 
         Raises:
             Nothing
         """
-        iCounter = 0
         oActualResultTitles =[]
         oExpectedResultTitles=oExpectedSearchResults.keys()
         ResultsDict = {}
         ListofDict=[]
         for eachSearchResult in oActualSearchResults:
             oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
-            iCounter = iCounter + 1
-        iCounter = 0
         for iCounter in range(0,10):
             ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
             ResultsDict["Actual"] = oActualResultTitles[iCounter]
-            if oActualResultTitles[iCounter]==oExpectedResultTitles[iCounter]:
+            if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
                 ResultsDict["Result"] = 'Sucess'
             else:
                 ResultsDict["Result"] = 'Failure'
             # Appending the results dict into the list
             ListofDict.append(ResultsDict.copy())
-        print ListofDict
+        for ResultsDict in ListofDict:
+            if ResultsDict["Result"] !='Sucess':
+                print "WARNING: Results may not be in proper order."
+                ListofDict=CompareWeightMatch(oExpectedSearchResults,oActualSearchResults)
+                print ListofDict
+                return ListofDict
+            else:
+                print "List of titles match"
+                print ListofDict
+                return ListofDict
+    def CompareWeightMatch(self,oExpectedSearchResults,oActualSearchResults):
+        """
+        This function compares the actual results with the expected results to find for weight match
+
+        Args:
+            oExpectedSearchResults (list):  list of ordered dictionary with expected search results
+            oActualSearchResults(list): list of dictionary with actual search results
+        Returns:
+            (list):  list of dictionary with search results
+
+        Raises:
+            Nothing
+        """
+        oExpectedResultTitles=oExpectedSearchResults.keys()
+        oActualResultTitles =[]
+        ResultsDict = {}
+        ListofDict=[]
+        for eachSearchResult in oActualSearchResults:
+            oActualResultTitles.append(self.GetTitleByID(oActualSearchResults,iCounter)[0]['Title'])
+        for iCounter in range(0,10):
+            ResultsDict["Expected"] = oExpectedResultTitles[iCounter]
+            ResultsDict["Actual"] = oActualResultTitles[iCounter]
+            if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
+                ResultsDict["Result"] = 'Sucess'
+                oExpectedResultTitles.remove(oExpectedResultTitles[iCounter])
+            else:
+                ResultsDict["Result"] = 'Failure'
+                iExpectedWeight=oExpectedSearchResults[oExpectedResultTitles[iCounter]]
+                oExpectedlist=[]
+                for sTitle in oExpectedResultTitles:
+                    if oExpectedSearchResults[sTitle]==iExpectedWeight:
+                        oExpectedlist.append(sTitle)
+                for sTitle in oExpectedlist:
+                    if oActualResultTitles[iCounter] in oExpectedResultTitles[iCounter]:
+                        ResultsDict["Result"] = 'In List'
+                        oExpectedResultTitles.remove(oExpectedResultTitles[iCounter])
+                        break
+            ListofDict.append(ResultsDict.copy())
+        if len(oExpectedResultTitles)==5:
+            print "Len 5"
+        return ListofDict
 
 
 
