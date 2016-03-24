@@ -231,7 +231,7 @@ class cUtils:
                         oExpectedResultTitlesRemaining.remove(sTitle)
                         break
             ListofDict.append(ResultsDict.copy())
-        if len(oExpectedResultTitles)==5:
+        if len(oExpectedResultTitlesRemaining)==5:
             print "Len 5"
         else:
             print 'Failure'
