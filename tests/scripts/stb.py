@@ -37,6 +37,7 @@ POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
 SEARCH_CHAR_UPPER_LIMIT = 30
 
 # list constants
+DIAGNOSTICS_KEYSTROKES=['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_RIGHT','KEY_SELECT','KEY_DOWN','KEY_DOWN','KEY_DOWN','KEY_SELECT']
 SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
 SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
@@ -74,6 +75,21 @@ class Navigate:
             Nothing
         """
         self.instruction = oInstruction
+    def Diagnostics(self):
+        """
+        Navigates to Diagnostics screen.
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # press the required key strokes for navigating to diagnostics screen
+        Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
     def Search(self):
         """
