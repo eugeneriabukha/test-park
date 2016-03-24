@@ -169,7 +169,7 @@ class cUtils:
             iCounter = iCounter + 1
         iCounter = 0
         for iCounter in range(0,10):
-            ResultsDict["Expected"] = ExpectedResultTitles[i]
+            ResultsDict["Expected"] = oExpectedResultTitles[i]
             ResultsDict["Actual"] = oActualResultTitles[i]
             if oActualResultTitles[i]==oExpectedResultTitles[i]:
                 ResultsDict["Result"] = 'Sucess'
