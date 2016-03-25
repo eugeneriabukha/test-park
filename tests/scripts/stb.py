@@ -337,7 +337,6 @@ class Search:
             args = {'TMS_ID': eachTMSID,
                     }
             sURL = sFullURL + '%(TMS_ID)s' % args
-            print sURL
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
             sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
