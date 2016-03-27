@@ -109,8 +109,10 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if bDiagnostics == True:
+            print "Navigated to Diagnostics screen successfully"
             self.instruction.actualresult = self.instruction.expectedresult
         else:
+            print "Unable to navigate to Diagnostics screen"
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
 
@@ -136,8 +138,10 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
+            print "Navigated to Search screen successfully"
             self.instruction.actualresult = self.instruction.expectedresult
         else:
+            print "Unable to navigate to Diagnostics screen"
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
 class Search:
