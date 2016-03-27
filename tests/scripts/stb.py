@@ -434,8 +434,8 @@ class Diagnostics:
         oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
             width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
         sExtractedString = stbt.ocr(region = oDiagnosticsRegion)
-        
-        # Print extracted string
+
+        # Print software version of the stb
         print sExtractedString
         self.instruction.actualresult = self.instruction.expectedresult
 
