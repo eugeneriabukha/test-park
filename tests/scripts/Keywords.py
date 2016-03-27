@@ -74,7 +74,6 @@ class Service:
     # Usage Examples: Service.TestCaseStart
     #=============================================================================#
     def TestCaseStart(self):
-        print "TestCase Start"
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         print "Test Case: %s" %(sDirectInput)
@@ -86,7 +85,8 @@ class Service:
     # Usage Examples: Service.TestCaseEnd
     #=============================================================================#
     def TestCaseEnd(self):
-        print "TestCase End"
+        print "End Of TestCase"
+        print "--------------------------"
 
     #=============================================================================#
     # Method: SampleDummyKeyword
