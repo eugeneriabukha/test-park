@@ -53,6 +53,7 @@ IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
+REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 
 class Navigate:
     """
