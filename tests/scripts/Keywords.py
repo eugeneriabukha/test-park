@@ -77,7 +77,7 @@ class Service:
         print "TestCase Start"
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        print "Direct Input Data: %s" %(sDirectInput)
+        print "Test Case: %s" %(sDirectInput)
 
     #=============================================================================#
     # Method: TestCaseEnd
