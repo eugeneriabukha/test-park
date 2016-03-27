@@ -43,6 +43,7 @@ SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
+DIAGNOSTICS = ['Diagnostics']
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -50,6 +51,7 @@ IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
 # Region related
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
+REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 
 class Navigate:
     """
@@ -90,6 +92,21 @@ class Navigate:
         """
         # press the required key strokes for navigating to diagnostics screen
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
+
+        # this checks if we are on the right screen, and updates actual result
+        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
+        textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS) 
+
+        bDiagnostics = False
+        if(textOnScreen.find(DIAGNOSTICS) != -1):
+            bDiagnostics = True
+
+        # if the search page do not exist, then exit the test case
+        if bDiagnostics == True:
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+
 
     def Search(self):
         """
