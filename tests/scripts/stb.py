@@ -45,6 +45,8 @@ SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 DIAGNOSTICS_LIST = [DIAGNOSTICS]
+DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
+'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -96,7 +98,8 @@ class Navigate:
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
-        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
+        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], 
+            width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
         textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS_LIST) 
 
         bDiagnostics = False
@@ -145,7 +148,6 @@ class Search:
         option and its data
 
     """
-
     def __init__(self,oInstruction):
         """
         Initializes the service class with information required for running the test
@@ -190,7 +192,8 @@ class Search:
 
         # Performing advanced options
         bActualNetflixStatus = False
-        oAdvancedSearchRegion = stbt.Region(x = REGION_NETFLIX['x'], y = REGION_NETFLIX['y'], width = REGION_NETFLIX['width'], height = REGION_NETFLIX['height'])
+        oAdvancedSearchRegion = stbt.Region(x = REGION_NETFLIX['x'], y = REGION_NETFLIX['y'], 
+            width = REGION_NETFLIX['width'], height = REGION_NETFLIX['height'])
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS) 
         if(textOnScreen.find(INCLUDE_NETFLIX) != -1):
             bActualNetflixStatus = True
@@ -233,7 +236,8 @@ class Search:
             Nothing
         """
         # fetch the results region
-        oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
+        oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
+            width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
         sGivenString = sGivenString.strip()
@@ -398,6 +402,42 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
 
-#=============================================================================#
-# End Of Class: stb
-#=============================================================================#
+
+class Diagnostics:
+    """
+    Functions required for screen Diagnostics like fetching details from screen
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+    def __init__(self,oInstruction):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        self.instruction = oInstruction
+
+    def FetchDetails(self):
+        # fetch the results region
+        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
+            width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
+        sExtractedString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
+        # trimming down unwanted space
+        sExtractedString = sExtractedString.strip()
+        # split the different lines captured and strip spaces off each line
+        lResults = sExtractedString.splitlines()
+        lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
+        print lResults
+        #self.ParseResults(lResults)
+
