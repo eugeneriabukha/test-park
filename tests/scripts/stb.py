@@ -432,7 +432,7 @@ class Diagnostics:
         # fetch the results region
         oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
             width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
-        sExtractedString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
+        sExtractedString = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS_LHS)
         # trimming down unwanted space
         sExtractedString = sExtractedString.strip()
         # split the different lines captured and strip spaces off each line
