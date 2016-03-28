@@ -58,7 +58,7 @@ REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 #REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-REGION_FRANCHISEPAGE+{'x':170,'y': 58, 'width':230, 'height':53}
+REGION_FRANCHISEPAGE={'x':170,'y': 58, 'width':230, 'height':53}
 class Navigate:
     """
     Functions required for performing Navigation
