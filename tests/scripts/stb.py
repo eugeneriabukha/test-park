@@ -422,7 +422,7 @@ class Search:
             Passes or fails the test based on the comparison
         """
         iRandID=random.randint(0, 9)
-        sKey="KEY_"+iRandID
+        sKey="KEY_"+str(iRandID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT)
         # this checks if we are on the right screen, and updates actual result
