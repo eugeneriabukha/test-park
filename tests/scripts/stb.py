@@ -52,6 +52,7 @@ DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','N
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
+IMAGE_EPISODES_SELECTED="../images/Episodes.png"
 
 # Region related
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
@@ -59,7 +60,7 @@ REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 #REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-REGION_FRANCHISEPAGE={'x':170,'y': 58, 'width':230, 'height':53}
+REGION_FRANCHISEPAGE={'x':180,'y': 58, 'width':230, 'height':53}
 class Navigate:
     """
     Functions required for performing Navigation
@@ -429,7 +430,13 @@ class Search:
         oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
             width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
         textOnScreen = stbt.ocr(region = oFranchiseRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
-        print textOnScreen
+        textOnScreen=textOnScreen.strip()
+        if(textOnScreen=='Group'):
+            Utils.PressListOfKeyStrokes([sKey])
+            time.sleep(Constants.LONG_WAIT)  
+        if(textOnScreen=='TV Show'):
+            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=2, max_presses=100, match_parameters=None)  
+            print matchresult    
 
 
 class Diagnostics:
