@@ -524,11 +524,11 @@ class Search:
 
         Navigate.TopNav(textOnScreen)
         sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
-            sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
-            if sTitle==sTitleOnScreen:
-                print "Success!!!!!Hurray"
-            else:
-                print ":( :( "
+        sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
+        if sTitle==sTitleOnScreen:
+            print "Success!!!!!Hurray"
+        else:
+            print ":( :( "
 
         
 
