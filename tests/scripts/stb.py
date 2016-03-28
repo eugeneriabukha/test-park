@@ -530,8 +530,9 @@ class Search:
         if sTitle==sTitleOnScreen:
             print "Success!!!!!Hurray"
         else:
+            print sTitle
+            print sTitleOnScreen
             print ":( :( "
-        self.NavBarPrograms(textOnScreen,'Parental Guide')
     
 
 class Diagnostics:
