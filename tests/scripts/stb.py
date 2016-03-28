@@ -16,6 +16,7 @@ import stbt
 import time
 import collections
 import re
+import random
 import elasticsearch
 from collections import OrderedDict
 
