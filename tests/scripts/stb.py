@@ -415,7 +415,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
 
-        def TopNav(self,textOnScreen):
+    def TopNav(self,textOnScreen):
         """
         This function navigates the screen to summary page based on the present screen
 
