@@ -224,7 +224,7 @@ class Navigate:
             Utils.PressListOfKeyStrokes(lKeyStrokes)
             Constants.OnTopNav=True
             Constants.PRESENT_TAB=sDestinationTab
-
+oNavigate = Navigate()  
 class Search:
     """
     Functions required for Search like entering Title, verifying results
@@ -522,7 +522,7 @@ class Search:
         oTitleRegion=stbt.Region(x = REGION_TITLE['x'], y = REGION_TITLE['y'], 
             width = REGION_TITLE['width'], height = REGION_TITLE['height'])
 
-        Navigate.TopNav(textOnScreen)
+        oNavigate.TopNav(textOnScreen)
         sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
         sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
         if sTitle==sTitleOnScreen:
@@ -530,7 +530,7 @@ class Search:
         else:
             print ":( :( "
 
-        
+    
 
 class Diagnostics:
     """
