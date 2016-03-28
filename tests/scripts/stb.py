@@ -151,7 +151,7 @@ class Navigate:
             print "Unable to navigate to Diagnostics screen"
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-   def TopNav(self,textOnScreen):
+    def TopNav(self,textOnScreen):
         """
         This function navigates the screen to summary page based on the present screen
 
