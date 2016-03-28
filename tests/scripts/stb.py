@@ -39,9 +39,10 @@ POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
 SEARCH_CHAR_UPPER_LIMIT = 30
 
 # list constants
-DIAGNOSTICS_KEYSTROKES=['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_RIGHT','KEY_SELECT','KEY_DOWN','KEY_DOWN','KEY_DOWN','KEY_SELECT']
-SEARCH_KEYSTROKES = ['KEY_EPG','KEY_MENU','KEY_DOWN','KEY_SELECT']
-SEARCH_KEYSTROKES_ADVANCED = ['KEY_RED','KEY_SELECT']
+DIAGNOSTICS_KEYSTROKES=[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,
+    Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_SELECT]
+SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_SELECT]
+SEARCH_KEYSTROKES_ADVANCED = [Constants.KEY_RED,Constants.KEY_SELECT]
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
@@ -49,6 +50,10 @@ DIAGNOSTICS_LIST = [DIAGNOSTICS]
 FRANCHISEPAGE_LIST=['TV','Show','Group','Movie']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
+TV_SHOW = 'TV Show'
+MOVIE = 'Movie'
+GROUP = 'Group'
+TEXT_SUMMARY = 'Summary'
 
 # Image related
 IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
@@ -59,7 +64,6 @@ IMAGE_SUMMARY_SELECTED="../images/SummarySelected.png"
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
-#REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE={'x':180,'y': 58, 'width':230, 'height':53}
 REGION_TITLE={'x':286,'y': 112, 'width':468, 'height':72}
@@ -89,6 +93,7 @@ class Navigate:
         """
         if oInstruction !=None:
             self.instruction = oInstruction
+
     def Diagnostics(self):
         """
         Navigates to Diagnostics screen.
@@ -164,31 +169,35 @@ class Navigate:
         Raises:
             Nothing
         """
+        if(textOnScreen == GROUP):
+            Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
+            time.sleep(Constants.LONG_WAIT)
 
-        if(textOnScreen=='Group'):
-            Utils.PressListOfKeyStrokes(["KEY_SELECT"])
-            time.sleep(Constants.LONG_WAIT)  
-
-        if(textOnScreen=='TV Show'):
-            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
-            if matchresult.match==True:
-                Constants.OnTopNav=True
-                Utils.PressListOfKeyStrokes(['KEY_LEFT'])
+        if(textOnScreen == TV_SHOW):
+            oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
+            if oMatchResult.match == True:
+                Constants.OnTopNav = True
+                Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
                 time.sleep(Constants.LONG_WAIT)  
-                Constants.PRESENT_TAB='Summary'
+                Constants.PRESENT_TAB = TEXT_SUMMARY
                 return True 
             else:
                 print "Cannot Navigate to Summary Page"
-                Constants.OnTopNav=False
+                Constants.OnTopNav = False
                 return False
         else:
-            time.sleep(Constants.LONG_WAIT)  
-            matchresult=stbt.press_until_match("KEY_UP", IMAGE_SUMMARY_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB='Summary'
-            return True
+            time.sleep(Constants.LONG_WAIT)
+            oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_SUMMARY_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
+            if oMatchResult.match == True:
+                Constants.OnTopNav = True
+                Constants.PRESENT_TAB = TEXT_SUMMARY
+                return True
+            else:
+                print "Cannot Navigate to Summary Page"
+                Constants.OnTopNav = False
+                return False
 
-    def NavBarPrograms(self,textOnScreen,sDestinationTab):
+    def Programs(self,textOnScreen,sDestinationTab):
         """
         This function navigates the screen to summary page based on the present screen
 
@@ -202,29 +211,27 @@ class Navigate:
         Raises:
             Nothing
         """
-        lKeyStrokes=[]
-        if textOnScreen=='TV Show':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB];
-            if diff<0:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_LEFT')
-            else:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_RIGHT')
+        
+        # if the user is already on the top nav, perform navigation on the top nav
+        if Constants.OnTopNav == True:
+            lKeyStrokes = []
+            iDiff = 0
+            sKeyStroke = KEY_RIGHT
+            if textOnScreen == TV_SHOW:
+                iDiff = Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB]
+            elif textOnScreen == MOVIE:
+                iDiff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB]
+            if iDiff < 0:
+                sKeyStroke = Constants.KEY_LEFT
+
+            # Get list of keystrokes to an list to move to the destination object
+            for iCounter in range(0,abs(iDiff)):
+                lKeyStrokes.append(sKeyStroke)
+
             Utils.PressListOfKeyStrokes(lKeyStrokes)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB=sDestinationTab
-        if textOnScreen=='MOVIE':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB];
-            if diff<0:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_LEFT')
-            else:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_RIGHT')
-            Utils.PressListOfKeyStrokes(lKeyStrokes)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB=sDestinationTab
+            Constants.PRESENT_TAB = sDestinationTab
+        else:
+            print "The focus is not in the top nav, hence navigation would not be performed"
 
 oNavigate=Navigate()
  

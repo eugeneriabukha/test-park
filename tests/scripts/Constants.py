@@ -79,6 +79,36 @@ class Constants(object):
     MEDIUM_WAIT = 1
     LONG_WAIT = 2
 
+    # Key related constants
+    KEY_0 = "KEY_0"
+    KEY_1 = "KEY_1"
+    KEY_2 = "KEY_2"
+    KEY_3 = "KEY_3"
+    KEY_4 = "KEY_4"
+    KEY_5 = "KEY_5"
+    KEY_6 = "KEY_6"
+    KEY_7 = "KEY_7"
+    KEY_8 = "KEY_8"
+    KEY_9 = "KEY_9"
+    KEY_CANCEL = "KEY_CANCEL"
+    KEY_DOWN = "KEY_DOWN"
+    KEY_EPG = "KEY_EPG"
+    KEY_FRAMEBACK = "KEY_FRAMEBACK"
+    KEY_FRAMEFORWARD = "KEY_FRAMEFORWARD"
+    KEY_INFO = "KEY_INFO"
+    KEY_LAST = "KEY_LAST"
+    KEY_LEFT = "KEY_LEFT"
+    KEY_MENU = "KEY_MENU"
+    KEY_NUMERIC_POUND = "KEY_NUMERIC_POUND"
+    KEY_NUMERIC_STAR = "KEY_NUMERIC_STAR"
+    KEY_PAUSE = "KEY_PAUSE"
+    KEY_RED = "KEY_RED"
+    KEY_RIGHT = "KEY_RIGHT"
+    KEY_SEARCH = "KEY_SEARCH"
+    KEY_SELECT = "KEY_SELECT"
+    KEY_TV = "KEY_TV"
+    KEY_UP = "KEY_UP"
+
     # List of URL(s)
     POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
     TMS_BASE_URL = "http://tms-catalog.dishanywhere.com:9200/"

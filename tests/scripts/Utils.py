@@ -11,8 +11,6 @@ import json
 from Keywords import *
 from collections import OrderedDict
 
-IMAGE_EPISODES_SELECTED="../images/Episodes.png"
-
 class cUtils:
     """
     We use this as a common class to hold all common functions.
