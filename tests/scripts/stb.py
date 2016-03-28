@@ -428,7 +428,7 @@ class Search:
         # this checks if we are on the right screen, and updates actual result
         oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
             width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
-        textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
+        textOnScreen = stbt.ocr(region = oFranchiseRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
         print textOnScreen
 
 
