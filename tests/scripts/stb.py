@@ -447,14 +447,22 @@ class Search:
             if matchresult.match==True:
                 Utils.PressListOfKeyStrokes(['KEY_LEFT'])
                 time.sleep(Constants.LONG_WAIT)  
-                textOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
-                print textOnScreen
-                print "------------"
-                print sTitle
+                sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
+                sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
+                if sTitle==sTitleOnScreen:
+                    print "Success!!!!!Hurray"
+                else:
+                    print ":( :( "
             else:
                 print "Cannot Navigate to Summary Page"
         else:
-            pass
+            time.sleep(Constants.LONG_WAIT)  
+            sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
+            sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
+            if sTitle==sTitleOnScreen:
+                print "Success!!!!!Hurray"
+            else:
+                print ":( :( "
 
 
 class Diagnostics:
