@@ -61,7 +61,7 @@ REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 #REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE={'x':180,'y': 58, 'width':230, 'height':53}
-REGION_TITLE={'x':315,'y': 144, 'width':695, 'height':45}
+REGION_TITLE={'x':286,'y': 112, 'width':468, 'height':72}
 class Navigate:
     """
     Functions required for performing Navigation
