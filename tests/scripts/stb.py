@@ -424,6 +424,7 @@ class Search:
             Passes or fails the test based on the comparison
         """
         iRandID=random.randint(0, 9)
+        iRandID=2
         sTitle=Utils.GetTitleByID(Utils.GetSearchResults(),iRandID)[0]['Title']
         sKey="KEY_"+str(iRandID)
         Utils.PressListOfKeyStrokes([sKey])
