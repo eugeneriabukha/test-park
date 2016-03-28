@@ -427,7 +427,7 @@ class Search:
         sTitle=Utils.GetTitleByID(Utils.GetSearchResults(),iRandID)[0]['Title']
         sKey="KEY_"+str(iRandID)
         Utils.PressListOfKeyStrokes([sKey])
-        time.sleep(Constants.LONG_WAIT)
+        time.sleep(Constants.LONG_WAIT*2)
         # this checks if we are on the right screen, and updates actual result
         oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
             width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
@@ -442,7 +442,7 @@ class Search:
             Utils.PressListOfKeyStrokes([sKey])
             time.sleep(Constants.LONG_WAIT)  
         if(textOnScreen=='TV Show'):
-            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=2, max_presses=100, match_parameters=None)  
+            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
             if matchresult.match==True:
                 Utils.PressListOfKeyStrokes(['KEY_LEFT'])
                 time.sleep(Constants.LONG_WAIT)  
