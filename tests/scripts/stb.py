@@ -45,6 +45,7 @@ SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 DIAGNOSTICS_LIST = [DIAGNOSTICS]
+FRANCHISEPAGE_LIST=['TV','Show','Group','Movie']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
 
@@ -57,7 +58,7 @@ REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 #REGION_DIAGNOSTICS = {'x': 237, 'y': 132, 'width': 516, 'height': 522}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-
+REGION_FRANCHISEPAGE+{'x':170,'y': 58, 'width':230, 'height':53}
 class Navigate:
     """
     Functions required for performing Navigation
@@ -406,6 +407,28 @@ class Search:
         else:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
+    def SelectRandomResult(self):
+        """
+        Selects one of the popular search result at random
+
+        Args:
+            None
+
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
+        iRandID=random.randint(0, 9)
+        sKey="KEY_"+iRandID
+        Utils.PressListOfKeyStrokes([sKey])
+        time.sleep(Constants.LONG_WAIT)
+        # this checks if we are on the right screen, and updates actual result
+        oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
+            width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
+        textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
+        print textOnScreen
 
 
 class Diagnostics:
