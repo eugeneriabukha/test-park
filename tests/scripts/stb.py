@@ -445,6 +445,7 @@ class Search:
             matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=2, max_presses=100, match_parameters=None)  
             if matchresult.match==True:
                 Utils.PressListOfKeyStrokes(['KEY_LEFT'])
+                time.sleep(Constants.LONG_WAIT)  
                 textOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
                 print textOnScreen
                 print "------------"
