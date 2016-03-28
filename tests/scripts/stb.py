@@ -452,7 +452,7 @@ class Search:
             Constants.PRESENT_TAB='Summary'
             return True
 
-    def NavBarPrograms(self,textOnScreen,sSelectedTab,sDestinationTab):
+    def NavBarPrograms(self,textOnScreen,sDestinationTab):
         """
         This function navigates the screen to summary page based on the present screen
 
@@ -468,7 +468,7 @@ class Search:
         """
         lKeyStrokes=[]
         if textOnScreen=='TV Show':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[sSelectedTab];
+            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[PRESENT_TAB];
             if diff<0:
                 for i in range(0,abs(diff)):
                     lKeyStrokes.append('KEY_LEFT')
@@ -479,7 +479,7 @@ class Search:
             Constants.OnTopNav=True
             Constants.PRESENT_TAB=sDestinationTab
         if textOnScreen=='MOVIE':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[sSelectedTab];
+            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[PRESENT_TAB];
             if diff<0:
                 for i in range(0,abs(diff)):
                     lKeyStrokes.append('KEY_LEFT')
@@ -531,7 +531,7 @@ class Search:
             print "Success!!!!!Hurray"
         else:
             print ":( :( "
-
+        self.NavBarPrograms(textOnScreen,'Parental Guide')
     
 
 class Diagnostics:
