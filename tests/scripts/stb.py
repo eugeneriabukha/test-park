@@ -437,7 +437,7 @@ class Search:
             matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
             if matchresult.match==True:
                 Constants.OnTopNav=True
-                self.PressListOfKeyStrokes(['KEY_LEFT'])
+                Utils.PressListOfKeyStrokes(['KEY_LEFT'])
                 time.sleep(Constants.LONG_WAIT)  
                 Constants.PRESENT_TAB='Summary'
                 return True 
