@@ -150,81 +150,8 @@ class Navigate:
             print "Unable to navigate to Diagnostics screen"
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-    def TopNav(self,textOnScreen):
-        """
-        This function navigates the screen to summary page based on the present screen
 
-        Args:
-            textOnScreen (String):  String which tells which screen the stb is at present
-            
-        Returns:
-            (boolean):  Sucess or Failure to navigate to summary page
-
-        Raises:
-            Nothing
-        """
-
-        if(textOnScreen=='Group'):
-            Utils.PressListOfKeyStrokes(["KEY_SELECT"])
-            time.sleep(Constants.LONG_WAIT)  
-
-        if(textOnScreen=='TV Show'):
-            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
-            if matchresult.match==True:
-                Constants.OnTopNav=True
-                self.PressListOfKeyStrokes(['KEY_LEFT'])
-                time.sleep(Constants.LONG_WAIT)  
-                Constants.PRESENT_TAB='Summary'
-                return True 
-            else:
-                print "Cannot Navigate to Summary Page"
-                Constants.OnTopNav=False
-                return False
-        else:
-            time.sleep(Constants.LONG_WAIT)  
-            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB='Summary'
-            return True
-
-    def NavBarPrograms(self,textOnScreen,sSelectedTab,sDestinationTab):
-        """
-        This function navigates the screen to summary page based on the present screen
-
-        Args:
-            textOnScreen (String):  String which tells which screen the stb is at present
-            sSelectedTab(String) : Present Tab that is selected
-            sDestinationTab(String): Final tab to be navigated to
-        Returns:
-            (boolean):  Sucess or Failure to navigate to summary page
-
-        Raises:
-            Nothing
-        """
-        lKeyStrokes=[]
-        if textOnScreen=='TV Show':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[sSelectedTab];
-            if diff<0:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_LEFT')
-            else:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_RIGHT')
-            Utils.PressListOfKeyStrokes(lKeyStrokes)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB=sDestinationTab
-        if textOnScreen=='MOVIE':
-            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[sSelectedTab];
-            if diff<0:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_LEFT')
-            else:
-                for i in range(0,abs(diff)):
-                    lKeyStrokes.append('KEY_RIGHT')
-            Utils.PressListOfKeyStrokes(lKeyStrokes)
-            Constants.OnTopNav=True
-            Constants.PRESENT_TAB=sDestinationTab
-oNavigate = Navigate()  
+ 
 class Search:
     """
     Functions required for Search like entering Title, verifying results
@@ -487,7 +414,82 @@ class Search:
         else:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
-    
+
+        def TopNav(self,textOnScreen):
+        """
+        This function navigates the screen to summary page based on the present screen
+
+        Args:
+            textOnScreen (String):  String which tells which screen the stb is at present
+            
+        Returns:
+            (boolean):  Sucess or Failure to navigate to summary page
+
+        Raises:
+            Nothing
+        """
+
+        if(textOnScreen=='Group'):
+            Utils.PressListOfKeyStrokes(["KEY_SELECT"])
+            time.sleep(Constants.LONG_WAIT)  
+
+        if(textOnScreen=='TV Show'):
+            matchresult=stbt.press_until_match("KEY_UP", IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
+            if matchresult.match==True:
+                Constants.OnTopNav=True
+                self.PressListOfKeyStrokes(['KEY_LEFT'])
+                time.sleep(Constants.LONG_WAIT)  
+                Constants.PRESENT_TAB='Summary'
+                return True 
+            else:
+                print "Cannot Navigate to Summary Page"
+                Constants.OnTopNav=False
+                return False
+        else:
+            time.sleep(Constants.LONG_WAIT)  
+            matchresult=stbt.press_until_match("KEY_UP", IMAGE_SUMMARY_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
+            Constants.OnTopNav=True
+            Constants.PRESENT_TAB='Summary'
+            return True
+
+    def NavBarPrograms(self,textOnScreen,sSelectedTab,sDestinationTab):
+        """
+        This function navigates the screen to summary page based on the present screen
+
+        Args:
+            textOnScreen (String):  String which tells which screen the stb is at present
+            sSelectedTab(String) : Present Tab that is selected
+            sDestinationTab(String): Final tab to be navigated to
+        Returns:
+            (boolean):  Sucess or Failure to navigate to summary page
+
+        Raises:
+            Nothing
+        """
+        lKeyStrokes=[]
+        if textOnScreen=='TV Show':
+            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[sSelectedTab];
+            if diff<0:
+                for i in range(0,abs(diff)):
+                    lKeyStrokes.append('KEY_LEFT')
+            else:
+                for i in range(0,abs(diff)):
+                    lKeyStrokes.append('KEY_RIGHT')
+            Utils.PressListOfKeyStrokes(lKeyStrokes)
+            Constants.OnTopNav=True
+            Constants.PRESENT_TAB=sDestinationTab
+        if textOnScreen=='MOVIE':
+            diff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[sSelectedTab];
+            if diff<0:
+                for i in range(0,abs(diff)):
+                    lKeyStrokes.append('KEY_LEFT')
+            else:
+                for i in range(0,abs(diff)):
+                    lKeyStrokes.append('KEY_RIGHT')
+            Utils.PressListOfKeyStrokes(lKeyStrokes)
+            Constants.OnTopNav=True
+            Constants.PRESENT_TAB=sDestinationTab
+
     def SelectRandomResult(self,RandID=None):
         """
         Selects one of the popular search result at random
@@ -522,7 +524,7 @@ class Search:
         oTitleRegion=stbt.Region(x = REGION_TITLE['x'], y = REGION_TITLE['y'], 
             width = REGION_TITLE['width'], height = REGION_TITLE['height'])
 
-        oNavigate.TopNav(textOnScreen)
+        self.TopNav(textOnScreen)
         sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
         sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
         if sTitle==sTitleOnScreen:
