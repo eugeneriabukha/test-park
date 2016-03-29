@@ -511,18 +511,18 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        if iRandID==None:
+        if iRandID == None:
             iRandomID = random.randint(0, 9)
         else:
             iRandomID = iRandID
 
         listOfDictSearchResults = Utils.GetSearchResults()
         print listOfDictSearchResults
-        dictSearchItem = listOfDictSearchResults[iRandID]
+        dictSearchItem = listOfDictSearchResults[iRandomID]
         sTitle = dictSearchItem['Title']
         print "Title: " + sTitle
         #sTitle = Utils.GetTitleByID(,iRandID)[0]['Title']
-        sKey = "KEY_" + str(iRandID)
+        sKey = "KEY_" + str(iRandomID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
