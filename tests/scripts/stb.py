@@ -517,6 +517,7 @@ class Search:
             iRandomID = iRandID
 
         listOfDictSearchResults = Utils.GetSearchResults()
+        print listOfDictSearchResults
         dictSearchItem = listOfDictSearchResults[iRandID]
         sTitle = dictSearchItem['Title']
         print "Title: " + sTitle
