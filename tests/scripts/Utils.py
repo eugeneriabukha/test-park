@@ -8,6 +8,7 @@
 """
 import urllib2
 import json
+import stbt
 from Keywords import *
 from collections import OrderedDict
 
@@ -193,7 +194,29 @@ class cUtils:
         print lResults
         return bSuccess
 
-       
+    def FetchTextOfRegion(self,REGION,TESSERACT = None):
+        """
+        this fetches the text on the specified region and provides back the details
+
+        Args:
+            REGION (dictionary):  a dictionary with x, y, height and width for finding a region
+            TESSERACT(list): list of words to look for in the region
+        Returns:
+            (sTextFound): text found in the specified region
+
+        Raises:
+            Nothing
+        """
+        # fetch the region based on the region dictionary
+        oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
+        # based on provided input, fetch the text on the provided region
+        if TESSERACT == None:
+            sTextFound = stbt.ocr(region = oRegion)
+        else:
+            sTextFound = stbt.ocr(region = oRegion, tesseract_user_words = TESSERACT)
+        # trim the text captured before returning
+        sTextFound = sTextFound.strip()
+        return sTextFound
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

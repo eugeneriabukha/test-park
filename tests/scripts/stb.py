@@ -65,8 +65,8 @@ REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-REGION_FRANCHISEPAGE={'x':180,'y': 58, 'width':230, 'height':53}
-REGION_TITLE={'x':286,'y': 112, 'width':468, 'height':72}
+REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':230, 'height':53}
+REGION_TITLE = {'x':286,'y': 112, 'width':468, 'height':72}
 
 class Navigate:
     """
@@ -176,25 +176,25 @@ class Navigate:
         if(textOnScreen == TV_SHOW):
             oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
             if oMatchResult.match == True:
-                Constants.OnTopNav = True
+                #Constants.OnTopNav = True
                 Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
                 time.sleep(Constants.LONG_WAIT)  
-                Constants.PRESENT_TAB = TEXT_SUMMARY
+                #Constants.PRESENT_TAB = TEXT_SUMMARY
                 return True 
             else:
                 print "Cannot Navigate to Summary Page"
-                Constants.OnTopNav = False
+                #Constants.OnTopNav = False
                 return False
         else:
             time.sleep(Constants.LONG_WAIT)
             oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_SUMMARY_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
             if oMatchResult.match == True:
-                Constants.OnTopNav = True
-                Constants.PRESENT_TAB = TEXT_SUMMARY
+                #Constants.OnTopNav = True
+                #Constants.PRESENT_TAB = TEXT_SUMMARY
                 return True
             else:
                 print "Cannot Navigate to Summary Page"
-                Constants.OnTopNav = False
+                #Constants.OnTopNav = False
                 return False
 
     def Programs(self,textOnScreen,sDestinationTab):
@@ -211,9 +211,8 @@ class Navigate:
         Raises:
             Nothing
         """
-        
         # if the user is already on the top nav, perform navigation on the top nav
-        if Constants.OnTopNav == True:
+        #if Constants.OnTopNav == True:
             lKeyStrokes = []
             iDiff = 0
             sKeyStroke = KEY_RIGHT
@@ -230,8 +229,8 @@ class Navigate:
 
             Utils.PressListOfKeyStrokes(lKeyStrokes)
             Constants.PRESENT_TAB = sDestinationTab
-        else:
-            print "The focus is not in the top nav, hence navigation would not be performed"
+        #else:
+        #    print "The focus is not in the top nav, hence navigation would not be performed"
 
 oNavigate=Navigate()
  
@@ -498,14 +497,12 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
 
- 
-
-    def SelectRandomResult(self,RandID=None):
+    def SelectResult(self,iRandID = None):
         """
         Selects one of the popular search result at random
 
         Args:
-            None
+            iRandID: if specified, selects specified result. if None, selects a random result
 
         Returns:
             Nothing
@@ -514,36 +511,32 @@ class Search:
             Passes or fails the test based on the comparison
         """
         if RandID==None:
-            iRandID=random.randint(0, 9)
+            iRandomID = random.randint(0, 9)
         else:
-            iRandID=RandID
+            iRandomID = iRandID
 
-        sTitle=Utils.GetTitleByID(Utils.GetSearchResults(),iRandID)[0]['Title']
-
-        sKey="KEY_"+str(iRandID)
-
+        sTitle = Utils.GetTitleByID(Utils.GetSearchResults(),iRandID)[0]['Title']
+        sKey = "KEY_" + str(iRandID)
         Utils.PressListOfKeyStrokes([sKey])
-        time.sleep(Constants.LONG_WAIT*2)
+        time.sleep(Constants.LONG_WAIT * 2)
+
         # this checks if we are on the right screen, and updates actual result
-        oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
-            width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
-        textOnScreen = stbt.ocr(region = oFranchiseRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
-        textOnScreen=textOnScreen.strip()
+        #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
+        #    width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
+        #sTextOnScreen = stbt.ocr(region = oFranchiseRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
+        #sTextOnScreen = sTextOnScreen.strip()
+        #oNavigate.TopNav(sTextOnScreen)
 
-
-        oTitleRegion=stbt.Region(x = REGION_TITLE['x'], y = REGION_TITLE['y'], 
+        oTitleRegion = stbt.Region(x = REGION_TITLE['x'], y = REGION_TITLE['y'], 
             width = REGION_TITLE['width'], height = REGION_TITLE['height'])
-
-        oNavigate.TopNav(textOnScreen)
-        sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split()) 
-        sTitleOnScreen=sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
-        if sTitle==sTitleOnScreen:
+        sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split())
+        sTitleOnScreen = sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
+        if sTitle == sTitleOnScreen:
             print "Success!!!!!Hurray"
         else:
             print sTitle
             print sTitleOnScreen
             print ":( :( "
-    
 
 class Diagnostics:
     """
@@ -572,11 +565,11 @@ class Diagnostics:
 
     def FetchDetails(self):
         # fetch the results region
-        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
-            width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
-        sExtractedString = stbt.ocr(region = oDiagnosticsRegion)
-
+        #oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
+        #    width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
+        #sExtractedString = stbt.ocr(region = oDiagnosticsRegion)
+        sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS)
         # Print software version of the stb
-        print sExtractedString
+        print sFoundString
         self.instruction.actualresult = self.instruction.expectedresult
 
