@@ -511,7 +511,7 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        if RandID==None:
+        if iRandID==None:
             iRandomID = random.randint(0, 9)
         else:
             iRandomID = iRandID
