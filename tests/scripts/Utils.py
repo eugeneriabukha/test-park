@@ -208,7 +208,7 @@ class cUtils:
             Nothing
         """
         # fetch the region based on the region dictionary
-        oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
+        oRegion = self.FetchRegion(REGION)
         # based on provided input, fetch the text on the provided region
         if TESSERACT == None:
             sTextFound = stbt.ocr(region = oRegion)
@@ -217,6 +217,24 @@ class cUtils:
         # trim the text captured before returning
         sTextFound = sTextFound.strip()
         return sTextFound
+
+    def FetchRegion(self,REGION):
+        """
+        this fetches the specified region and returns the region
+
+        Args:
+            REGION (dictionary):  a dictionary with x, y, height and width for finding a region
+            TESSERACT(list): list of words to look for in the region
+        Returns:
+            fetched region based on the provided parameters
+
+        Raises:
+            Nothing
+        """
+        # fetch the region based on the region dictionary
+        oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
+        return oRegion
+
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

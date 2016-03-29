@@ -55,18 +55,25 @@ MOVIE = 'Movie'
 GROUP = 'Group'
 TEXT_SUMMARY = 'Summary'
 
-# Image related
-IMAGE_SEARCH_LOGO = "../images/Search_Logo.png"
-IMAGE_EPISODES_SELECTED="../images/EpisodesSelected.png"
-IMAGE_SUMMARY_SELECTED="../images/SummarySelected.png"
+# Image related constants
+IMAGE_SEARCH = "../images/Search.png"
+IMAGE_SUMMARY = "../images/Summary.png"
+IMAGE_SUMMARY_SELECTED = "../images/SummarySelected.png"
+IMAGE_EPISODES = "../images/Episodes.png"
+IMAGE_EPISODES_SELECTED = "../images/EpisodesSelected.png"
+IMAGE_CAST = "../images/Cast.png"
+IMAGE_CAST_SELECTED = "../images/CastSelected.png"
+IMAGE_REVIEWS = "../images/Reviews.png"
+IMAGE_PARENTALGUIDE = "../images/ParentalGuide.png"
 
-# Region related
+# Region related constants
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':230, 'height':53}
 REGION_TITLE = {'x':286,'y': 112, 'width':468, 'height':72}
+REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 
 class Navigate:
     """
@@ -111,10 +118,6 @@ class Navigate:
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
-        #oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], 
-        #    width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
-        #textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS_LIST) 
-
         sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS_LOGO,DIAGNOSTICS_LIST)
         bDiagnostics = False
         if(sFoundString.find(DIAGNOSTICS) != -1):
@@ -147,7 +150,7 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
-        oSearchLogo = stbt.match(IMAGE_SEARCH_LOGO)
+        oSearchLogo = stbt.match(IMAGE_SEARCH)
 
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
@@ -157,6 +160,45 @@ class Navigate:
             print "Unable to navigate to Diagnostics screen"
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
+    def GroupToProgram(self):
+        """
+        This function navigates the screen from a group page to a movie / tv show
+
+        Args:
+            Nothing
+            
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
+        time.sleep(Constants.LONG_WAIT)
+
+    def ProgramNavigator(self,sTabName=TEXT_SUMMARY):
+        """
+        This function navigates within the program - top navigation
+
+        Args:
+            sTabName: In the program top navigation, navigate to the specified tab name
+            (default) - Summary
+            
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # fetch the page name
+        sPageName = oFranchisePage.GetPageName()
+        if(sPageName == TV_SHOW) || (sPageName == MOVIE:
+            sTabName = oFranchisePage.FindCurrentTab()
+
+
+
+
+'''
     def TopNav(self,textOnScreen):
         """
         This function navigates the screen to summary page based on the present screen
@@ -170,9 +212,9 @@ class Navigate:
         Raises:
             Nothing
         """
-        if(textOnScreen == GROUP):
-            Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
-            time.sleep(Constants.LONG_WAIT)
+        #if(textOnScreen == GROUP):
+        #    Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
+        #    time.sleep(Constants.LONG_WAIT)
 
         if(textOnScreen == TV_SHOW):
             oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
@@ -232,7 +274,8 @@ class Navigate:
         Constants.PRESENT_TAB = sDestinationTab
         #else:
         #    print "The focus is not in the top nav, hence navigation would not be performed"
- 
+'''
+
 class Search:
     """
     Functions required for Search like entering Title, verifying results
@@ -523,8 +566,6 @@ class Search:
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
-        print oFranchisePage.GetPageName()
-
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
         #    width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
@@ -579,7 +620,25 @@ class FranchisePage:
             Nothing
         """
         sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
-        print sFoundString
+        return sFoundString
+
+    def GetCurrentTab(self):
+        """
+        Fetches the current tab of the franchise page screen
+
+        Args:
+            Nothing
+
+        Returns:
+            current tab which is selected or which is open
+
+        Raises:
+            Nothing
+        """
+        # Specify the region and check if the image is available in the provided region
+        oRegion = FetchRegion(REGION_FRANCHISE_HEADER)
+
+
 
 class Diagnostics:
     """
