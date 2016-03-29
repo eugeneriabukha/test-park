@@ -111,12 +111,13 @@ class Navigate:
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
-        oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], 
-            width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
-        textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS_LIST) 
+        #oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS_LOGO['x'], y = REGION_DIAGNOSTICS_LOGO['y'], 
+        #    width = REGION_DIAGNOSTICS_LOGO['width'], height = REGION_DIAGNOSTICS_LOGO['height'])
+        #textOnScreen = stbt.ocr(region = oDiagnosticsRegion, tesseract_user_words = DIAGNOSTICS_LIST) 
 
+        sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS_LOGO,DIAGNOSTICS_LIST)
         bDiagnostics = False
-        if(textOnScreen.find(DIAGNOSTICS) != -1):
+        if(sFoundString.find(DIAGNOSTICS) != -1):
             bDiagnostics = True
 
         # if the search page do not exist, then exit the test case
@@ -527,16 +528,12 @@ class Search:
         #sTextOnScreen = sTextOnScreen.strip()
         #oNavigate.TopNav(sTextOnScreen)
 
-        oTitleRegion = stbt.Region(x = REGION_TITLE['x'], y = REGION_TITLE['y'], 
-            width = REGION_TITLE['width'], height = REGION_TITLE['height'])
-        sTitleOnScreen = stbt.ocr(region = oTitleRegion, tesseract_user_words = sTitle.split())
-        sTitleOnScreen = sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
-        if sTitle == sTitleOnScreen:
-            print "Success!!!!!Hurray"
-        else:
-            print sTitle
-            print sTitleOnScreen
-            print ":( :( "
+        #sTitleOnScreen = Utils.FetchTextOfRegion(REGION_TITLE,sTitle.split())
+        #sTitleOnScreen = sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
+        #if sTitle == sTitleOnScreen:
+        #    print "Program Title matches for the selected title"
+        #else:
+        #    print "Program Title do not match for the selected title. Expected %s | Actual %s" %(sTitle,sTitleOnScreen)
 
 class Diagnostics:
     """
@@ -564,12 +561,20 @@ class Diagnostics:
         self.instruction = oInstruction
 
     def FetchDetails(self):
-        # fetch the results region
-        #oDiagnosticsRegion = stbt.Region(x = REGION_DIAGNOSTICS['x'], y = REGION_DIAGNOSTICS['y'], 
-        #    width = REGION_DIAGNOSTICS['width'], height = REGION_DIAGNOSTICS['height'])
-        #sExtractedString = stbt.ocr(region = oDiagnosticsRegion)
+        """
+        Fetches & prints the software version from the diagnostics screen
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # fetch the text from the results region
         sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS)
-        # Print software version of the stb
-        print sFoundString
+        print sFoundString # Print software version of the stb
         self.instruction.actualresult = self.instruction.expectedresult
 
