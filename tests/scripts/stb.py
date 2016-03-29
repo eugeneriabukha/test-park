@@ -516,7 +516,11 @@ class Search:
         else:
             iRandomID = iRandID
 
-        sTitle = Utils.GetTitleByID(Utils.GetSearchResults(),iRandID)[0]['Title']
+        listOfDictSearchResults = Utils.GetSearchResults()
+        dictSearchItem = listOfDictSearchResults[iRandID]
+        sTitle = dictSearchItem['Title']
+        print "Title: " + sTitle
+        #sTitle = Utils.GetTitleByID(,iRandID)[0]['Title']
         sKey = "KEY_" + str(iRandID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
