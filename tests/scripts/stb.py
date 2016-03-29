@@ -213,22 +213,22 @@ class Navigate:
         """
         # if the user is already on the top nav, perform navigation on the top nav
         #if Constants.OnTopNav == True:
-            lKeyStrokes = []
-            iDiff = 0
-            sKeyStroke = KEY_RIGHT
-            if textOnScreen == TV_SHOW:
-                iDiff = Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB]
-            elif textOnScreen == MOVIE:
-                iDiff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB]
-            if iDiff < 0:
-                sKeyStroke = Constants.KEY_LEFT
+        lKeyStrokes = []
+        iDiff = 0
+        sKeyStroke = KEY_RIGHT
+        if textOnScreen == TV_SHOW:
+            iDiff = Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB]
+        elif textOnScreen == MOVIE:
+            iDiff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB]
+        if iDiff < 0:
+            sKeyStroke = Constants.KEY_LEFT
 
-            # Get list of keystrokes to an list to move to the destination object
-            for iCounter in range(0,abs(iDiff)):
-                lKeyStrokes.append(sKeyStroke)
+        # Get list of keystrokes to an list to move to the destination object
+        for iCounter in range(0,abs(iDiff)):
+            lKeyStrokes.append(sKeyStroke)
 
-            Utils.PressListOfKeyStrokes(lKeyStrokes)
-            Constants.PRESENT_TAB = sDestinationTab
+        Utils.PressListOfKeyStrokes(lKeyStrokes)
+        Constants.PRESENT_TAB = sDestinationTab
         #else:
         #    print "The focus is not in the top nav, hence navigation would not be performed"
 
