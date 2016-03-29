@@ -47,7 +47,7 @@ SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
 DIAGNOSTICS_LIST = [DIAGNOSTICS]
-FRANCHISEPAGE_LIST=['TV','Show','Group','Movie']
+FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
 TV_SHOW = 'TV Show'
@@ -232,8 +232,6 @@ class Navigate:
         Constants.PRESENT_TAB = sDestinationTab
         #else:
         #    print "The focus is not in the top nav, hence navigation would not be performed"
-
-oNavigate=Navigate()
  
 class Search:
     """
@@ -316,7 +314,6 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
         self.FetchResults()
-        
 
     def FetchResults(self):
         """
@@ -516,15 +513,17 @@ class Search:
         else:
             iRandomID = iRandID
 
+        # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
-        print listOfDictSearchResults
         dictSearchItem = listOfDictSearchResults[iRandomID]
         sTitle = dictSearchItem['Title']
-        print "Title: " + sTitle
-        #sTitle = Utils.GetTitleByID(,iRandID)[0]['Title']
+
+        # generate the key for the specified program and select the program
         sKey = "KEY_" + str(iRandomID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
+
+        print oFranchisePage.GetPageName()
 
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
@@ -539,6 +538,48 @@ class Search:
         #    print "Program Title matches for the selected title"
         #else:
         #    print "Program Title do not match for the selected title. Expected %s | Actual %s" %(sTitle,sTitleOnScreen)
+
+class FranchisePage:
+    """
+    Functions required for the franchise page like Movie, Group, TV Show, Celebrity or a Sports team
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+    def __init__(self,oInstruction = None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def GetPageName(self):
+        """
+        Fetches the page name of the franchise page screen
+
+        Args:
+            Nothing
+
+        Returns:
+            page name of the displayed page
+
+        Raises:
+            Nothing
+        """
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
+        print sFoundString
 
 class Diagnostics:
     """
@@ -583,3 +624,6 @@ class Diagnostics:
         print sFoundString # Print software version of the stb
         self.instruction.actualresult = self.instruction.expectedresult
 
+# Required variables from the classes on the URL
+oNavigate = Navigate()
+oFranchisePage = FranchisePage()
