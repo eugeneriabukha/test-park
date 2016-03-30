@@ -164,9 +164,8 @@ class cUtils:
         # declaration of required variables for comparison
         lActualResultTitles =[]
         lExpectedResultTitles = dicExpectedSearchResults.keys()
-        #dicResults = {}
-        #lResults = []
-        #lFailures = []
+        dicResults = {}
+        listOfResults = []
         iCounter = 0
 
         # Fetching the titles on the screen into a list lActualResultTitles
@@ -200,7 +199,8 @@ class cUtils:
 
         # Printing comparison results
         print "Comparison Results:"
-        print lResults
+        print "Expected: " + dictExpected.keys()
+        print "Actual: " + dictActual.keys()
         return bSuccess
 
     def FetchTextOfRegion(self,REGION,TESSERACT = None):
