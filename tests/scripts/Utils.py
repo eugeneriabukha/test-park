@@ -198,7 +198,7 @@ class cUtils:
                 dicResults["Expected"] = listItem["Expected"]
                 dicResults["Actual"] = listItem["Expected"]
                 dicResults["Result"] = Constants.STATUS_SUCCESS
-        else
+        else:
             bSuccess = False
 
         # Printing comparison results
