@@ -235,6 +235,36 @@ class cUtils:
         oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
         return oRegion
 
+    def MatchLogo(self,LOGO_LIST,REGION = None):
+        """
+        this fetches the specified region and tries to match if one of the provided logo is available from the provided list
+
+        Args:
+            REGION (dictionary):  a dictionary with x, y, height and width for finding a region
+            LOGO_LIST(list): list of logo images which has to be tested
+        Returns:
+            fetches the provided region for which a logo is found
+
+        Raises:
+            Nothing
+        """
+        # if the region of the logo is provided, then region should be fetched
+        if REGION != None:
+            oRegion = self.FetchRegion(REGION)
+
+        bFlag = False
+        for sImage in LOGO_LIST:
+            if REGION != None:
+                oMatch = stbt.match(sImage,region = oRegion)
+            else:
+                oMatch = stbt.match(sImage)
+            if oMatch.match == True
+                return oMatch.region
+
+        if bFlag == False:
+            print "The expected logo was unavailable in the provided list of logos"
+            return False            
+
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

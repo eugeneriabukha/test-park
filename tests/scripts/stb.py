@@ -50,10 +50,25 @@ DIAGNOSTICS_LIST = [DIAGNOSTICS]
 FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
+
+DICT_FRANCHISE_HEADER_IMAGES = { 
+    TEXT_SUMMARY : IMAGE_SUMMARY_SELECTED, 
+    TEXT_EPISODES : IMAGE_EPISODES_SELECTED,
+    TEXT_CAST : IMAGE_CAST_SELECTED,
+    TEXT_REVIEWS : IMAGE_REVIEWS,
+    TEXT_PARENTALGUIDE : IMAGE_PARENTALGUIDE
+    }
+
+# General constants
 TV_SHOW = 'TV Show'
 MOVIE = 'Movie'
 GROUP = 'Group'
 TEXT_SUMMARY = 'Summary'
+TEXT_EPISODES = 'Episodes'
+TEXT_CAST = 'Cast'
+TEXT_REVIEWS = 'Reviews'
+TEXT_PARENTALGUIDE = 'Parental Guide'
+TEXT_TAB_UNAVAILABLE = 'TAB_UNAVAILABLE'
 
 # Image related constants
 IMAGE_SEARCH = "../images/Search.png"
@@ -65,6 +80,12 @@ IMAGE_CAST = "../images/Cast.png"
 IMAGE_CAST_SELECTED = "../images/CastSelected.png"
 IMAGE_REVIEWS = "../images/Reviews.png"
 IMAGE_PARENTALGUIDE = "../images/ParentalGuide.png"
+
+# Image related lists
+IMAGES_SHOW_HEADER = [IMAGE_SUMMARY,IMAGE_EPISODES,IMAGE_CAST]
+IMAGES_MOVIE_HEADER = [IMAGE_SUMMARY,IMAGE_CAST]
+IMAGES_ACTIVE_SHOW_HEADER = [IMAGE_SUMMARY_SELECTED,IMAGE_EPISODES_SELECTED,IMAGE_CAST_SELECTED,IMAGE_PARENTALGUIDE]
+IMAGES_ACTIVE_MOVIE_HEADER = [IMAGE_SUMMARY_SELECTED,IMAGE_CAST_SELECTED,IMAGE_REVIEWS,IMAGE_PARENTALGUIDE]
 
 # Region related constants
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
@@ -176,26 +197,79 @@ class Navigate:
         Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
         time.sleep(Constants.LONG_WAIT)
 
-    def ProgramNavigator(self,sTabName=TEXT_SUMMARY):
+    def Program(self,sDestinationTabName = TEXT_SUMMARY):
         """
         This function navigates within the program - top navigation
 
         Args:
-            sTabName: In the program top navigation, navigate to the specified tab name
+            sDestinationTabName: In the program top navigation, navigate to the specified tab name
             (default) - Summary
             
         Returns:
-            Nothing
+            (boolean)
 
         Raises:
             Nothing
         """
         # fetch the page name
         sPageName = oFranchisePage.GetPageName()
-        if(sPageName == TV_SHOW) || (sPageName == MOVIE:
-            sTabName = oFranchisePage.FindCurrentTab()
+        listOfImageHeaders = []
+        listOfActiveImageHeaders = []
 
+        # update the header list and required variables based on current page
+        if(sPageName == TV_SHOW):
+            listOfImageHeaders = IMAGES_SHOW_HEADER
+            listOfActiveImageHeaders = IMAGES_ACTIVE_SHOW_HEADER
+            hPositionMap = Constants.SHOW_POSITIONS
+        elif(sPageName == MOVIE):
+            listOfImageHeaders = IMAGES_MOVIE_HEADER
+            listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
+            hPositionMap = Constants.MOVIE_POSITIONS
+        else:
+            print "There was no requirement for navigation on the provided page"
+            return True
 
+        # Fetch the current tab based on the page
+        sCurrentTabName = ""
+        sActiveTabName = ""
+
+        # Only show or movie page requires navigation
+        sActiveTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
+        if sActiveTabName == TAB_UNAVAILABLE:
+            sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
+            # if required tab was not found on all available list of images, then return a false message
+            if sCurrentTabName == TAB_UNAVAILABLE:
+                print "No matching images available on both active and non active headers. Kindly check the images"
+                return False
+            else:
+                # To navigate in the franchise header, should go all the way up to the header and make it active
+                sActiveTabName = sCurrentTabName
+                oImage = DICT_FRANCHISE_HEADER_IMAGES[sActiveTabName]
+                oMatch = stbt.press_until_match(Constants.KEY_UP, oImage, interval_secs=0, max_presses=100, match_parameters=None)
+                if oMatch.match == False:
+                    return False
+
+        # To navigate in the top header, need to find out the current position and work accordingly
+        sKeyStroke = KEY_RIGHT
+        iCurrentPosition = hPositionMap[sActiveTabName]
+        iDestinationPosition = hPositionMap[sDestinationTabName]
+        iDifference = iDestinationPosition - iCurrentPosition
+        # if the difference is negative, need to move left to reach destination
+        if iDifference < 0:
+            sKeyStroke = Constants.KEY_LEFT
+
+        # to decide the number of moves to reach the destination, getting abs of difference
+        iLastCounter = abs(iDifference)
+        for iCounter in range(0,iLastCounter):
+            lKeyStrokes.append(sKeyStroke)
+
+        sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
+        if sNewTabName == sDestinationTabName:
+            print "Navigation to destination tab [%s] successful" %sDestinationTabName
+            return True
+        else:
+            print "Navigation to destination tab [%s] failure" %sDestinationTabName
+            return False
 
 
 '''
@@ -566,6 +640,8 @@ class Search:
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
+        print oNavigate.Program()
+
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
         #    width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
@@ -622,7 +698,7 @@ class FranchisePage:
         sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
         return sFoundString
 
-    def GetCurrentTab(self):
+    def GetCurrentTab(self,listOfImages):
         """
         Fetches the current tab of the franchise page screen
 
@@ -636,7 +712,15 @@ class FranchisePage:
             Nothing
         """
         # Specify the region and check if the image is available in the provided region
-        oRegion = FetchRegion(REGION_FRANCHISE_HEADER)
+        oRegion = Utils.MatchLogo(listOfImages,REGION_FRANCHISE_HEADER)
+        sTabName = ""
+
+        # if one of the provided logos was found, return the tab name or provide appropriate negative response
+        if oRegion == False:
+            sTabName = TAB_UNAVAILABLE
+        else:
+            sTabName = Utils.FetchTextOfRegion(oRegion)
+        return sTabName
 
 
 

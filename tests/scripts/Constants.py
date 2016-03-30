@@ -126,8 +126,8 @@ class Constants(object):
              'S':(3,0),'T':(3,1),'U':(3,2),'V':(3,3),'W':(3,4),'X':(3,5),
              'Y':(4,0),'Z':(4,1),'0':(4,2),'1':(4,3),'2':(4,4),'3':(4,5),
              '4':(5,0),'5':(5,1),'6':(5,2),'7':(5,3),'8':(5,4),'9':(5,5) }
-    PRESENT_TAB=None
-    MOVIE_TAB_MAP={'Summary':0,'Cast':1,'Reviews':2,'Parental Guide':3}
-    SHOW_TAB_MAP={'Summary':-1,'Episodes':0,'Cast':1, 'Parental Guide':2}
+
     # Hashes
     OPTIONS_ORDER = { COMMENT : 1, DEPENDS_ON : 2, DIRECT_INPUT : 3, EXIT_ON_ERROR : 4, EXIT_TC_ON_ERROR : 5 }
+    MOVIE_POSITIONS = { 'Summary':0, 'Cast':1, 'Reviews':2, 'Parental Guide':3 }
+    SHOW_POSITIONS = { 'Summary':0, 'Episodes':1, 'Cast':2, 'Parental Guide':3 }
