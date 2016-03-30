@@ -187,6 +187,8 @@ class cUtils:
         # Determine success or failure for the comparison and update flag
         bSuccess = True
         lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
+        print "Failures:"
+        print lFailures
         if len(lFailures) > 0:
             bSuccess = False
 
