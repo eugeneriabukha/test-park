@@ -258,7 +258,7 @@ class cUtils:
                 oMatch = stbt.match(sImage,region = oRegion)
             else:
                 oMatch = stbt.match(sImage)
-            if oMatch.match == True
+            if oMatch.match == True:
                 return oMatch.region
 
         if bFlag == False:
