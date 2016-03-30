@@ -214,9 +214,11 @@ class Navigate:
 
         # fetch data from instruction sheet, else default to summary
         sDirectInput = ""
+        bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            bCalledFromInstructionSheet = True
         except Exception as eError:
             pass
 
@@ -242,7 +244,10 @@ class Navigate:
             hPositionMap = Constants.MOVIE_POSITIONS
         else:
             print "The page do not require any navigation. Page name [%s]" %sPageName
-            return True
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
 
         # Fetch the current tab based on the page
         sCurrentTabName = ""
@@ -255,14 +260,20 @@ class Navigate:
             # if required tab was not found on all available list of images, then return a false message
             if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
                 print "No matching images available on both active and non active headers. Kindly check the images"
-                return False
+                if bCalledFromInstructionSheet == True:
+                    self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+                else:
+                    return False
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
                 oImage = DICT_FRANCHISE_HEADER_IMAGES[sActiveTabName]
                 oMatch = stbt.press_until_match(Constants.KEY_UP, oImage, interval_secs=0, max_presses=100, match_parameters=None)
                 if oMatch.match == False:
-                    return False
+                    if bCalledFromInstructionSheet == True:
+                        self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+                    else:
+                        return False
 
         # To navigate in the top header, need to find out the current position and work accordingly
         sKeyStroke = Constants.KEY_RIGHT
@@ -284,11 +295,16 @@ class Navigate:
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == sDestinationTabName:
             print "Navigation to destination tab [%s] successful" %sDestinationTabName
-            return True
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
         else:
             print "Navigation to destination tab [%s] failure" %sDestinationTabName
-            return False
-
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            else:
+                return False
 
 '''
     def TopNav(self,textOnScreen):
