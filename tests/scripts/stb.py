@@ -250,7 +250,7 @@ class Navigate:
                     return False
 
         # To navigate in the top header, need to find out the current position and work accordingly
-        sKeyStroke = KEY_RIGHT
+        sKeyStroke = Constants.KEY_RIGHT
         iCurrentPosition = hPositionMap[sActiveTabName]
         iDestinationPosition = hPositionMap[sDestinationTabName]
         iDifference = iDestinationPosition - iCurrentPosition
