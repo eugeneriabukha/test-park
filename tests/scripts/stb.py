@@ -558,9 +558,9 @@ class Search:
                         continue
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = sIndex
-                    # Striping the .. Characters that show up if the result is too long
-                    #ResultsDict["Title"] = sTitle.strip(".")
-                    ResultsDict["Title"] = str(sTitle[0:SEARCH_CHAR_UPPER_LIMIT])
+                    sTempTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                    sTempTitle = str(sTempTitle)
+                    ResultsDict["Title"] = sTempTitle
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
