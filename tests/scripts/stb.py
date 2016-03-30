@@ -213,12 +213,18 @@ class Navigate:
         """
 
         # fetch data from instruction sheet, else default to summary
-        oTestData = self.instruction.testdata_detailed
-        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        sDirectInput = ""
+        try:
+            oTestData = self.instruction.testdata_detailed
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # 
         if sDirectInput:
-            sDestinationTabName = TEXT_SUMMARY
-        else:
             sDestinationTabName = sDirectInput
+        else:
+            sDestinationTabName = TEXT_SUMMARY
 
         # fetch the page name
         sPageName = oFranchisePage.GetPageName()
