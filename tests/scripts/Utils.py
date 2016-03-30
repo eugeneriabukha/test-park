@@ -208,6 +208,7 @@ class cUtils:
             Nothing
         """
         # fetch the region based on the region dictionary
+        print type(REGION)
         oRegion = self.FetchRegion(REGION)
         # based on provided input, fetch the text on the provided region
         if TESSERACT == None:
@@ -231,8 +232,6 @@ class cUtils:
         Raises:
             Nothing
         """
-        print "testingu: " 
-        print REGION
         # fetch the region based on the region dictionary
         oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
         return oRegion
