@@ -207,13 +207,8 @@ class cUtils:
         Raises:
             Nothing
         """
-        oRegion = ""
         # fetch the region based on the region dictionary
-        if type(REGION) == '_stbt.core.Region':
-            print "hjkhjkhjkh"
-            oRegion = REGION
-        else:
-            oRegion = self.FetchRegion(REGION)
+        oRegion = self.FetchRegion(REGION)
         # based on provided input, fetch the text on the provided region
         if TESSERACT == None:
             sTextFound = stbt.ocr(region = oRegion)

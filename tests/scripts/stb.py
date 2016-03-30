@@ -719,7 +719,7 @@ class FranchisePage:
         if oRegion == False:
             sTabName = TEXT_TAB_UNAVAILABLE
         else:
-            sTabName = Utils.FetchTextOfRegion(oRegion)
+            sTabName = stbt.ocr(region = oRegion)
         return sTabName
 
 
