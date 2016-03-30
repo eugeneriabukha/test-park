@@ -39,6 +39,7 @@ class cUtils:
         for sKeyStroke in lListOfKeyStrokes:
             stbt.press(sKeyStroke)
             time.sleep(global_wait)
+        time.sleep(Constants.LONG_WAIT)
 
     def SetSearchResults(self,oSearchResults):
         """
