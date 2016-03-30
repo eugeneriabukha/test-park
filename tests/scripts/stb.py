@@ -261,7 +261,8 @@ class Navigate:
         lKeyStrokes = []
         # to decide the number of moves to reach the destination, getting abs of difference
         iLastCounter = abs(iDifference)
-        print "iLastCounter " + iLastCounter
+        print "iLastCounter " 
+        print iLastCounter
         for iCounter in range(0,iLastCounter):
             lKeyStrokes.append(sKeyStroke)
 
