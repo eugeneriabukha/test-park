@@ -166,6 +166,7 @@ class cUtils:
         lExpectedResultTitles = dicExpectedSearchResults.keys()
         dicResults = {}
         lResults = []
+        lFailures = []
         iCounter = 0
 
         # Fetching the titles on the screen into a list lActualResultTitles
