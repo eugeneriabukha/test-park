@@ -220,7 +220,7 @@ class Navigate:
         except Exception as eError:
             pass
 
-        # 
+        # if there is a value for direct input, else default it to Summary
         if sDirectInput:
             sDestinationTabName = sDirectInput
         else:
