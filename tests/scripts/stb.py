@@ -246,8 +246,7 @@ class Navigate:
             print "The page do not require any navigation. Page name [%s]" %sPageName
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            else:
-                return True
+            return True
 
         # Fetch the current tab based on the page
         sCurrentTabName = ""
@@ -262,8 +261,7 @@ class Navigate:
                 print "No matching images available on both active and non active headers. Kindly check the images"
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                else:
-                    return False
+                return False
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
@@ -272,8 +270,7 @@ class Navigate:
                 if oMatch.match == False:
                     if bCalledFromInstructionSheet == True:
                         self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                    else:
-                        return False
+                    return False
 
         # To navigate in the top header, need to find out the current position and work accordingly
         sKeyStroke = Constants.KEY_RIGHT
@@ -297,14 +294,12 @@ class Navigate:
             print "Navigation to destination tab [%s] successful" %sDestinationTabName
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            else:
-                return True
+            return True
         else:
             print "Navigation to destination tab [%s] failure" %sDestinationTabName
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            else:
-                return False
+            return False
 
 '''
     def TopNav(self,textOnScreen):
