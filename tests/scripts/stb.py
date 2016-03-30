@@ -230,7 +230,7 @@ class Navigate:
 
         # fetch the page name
         sPageName = oFranchisePage.GetPageName()
-        sPageName = "Group"
+        sPageName = "TV Show eee"
         listOfImageHeaders = []
         listOfActiveImageHeaders = []
 
@@ -669,8 +669,6 @@ class Search:
         sKey = "KEY_" + str(iRandomID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
-
-        print oNavigate.Program()
 
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
