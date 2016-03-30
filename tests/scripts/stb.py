@@ -717,7 +717,7 @@ class FranchisePage:
 
         # if one of the provided logos was found, return the tab name or provide appropriate negative response
         if oRegion == False:
-            sTabName = TAB_UNAVAILABLE
+            sTabName = TEXT_TAB_UNAVAILABLE
         else:
             sTabName = Utils.FetchTextOfRegion(oRegion)
         return sTabName
