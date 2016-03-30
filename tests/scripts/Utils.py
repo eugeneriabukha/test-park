@@ -179,17 +179,26 @@ class cUtils:
             dicResults["Actual"] = lActualResultTitles[iCounter]
             if lActualResultTitles[iCounter] in lExpectedResultTitles[iCounter]:
                 dicResults["Result"] = Constants.STATUS_SUCCESS
+                lResults.append(dicResults.copy())
             else:
                 dicResults["Result"] = Constants.STATUS_FAILURE
-            # Appending the results dict into the list
-            lResults.append(dicResults.copy())
+                lFailures.append(dicResults.copy())
 
         # Determine success or failure for the comparison and update flag
         bSuccess = True
-        lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
-        print "Failures:"
-        print lFailures
-        if len(lFailures) > 0:
+        #lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
+        dictExpected = {}
+        dicActual = {}
+        for listItem in lFailures:
+            dictExpected[listItem["Expected"]] = ""
+            dicActual[listItem["Actual"]] = ""
+
+        if dictExpected == dicActual:
+            for listItem in lFailures:
+                dicResults["Expected"] = listItem["Expected"]
+                dicResults["Actual"] = listItem["Expected"]
+                dicResults["Result"] = Constants.STATUS_SUCCESS
+        else
             bSuccess = False
 
         # Printing comparison results
