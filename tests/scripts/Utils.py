@@ -189,12 +189,12 @@ class cUtils:
         #lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
         bSuccess = True
         dictExpected = {}
-        dicActual = {}
+        dictActual = {}
         for iCounter in range(0,10):
             dictExpected[lExpectedResultTitles[iCounter]] = ""
-            dicActual[lActualResultTitles[iCounter]] = ""
+            dictActual[lActualResultTitles[iCounter]] = ""
 
-        if dictExpected != dicActual:
+        if dictExpected != dictActual:
             bSuccess = False
 
         # Printing comparison results
