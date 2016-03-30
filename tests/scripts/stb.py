@@ -258,6 +258,7 @@ class Navigate:
         if iDifference < 0:
             sKeyStroke = Constants.KEY_LEFT
 
+        lKeyStrokes = []
         # to decide the number of moves to reach the destination, getting abs of difference
         iLastCounter = abs(iDifference)
         for iCounter in range(0,iLastCounter):
