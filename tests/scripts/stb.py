@@ -92,7 +92,7 @@ REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':230, 'height':53}
+REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
 REGION_TITLE = {'x':286,'y': 112, 'width':468, 'height':72}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 
