@@ -235,7 +235,7 @@ class Navigate:
 
         # Only show or movie page requires navigation
         sActiveTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
-        if sActiveTabName == TAB_UNAVAILABLE:
+        if sActiveTabName == TEXT_TAB_UNAVAILABLE:
             sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
             # if required tab was not found on all available list of images, then return a false message
             if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
