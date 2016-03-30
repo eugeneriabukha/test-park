@@ -230,6 +230,7 @@ class Navigate:
 
         # fetch the page name
         sPageName = oFranchisePage.GetPageName()
+        sPageName = "Group"
         listOfImageHeaders = []
         listOfActiveImageHeaders = []
 
