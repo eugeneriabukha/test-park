@@ -231,6 +231,7 @@ class cUtils:
         Raises:
             Nothing
         """
+        print REGION
         # fetch the region based on the region dictionary
         oRegion = stbt.Region(x = REGION['x'], y = REGION['y'], width = REGION['width'], height = REGION['height'])
         return oRegion
