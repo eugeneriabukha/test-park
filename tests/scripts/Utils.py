@@ -164,10 +164,10 @@ class cUtils:
         # declaration of required variables for comparison
         lActualResultTitles =[]
         lExpectedResultTitles = dicExpectedSearchResults.keys()
-        dicResults = {}
-        lResults = []
-        lFailures = []
-        iCounter = 0
+        #dicResults = {}
+        #lResults = []
+        #lFailures = []
+        #iCounter = 0
 
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
@@ -175,31 +175,27 @@ class cUtils:
             iCounter = iCounter + 1
 
         # comparing both expected and actual titles
-        for iCounter in range(0,10):
-            dicResults["Expected"] = lExpectedResultTitles[iCounter]
-            dicResults["Actual"] = lActualResultTitles[iCounter]
-            if lActualResultTitles[iCounter] in lExpectedResultTitles[iCounter]:
-                dicResults["Result"] = Constants.STATUS_SUCCESS
-                lResults.append(dicResults.copy())
-            else:
-                dicResults["Result"] = Constants.STATUS_FAILURE
-                lFailures.append(dicResults.copy())
+        #for iCounter in range(0,10):
+        #    dicResults["Expected"] = lExpectedResultTitles[iCounter]
+        #    dicResults["Actual"] = lActualResultTitles[iCounter]
+        #    if lActualResultTitles[iCounter] in lExpectedResultTitles[iCounter]:
+        #        dicResults["Result"] = Constants.STATUS_SUCCESS
+        #        lResults.append(dicResults.copy())
+        #    else:
+        #        dicResults["Result"] = Constants.STATUS_FAILURE
+        #        lFailures.append(dicResults.copy())
 
         # Determine success or failure for the comparison and update flag
-        bSuccess = True
+
         #lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
+        bSuccess = True
         dictExpected = {}
         dicActual = {}
-        for listItem in lFailures:
-            dictExpected[listItem["Expected"]] = ""
-            dicActual[listItem["Actual"]] = ""
+        for iCounter in range(0,10):
+            dictExpected[lExpectedResultTitles[iCounter]] = ""
+            dicActual[lActualResultTitles[iCounter]] = ""
 
-        if dictExpected == dicActual:
-            for listItem in lFailures:
-                dicResults["Expected"] = listItem["Expected"]
-                dicResults["Actual"] = listItem["Expected"]
-                dicResults["Result"] = Constants.STATUS_SUCCESS
-        else:
+        if dictExpected != dicActual:
             bSuccess = False
 
         # Printing comparison results
