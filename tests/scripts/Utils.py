@@ -262,7 +262,7 @@ class cUtils:
                 return oMatch.region
 
         if bFlag == False:
-            print "The expected logo was unavailable in the provided list of logos"
+            #print "The expected logo was unavailable in the provided list of logos"
             return False            
 
 

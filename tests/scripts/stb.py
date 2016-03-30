@@ -197,7 +197,7 @@ class Navigate:
         Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
         time.sleep(Constants.LONG_WAIT)
 
-    def Program(self,sDestinationTabName = TEXT_SUMMARY):
+    def Program(self):
         """
         This function navigates within the program - top navigation
 
@@ -211,6 +211,15 @@ class Navigate:
         Raises:
             Nothing
         """
+
+        # fetch data from instruction sheet, else default to summary
+        oTestData = self.instruction.testdata_detailed
+        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        if sDirectInput:
+            sDestinationTabName = TEXT_SUMMARY
+        else:
+            sDestinationTabName = sDirectInput
+
         # fetch the page name
         sPageName = oFranchisePage.GetPageName()
         listOfImageHeaders = []
@@ -226,7 +235,7 @@ class Navigate:
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
             hPositionMap = Constants.MOVIE_POSITIONS
         else:
-            print "There was no requirement for navigation on the provided page"
+            print "The page do not require any navigation. Page name [%s]" %sPageName
             return True
 
         # Fetch the current tab based on the page
