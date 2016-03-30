@@ -170,7 +170,8 @@ class cUtils:
 
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
-            lActualResultTitles.append(self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title'])
+            sTempTitle = str(self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title'])
+            lActualResultTitles.append(sTempTitle)
             iCounter = iCounter + 1
 
         # comparing both expected and actual titles
