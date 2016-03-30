@@ -167,7 +167,7 @@ class cUtils:
         #dicResults = {}
         #lResults = []
         #lFailures = []
-        #iCounter = 0
+        iCounter = 0
 
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
