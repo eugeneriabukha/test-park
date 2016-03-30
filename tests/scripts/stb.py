@@ -238,7 +238,7 @@ class Navigate:
         if sActiveTabName == TAB_UNAVAILABLE:
             sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
             # if required tab was not found on all available list of images, then return a false message
-            if sCurrentTabName == TAB_UNAVAILABLE:
+            if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
                 print "No matching images available on both active and non active headers. Kindly check the images"
                 return False
             else:
