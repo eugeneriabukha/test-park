@@ -26,12 +26,6 @@ class cUtils:
 
         Args:
             lListOfKeyStrokes (list):  list of valid keystrokes
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
         """
         global global_wait
 
@@ -47,12 +41,6 @@ class cUtils:
 
         Args:
             oSearchResults (list):  list of dictionary with search results
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
         """
         self.search_results = oSearchResults
 
@@ -60,14 +48,8 @@ class cUtils:
         """
         This function fetches the values saved as search results
 
-        Args:
-            Nothing
-
         Returns:
             (list):  list of dictionary with search results
-
-        Raises:
-            Nothing
         """
         return self.search_results
 
@@ -77,12 +59,6 @@ class cUtils:
 
         Args:
             oSearchResults (dict): dictionary with expected search results
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
         """
         self.expected_search_results = dicSearchResults
 
@@ -90,16 +66,28 @@ class cUtils:
         """
         This function fetches the values saved as expected search results
 
+        Returns:
+            (dict):  dictionary of expected search results
+        """
+        return self.expected_search_results
+
+    def SetSelectedTitle(self, sTitle):
+        """
+        This function saves the selected title name
+
         Args:
-            Nothing
+            sTitle (str): name of the title selected
+        """
+        self.selected_title = sTitle
+
+    def GetSelectedTitle(self):
+        """
+        This function fetches the values saved as selected title
 
         Returns:
             (dict):  dictionary of expected search results
-
-        Raises:
-            Nothing
         """
-        return self.expected_search_results
+        return self.selected_title
 
     def GetHTTPResponse(self,sURL):
         """
@@ -174,20 +162,6 @@ class cUtils:
             lActualResultTitles.append(sTempTitle)
             iCounter = iCounter + 1
 
-        # comparing both expected and actual titles
-        #for iCounter in range(0,10):
-        #    dicResults["Expected"] = lExpectedResultTitles[iCounter]
-        #    dicResults["Actual"] = lActualResultTitles[iCounter]
-        #    if lActualResultTitles[iCounter] in lExpectedResultTitles[iCounter]:
-        #        dicResults["Result"] = Constants.STATUS_SUCCESS
-        #        lResults.append(dicResults.copy())
-        #    else:
-        #        dicResults["Result"] = Constants.STATUS_FAILURE
-        #        lFailures.append(dicResults.copy())
-
-        # Determine success or failure for the comparison and update flag
-
-        #lFailures = [sFailures for sFailures in lResults if sFailures["Result"] == Constants.STATUS_FAILURE]
         bSuccess = True
         dictExpected = {}
         dictActual = {}

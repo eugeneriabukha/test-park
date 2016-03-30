@@ -662,7 +662,10 @@ class Search:
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
         dictSearchItem = listOfDictSearchResults[iRandomID]
+
+        # fetch the title and save it for future
         sTitle = dictSearchItem['Title']
+        Utils.SetSelectedTitle(sTitle)
 
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(iRandomID)
@@ -749,6 +752,21 @@ class FranchisePage:
             sTabName = stbt.ocr(region = oRegion)
         return sTabName
 
+    def VerifyProgramTitle(self):
+        """
+        Verifies if the program title matches with expected
+
+        Args:
+            Nothing
+
+        Returns:
+            (boolean) based on execution
+
+        Raises:
+            Nothing
+        """
+        sPageName = self.GetPageName()
+        print sPageName
 
 
 class Diagnostics:
