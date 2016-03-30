@@ -199,8 +199,8 @@ class cUtils:
 
         # Printing comparison results
         print "Comparison Results:"
-        print "Expected: " + dictExpected.keys()
-        print "Actual: " + dictActual.keys()
+        print "Expected: %s" %dictExpected.keys()
+        print "Actual: %s"  %dictActual.keys()
         return bSuccess
 
     def FetchTextOfRegion(self,REGION,TESSERACT = None):
