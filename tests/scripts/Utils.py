@@ -210,6 +210,7 @@ class cUtils:
         oRegion = ""
         # fetch the region based on the region dictionary
         if type(REGION) == '_stbt.core.Region':
+            print "hjkhjkhjkh"
             oRegion = REGION
         else:
             oRegion = self.FetchRegion(REGION)
