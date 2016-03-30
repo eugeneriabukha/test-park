@@ -560,7 +560,7 @@ class Search:
                     ResultsDict["ID"] = sIndex
                     # Striping the .. Characters that show up if the result is too long
                     #ResultsDict["Title"] = sTitle.strip(".")
-                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                    ResultsDict["Title"] = str(sTitle[0:SEARCH_CHAR_UPPER_LIMIT])
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
                     ListofDict.append(ResultsDict.copy())
