@@ -791,6 +791,10 @@ class FranchisePage:
             Nothing
         """
         sPageName = self.GetPageName()
+
+        # fetch expected title well in hand
+        sExpectedTitle = Utils.GetSelectedTitle()
+        print "Expected Title: %s" %sExpectedTitle
         try:
             dicRegion = DICT_FRANCHISE_TITLE[sPageName]
         except:
@@ -798,11 +802,8 @@ class FranchisePage:
             return False
 
         # find title from the provided region
-        sActualTitle = Utils.FetchTextOfRegion(dicRegion)
+        sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split())
         print "Actual Title: %s" %sActualTitle
-        sExpectedTitle = Utils.GetSelectedTitle()
-        print "Expected Title: %s" %sExpectedTitle
-
 
 class Diagnostics:
     """
