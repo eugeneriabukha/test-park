@@ -659,13 +659,13 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
 
-    def SelectResult(self,iRandID = None):
+    def SelectResult(self,iRandID = None, Type = None):
         """
         Selects one of the popular search result at random
 
         Args:
             iRandID: if specified, selects specified result. if None, selects a random result
-
+            Type: if specified, selects a random movie/show/sports team/person depending on the type
         Returns:
             Nothing
 
@@ -676,13 +676,37 @@ class Search:
         listOfDictSearchResults = Utils.GetSearchResults()
         iLastCounter = len(listOfDictSearchResults) - 1
 
+        if Type == 'MOVIE':
+            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE")
+            IDMovies = [Program['ID'] for Program in dirMovie]
+            iRandomID = random.choice(IDMovies)
+            print "%s from the list of movies is selected at random" %iRandomID
 
-        if iRandID == None:
+        elif Type == 'TV':
+            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"TV")
+            IDMovies = [Program['ID'] for Program in dirMovie]
+            iRandomID = random.choice(IDMovies)
+            print "%s from the list of shows is selected at random" %iRandomID
+
+        elif Type == 'SPORTS':
+            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS")
+            IDMovies = [Program['ID'] for Program in dirMovie]
+            iRandomID = random.choice(IDMovies)
+            print "%s from the list of teams is selected at random" %iRandomID
+
+        elif Type == 'PERSON':
+            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON")
+            IDMovies = [Program['ID'] for Program in dirMovie]
+            iRandomID = random.choice(IDMovies)
+            print "%s from the list of celebrities is selected at random" %iRandomID
+
+        elif iRandID == None:
             try:
                 iRandomID = random.randint(0, iLastCounter)
                 print "%s from the list is selected at random" %iRandomID
             except:
                 iRandomID = 0
+
         else:
             iRandomID = iRandID
             print "User Selected the %s from the list" %iRandomID
