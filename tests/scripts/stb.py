@@ -806,7 +806,7 @@ class FranchisePage:
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split())
         print "Actual Title: %s" %sActualTitle
-        if sActualTitle[0:30] ==sExpectedTitle[0:30]:
+        if sActualTitle[0:20] ==sExpectedTitle[0:20]:
             print SUMMARYPAGE_TITLE_MATCH
         else:
             print SUMMARYPAGE_TITLE_FAILURE
