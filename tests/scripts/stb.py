@@ -579,12 +579,13 @@ class Search:
                         iIndexCounter = iIndexCounter + 1
                     except:
                         pass
+            ListofDict.pop(0) # trying to remove the view all items since its not required result
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
             del ListofDict[-1]
         
-        ListofDict.pop(0) # trying to remove the view all items since its not required result
+
         Utils.SetSearchResults(ListofDict)
 
     def FetchPopularSearchResults(self):
