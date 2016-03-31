@@ -739,6 +739,7 @@ class Search:
             Passes or fails the test based on the comparison
         """
         self.FetchResults()
+        DICT_ACTUAL_TYPE={}
         DICT_ACTUAL_TYPE['MOVIES'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
         DICT_ACTUAL_TYPE['SHOWS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
         DICT_ACTUAL_TYPE['TEAMS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
