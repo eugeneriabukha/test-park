@@ -672,9 +672,8 @@ class Search:
         """
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
-        print listOfDictSearchResults
         iLastCounter = len(listOfDictSearchResults) - 1
-        print listOfDictSearchResults
+
 
         if iRandID == None:
             try:
