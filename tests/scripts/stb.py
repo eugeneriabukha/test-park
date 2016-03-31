@@ -36,7 +36,8 @@ POPULAR_SEARCH_RESULTS_MATCH = "The Top 10 most popular search results matches w
 POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
 SUMMARYPAGE_TITLE_MATCH = "Correct Show or Movie is displayed"
 SUMMARYPAGE_TITLE_FAILURE = "Incorrect Show or Movie is displayed"
-
+SINGLE_CHAR_SEARCH_RESULTS_MATCH = "Autosuggest with single char search has 4 shows, 2 movies, 2 teams and 1 person"
+SINGLE_CHAR_SEARCH_RESULTS_FAILURE = "Autosuggest with single char search has incorrect number of shows/movies/teams/person"
 # limit constants
 SEARCH_CHAR_UPPER_LIMIT = 30
 
@@ -720,9 +721,16 @@ class Search:
         Utils.PressListOfKeyStrokes(lKeyStrokes)
         time.sleep(Constants.LONG_WAIT * 2)
         self.FetchResults()
-        print Utils.GetSearchResults()
-
-
+        
+        iNumShows = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
+        iNumMovie = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
+        iNumTeam = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
+        iNumPerson = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
+        if ( iNumShows == 4 && iNumMovie == 2 && iNumTeam == 2 && iNumPerson == 1 ):
+            print SINGLE_CHAR_SEARCH_RESULTS_MATCH
+        else:
+            print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
+            print "Number of Shows %s , Number of Movies %s , Number of Teams %s, Number of Person %s" %(iNumShows, iNumMovie, iNumTeam, iNumPerson)
 
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
