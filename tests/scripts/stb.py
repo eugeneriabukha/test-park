@@ -569,17 +569,19 @@ class Search:
                     #Gets the title by spliting the Current line
                     if sCurrentLine.strip(" ") == "":
                         continue
-                    print "Current line %s" %sCurrentLine
-                    sTitle = sCurrentLine.split(' ',1)[1]
-                    ResultsDict["ID"] = sIndex
-                    sTempTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-                    sTempTitle = str(sTempTitle)
-                    ResultsDict["Title"] = sTempTitle
-                    ResultsDict["Type"] = sTempType
-                    # Appending the results dict into the list
-                    ListofDict.append(ResultsDict.copy())
-                    # incrementing the Index Counter which keeps track of the ID
-                    iIndexCounter = iIndexCounter + 1
+                    try:
+                        sTitle = sCurrentLine.split(' ',1)[1]
+                        ResultsDict["ID"] = sIndex
+                        sTempTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                        sTempTitle = str(sTempTitle)
+                        ResultsDict["Title"] = sTempTitle
+                        ResultsDict["Type"] = sTempType
+                        # Appending the results dict into the list
+                        ListofDict.append(ResultsDict.copy())
+                        # incrementing the Index Counter which keeps track of the ID
+                        iIndexCounter = iIndexCounter + 1
+                    except:
+                        pass
         # Set the Result set under utils
         if len(ListofDict) == 11:
             del ListofDict[-1]
