@@ -197,7 +197,6 @@ class cUtils:
         if TESSERACT == None:
             sTextFound = stbt.ocr(region = oRegion)
         else:
-            print TESSERACT
             sTextFound = stbt.ocr(region = oRegion, tesseract_user_words = TESSERACT)
         # trim the text captured before returning
         sTextFound = sTextFound.strip()
