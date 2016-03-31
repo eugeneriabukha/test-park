@@ -52,9 +52,12 @@ DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','N
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
 
 # General constants
-TV_SHOW = 'TV Show'
-MOVIE = 'Movie'
-GROUP = 'Group'
+TEXT_TV_SHOW = 'TV Show'
+TEXT_MOVIE = 'Movie'
+TEXT_GROUP = 'Group'
+TEXT_SPORTS = 'Sports'
+TEXT_PERSON = 'Person'
+
 TEXT_SUMMARY = 'Summary'
 TEXT_EPISODES = 'Episodes'
 TEXT_CAST = 'Cast'
@@ -93,8 +96,18 @@ REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
-REGION_TITLE = {'x':286,'y': 112, 'width':468, 'height':72}
+REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':300, 'height':42}
+REGION_SPORTS_GROUP_TITLE = {'x':286,'y': 120, 'width':300, 'height':42}
+REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':300, 'height':42}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
+
+DICT_FRANCHISE_TITLE = {
+    TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
+    TEXT_MOVIE : REGION_PROGRAM_TITLE,
+    TEXT_GROUP : REGION_SPORTS_GROUP_TITLE,
+    TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
+    TEXT_PERSON : REGION_PERSON_TITLE,
+    }
 
 class Navigate:
     """
@@ -234,11 +247,11 @@ class Navigate:
         listOfActiveImageHeaders = []
 
         # update the header list and required variables based on current page
-        if(sPageName == TV_SHOW):
+        if(sPageName == TEXT_TV_SHOW):
             listOfImageHeaders = IMAGES_SHOW_HEADER
             listOfActiveImageHeaders = IMAGES_ACTIVE_SHOW_HEADER
             hPositionMap = Constants.SHOW_POSITIONS
-        elif(sPageName == MOVIE):
+        elif(sPageName == TEXT_MOVIE):
             listOfImageHeaders = IMAGES_MOVIE_HEADER
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
             hPositionMap = Constants.MOVIE_POSITIONS
@@ -319,7 +332,7 @@ class Navigate:
         #    Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
         #    time.sleep(Constants.LONG_WAIT)
 
-        if(textOnScreen == TV_SHOW):
+        if(textOnScreen == TEXT_TV_SHOW):
             oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
             if oMatchResult.match == True:
                 #Constants.OnTopNav = True
@@ -362,9 +375,9 @@ class Navigate:
         lKeyStrokes = []
         iDiff = 0
         sKeyStroke = KEY_RIGHT
-        if textOnScreen == TV_SHOW:
+        if textOnScreen == TEXT_TV_SHOW:
             iDiff = Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB]
-        elif textOnScreen == MOVIE:
+        elif textOnScreen == TEXT_MOVIE:
             iDiff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB]
         if iDiff < 0:
             sKeyStroke = Constants.KEY_LEFT
@@ -766,7 +779,17 @@ class FranchisePage:
             Nothing
         """
         sPageName = self.GetPageName()
-        print sPageName
+        try:
+            dicRegion = DICT_FRANCHISE_TITLE[sPageName]
+        except:
+            print "Unrecognized page name: %s" %sPageName
+            return False
+
+        # find title from the provided region
+        sActualTitle = Utils.FetchTextOfRegion(dicRegion)
+        print "Actual Title: %s" %sActualTitle
+        sExpectedTitle = Utils.GetSelectedTitle()
+        print "Expected Title: %s" %sExpectedTitle
 
 
 class Diagnostics:
