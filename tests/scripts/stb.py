@@ -579,8 +579,6 @@ class Search:
                         iIndexCounter = iIndexCounter + 1
                     except:
                         pass
-            print ListofDict
-            ListofDict.pop(0) # trying to remove the view all items since its not required result
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
