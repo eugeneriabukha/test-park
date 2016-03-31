@@ -537,8 +537,6 @@ class Search:
                     sIndex = sCurrentLine.split(' ',1)[0]
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = iIndexCounter
-                    # Striping the .. Characters that show up if the result is too long
-                    #ResultsDict["Title"] = sTitle.strip(".")
                     ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     # Appending the results dict into the list
@@ -547,7 +545,6 @@ class Search:
                 # Searches the pattern which starts with any alphanumber char followed by anything that is not space
                 elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) != None:
                     ResultsDict["ID"] = iIndexCounter
-                    #ResultsDict["Title"] = sCurrentLine.strip(".")
                     ResultsDict["Title"] = sCurrentLine[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
                     ListofDict.append(ResultsDict.copy())
@@ -582,10 +579,12 @@ class Search:
                         iIndexCounter = iIndexCounter + 1
                     except:
                         pass
+
         # Set the Result set under utils
         if len(ListofDict) == 11:
             del ListofDict[-1]
-
+        
+        ListofDict.pop(0) # trying to remove the view all items since its not required result
         Utils.SetSearchResults(ListofDict)
 
     def FetchPopularSearchResults(self):
