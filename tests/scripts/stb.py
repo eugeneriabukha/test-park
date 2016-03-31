@@ -672,9 +672,9 @@ class Search:
         """
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
-        iLastCounter = len(listOfDictSearchResults)
+        iLastCounter = len(listOfDictSearchResults) - 1
         if iRandID == None:
-            iRandomID = random.randint(1, iLastCounter)
+            iRandomID = random.randint(0, iLastCounter)
         else:
             iRandomID = iRandID
 
