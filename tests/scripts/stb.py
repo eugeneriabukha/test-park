@@ -569,7 +569,7 @@ class Search:
                     #Gets the title by spliting the Current line
                     if sCurrentLine.strip(" ") == "":
                         continue
-                    print sCurrentLine
+                    print "Current line %s" %sCurrentLine
                     sTitle = sCurrentLine.split(' ',1)[1]
                     ResultsDict["ID"] = sIndex
                     sTempTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
