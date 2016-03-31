@@ -714,18 +714,26 @@ class Search:
         """
         if cLetter==None:
             cRandChar=Utils.GetRandomLetter()
+            print "%s is selected at random to search on the search screen" %cRandChar
         else:
             cRandChar=cLetter
+            print "User Selected %s to search on the search screen" %cRandChar
 
         lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
         time.sleep(Constants.LONG_WAIT * 2)
         self.FetchResults()
+
+
         
         iNumShows = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
         iNumMovie = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
         iNumTeam = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
         iNumPerson = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
+
+
+        print "Actual Ordered Results: %s" %[Program['Title'] for Program in Utils.GetSearchResults()]
+
         if ( iNumShows == 4 and iNumMovie == 2 and iNumTeam == 2 and iNumPerson == 1 ):
             print SINGLE_CHAR_SEARCH_RESULTS_MATCH
         else:
