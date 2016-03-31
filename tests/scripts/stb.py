@@ -718,7 +718,7 @@ class Search:
 
         lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
-
+        time.sleep(Constants.LONG_WAIT * 2)
         self.FetchResults()
         print Utils.GetSearchResults()
 
