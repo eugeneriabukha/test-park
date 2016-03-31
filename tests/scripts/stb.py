@@ -698,6 +698,32 @@ class Search:
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
+    def Char(self,cLetter=None):
+        """
+        Selects one of the popular search result at random
+
+        Args:
+            cLetter: if specified, searches of specified letter. if None, searches a char at random
+
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
+        if cLetter==None:
+            cRandChar=Utils.GetRandomLetter()
+        else:
+            cRandChar=cLetter
+
+        lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
+        Utils.PressListOfKeyStrokes(lKeyStrokes)
+
+        self.FetchResults()
+        print Utils.GetSearchResults()
+
+
+
         # this checks if we are on the right screen, and updates actual result
         #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
         #    width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
