@@ -677,26 +677,26 @@ class Search:
         iLastCounter = len(listOfDictSearchResults) - 1
 
         if Type == 'MOVIE':
-            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE")
-            IDMovies = [Program['ID'] for Program in dirMovie]
+            dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE")
+            IDProgram = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of movies is selected at random" %iRandomID
 
         elif Type == 'TV':
-            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"TV")
-            IDMovies = [Program['ID'] for Program in dirMovie]
+            dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"TV")
+            IDMovies = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of shows is selected at random" %iRandomID
 
         elif Type == 'SPORTS':
-            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS")
-            IDMovies = [Program['ID'] for Program in dirMovie]
+            dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS")
+            IDMovies = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of teams is selected at random" %iRandomID
 
         elif Type == 'PERSON':
-            dirMovie = Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON")
-            IDMovies = [Program['ID'] for Program in dirMovie]
+            dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON")
+            IDMovies = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of celebrities is selected at random" %iRandomID
 
