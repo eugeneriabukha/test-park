@@ -674,21 +674,23 @@ class Search:
         listOfDictSearchResults = Utils.GetSearchResults()
         iLastCounter = len(listOfDictSearchResults) - 1
         if iRandID == None:
-            iRandomID = random.randint(0, iLastCounter)
+            try:
+                iRandomID = random.randint(0, iLastCounter)
+            except:
+                iRandomID = 0
         else:
             iRandomID = iRandID
 
-        print "iLastCounter: %s" %str(iLastCounter)
-        print iRandomID
         # select a random item or specifield id
         dictSearchItem = listOfDictSearchResults[iRandomID]
 
         # fetch the title and save it for future
-        sTitle = dictSearchItem['Title']
+        sTitle = dictSearchItem["Title"]
+        sID = dictSearchItem["ID"]
         Utils.SetSelectedTitle(sTitle)
 
         # generate the key for the specified program and select the program
-        sKey = "KEY_" + str(iRandomID)
+        sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
