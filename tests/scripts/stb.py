@@ -679,21 +679,21 @@ class Search:
         if iRandID == None:
             try:
                 iRandomID = random.randint(0, iLastCounter)
+                print "%s from the list is selected at random" %iRandomID
             except:
                 iRandomID = 0
         else:
             iRandomID = iRandID
+            print "User Selected the %s from the list" %iRandomID
 
-        # select a random item or specifield id
-        print iRandomID
-        print listOfDictSearchResults
+
         dictSearchItem = listOfDictSearchResults[iRandomID]
 
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
         Utils.SetSelectedTitle(sTitle)
-
+        print "The Selected Title is %s" %sTitle
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
@@ -810,6 +810,7 @@ class FranchisePage:
             print SUMMARYPAGE_TITLE_MATCH
         else:
             print SUMMARYPAGE_TITLE_FAILURE
+
 
 
 class Diagnostics:
