@@ -726,7 +726,7 @@ class Search:
         iNumMovie = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
         iNumTeam = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
         iNumPerson = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
-        if ( iNumShows == 4 && iNumMovie == 2 && iNumTeam == 2 && iNumPerson == 1 ):
+        if ( iNumShows == 4 and iNumMovie == 2 and iNumTeam == 2 and iNumPerson == 1 ):
             print SINGLE_CHAR_SEARCH_RESULTS_MATCH
         else:
             print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
