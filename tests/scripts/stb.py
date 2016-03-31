@@ -682,6 +682,7 @@ class Search:
             iRandomID = iRandID
 
         # select a random item or specifield id
+        print iRandomID
         dictSearchItem = listOfDictSearchResults[iRandomID]
 
         # fetch the title and save it for future
