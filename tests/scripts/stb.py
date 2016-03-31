@@ -111,6 +111,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
+DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
 class Navigate:
     """
@@ -722,19 +723,30 @@ class Search:
         lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
         time.sleep(Constants.LONG_WAIT * 2)
+
+
+    def CompareProgramCount(self):
+        """
+        Compare Program count to verify if there are exact number of movies/shows/teams/person
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
         self.FetchResults()
-
-
-        
-        iNumShows = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
-        iNumMovie = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
-        iNumTeam = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
-        iNumPerson = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
-
+        DICT_ACTUAL_TYPE['MOVIES'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
+        DICT_ACTUAL_TYPE['SHOWS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
+        DICT_ACTUAL_TYPE['TEAMS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
+        DICT_ACTUAL_TYPE['PERSONS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
 
         print "Actual Ordered Results: %s" %[Program['Title'] for Program in Utils.GetSearchResults()]
 
-        if ( iNumShows == 4 and iNumMovie == 2 and iNumTeam == 2 and iNumPerson == 1 ):
+        if (DICT_EXPECTED_TYPE == DICT_ACTUAL_TYPE):
             print SINGLE_CHAR_SEARCH_RESULTS_MATCH
         else:
             print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
