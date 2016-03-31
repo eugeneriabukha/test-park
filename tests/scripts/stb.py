@@ -670,13 +670,15 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
+        # select the specified title or a random title from the list of programs
+        listOfDictSearchResults = Utils.GetSearchResults()
+        iLastCounter = len(listOfDictSearchResults)
         if iRandID == None:
-            iRandomID = random.randint(0, 9)
+            iRandomID = random.randint(1, iLastCounter)
         else:
             iRandomID = iRandID
 
-        # select the specified title or a random title from the list of programs
-        listOfDictSearchResults = Utils.GetSearchResults()
+        # select a random item or specifield id
         dictSearchItem = listOfDictSearchResults[iRandomID]
 
         # fetch the title and save it for future
