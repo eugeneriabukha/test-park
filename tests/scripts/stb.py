@@ -698,7 +698,7 @@ class Search:
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
 
-    def Char(self,cLetter=None):
+    def Letter(self,cLetter=None):
         """
         Selects one of the popular search result at random
 
