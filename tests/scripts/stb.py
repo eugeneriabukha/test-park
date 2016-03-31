@@ -34,6 +34,8 @@ SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
 POPULAR_SEARCH_RESULTS_MATCH = "The Top 10 most popular search results matches with expected results"
 POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
+SUMMARYPAGE_TITLE_MATCH = "Correct Show or Movie is displayed"
+SUMMARYPAGE_TITLE_FAILURE = "Incorrect Show or Movie is displayed"
 
 # limit constants
 SEARCH_CHAR_UPPER_LIMIT = 30
@@ -804,6 +806,11 @@ class FranchisePage:
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split())
         print "Actual Title: %s" %sActualTitle
+        if sActualTitle[0:30] ==sExpectedTitle[0:30]:
+            print SUMMARYPAGE_TITLE_MATCH
+        else:
+            print SUMMARYPAGE_TITLE_FAILURE
+
 
 class Diagnostics:
     """
