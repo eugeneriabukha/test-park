@@ -12,6 +12,7 @@ import stbt
 from Keywords import *
 from collections import OrderedDict
 import random
+import string
 
 class cUtils:
     """
