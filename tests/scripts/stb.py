@@ -556,7 +556,7 @@ class Search:
         else:
             # Get the length of the Result string
             iLastCounter = len(lResults)
-            iIndexCounter = 0
+            iIndexCounter = 1
             for iCounter in range(1, iLastCounter):
                 sCurrentLine = lResults[iCounter]
                 if sCurrentLine in dicIndex:
