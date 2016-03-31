@@ -678,6 +678,8 @@ class Search:
         else:
             iRandomID = iRandID
 
+        print "iLastCounter: %s" %str(iLastCounter)
+        print iRandomID
         # select a random item or specifield id
         dictSearchItem = listOfDictSearchResults[iRandomID]
 
