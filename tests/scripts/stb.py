@@ -105,7 +105,7 @@ DICT_FRANCHISE_HEADER_IMAGES = {
 
 # Region related constants
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
-REGION_RESULTS = {'x': 490, 'y': 123, 'width': 475, 'height': 590}
+REGION_RESULTS = {'x': 472, 'y': 120, 'width': 522, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
@@ -688,6 +688,15 @@ class Search:
         """
         if cLetter==None:
             cRandChar=Utils.GetRandomLetter()
+            cRandChar = "N"
+
+
+
+
+
+
+
+            
             print "%s is selected at random to search on the search screen" %cRandChar
         else:
             cRandChar=cLetter

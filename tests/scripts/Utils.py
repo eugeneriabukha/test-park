@@ -251,7 +251,7 @@ class cUtils:
             #print "The expected logo was unavailable in the provided list of logos"
             return False   
 
-    def GetRandomLetter(self):
+    def GetRandomLetter(self,sChar = None):
         """
         this fetches the specified region and returns the region
 
@@ -263,7 +263,10 @@ class cUtils:
         Raises:
             Nothing
         """
-        return random.choice(string.letters).upper()
+        if sChar == None:
+            return random.choice(string.letters).upper()
+        else:
+            return sChar.upper()
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()
