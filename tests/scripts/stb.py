@@ -68,6 +68,16 @@ TEXT_REVIEWS = 'Reviews'
 TEXT_PARENTALGUIDE = 'Parental Guide'
 TEXT_TAB_UNAVAILABLE = 'TAB_UNAVAILABLE'
 
+# STB Constants
+TEXT_STB_TV = "TV"
+TEXT_STB_MOVIE = "MOVIE"
+TEXT_STB_SPORTS = "SPORTS"
+TEXT_STB_PERSON = "PERSON"
+DICT_STB_TYPES = {  TEXT_STB_TV : "",
+                    TEXT_STB_MOVIE : "",
+                    TEXT_STB_SPORTS : "",
+                    TEXT_STB_PERSON : "" }
+
 # Image related constants
 IMAGE_SEARCH = "../images/Search.png"
 IMAGE_SUMMARY = "../images/Summary.png"
@@ -318,84 +328,6 @@ class Navigate:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             return False
 
-'''
-    def TopNav(self,textOnScreen):
-        """
-        This function navigates the screen to summary page based on the present screen
-
-        Args:
-            textOnScreen (String):  String which tells which screen the stb is at present
-            
-        Returns:
-            (boolean):  Sucess or Failure to navigate to summary page
-
-        Raises:
-            Nothing
-        """
-        #if(textOnScreen == GROUP):
-        #    Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
-        #    time.sleep(Constants.LONG_WAIT)
-
-        if(textOnScreen == TEXT_TV_SHOW):
-            oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_EPISODES_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)  
-            if oMatchResult.match == True:
-                #Constants.OnTopNav = True
-                Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
-                time.sleep(Constants.LONG_WAIT)  
-                #Constants.PRESENT_TAB = TEXT_SUMMARY
-                return True 
-            else:
-                print "Cannot Navigate to Summary Page"
-                #Constants.OnTopNav = False
-                return False
-        else:
-            time.sleep(Constants.LONG_WAIT)
-            oMatchResult = stbt.press_until_match(Constants.KEY_UP, IMAGE_SUMMARY_SELECTED, interval_secs=0, max_presses=100, match_parameters=None)
-            if oMatchResult.match == True:
-                #Constants.OnTopNav = True
-                #Constants.PRESENT_TAB = TEXT_SUMMARY
-                return True
-            else:
-                print "Cannot Navigate to Summary Page"
-                #Constants.OnTopNav = False
-                return False
-
-    def Programs(self,textOnScreen,sDestinationTab):
-        """
-        This function navigates the screen to summary page based on the present screen
-
-        Args:
-            textOnScreen (String):  String which tells which screen the stb is at present
-            sSelectedTab(String) : Present Tab that is selected
-            sDestinationTab(String): Final tab to be navigated to
-        Returns:
-            (boolean):  Sucess or Failure to navigate to summary page
-
-        Raises:
-            Nothing
-        """
-        # if the user is already on the top nav, perform navigation on the top nav
-        #if Constants.OnTopNav == True:
-        lKeyStrokes = []
-        iDiff = 0
-        sKeyStroke = KEY_RIGHT
-        if textOnScreen == TEXT_TV_SHOW:
-            iDiff = Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.SHOW_TAB_MAP[Constants.PRESENT_TAB]
-        elif textOnScreen == TEXT_MOVIE:
-            iDiff=Constants.SHOW_TAB_MAP[sDestinationTab]-Constants.MOVIE_TAB_MAP[Constants.PRESENT_TAB]
-        if iDiff < 0:
-            sKeyStroke = Constants.KEY_LEFT
-
-        # Get list of keystrokes to an list to move to the destination object
-        for iCounter in range(0,abs(iDiff)):
-            lKeyStrokes.append(sKeyStroke)
-
-        Utils.PressListOfKeyStrokes(lKeyStrokes)
-        Constants.PRESENT_TAB = sDestinationTab
-        #else:
-        #    print "The focus is not in the top nav, hence navigation would not be performed"
-'''
-
 class Search:
     """
     Functions required for Search like entering Title, verifying results
@@ -412,12 +344,6 @@ class Search:
         Args:
             oInstruction: an instruction object with keyword, its respected expected result,
         option and its data
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
         """
         self.instruction = oInstruction
 
@@ -659,7 +585,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             print POPULAR_SEARCH_RESULTS_FAILURE
 
-    def SelectResult(self,iRandID = None, Type = None):
+    def SelectResult(self,iRandID = None, sType = None):
         """
         Selects one of the popular search result at random
 
@@ -674,8 +600,14 @@ class Search:
         """
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
+        if sType in DICT_STB_TYPES:
+            listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
+
+
+
         iLastCounter = len(listOfDictSearchResults) - 1
 
+'''
         if Type == 'MOVIE':
             dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE")
             IDProgram = [Program['ID'] for Program in dirProgram]
@@ -699,8 +631,11 @@ class Search:
             IDMovies = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of celebrities is selected at random" %iRandomID
+'''
 
-        elif iRandID == None:
+
+
+        if iRandID == None:
             try:
                 iRandomID = random.randint(0, iLastCounter)
                 print "%s from the list is selected at random" %iRandomID
@@ -776,20 +711,6 @@ class Search:
         else:
             print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
             print "Number of Shows %s , Number of Movies %s , Number of Teams %s, Number of Person %s" %(iNumShows, iNumMovie, iNumTeam, iNumPerson)
-
-        # this checks if we are on the right screen, and updates actual result
-        #oFranchiseRegion = stbt.Region(x = REGION_FRANCHISEPAGE['x'], y = REGION_FRANCHISEPAGE['y'], 
-        #    width = REGION_FRANCHISEPAGE['width'], height = REGION_FRANCHISEPAGE['height'])
-        #sTextOnScreen = stbt.ocr(region = oFranchiseRegion, tesseract_user_words = FRANCHISEPAGE_LIST) 
-        #sTextOnScreen = sTextOnScreen.strip()
-        #oNavigate.TopNav(sTextOnScreen)
-
-        #sTitleOnScreen = Utils.FetchTextOfRegion(REGION_TITLE,sTitle.split())
-        #sTitleOnScreen = sTitleOnScreen[0:SEARCH_CHAR_UPPER_LIMIT]
-        #if sTitle == sTitleOnScreen:
-        #    print "Program Title matches for the selected title"
-        #else:
-        #    print "Program Title do not match for the selected title. Expected %s | Actual %s" %(sTitle,sTitleOnScreen)
 
 class FranchisePage:
     """
@@ -888,8 +809,6 @@ class FranchisePage:
             print SUMMARYPAGE_TITLE_MATCH
         else:
             print SUMMARYPAGE_TITLE_FAILURE
-
-
 
 class Diagnostics:
     """
