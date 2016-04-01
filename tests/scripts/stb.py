@@ -514,6 +514,8 @@ class Search:
         if len(ListofDict) == 11:
             del ListofDict[-1]
 
+        print "Complete List:"
+        print ListofDict
         Utils.SetSearchResults(ListofDict)
 
     def FetchPopularSearchResults(self):
