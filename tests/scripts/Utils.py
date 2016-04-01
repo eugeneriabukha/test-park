@@ -254,22 +254,17 @@ class cUtils:
             #print "The expected logo was unavailable in the provided list of logos"
             return False   
 
-    def GetRandomLetter(self,sChar = None):
+    def GetRandomLetter(self):
         """
         this fetches the specified region and returns the region
-
-        Args:
 
         Returns:
             returns a upper case letter.
 
-        Raises:
-            Nothing
         """
-        if sChar == None:
-            return random.choice(string.letters).upper()
-        else:
-            return sChar.upper()
+
+        return random.choice(string.letters).upper()
+
 
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()

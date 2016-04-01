@@ -68,6 +68,7 @@ class Constants(object):
     DIRECT_INPUT = "DirectInput"
     ABOVE = "!ABOVE!"
     EMPTY = "!EMPTY!"
+    RANDOM_LETTER = "!RANDOM_LETTER!"
 
     # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"

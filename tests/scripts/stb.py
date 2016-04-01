@@ -362,16 +362,23 @@ class Search:
         """
         global global_wait
 
-        self.FetchPopularSearchResults()
+        
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
             sTitle = dValue[Constants.SEARCH_COL_TITLE]
             bIncludeNetflix = dValue[Constants.SEARCH_COL_INCLUDE_NETFLIX]
 
+        if not sTitle:
+            self.FetchPopularSearchResults()
+
+        if sTitle == Constants.RANDOM_LETTER:
+            sTitle = Utils.GetRandomLetter()
+
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
+        time.sleep(Constants.LONG_WAIT * 2)
 
         # Performing advanced options
         bActualNetflixStatus = False
@@ -396,13 +403,19 @@ class Search:
             sLookForMessage = NOT_INCLUDE_NETFLIX
 
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
-        if textOnScreen.find(sLookForMessage) != -1:
-            self.instruction.actualresult = self.instruction.expectedresult
-            print SEARCH_POSITIVE
-        else:
+        if textOnScreen.find(sLookForMessage) == -1:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             print SEARCH_NEGATIVE
-        self.FetchResults()
+            return
+        
+        bSucessFlag = self.FetchResults()
+        if bSucessFlag == False:
+            self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+            return
+
+        self.instruction.actualresult = self.instruction.expectedresult
+        print SEARCH_POSITIVE
+
 
     def FetchResults(self):
         """
@@ -426,7 +439,8 @@ class Search:
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
         lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
-        self.ParseResults(lResults)
+        bSucessFlag = self.ParseResults(lResults)
+        return bSucessFlag
 
     def ParseResults(self,lResults):
         """
@@ -454,6 +468,10 @@ class Search:
         ResultsDict={}
         ListofDict=[]
         sTempType = ""
+
+        if len(lResults)==0:
+            print "No Results displayed on the screen"
+            return False
 
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
@@ -517,6 +535,7 @@ class Search:
         print "Complete List:"
         print ListofDict
         Utils.SetSearchResults(ListofDict)
+        return True
 
     def FetchPopularSearchResults(self):
         """
@@ -647,31 +666,38 @@ class Search:
         """
         self.SelectResult(sType=TEXT_STB_MOVIE)
 
-    def Letter(self,cLetter=None):
-        """
-        Selects one of the popular search result at random
+    # def Letter(self,cLetter=None):
+    #     """
+    #     Selects one of the popular search result at random
 
-        Args:
-            cLetter: if specified, searches of specified letter. if None, searches a char at random
+    #     Args:
+    #         cLetter: if specified, searches of specified letter. if None, searches a char at random
 
-        Returns:
-            Nothing
+    #     Returns:
+    #         Nothing
 
-        Raises:
-            Passes or fails the test based on the comparison
-        """
-        if cLetter == None:
-            cRandChar = Utils.GetRandomLetter()
-            cRandChar = "J"  # $$$$$$$$$$$$$$$$$$$$$$$$$$$
-            print "%s is selected at random to search on the search screen" %cRandChar
-        else:
-            cRandChar = cLetter
-            print "User Selected %s to search on the search screen" %cRandChar
+    #     Raises:
+    #         Passes or fails the test based on the comparison
+    #     """
+    #     if cLetter == None:
+    #         cRandChar = Utils.GetRandomLetter()
+    #         print "%s is selected at random to search on the search screen" %cRandChar
+    #     else:
+    #         cRandChar = cLetter
+    #         print "User Selected %s to search on the search screen" %cRandChar
 
-        lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
-        Utils.PressListOfKeyStrokes(lKeyStrokes)
-        time.sleep(Constants.LONG_WAIT * 2)
-        self.FetchResults()
+    #     lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
+    #     Utils.PressListOfKeyStrokes(lKeyStrokes)
+    #     time.sleep(Constants.LONG_WAIT * 2)
+
+
+    #     bSucessFlag = self.FetchResults()
+    #     if bSucessFlag == False:
+    #         self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
+    #         return
+
+    #     self.instruction.actualresult = self.instruction.expectedresult
+    #     print SEARCH_POSITIVE
 
     def CompareProgramCount(self):
         """
