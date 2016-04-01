@@ -591,7 +591,7 @@ class Search:
 
         Args:
             iRandID: if specified, selects specified result. if None, selects a random result
-            Type: if specified, selects a random movie/show/sports team/person depending on the type
+            sType: if specified, selects a random movie/show/sports team/person depending on the type
         Returns:
             Nothing
 
@@ -654,6 +654,22 @@ class Search:
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
+
+
+    def SelectResultMovie(self):
+        """
+        Selects one of the movie search result at random
+
+        Args:
+            Nothing
+            
+        Returns:
+            Nothing
+
+        Raises:
+            Passes or fails the test based on the comparison
+        """
+        self.SelectResult(sType=TEXT_STB_MOVIE)
 
     def Letter(self,cLetter=None):
         """
