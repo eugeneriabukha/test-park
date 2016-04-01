@@ -602,7 +602,7 @@ class Search:
         listOfDictSearchResults = Utils.GetSearchResults()
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-
+        print listOfDictSearchResults
         iLastCounter = len(listOfDictSearchResults) - 1
 
         '''
@@ -644,7 +644,7 @@ class Search:
 
 
         dictSearchItem = listOfDictSearchResults[iRandomID]
-
+        print dictSearchItem
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
