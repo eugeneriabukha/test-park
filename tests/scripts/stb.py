@@ -686,20 +686,11 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        if cLetter==None:
-            cRandChar=Utils.GetRandomLetter()
-            cRandChar = "N"
-
-
-
-
-
-
-
-            
+        if cLetter == None:
+            cRandChar = Utils.GetRandomLetter()
             print "%s is selected at random to search on the search screen" %cRandChar
         else:
-            cRandChar=cLetter
+            cRandChar = cLetter
             print "User Selected %s to search on the search screen" %cRandChar
 
         lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
