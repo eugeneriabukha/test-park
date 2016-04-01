@@ -180,7 +180,7 @@ class cUtils:
         print "Actual: %s"  %dictActual.keys()
         return bSuccess
 
-    def FetchTextOfRegion(self,REGION,TESSERACT = None):
+    def FetchTextOfRegion(self, REGION, TESSERACT = None, FirstLineOnly = None):
         """
         this fetches the text on the specified region and provides back the details
 
@@ -202,6 +202,9 @@ class cUtils:
             sTextFound = stbt.ocr(region = oRegion, tesseract_user_words = TESSERACT)
         # trim the text captured before returning
         sTextFound = sTextFound.strip()
+        # fetch the first line only when asked for
+        if FirstLineOnly == True:
+            sTextFound = sTextFound.splitlines()[0]
         return sTextFound
 
     def FetchRegion(self,REGION):
