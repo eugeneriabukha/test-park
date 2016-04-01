@@ -662,7 +662,7 @@ class Search:
         """
         if cLetter == None:
             cRandChar = Utils.GetRandomLetter()
-            cRandChar = "K"  # $$$$$$$$$$$$$$$$$$$$$$$$$$$
+            cRandChar = "D"  # $$$$$$$$$$$$$$$$$$$$$$$$$$$
             print "%s is selected at random to search on the search screen" %cRandChar
         else:
             cRandChar = cLetter
