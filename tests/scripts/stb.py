@@ -603,11 +603,9 @@ class Search:
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
 
-
-
         iLastCounter = len(listOfDictSearchResults) - 1
 
-'''
+        '''
         if Type == 'MOVIE':
             dirProgram = Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE")
             IDProgram = [Program['ID'] for Program in dirProgram]
@@ -631,9 +629,7 @@ class Search:
             IDMovies = [Program['ID'] for Program in dirProgram]
             iRandomID = random.choice(IDMovies)
             print "%s from the list of celebrities is selected at random" %iRandomID
-'''
-
-
+        '''
 
         if iRandID == None:
             try:
