@@ -662,7 +662,7 @@ class Search:
 
         Args:
             Nothing
-            
+
         Returns:
             Nothing
 
@@ -694,7 +694,7 @@ class Search:
         lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
         time.sleep(Constants.LONG_WAIT * 2)
-
+        self.FetchResults()
 
     def CompareProgramCount(self):
         """
@@ -709,7 +709,7 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
-        self.FetchResults()
+        
         listOfTypes = DICT_STB_TYPES.keys()
         listOfResults = Utils.GetSearchResults()
         DICT_ACTUAL_TYPE = {}
