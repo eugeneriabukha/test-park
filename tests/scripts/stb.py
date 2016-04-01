@@ -73,10 +73,10 @@ TEXT_STB_TV = "TV"
 TEXT_STB_MOVIE = "MOVIE"
 TEXT_STB_SPORTS = "SPORTS"
 TEXT_STB_PERSON = "PERSON"
-DICT_STB_TYPES = {  TEXT_STB_TV : "",
-                    TEXT_STB_MOVIE : "",
-                    TEXT_STB_SPORTS : "",
-                    TEXT_STB_PERSON : "" }
+DICT_STB_TYPES = {  TEXT_STB_TV : 4,
+                    TEXT_STB_MOVIE : 2,
+                    TEXT_STB_SPORTS : 2,
+                    TEXT_STB_PERSON : 1 }
 
 # Image related constants
 IMAGE_SEARCH = "../images/Search.png"
@@ -694,19 +694,19 @@ class Search:
             Passes or fails the test based on the comparison
         """
         self.FetchResults()
-        DICT_ACTUAL_TYPE={}
-        DICT_ACTUAL_TYPE['MOVIES'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"MOVIE"))
-        DICT_ACTUAL_TYPE['SHOWS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"TV"))
-        DICT_ACTUAL_TYPE['TEAMS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"SPORTS"))
-        DICT_ACTUAL_TYPE['PERSONS'] = len(Utils.GetTitleByType(Utils.GetSearchResults(),"PERSON"))
+        listOfTypes = DICT_STB_TYPES.keys()
+        listOfResults = Utils.GetSearchResults()
+        DICT_ACTUAL_TYPE = {}
 
-        print "Actual Ordered Results: %s" %[Program['Title'] for Program in Utils.GetSearchResults()]
+        for sType in listOfTypes:
+            DICT_ACTUAL_TYPE[sType] = len(Utils.GetTitleByType(listOfResults,sType))
 
-        if (DICT_EXPECTED_TYPE == DICT_ACTUAL_TYPE):
+        if (DICT_STB_TYPES == DICT_ACTUAL_TYPE):
             print SINGLE_CHAR_SEARCH_RESULTS_MATCH
         else:
             print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
-            print "Number of Shows %s , Number of Movies %s , Number of Teams %s, Number of Person %s" %(iNumShows, iNumMovie, iNumTeam, iNumPerson)
+            for sType in listOfTypes:
+                print "%s : %s" %(sType,DICT_ACTUAL_TYPE[sType])
 
 class FranchisePage:
     """
