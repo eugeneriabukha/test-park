@@ -537,8 +537,8 @@ class Search:
         if len(ListofDict) == 11:
             del ListofDict[-1]
 
-        Logger.note.info( "Complete List:")
-        Logger.note.info( ListofDict )
+        Logger.note.debug( "Complete List:")
+        Logger.note.debug( ListofDict )
         Utils.SetSearchResults(ListofDict)
         return True
 
