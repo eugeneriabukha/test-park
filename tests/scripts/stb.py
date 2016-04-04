@@ -178,10 +178,10 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if bDiagnostics == True:
-            Logger.note.info( "Navigated to Diagnostics screen successfully")
+            Logger.info( "Navigated to Diagnostics screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
-            print "Unable to navigate to Diagnostics screen"
+            Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
 
@@ -207,10 +207,10 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if oSearchLogo.match == True:
-            print "Navigated to Search screen successfully"
+            Logger.note.info( "Navigated to Search screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
-            print "Unable to navigate to Diagnostics screen"
+            Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     def GroupToProgram(self):
@@ -275,7 +275,7 @@ class Navigate:
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
             hPositionMap = Constants.MOVIE_POSITIONS
         else:
-            print "The page do not require any navigation. Page name [%s]" %sPageName
+            Logger.note.info ("The page do not require any navigation. Page name [%s]" %sPageName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
@@ -290,7 +290,7 @@ class Navigate:
             sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
             # if required tab was not found on all available list of images, then return a false message
             if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
-                print "No matching images available on both active and non active headers. Kindly check the images"
+                Logger.note.error( "No matching images available on both active and non active headers. Kindly check the images")
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
                 return False
@@ -323,12 +323,12 @@ class Navigate:
         # Fetch if the required tab is selected
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == sDestinationTabName:
-            print "Navigation to destination tab [%s] successful" %sDestinationTabName
+            Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
         else:
-            print "Navigation to destination tab [%s] failure" %sDestinationTabName
+            Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             return False
@@ -395,9 +395,9 @@ class Search:
 
         # Check the current advanced search setting if it matches with the existing setting
         if(bIncludeNetflix == bActualNetflixStatus):
-            print POSITIVE_NETFLIX
+            Logger.note.info(POSITIVE_NETFLIX)
         else:
-            print NEGATIVE_NETFLIX
+            Logger.note.error( NEGATIVE_NETFLIX)
             # performing advanced search : netflix inclusion or removal
             Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
@@ -410,7 +410,7 @@ class Search:
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
         if textOnScreen.find(sLookForMessage) == -1:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            print SEARCH_NEGATIVE
+            Logger.note.error( SEARCH_NEGATIVE)
             return
         
         bSucessFlag = self.FetchResults()
@@ -419,7 +419,7 @@ class Search:
             return
 
         self.instruction.actualresult = self.instruction.expectedresult
-        print SEARCH_POSITIVE
+        Logger.note.info( SEARCH_POSITIVE)
 
 
     def FetchResults(self):
@@ -475,7 +475,7 @@ class Search:
         sTempType = ""
 
         if len(lResults)==0:
-            print "No Results displayed on the screen"
+            Logger.note.error( "No Results displayed on the screen")
             return False
 
         if lResults[0] == SEARCH_RESULTS[0]:
@@ -537,8 +537,8 @@ class Search:
         if len(ListofDict) == 11:
             del ListofDict[-1]
 
-        print "Complete List:"
-        print ListofDict
+        Logger.note.info( "Complete List:")
+        Logger.note.info( ListofDict )
         Utils.SetSearchResults(ListofDict)
         return True
 
@@ -606,10 +606,10 @@ class Search:
         bStatus = Utils.CompareResults(dicExpected,listActual)
         if bStatus == True:
             self.instruction.actualresult = self.instruction.expectedresult
-            print POPULAR_SEARCH_RESULTS_MATCH
+            Logger.note.info( POPULAR_SEARCH_RESULTS_MATCH)
         else:
             self.instruction.actualresult = Constants.STATUS_FAILURE
-            print POPULAR_SEARCH_RESULTS_FAILURE
+            Logger.note.error( POPULAR_SEARCH_RESULTS_FAILURE)
 
     def SelectResult(self,iRandID = None, sType = None):
         """
@@ -628,28 +628,28 @@ class Search:
         listOfDictSearchResults = Utils.GetSearchResults()
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-        print listOfDictSearchResults
+        Logger.note.debug( listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
 
         if iRandID == None:
             try:
                 iRandomID = random.randint(0, iLastCounter)
-                print "%s from the list is selected at random" %iRandomID
+                Logger.note.debug( "%s from the list is selected at random" %iRandomID)
             except:
                 iRandomID = 0
 
         else:
             iRandomID = iRandID
-            print "User Selected the %s from the list" %iRandomID
+            Logger.note.info( "User Selected the %s from the list" %iRandomID)
 
 
         dictSearchItem = listOfDictSearchResults[iRandomID]
-        print dictSearchItem
+        Logger.note.debug(dictSearchItem)
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
         Utils.SetSelectedTitle(sTitle)
-        print "The Selected Title is %s" %sTitle
+        Logger.note.info( "The Selected Title is %s" %sTitle)
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
@@ -726,7 +726,7 @@ class Search:
             DICT_ACTUAL_TYPE[sType] = len(Utils.GetTitleByType(listOfResults,sType))
 
         if (DICT_STB_TYPES == DICT_ACTUAL_TYPE):
-            print SINGLE_CHAR_SEARCH_RESULTS_MATCH
+            Logger.note.info( SINGLE_CHAR_SEARCH_RESULTS_MATCH)
         else:
             print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
             for sType in listOfTypes:
