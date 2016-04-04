@@ -18,8 +18,7 @@ import collections
 import re
 import random
 import elasticsearch
-from PIL import Image
-import numpy as np
+import Image
 
 from collections import OrderedDict
 
@@ -612,8 +611,8 @@ class Search:
         else:
             #raise stbt.UITestFailure
             data= stbt.get_frame()
-            img = Image.fromarray(data, 'RGB')
-            img.save('./my.png')
+            im = Image.fromarray(A)
+            im.save("./your_file.jpeg")
             self.instruction.actualresult = Constants.STATUS_FAILURE
             Logger.note.error( POPULAR_SEARCH_RESULTS_FAILURE)
 
