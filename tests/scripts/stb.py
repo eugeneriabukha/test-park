@@ -250,10 +250,8 @@ class Navigate:
         bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
-            print "before testing values"
-            sDirectInput = oTestData[Constants.DIRECT_INPUT]
-            print "testing values"
             bCalledFromInstructionSheet = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
         except Exception as eError:
             pass
 
@@ -327,16 +325,12 @@ class Navigate:
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == sDestinationTabName:
             Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
-            print "bla bla"
             if bCalledFromInstructionSheet == True:
-                print "bla bla bla"
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
         else:
             Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
-            print "fla fla"
             if bCalledFromInstructionSheet == True:
-                print "flaw flaw"
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             return False
 
@@ -619,7 +613,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             Logger.note.error( POPULAR_SEARCH_RESULTS_FAILURE)
 
-    def SelectResult(self,iRandID = None, sType = None):
+    def SelectResult(self,iRandID = None):
         """
         Selects one of the popular search result at random
 
@@ -632,10 +626,33 @@ class Search:
         Raises:
             Passes or fails the test based on the comparison
         """
+
+        # fetch data from instruction sheet, else default to summary
+        sDirectInput = ""
+        bCalledFromInstructionSheet = False
+        try:
+            oTestData = self.instruction.testdata_detailed
+            bCalledFromInstructionSheet = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # if there is a value for direct input, else default it to Summary
+        if sDirectInput:
+            sType = sDirectInput
+        else:
+            sType = None
+
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
+
+        if len(listOfDictSearchResults) == 0:
+            Logger.note.error("The dictionary is empty and cannot be searched")
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+            return
+
         Logger.note.debug( listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
 
@@ -662,8 +679,9 @@ class Search:
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 2)
+        self.instruction.actualresult = self.instruction.expectedresult
 
-
+    '''
     def SelectResultMovie(self):
         """
         Selects one of the movie search result at random
@@ -678,6 +696,7 @@ class Search:
             Passes or fails the test based on the comparison
         """
         self.SelectResult(sType=TEXT_STB_MOVIE)
+    '''
 
     # def Letter(self,cLetter=None):
     #     """
