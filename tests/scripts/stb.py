@@ -250,7 +250,9 @@ class Navigate:
         bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
+            print "before testing values"
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            print "testing values"
             bCalledFromInstructionSheet = True
         except Exception as eError:
             pass
@@ -325,12 +327,16 @@ class Navigate:
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == sDestinationTabName:
             Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
+            print "bla bla"
             if bCalledFromInstructionSheet == True:
+                print "bla bla bla"
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
         else:
             Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
+            print "fla fla"
             if bCalledFromInstructionSheet == True:
+                print "flaw flaw"
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             return False
 
@@ -829,8 +835,10 @@ class FranchisePage:
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         if sActualTitle[0:20] ==sExpectedTitle[0:20]:
             Logger.note.info( SUMMARYPAGE_TITLE_MATCH)
+            self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error(SUMMARYPAGE_TITLE_FAILURE)
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
 class Diagnostics:
     """
