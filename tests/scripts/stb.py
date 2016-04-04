@@ -728,7 +728,7 @@ class Search:
         if (DICT_STB_TYPES == DICT_ACTUAL_TYPE):
             Logger.note.info( SINGLE_CHAR_SEARCH_RESULTS_MATCH)
         else:
-             Logger.note.error(SINGLE_CHAR_SEARCH_RESULTS_FAILURE)
+            Logger.note.error(SINGLE_CHAR_SEARCH_RESULTS_FAILURE)
             for sType in listOfTypes:
                 Logger.note.info( "%s : %s" %(sType,DICT_ACTUAL_TYPE[sType]))
 
