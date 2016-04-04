@@ -13,6 +13,15 @@ from Keywords import *
 from collections import OrderedDict
 import random
 import string
+import logging
+
+class cLogger:
+    def __init__(self,logLevel=None):
+        self.note = logging.getLogger('Stb')
+        self.note.setLevel(logLevel)
+
+
+Logger=cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
     """

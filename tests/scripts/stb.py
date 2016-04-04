@@ -18,6 +18,7 @@ import collections
 import re
 import random
 import elasticsearch
+
 from collections import OrderedDict
 
 # text constants
@@ -124,6 +125,9 @@ DICT_FRANCHISE_TITLE = {
     }
 DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
+
+
+
 class Navigate:
     """
     Functions required for performing Navigation
@@ -174,7 +178,7 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if bDiagnostics == True:
-            print "Navigated to Diagnostics screen successfully"
+            Logger.note.info( "Navigated to Diagnostics screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             print "Unable to navigate to Diagnostics screen"
