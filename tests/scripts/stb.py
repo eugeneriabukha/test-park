@@ -609,9 +609,7 @@ class Search:
             self.instruction.actualresult = self.instruction.expectedresult
             Logger.note.info( POPULAR_SEARCH_RESULTS_MATCH)
         else:
-            #raise stbt.UITestFailure
-            data= stbt.get_frame()
-            cv2.imwrite("test.png",data)
+
             self.instruction.actualresult = Constants.STATUS_FAILURE
             Logger.note.error( POPULAR_SEARCH_RESULTS_FAILURE)
 

@@ -5,7 +5,8 @@ from CustomException import CustomException
 import collections
 import os
 import re
-
+import cv2
+import stbt
 #=============================================================================#
 # File: KeywordDriver.py
 #
@@ -470,6 +471,10 @@ class Execution:
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
+            sAction=oExecutedInstruction.get_action()
+            sFileName=sAction.replace(Constants.DELIMITER_STOP,Constants.DELIMITER_UNDERSCORE)
+            oFrame= stbt.get_frame()
+            cv2.imwrite(sFileName+".png",oFrame)
             oExecutedInstruction.status = Constants.STATUS_FAILURE
             # if exit test case on error, raise appropriate exception
             if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
