@@ -67,12 +67,12 @@ class DataDriver(dict):
           fileName = arfileName[0]
           fSheetName = arfileName[1]
         else:
-            try:
-                # Raise an exception with argument
-                raise CustomException("Too Few Parameters")
-            except CustomException, arg:
-                # Catch the custom exception
-                print 'Error: ', arg.name
+            #try:
+            # Raise an exception with argument
+            raise CustomException("File do not exist. Please check the file name used <%s>" %fileName)
+            #except CustomException, arg:
+            #    # Catch the custom exception
+            #    print 'Error: ', arg.name
 
         # find the current path of the data file
         #sPath = str(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))+"/data/"
@@ -92,6 +92,7 @@ class DataDriver(dict):
 
         # Fetch the column headers for later usage
         arFieldNames = list()
+
         xlWorkbook = xlrd.open_workbook(sPath)
         xlSheet = xlWorkbook.sheet_by_name(fSheetName)
         for rowNumber in range(0, xlSheet.nrows):
