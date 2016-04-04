@@ -69,7 +69,7 @@ class DataDriver(dict):
         else:
             #try:
             # Raise an exception with argument
-            raise Exception("File do not exist. Please check the file name used <%s>" %fileName)
+            raise Exception("File do not exist. Please check the file name used <%s>" %arfileName)
             #except CustomException, arg:
             #    # Catch the custom exception
             #    print 'Error: ', arg.name
