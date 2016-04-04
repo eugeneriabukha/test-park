@@ -17,7 +17,7 @@ import logging
 import logging.handlers
 import sys
 
-class cLogger(obj):
+class cLogger(object):
     def __init__(self,logLevel=None):
         FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
