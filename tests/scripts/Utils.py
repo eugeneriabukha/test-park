@@ -17,12 +17,11 @@ import logging
 import logging.handlers
 import sys
 
-class cLogger(object):
+class cLogger:
     def __init__(self,logLevel=None):
         FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
         self.note = logging.getLogger('stb')
-        self=logging
 Logger=cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
@@ -186,9 +185,9 @@ class cUtils:
             bSuccess = False
 
         # Printing comparison results
-        print "Comparison Results:"
-        print "Expected: %s" %dictExpected.keys()
-        print "Actual: %s"  %dictActual.keys()
+        Logger.note.info( "Comparison Results:")
+        Logger.note.info( "Expected: %s" %dictExpected.keys())
+        Logger.note.info( "Actual: %s"  %dictActual.keys())
         return bSuccess
 
     def FetchTextOfRegion(self, REGION, TESSERACT = None, FirstLineOnly = None):

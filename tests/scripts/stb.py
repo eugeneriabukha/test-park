@@ -178,7 +178,7 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if bDiagnostics == True:
-            Logger.info( "Navigated to Diagnostics screen successfully")
+            Logger.note.info( "Navigated to Diagnostics screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error( "Unable to navigate to Diagnostics screen")
@@ -728,9 +728,9 @@ class Search:
         if (DICT_STB_TYPES == DICT_ACTUAL_TYPE):
             Logger.note.info( SINGLE_CHAR_SEARCH_RESULTS_MATCH)
         else:
-            print SINGLE_CHAR_SEARCH_RESULTS_FAILURE
+             Logger.note.error(SINGLE_CHAR_SEARCH_RESULTS_FAILURE)
             for sType in listOfTypes:
-                print "%s : %s" %(sType,DICT_ACTUAL_TYPE[sType])
+                Logger.note.info( "%s : %s" %(sType,DICT_ACTUAL_TYPE[sType]))
 
 class FranchisePage:
     """
@@ -815,20 +815,20 @@ class FranchisePage:
 
         # fetch expected title well in hand
         sExpectedTitle = Utils.GetSelectedTitle()
-        print "Expected Title: %s" %sExpectedTitle
+        Logger.note.info( "Expected Title: %s" %sExpectedTitle)
         try:
             dicRegion = DICT_FRANCHISE_TITLE[sPageName]
         except:
-            print "Unrecognized page name: %s" %sPageName
+            Logger.note.error( "Unrecognized page name: %s" %sPageName)
             return False
 
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
-        print "Actual Title: %s" %sActualTitle
+        Logger.note.info( "Actual Title: %s" %sActualTitle)
         if sActualTitle[0:20] ==sExpectedTitle[0:20]:
-            print SUMMARYPAGE_TITLE_MATCH
+            Logger.note.info( SUMMARYPAGE_TITLE_MATCH)
         else:
-            print SUMMARYPAGE_TITLE_FAILURE
+            Logger.note.error(SUMMARYPAGE_TITLE_FAILURE)
 
 class Diagnostics:
     """
@@ -870,7 +870,7 @@ class Diagnostics:
         """
         # fetch the text from the results region
         sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS)
-        print sFoundString # Print software version of the stb
+        Logger.note.info(sFoundString) # Print software version of the stb
         self.instruction.actualresult = self.instruction.expectedresult
 
 # Required variables from the classes on the URL
