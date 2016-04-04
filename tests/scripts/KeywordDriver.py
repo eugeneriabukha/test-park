@@ -108,7 +108,7 @@ class KeywordDriver(dict):
                 iTCCounter = iTCCounter + 1
 
             # Create an instruction object before passing
-            oInstruction = Instruction(sComments,sAction,sTestData,sOptions,sExpectedResult)
+            oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult)
             if self.has_key(sLabel):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
@@ -196,7 +196,8 @@ class Instruction:
     # Returns:
     # Usage Examples:
     #=============================================================================#
-    def __init__(self,sComments,sAction,sTestData,sOptions,sExpectedResult):
+    def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult):
+        self.label = sLabel
         self.comments = sComments
         self.action = sAction
         self.testdata = sTestData
@@ -206,6 +207,13 @@ class Instruction:
         self.actualresult = ""
         self.status = Constants.STATUS_NOT_EXECUTED
         self.execute = True
+
+    #=============================================================================#
+    # Method: get_label
+    # Description: getter for label
+    #=============================================================================#
+    def get_label(self):
+        return self.label
 
     #=============================================================================#
     # Method: get_comments
@@ -471,10 +479,10 @@ class Execution:
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
-            sAction=oExecutedInstruction.get_action()
-            sFileName=sAction.replace(Constants.DELIMITER_STOP,Constants.DELIMITER_UNDERSCORE)
-            oFrame= stbt.get_frame()
-            cv2.imwrite(sFileName+".png",oFrame)
+            sLabel = oExecutedInstruction.get_label()
+            #sFileName = sAction.replace(Constants.DELIMITER_STOP,Constants.DELIMITER_UNDERSCORE)
+            oFrame = stbt.get_frame()
+            cv2.imwrite(sLabel+".png",oFrame)
             oExecutedInstruction.status = Constants.STATUS_FAILURE
             # if exit test case on error, raise appropriate exception
             if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
