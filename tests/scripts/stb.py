@@ -178,7 +178,7 @@ class Navigate:
 
         # if the search page do not exist, then exit the test case
         if bDiagnostics == True:
-            Logger.note.warning( "Navigated to Diagnostics screen successfully")
+            Logger.note.info( "Navigated to Diagnostics screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             print "Unable to navigate to Diagnostics screen"
