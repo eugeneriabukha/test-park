@@ -17,11 +17,11 @@ import logging
 import logging.handlers
 import sys
 
-class cLogger(logging.getLoggerClass()):
+class cLogger(self):
     def __init__(self,logLevel=None):
         FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
-        self.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
-        #self.note = logging.getLogger('stb')
+        logger.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
+        self = logging.getLogger('stb')
     
 Logger=cLogger(logLevel=logging.DEBUG)
 
