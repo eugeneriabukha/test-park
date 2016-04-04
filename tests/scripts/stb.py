@@ -18,6 +18,7 @@ import collections
 import re
 import random
 import elasticsearch
+import logging
 
 from collections import OrderedDict
 

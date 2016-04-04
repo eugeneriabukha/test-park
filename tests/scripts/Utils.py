@@ -14,13 +14,14 @@ from collections import OrderedDict
 import random
 import string
 import logging
+import logging.handlers
 
 class cLogger:
     def __init__(self,logLevel=None):
-        self.note = logging.getLogger('Stb')
-        self.note.setLevel(logLevel)
-
-
+        FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
+        logging.basicConfig(level=logLevel,format=FORMAT)
+        self.logger = logging.getLogger('stb')
+    
 Logger=cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
