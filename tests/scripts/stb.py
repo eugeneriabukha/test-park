@@ -608,7 +608,8 @@ class Search:
             self.instruction.actualresult = self.instruction.expectedresult
             Logger.note.info( POPULAR_SEARCH_RESULTS_MATCH)
         else:
-            raise stbt.UITestFailure
+            #raise stbt.UITestFailure
+            print stbt.get_frame()
             self.instruction.actualresult = Constants.STATUS_FAILURE
             Logger.note.error( POPULAR_SEARCH_RESULTS_FAILURE)
 
