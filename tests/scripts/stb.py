@@ -18,7 +18,7 @@ import collections
 import re
 import random
 import elasticsearch
-
+import cv2
 
 from collections import OrderedDict
 
