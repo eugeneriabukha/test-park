@@ -647,6 +647,8 @@ class Search:
             oTestData = self.instruction.testdata_detailed
             bCalledFromInstructionSheet = True
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            # capitalize the provided input
+            sDirectInput = sDirectInput.upper()
         except Exception as eError:
             pass
 
@@ -658,8 +660,6 @@ class Search:
 
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
-        Logger.note.debug("Complete Dictionary:")
-        Logger.note.debug(listOfDictSearchResults)
 
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
@@ -669,6 +669,7 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             return
 
+        Logger.note.debug("Complete List Of Dictionary:")
         Logger.note.debug( listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
 
@@ -696,23 +697,6 @@ class Search:
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 5)
         self.instruction.actualresult = self.instruction.expectedresult
-
-    '''
-    def SelectResultMovie(self):
-        """
-        Selects one of the movie search result at random
-
-        Args:
-            Nothing
-
-        Returns:
-            Nothing
-
-        Raises:
-            Passes or fails the test based on the comparison
-        """
-        self.SelectResult(sType=TEXT_STB_MOVIE)
-    '''
 
     # def Letter(self,cLetter=None):
     #     """
