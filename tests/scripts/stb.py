@@ -398,7 +398,7 @@ class Search:
         if(bIncludeNetflix == bActualNetflixStatus):
             Logger.note.info(POSITIVE_NETFLIX)
         else:
-            Logger.note.error( NEGATIVE_NETFLIX)
+            Logger.note.info( NEGATIVE_NETFLIX)
             # performing advanced search : netflix inclusion or removal
             Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
