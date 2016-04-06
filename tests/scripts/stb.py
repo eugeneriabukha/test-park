@@ -678,7 +678,7 @@ class Search:
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
-        time.sleep(Constants.LONG_WAIT * 2)
+        time.sleep(Constants.LONG_WAIT * 5)
         self.instruction.actualresult = self.instruction.expectedresult
 
     '''
