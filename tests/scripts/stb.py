@@ -658,6 +658,9 @@ class Search:
 
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
+        Logger.note.debug("Complete Dictionary:")
+        Logger.note.debug(listOfDictSearchResults)
+
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
 
