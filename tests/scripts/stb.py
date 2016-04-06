@@ -126,9 +126,6 @@ DICT_FRANCHISE_TITLE = {
     }
 DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
-
-
-
 class Navigate:
     """
     Functions required for performing Navigation
@@ -185,7 +182,6 @@ class Navigate:
             Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
-
     def Search(self):
         """
         Navigates to search screen. Updates actual result based on presence of Search image
@@ -213,6 +209,23 @@ class Navigate:
         else:
             Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+
+    def DataDriven(self):
+        """
+        Navigates to provided screen based on the data provided as direct input
+
+        Args:
+            provide list of keystrokes comma seperated and keys should be declared as constants
+        """
+        oTestData = self.instruction.testdata_detailed
+        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+
+        # press the required key strokes for navigating to search screen
+        Utils.PressListOfKeyStrokes([sDirectInput])
+
+        # this checks if we are on the right screen, and updates actual result
+        time.sleep(Constants.LONG_WAIT)
+        self.instruction.actualresult = self.instruction.expectedresult
 
     def GroupToProgram(self):
         """
