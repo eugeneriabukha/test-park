@@ -449,7 +449,7 @@ class Execution:
             elif arOptionDetail[0] == Constants.DEPENDS_ON:
                 # fetch previous label if DependsOn=Above
                 if arOptionDetail[1] == Constants.ABOVE:
-                     Logger.note.debug("Fetching previous label")
+                    Logger.note.debug("Fetching previous label")
                     sTempLabel = self.previousLabel
                 else:
                     sTempLabel = arOptionDetail[1]
