@@ -525,8 +525,9 @@ class Search:
         # Parse the results when a search is made
         else:
             for sResult in lResults: 
-                if re.search('^[0-9O]\s', sResult) != None: 
-                    lResults.remove(sResult)
+                if re.search('^[0-9O]\s', sResult) == None: 
+                    if sResult not in DICT_STB_TYPES.keys():
+                        lResults.remove(sResult)            
             # Get the length of the Result string
             iLastCounter = len(lResults)
             iIndexCounter = 1
