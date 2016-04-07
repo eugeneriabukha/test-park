@@ -17,15 +17,14 @@ import logging
 import logging.handlers
 import logging.config
 import sys
-import os
 
 class cLogger:
     def __init__(self,logLevel=None):
         #FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         #logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
-        print os.listdir(os.curdir) 
-        logging.config.fileConfig('/var/lib/stbt/test-pack/tests/scripts/logging.conf')
-        self.note = logging.getLogger()
+        logging.config.fileConfig('/var/lib/stbt/test-pack/tests/scripts/logging.conf',disable_existing_loggers=False)
+        #logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+        self.note = logging.getLogger(__name__)
 Logger = cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
