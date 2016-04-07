@@ -321,7 +321,8 @@ class Options(dict):
         arOptions = sOptions.split(Constants.DELIMITER_SEMICOLON)
         hReturn = collections.OrderedDict()
         # analyze the provided list of options one by one
-        Logger.note.debug( 'Ananlysing list of options one by one' )
+        Logger.note.debug( 'Analysing list of options one by one' )
+        Logger.note.debug(arOptions)
         for sOption in arOptions:
             arOptionDetail = sOption.split(Constants.DELIMITER_EQUAL)
             sOrder = ""

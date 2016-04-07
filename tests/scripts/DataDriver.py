@@ -100,6 +100,8 @@ class DataDriver(dict):
         xlSheet = xlWorkbook.sheet_by_name(fSheetName)
         for rowNumber in range(0, xlSheet.nrows):
             arLabel = xlSheet.row_values(rowNumber)
+            Logger.note.debug("Printing rows")
+            Logger.note.debug(arLabel)
             arFieldNames = (arLabel)
             break
 
