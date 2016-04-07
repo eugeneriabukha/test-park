@@ -23,7 +23,7 @@ class cLogger:
         #FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         #logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
         logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
-        self.note = logging.getLogger('stb')
+        self.note = logging.getLogger(__name__)
 Logger = cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
