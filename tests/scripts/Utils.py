@@ -24,8 +24,8 @@ class cLogger:
         #FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         #logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
         print os.listdir(os.curdir) 
-        logging.config.fileConfig('/var/lib/stbt/test-pack/tests/scripts/logging.conf', defaults={'logfilename': '/var/log/mylog.log'})
-        self.note = logging.getLogger('sLogger')
+        logging.config.fileConfig('/var/lib/stbt/test-pack/tests/scripts/logging.conf')
+        self.note = logging.getLogger()
 Logger = cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
