@@ -109,9 +109,12 @@ class DataDriver(dict):
         iCounter = 1
         hReturn = dict()
         for rowNumber in range(1, xlSheet.nrows):
+
             hInside = dict()
             for sFieldName in range(0,len(arFieldNames)):
                 arLabel = xlSheet.cell(rowNumber,sFieldName).value
+                Logger.note.debug("Printing rows")
+                Logger.note.debug(arLabel)
                 hInside[arFieldNames[sFieldName]] = arLabel
             hReturn[iCounter] = hInside
             iCounter = iCounter + 1
