@@ -426,10 +426,10 @@ class Execution:
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
-        Logger.note.debug('self.instructionsDict.items()')
-        Logger.note.debug(self.instructionsDict.items())
+        #Logger.note.debug('self.instructionsDict.items()')
+        #Logger.note.debug(self.instructionsDict.items())
         Logger.note.debug("oExecutedInstruction:")
-        Logger.note.debug(oExecutedInstruction)
+        Logger.note.debug(oExecutedInstruction.PrettyPrint())
         Logger.note.debug("sInstructionName:")
         Logger.note.debug(sInstructionName)
         Logger.note.debug("arTemp")
