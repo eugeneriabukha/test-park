@@ -525,6 +525,10 @@ class Search:
         # Parse the results when a search is made
         else:
             # Get the length of the Result string
+            for sResult in lResults:
+                if re.search('^[0-9O]\s', sCurrentLine) == None:
+                    lResults.remove(sResult)
+
             iLastCounter = len(lResults)
             iIndexCounter = 1
             for iCounter in range(1, iLastCounter):
