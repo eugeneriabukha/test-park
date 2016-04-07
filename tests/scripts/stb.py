@@ -459,6 +459,8 @@ class Search:
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
         lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
+        Logger.note.debug("lResults:")
+        Logger.note.debug(lResults)
         bSucessFlag = self.ParseResults(lResults)
         return bSucessFlag
 
