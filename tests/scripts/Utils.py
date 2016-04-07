@@ -15,12 +15,14 @@ import random
 import string
 import logging
 import logging.handlers
+import logging.config
 import sys
 
 class cLogger:
     def __init__(self,logLevel=None):
-        FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
-        logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
+        #FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
+        #logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
+        logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
         self.note = logging.getLogger('stb')
 Logger = cLogger(logLevel=logging.DEBUG)
 
