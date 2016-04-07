@@ -22,8 +22,8 @@ class cLogger:
     def __init__(self,logLevel=None):
         #FORMAT = "[%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s %(message)s"
         #logging.basicConfig(level=logLevel,format=FORMAT, stream=sys.stdout)
-        logging.config.fileConfig('./logging.conf')
-        self.note = logging.getLogger(__name__)
+        logging.fileConfig(loginipath, defaults={'logfilename': '/var/log/mylog.log'})
+        self.note = logging.getLogger('sLogger')
 Logger = cLogger(logLevel=logging.DEBUG)
 
 class cUtils:
