@@ -2,7 +2,7 @@ from Constants import Constants
 from DataDriver import DataDriver
 from KeywordFactory import KeywordFactory
 from CustomException import CustomException
-from Utils import *
+from Logger import *
 import collections
 import os
 import re
