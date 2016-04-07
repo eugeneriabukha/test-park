@@ -524,6 +524,9 @@ class Search:
                     pass
         # Parse the results when a search is made
         else:
+            for sResult in lResults: 
+                if re.search('^[0-9O]\s', sResult) == None: 
+                    lResults.remove(sResult)
             # Get the length of the Result string
             iLastCounter = len(lResults)
             iIndexCounter = 1
