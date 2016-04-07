@@ -2,6 +2,7 @@ from Constants import Constants
 from DataDriver import DataDriver
 from KeywordFactory import KeywordFactory
 from CustomException import CustomException
+from Utils import *
 import collections
 import os
 import re
@@ -425,7 +426,12 @@ class Execution:
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
-
+        Logger.note.debug("sInstructionName:")
+        Logger.note.debug(sInstructionName)
+        Logger.note.debug("arTemp")
+        Logger.note.debug(arTemp)
+        Logger.note.debug("arSorted")
+        Logger.note.debug(arSorted)
         # Fetch each option and execute based on provided options for the specific keyword
         for sOptionsKey in arSorted:
             arOptionDetail = sOptionsKey.split(Constants.DELIMITER_EQUAL)
