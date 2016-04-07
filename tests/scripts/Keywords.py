@@ -1,5 +1,6 @@
 from KeywordDriver import Instruction
 from Constants import Constants
+from Logger import *
 import stbt
 import time
 import urllib2
@@ -76,7 +77,7 @@ class Service:
     def TestCaseStart(self):
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        print "Test Case: %s" %(sDirectInput)
+        Logger.note.info(' "Test Case: %s" %(sDirectInput)')
 
     #=============================================================================#
     # Method: TestCaseEnd
@@ -85,8 +86,8 @@ class Service:
     # Usage Examples: Service.TestCaseEnd
     #=============================================================================#
     def TestCaseEnd(self):
-        print "End Of TestCase"
-        print "--------------------------"
+        Logger.note.info("End Of TestCase")
+        Logger.note.info( "--------------------------" )
 
     #=============================================================================#
     # Method: SampleDummyKeyword
@@ -95,7 +96,7 @@ class Service:
     # Usage Examples: Service.SampleDummyKeyword
     #=============================================================================#
     def SampleDummyKeyword(self):
-        print "Sample Dummy Keyword"
+        Logger.note.info( "Sample Dummy Keyword" )
 
     #=============================================================================#
     # Method: FailureKeyword
@@ -104,7 +105,7 @@ class Service:
     # Usage Examples: Service.FailureKeyword
     #=============================================================================#
     def FailureKeyword(self):
-        print "FailureKeyword"
+        Logger.note.info( "FailureKeyword" )
         self.instruction.actualresult = "UnExpectedResult"
 
 #=============================================================================#
@@ -149,7 +150,7 @@ class AccessData:
         for dValue in oTestData.values():
             sUserName = dValue["UserName"]
             sPassword = dValue["Password"]
-            print "Provided data: %s | %s" %(sUserName,sPassword)
+            Logger.note.info( "Provided data: %s | %s" %(sUserName,sPassword) )
 
         # Updates success on successful launch of browser
         self.instruction.actualresult = self.instruction.expectedresult
@@ -163,7 +164,7 @@ class AccessData:
     def GoToInternet(self):
         response = urllib2.urlopen('http://www.google.com/')
         html = response.read()
-        print html
+        Logger.note.info( html )
 
 #=============================================================================#
 # End Of Class: AccessData
@@ -224,7 +225,7 @@ class Common:
                 global_wait = int(sWait)
             except ValueError:
                 global_wait = Constants.SHORT_WAIT
-                print "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT"
+                Logger.note.info( "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT" )
 
     #=============================================================================#
     # Method: PressViewTV

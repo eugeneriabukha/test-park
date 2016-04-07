@@ -67,6 +67,7 @@ class KeywordDriver(dict):
         sActualResult = ""
         sComments = ""
 
+        Logger.note.debug('Analyzing the data to create an instruction object')
         # Analyze the data to create an instruction object
         for sDDKey, oDDValue in oDataDriver.iteritems():
             for oInstructionName, oInstructionValue in oDDValue.iteritems():
@@ -95,6 +96,7 @@ class KeywordDriver(dict):
                 elif(oInstructionName == Constants.COMMENTS):
                     sComments = oInstructionValue
                 else:
+                    Logger.note.info('"Unrecognized column name in Instruction Sheet <%s>" % (oInstructionName)')
                     sTemp = "Unrecognized column name in Instruction Sheet <%s>" % (oInstructionName)
                     raise Exception(sTemp)
 
@@ -148,6 +150,7 @@ class KeywordDriver(dict):
 
         # raise an exception if number of start do not have its end
         if iCountTCStart != iCountTCEnd:
+            Logger.note.info('Every test case start do NOT have an end or vice versa. Kindly check instructions sheet')
             raise Exception("Every test case start do NOT have an end or vice versa. Kindly check instructions sheet")
 
         return True
@@ -161,7 +164,7 @@ class KeywordDriver(dict):
         dTemp = self
         # Print each instruction added to keyword driver
         for oInstructionRow in sorted(dTemp.values()):
-             print oInstructionRow.PrettyPrint()
+             Logger.note.info( oInstructionRow.PrettyPrint() )
 
     #=============================================================================#
     # Method: Execute()
@@ -184,7 +187,7 @@ class InstructionList(dict):
     #=============================================================================#
     def add(self,sInstructionName, oInstruction):
       if isinstance(oInstruction,Instruction):
-          self[sInstructionName] = oInstruction
+            self[sInstructionName] = oInstruction
 
 #=============================================================================#
 # Class: Instruction
@@ -318,6 +321,7 @@ class Options(dict):
         arOptions = sOptions.split(Constants.DELIMITER_SEMICOLON)
         hReturn = collections.OrderedDict()
         # analyze the provided list of options one by one
+        Logger.note.debug( 'Ananlysing list of options one by one' )
         for sOption in arOptions:
             arOptionDetail = sOption.split(Constants.DELIMITER_EQUAL)
             sOrder = ""
@@ -330,6 +334,7 @@ class Options(dict):
             else:
                 # raise exception for Unrecognized options
                 sTemp = "Every option used should be defined. Please register the following option <%s>" % (sTempOption)
+                Logger.note.info('"Every option used should be defined. Please register the following option <%s>" % (sTempOption)')
                 raise Exception(sTemp)
 
             hReturn[str(sOption)]=(sOrder)
@@ -405,6 +410,7 @@ class Execution:
         self.previousLabel = sPrevInstructionName
 
         # pre-dependency before running an instruction
+        Logger.note.debug("Evaluting pre Dependency")
         self.EvaluatePreDependency(oExecutedInstruction)
 
         # instantiate a specific instruction and perform the execution
@@ -426,16 +432,12 @@ class Execution:
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
-        #Logger.note.debug('self.instructionsDict.items()')
-        #Logger.note.debug(self.instructionsDict.items())
+
         Logger.note.debug("oExecutedInstruction:")
         Logger.note.debug(oExecutedInstruction.PrettyPrint())
         Logger.note.debug("sInstructionName:")
         Logger.note.debug(sInstructionName)
-        Logger.note.debug("arTemp")
-        Logger.note.debug(arTemp)
-        Logger.note.debug("arSorted")
-        Logger.note.debug(arSorted)
+
         # Fetch each option and execute based on provided options for the specific keyword
         for sOptionsKey in arSorted:
             arOptionDetail = sOptionsKey.split(Constants.DELIMITER_EQUAL)
@@ -447,6 +449,7 @@ class Execution:
             elif arOptionDetail[0] == Constants.DEPENDS_ON:
                 # fetch previous label if DependsOn=Above
                 if arOptionDetail[1] == Constants.ABOVE:
+                     Logger.note.debug("Fetching previous label")
                     sTempLabel = self.previousLabel
                 else:
                     sTempLabel = arOptionDetail[1]
@@ -461,11 +464,15 @@ class Execution:
                 # execute the current only if the dependent keyword was a success
                 if sDependencyStatus != Constants.STATUS_SUCCESS:
                     sTemp = "Dependency Failure : Dependent step failed for Instruction <"+ (sInstructionName)+">"
-                    raise Exception(sTemp)
                     oExecutedInstruction.execute = False
+                    raise Exception(sTemp)
+
+
             # directly pass the input for option: DirectInput
             elif arOptionDetail[0] == Constants.DIRECT_INPUT:
                 hTemp = { Constants.DIRECT_INPUT : oExecutedInstruction.testdata }
+                Logger.note.debug("Direct Input:")
+                Logger.note.debug(hTemp)
                 oExecutedInstruction.set_testdata_detailed(hTemp)
 
             # break if execution flag is false
@@ -486,9 +493,12 @@ class Execution:
     #=============================================================================#
     def EvaluatePostDependency(self,oExecutedInstruction):
         # if expected result matches actual result, then change status to success
+        Logger.note.debug("Evaluting Post Dependency")
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
+            Logger.note.debug("Sucess: Updated Status")
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
+            Logger.note.debug("Failure: See Screenshot")
             sLabel = oExecutedInstruction.get_label()
             #sFileName = sAction.replace(Constants.DELIMITER_STOP,Constants.DELIMITER_UNDERSCORE)
             oFrame = stbt.get_frame()

@@ -1,5 +1,6 @@
 from Constants import Constants
 from CustomException import CustomException
+from Logger import *
 import os
 import xlrd
 #=============================================================================#
@@ -81,6 +82,7 @@ class DataDriver(dict):
         sPath = sPath.replace("scripts","data/")
         #sPath = sPath + "/data/"
         sPath = sPath + str(fileName)
+
         if not (os.path.exists(sPath)):
             try:
                 # Raise an exception with argument
@@ -93,6 +95,7 @@ class DataDriver(dict):
         # Fetch the column headers for later usage
         arFieldNames = list()
 
+        Logger.note.debug('Reading the Instruction excel Sheet')
         xlWorkbook = xlrd.open_workbook(sPath)
         xlSheet = xlWorkbook.sheet_by_name(fSheetName)
         for rowNumber in range(0, xlSheet.nrows):
@@ -156,6 +159,7 @@ class DataDriver(dict):
                     arRow.append(iCounter)
             elif len(arRowSplit) == 1:
                 arRow.append(arRowSplit[0])
+        Logger.note.debug('Rows in the excel Sheet are Analyzed and returned')
         return arRow
 
     #=============================================================================#
