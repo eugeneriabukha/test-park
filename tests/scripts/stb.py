@@ -201,9 +201,13 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
-        oSearchLogo = stbt.match(IMAGE_SEARCH)
+        self.MatchSearchLogo()
 
+    def MatchSearchLogo(self):
+        """ Updates actual result based on presence of Search image
+        """
         # if the search page do not exist, then exit the test case
+        oSearchLogo = stbt.match(IMAGE_SEARCH)
         if oSearchLogo.match == True:
             Logger.note.info( "Navigated to Search screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
@@ -226,7 +230,7 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
-        self.instruction.actualresult = self.instruction.expectedresult
+
 
     def GroupToProgram(self):
         """
