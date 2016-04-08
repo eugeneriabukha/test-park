@@ -206,6 +206,9 @@ class cUtils:
         # trim the text captured before returning
         sTextFound = sTextFound.strip()
         # fetch the first line only when asked for
+        if len(sTextFound)==0:
+            Logger.note.error( "No text displayed on the screen.")
+            return sTextFound
         if FirstLineOnly == True:
             sTextFound = sTextFound.splitlines()[0]
         return sTextFound
