@@ -373,7 +373,7 @@ class Execution:
         Logger.note.debug(self.instructionsDict.items())
         Logger.note.debug("Sorted Values in  Instruction Dict")
         Logger.note.debug(self.instructionsDict.keys())
-        a=self.instructionsDict.keys().sort(key=natural_keys))
+        a=self.instructionsDict.keys().sort(key=natural_keys)
         for instruction in (a):
             Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
 
