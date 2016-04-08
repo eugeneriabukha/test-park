@@ -8,6 +8,7 @@ import os
 import re
 import cv2
 import stbt
+import re
 #=============================================================================#
 # File: KeywordDriver.py
 #
@@ -43,6 +44,12 @@ import stbt
 #    KeywordFactory
 #=============================================================================#
 
+def atoi(text):
+    return int(text) if text.isdigit() else text
+
+def natural_keys(text):
+
+    return [ atoi(c) for c in re.split('(\d+)', text) ]
 #=============================================================================#
 # Class: KeywordDriver
 #=============================================================================#
@@ -74,9 +81,9 @@ class KeywordDriver(dict):
                 # Create a label if the provided label is empty
                 if(oInstructionName == Constants.LABEL):
                     sLabel = oInstructionValue
-                    sInstructionName = Constants.INSTRUCTION + Constants.DELIMITER_UNDERSCORE + str(iCounter)
+                    sInstructionName = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
                     if sLabel=="":
-                        sLabel=sInstructionName
+                        sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION + + Constants.DELIMITER_HIFEN + sInstructionName
                 # segregate action of the provided instruction
                 elif(oInstructionName == Constants.ACTION):
                     sAction = oInstructionValue
@@ -365,7 +372,7 @@ class Execution:
         Logger.note.debug('Instruction Dict')
         Logger.note.debug(self.instructionsDict.items())
         Logger.note.debug("Sorted Values in  Instruction Dict")
-        for instruction in sorted(self.instructionsDict.keys()):
+        for instruction in (self.instructionsDict.values().sort(key=natural_keys)):
             Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
 
         for oInstruction in sorted(self.instructionsDict.values()):
