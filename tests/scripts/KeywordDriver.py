@@ -73,7 +73,7 @@ class KeywordDriver(dict):
         sExpectedResult = ""
         sActualResult = ""
         sComments = ""
-
+        dirLables={}
         Logger.note.debug('Analyzing the data to create an instruction object')
         # Analyze the data to create an instruction object
         for sDDKey, oDDValue in oDataDriver.iteritems():
@@ -84,6 +84,7 @@ class KeywordDriver(dict):
                     sInstructionName = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
                     if oInstructionValue=="":
                         sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
+                    dirLables[sLabel] = 1
                 # segregate action of the provided instruction
                 elif(oInstructionName == Constants.ACTION):
                     sAction = oInstructionValue
@@ -119,7 +120,7 @@ class KeywordDriver(dict):
 
             # Create an instruction object before passing
             oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult)
-            if self.has_key(sLabel):
+            if dirLables.has_key(sLabel):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
 
