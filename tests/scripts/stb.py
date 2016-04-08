@@ -531,7 +531,10 @@ class Search:
             for sResult in lResults: 
                 if re.search('^[0-9O]\s', sResult) == None: 
                     if sResult not in DICT_STB_TYPES.keys():
-                        lResults.remove(sResult)            
+                        lResults.remove(sResult)     
+                if "OQVOU" in sResult:
+                    lResults.remove(sResult)   
+
             # Get the length of the Result string
             iLastCounter = len(lResults)
             iIndexCounter = 1
@@ -560,10 +563,7 @@ class Search:
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
-            for Dict in ListofDict:
-                print Dict
-                if "OQVOU" in Dict['Title']:
-                    del ListofDict[Dict]
+            del ListofDict[-1]
 
         Logger.note.debug( "Complete List:")
         Logger.note.debug( ListofDict )
