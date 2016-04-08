@@ -127,6 +127,8 @@ DICT_FRANCHISE_TITLE = {
     }
 DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
+JUNKLIST = ["OQVOU"]
+
 class Navigate:
     """
     Functions required for performing Navigation
@@ -507,12 +509,11 @@ class Search:
 
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
-                print sCurrentLine
-                print "OQVOU" in sCurrentLine
-                if "OQVOU" in sCurrentLine:
-                    lResults.remove(sCurrentLine)   
-                    continue
-                    
+                for junk in JUNKLIST:
+                    if junk in sCurrentLine:
+                        lResults.remove(sCurrentLine)
+                        break
+
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
                 if re.search('^[0-9O]\s', sCurrentLine) != None:
@@ -540,9 +541,13 @@ class Search:
             for sResult in lResults: 
                 if re.search('^[0-9O]\s', sResult) == None: 
                     if sResult not in DICT_STB_TYPES.keys():
-                        lResults.remove(sResult)     
-                if "OQVOU" in sResult:
-                    lResults.remove(sResult)   
+                        lResults.remove(sResult)    
+                        
+            for sResult in lResults:
+                for junk in JUNKLIST:
+                    if junk in sResult:
+                        lResults.remove(sResult)
+                        break
 
             # Get the length of the Result string
             iLastCounter = len(lResults)
