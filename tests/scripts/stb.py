@@ -504,6 +504,7 @@ class Search:
             sTempType = Constants.EMPTY
             # Keeps the counter for the ID in the search results
             iIndexCounter = 0
+
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
                 print sCurrentLine
@@ -512,6 +513,8 @@ class Search:
                     lResults.remove(sCurrentLine)   
                     continue
                     
+            for sCurrentLine in lResults:
+                # Searches for the pattern match of any string that starts with number and followed by space
                 if re.search('^[0-9O]\s', sCurrentLine) != None:
                     #Gets the index and title by spliting the Current line
                     sIndex = sCurrentLine.split(' ',1)[0]
