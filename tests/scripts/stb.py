@@ -695,13 +695,12 @@ class Search:
             iRandomID = iRandID
             Logger.note.info( "User Selected the %s from the list" %iRandomID)
 
-
+        iRandomID=2
         dictSearchItem = listOfDictSearchResults[iRandomID]
         Logger.note.debug(dictSearchItem)
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
-        sID=2
         Utils.SetSelectedTitle(sTitle)
         Logger.note.info( "The Selected Title is %s" %sTitle)
         # generate the key for the specified program and select the program
