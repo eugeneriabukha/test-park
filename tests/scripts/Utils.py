@@ -148,7 +148,7 @@ class cUtils:
             dicExpectedSearchResults (dictionary):  ordered dictionary with expected search results
             lActualSearchResults(list): list of dictionary with actual search results
         Returns:
-            (list):  list of dictionary with search results
+            (boolean): based on comparison
 
         Raises:
             (boolean): based on comparison
@@ -167,8 +167,8 @@ class cUtils:
             iCounter = iCounter + 1
 
         bSuccess = True
-        dictExpected = {}
-        dictActual = {}
+        dictExpected = OrderedDict({})
+        dictActual = OrderedDict({})
         for iCounter in range(0,10):
             dictExpected[lExpectedResultTitles[iCounter]] = ""
             dictActual[lActualResultTitles[iCounter]] = ""
