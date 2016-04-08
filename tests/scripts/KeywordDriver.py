@@ -362,6 +362,10 @@ class Execution:
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
 
         # run each instruction one by one
+        Logger.note.debug('Instruction Dict')
+        Logger.note.debug(self.instructionsDict)
+        Logger.note.debug("Sorted Values in  Instruction Dict")
+        Logger.note.debug(self.instructionsDict.values())
         for oInstruction in sorted(self.instructionsDict.values()):
             sPrevInstructionName = sInstructionName
             # fetch the instruction name for the provided item
