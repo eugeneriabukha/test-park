@@ -82,7 +82,7 @@ class KeywordDriver(dict):
                 if(oInstructionName == Constants.LABEL):
                     sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION + Constants.DELIMITER_HIFEN + oInstructionValue
                     sInstructionName = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
-                    if sLabel=="":
+                    if oInstructionValue=="":
                         sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
                 # segregate action of the provided instruction
                 elif(oInstructionName == Constants.ACTION):
