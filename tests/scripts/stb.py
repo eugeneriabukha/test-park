@@ -510,7 +510,8 @@ class Search:
                 print "OQVOU" in sCurrentLine
                 if "OQVOU" in sCurrentLine:
                     lResults.remove(sCurrentLine)   
-
+                    continue
+                    
                 if re.search('^[0-9O]\s', sCurrentLine) != None:
                     #Gets the index and title by spliting the Current line
                     sIndex = sCurrentLine.split(' ',1)[0]
