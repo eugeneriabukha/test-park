@@ -214,7 +214,7 @@ class Navigate:
             Logger.note.info( "Navigated to Search screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
-            Logger.note.error( "Unable to navigate to Diagnostics screen")
+            Logger.note.error( "Unable to navigate to search screen")
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     def DataDriven(self):
@@ -542,7 +542,7 @@ class Search:
                 if re.search('^[0-9O]\s', sResult) == None: 
                     if sResult not in DICT_STB_TYPES.keys():
                         lResults.remove(sResult)    
-                        
+
             for sResult in lResults:
                 for junk in JUNKLIST:
                     if junk in sResult:
