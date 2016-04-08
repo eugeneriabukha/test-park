@@ -378,8 +378,9 @@ class Execution:
         for instruction in (aList):
             Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
 
-        for oInstruction in (aList):
-            sPrevInstructionName = self.instructionsDict[oInstruction]
+        for sPresentInstructionName in (aList):
+            sPrevInstructionName = sInstructionName
+            oInstruction = self.instructionsDict[sPresentInstructionName]
             # fetch the instruction name for the provided item
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             try:
