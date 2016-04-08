@@ -695,7 +695,6 @@ class Search:
             iRandomID = iRandID
             Logger.note.info( "User Selected the %s from the list" %iRandomID)
 
-        iRandomID=2
         dictSearchItem = listOfDictSearchResults[iRandomID]
         Logger.note.debug(dictSearchItem)
         # fetch the title and save it for future
