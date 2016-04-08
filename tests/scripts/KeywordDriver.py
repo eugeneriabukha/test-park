@@ -80,10 +80,10 @@ class KeywordDriver(dict):
             for oInstructionName, oInstructionValue in oDDValue.iteritems():
                 # Create a label if the provided label is empty
                 if(oInstructionName == Constants.LABEL):
-                    sLabel = oInstructionValue
+                    sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION + Constants.DELIMITER_HIFEN + oInstructionValue
                     sInstructionName = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
                     if sLabel=="":
-                        sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION + Constants.DELIMITER_HIFEN + sInstructionName
+                        sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
                 # segregate action of the provided instruction
                 elif(oInstructionName == Constants.ACTION):
                     sAction = oInstructionValue
