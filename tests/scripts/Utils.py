@@ -264,8 +264,8 @@ class cUtils:
             returns a upper case letter.
 
         """
-        
-        return random.choice(string.letters).upper()
+        return 'Q'
+        #return random.choice(string.letters).upper()
 
 
 # public instantition of the cUtils class to be used by other Classes

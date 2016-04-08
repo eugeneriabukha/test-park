@@ -114,7 +114,7 @@ REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
 REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
-REGION_SPORTS_GROUP_TITLE = {'x':279,'y': 116, 'width':705, 'height':157}
+REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 116, 'width':719, 'height':157}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 
