@@ -560,7 +560,9 @@ class Search:
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
-            del ListofDict[-1]
+            for Dict in ListofDict:
+                if Dict['Title']=="OQVOU'IbQ":
+                    del ListofDict[Dict]
 
         Logger.note.debug( "Complete List:")
         Logger.note.debug( ListofDict )
