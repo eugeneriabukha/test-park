@@ -366,7 +366,7 @@ class Execution:
         Logger.note.debug(self.instructionsDict.items())
         Logger.note.debug("Sorted Values in  Instruction Dict")
         for instruction in sorted(self.instructionsDict.keys()):
-            Logger.note.debug(instruction.PrettyPrint())
+            Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
 
         for oInstruction in sorted(self.instructionsDict.values()):
             sPrevInstructionName = sInstructionName
