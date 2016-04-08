@@ -300,8 +300,8 @@ class Instruction:
     # Description: pretty prints the list of available variables
     #=============================================================================#
     def PrettyPrint(self):
-        return "Action: %s | TestData: %s | TestData_Detailed: %s | Options: %s | ExpectedResult: %s | ActualResult: %s  | Status: %s | Comments: %s" \
-        %(self.action, self.testdata, self.testdata_detailed, self.options_detailed, self.expectedresult, self.actualresult, self.status, self.comments)
+        return "Label: %s| Action: %s | TestData: %s | TestData_Detailed: %s | Options: %s | ExpectedResult: %s | ActualResult: %s  | Status: %s | Comments: %s" \
+        %(self.label, self.action, self.testdata, self.testdata_detailed, self.options_detailed, self.expectedresult, self.actualresult, self.status, self.comments)
 
 #=============================================================================#
 # Class: Options
