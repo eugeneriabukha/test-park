@@ -469,7 +469,7 @@ class Execution:
                     Logger.note.debug("Fetching previous label")
                     sTempLabel = self.previousLabel
                 else:
-                    sTempLabel = [sKey for sKey, sValue in self.instructionsDict.iteritems() if aOptionDetail[1] in sKey][0]
+                    sTempLabel = [sKey for sKey, sValue in self.instructionsDict.iteritems() if arOptionDetail[1] in sKey][0]
 
                 # fetch status of dependent keyword
                 try:
