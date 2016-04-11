@@ -45,8 +45,10 @@ SINGLE_CHAR_SEARCH_RESULTS_FAILURE = "Autosuggest with single char search has in
 SEARCH_CHAR_UPPER_LIMIT = 30
 
 # list constants
-DIAGNOSTICS_KEYSTROKES=[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,
+DIAGNOSTICS_KEYSTROKES =[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,
     Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_SELECT]
+HBO_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_3, Constants.KEY_0, Constants.KEY_0]
+GUIDE_NO_DAYS = 7
 #SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_SELECT]
 SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_SEARCH]
 SEARCH_KEYSTROKES_ADVANCED = [Constants.KEY_RED,Constants.KEY_SELECT]
@@ -117,6 +119,7 @@ REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
 REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
+REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -184,6 +187,37 @@ class Navigate:
         else:
             Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_FAILURE
+
+    def HBO(self):
+        """
+        Navigates to HBO screen and takes you to the last movie.
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # press the required key strokes for navigating to diagnostics screen
+        Utils.PressListOfKeyStrokes(HBO_KEYSTROKES)
+
+        '''for iCounter in range(0,GUIDE_NO_DAYS):
+            Utils.PressListOfKeyStrokes([Constants.KEY_FWD])'''
+
+        for iCounter in range(0,10):
+            Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD])
+
+        for iCounter in range(0,4):
+            Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT])
+
+        oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
+            width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
+        textOnScreen = stbt.ocr(region = oShowTitle)
+        Utils.SetHBOTitle(textOnScreen)
+
 
     def Search(self):
         """
@@ -400,6 +434,9 @@ class Search:
 
         if sTitle == Constants.RANDOM_LETTER:
             sTitle = Utils.GetRandomLetter()
+
+        if sTitle == Constants.SEARCH_MOVIE_HBO:
+            sTitle = Utils.GetHBOTitle()
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)

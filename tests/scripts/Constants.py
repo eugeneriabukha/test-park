@@ -96,6 +96,7 @@ class Constants(object):
     KEY_EPG = "KEY_EPG"
     KEY_FRAMEBACK = "KEY_FRAMEBACK"
     KEY_FRAMEFORWARD = "KEY_FRAMEFORWARD"
+    KEY_FWD = "KEY_FWD"
     KEY_INFO = "KEY_INFO"
     KEY_LAST = "KEY_LAST"
     KEY_LEFT = "KEY_LEFT"

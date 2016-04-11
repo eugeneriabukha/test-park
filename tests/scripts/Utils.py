@@ -39,6 +39,24 @@ class cUtils:
             time.sleep(global_wait)
         time.sleep(Constants.LONG_WAIT)
 
+    def SetHBOTitle(self,sHBOTitle):
+        """
+        This function saves the search HBO Title to be searched
+
+        Args:
+            sHBOTitle (string):  string containing the HBO search Title on screen
+        """
+        self.HBO_title = sHBOTitle
+
+    def GetHBOTitle(self):
+        """
+        This function fetches the string saved as HBO searched Title
+
+        Returns:
+            (string):  string containing the HBO search Title
+        """
+        return self.HBO_title
+
     def SetSearchResults(self,oSearchResults):
         """
         This function saves the search results
