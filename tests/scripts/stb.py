@@ -458,12 +458,15 @@ class Search:
         if sTitle == Constants.SEARCH_MOVIE_HBO:
             sTitleGuide = Utils.GetHBOTitle()
             # fetch the 0th result region
-            oResultsRegion = stbt.Region(x = REGION_RESULT['x'], y = REGION_RESULT['y'], 
-                width = REGION_RESULT['width'], height = REGION_RESULT['height'])
+            oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
+                width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
             sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
             sGivenString = sGivenString.strip()
             sTitleSearch = sGivenString.splitlines()[0]
-
+            Logger.note.log("sTitleGuide")
+            Logger.note.log(sTitleGuide)
+            Logger.note.log("sTitleSearch")
+            Logger.note.log(sTitleSearch)
             if sTitleGuide in sTitleSearch:
                 sTitle = sTitleSearch
             else:
