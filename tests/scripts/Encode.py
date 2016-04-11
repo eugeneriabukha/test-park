@@ -35,7 +35,7 @@ class EncodeWord(list):
     #=============================================================================#
     def __init__(self, sWord, sInitialCharacter):
         self.charmap = C.CHARACTER_MAP
-        self.word = re.sub('[^A-Za-z0-9\s]+', '', sWord)
+        self.word = sWord
         self.ListofTuples = []
         self.DiffTuple = []
         self.ListofInst = []
@@ -120,7 +120,7 @@ class EncodeTitle(list):
     def __init__(self, sProgramName, sInitialCharacter):
         sProgramName = str(sProgramName)
         sProgramName = sProgramName.upper()
-        self.ProgramName = sProgramName
+        self.ProgramName = re.sub('[^A-Za-z0-9\s]+', '', sProgramName)
         self.InitialCharacter = sInitialCharacter
         self.ListofWord = self.ProgramName.split()
         self.InitialCharacter = sInitialCharacter
