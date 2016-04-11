@@ -213,10 +213,21 @@ class Navigate:
         for iCounter in range(0,4):
             Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT])
 
+        self.SetHBOMovieTitle(textOnScreen)
+
+
+    def SetHBOMovieTitle(self,textOnScreen):
+
         oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
             width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
-        textOnScreen = stbt.ocr(region = oShowTitle)
-        Utils.SetHBOTitle(textOnScreen.splitlines()[0][:10])
+
+        while (1):
+            textOnScreen = stbt.ocr(region = oShowTitle)
+            if 'Movie' in textOnScreen:
+                Utils.SetHBOTitle(textOnScreen.splitlines()[0][:12])
+                break
+            else:
+                Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
 
 
     def Search(self):
