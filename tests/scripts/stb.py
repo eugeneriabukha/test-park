@@ -130,7 +130,7 @@ DICT_FRANCHISE_TITLE = {
     }
 DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
-JUNKLIST = ["OQVOU"]
+JUNKLIST = ["OQVOU","omfla"]
 
 class Navigate:
     """
