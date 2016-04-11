@@ -456,7 +456,19 @@ class Search:
             sTitle = Utils.GetRandomLetter()
 
         if sTitle == Constants.SEARCH_MOVIE_HBO:
-            sTitle = Utils.GetHBOTitle()
+            sTitleGuide = Utils.GetHBOTitle()
+            # fetch the 0th result region
+            oResultsRegion = stbt.Region(x = REGION_RESULT['x'], y = REGION_RESULT['y'], 
+                width = REGION_RESULT['width'], height = REGION_RESULT['height'])
+            sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
+            sGivenString = sGivenString.strip()
+            sTitleSearch = sGivenString.splitlines()[0]
+
+            if sTitleGuide in sTitleSearch:
+                sTitle = sTitleSearch
+            else:
+                Logger.note.log('Title on the Guide does not match with Title on Search Results Screen')
+                return
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
