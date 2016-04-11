@@ -119,13 +119,12 @@ class KeywordDriver(dict):
 
             # Create an instruction object before passing
             oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult)
-            if dirLables.has_key(oInstructionValue):
-                print oInstructionValue
+            if dirLables.has_key(''.join(sLabel.split(Constants.DELIMITER_HIFEN)[1:])):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
             else:
-                if oInstructionValue != '':
-                    dirLables[oInstructionValue] = 1
+                if ''.join(sLabel.split(Constants.DELIMITER_HIFEN)[1:]) != Constants.INSTRUCTION:
+                    dirLables[''.join(sLabel.split(Constants.DELIMITER_HIFEN)[1:])] = 1
             # add the created instruction in keyword driver
             self[sLabel] = oInstruction
             iCounter = iCounter + 1
