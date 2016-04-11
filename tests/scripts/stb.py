@@ -467,9 +467,9 @@ class Search:
             print sTitleGuide
 
             print sTitleSearch
-            
+
             if sTitleGuide in sTitleSearch:
-                sTitle = sTitleSearch
+                sTitle = sTitleSearch.split(' ', 1)[1]
             else:
                 Logger.note.log('Title on the Guide does not match with Title on Search Results Screen')
                 return
