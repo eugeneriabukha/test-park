@@ -20,6 +20,7 @@
 # Entries for additional files or methods needed by these methods
 #=============================================================================#
 from Constants import Constants as C
+import re
 
 #=============================================================================#
 # Class: EncodeWord
@@ -34,7 +35,7 @@ class EncodeWord(list):
     #=============================================================================#
     def __init__(self, sWord, sInitialCharacter):
         self.charmap = C.CHARACTER_MAP
-        self.word = sWord
+        self.word = re.sub('[^A-Za-z0-9\s]+', '', sWord)
         self.ListofTuples = []
         self.DiffTuple = []
         self.ListofInst = []
