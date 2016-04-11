@@ -233,8 +233,9 @@ class Navigate:
             Nothing
         """
         oTestData = self.instruction.testdata_detailed
+        print oTestData
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        
+
         # press the required key strokes for navigating to search screen
         if sDirectInput=='CurrentPage-HBO':
             Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
