@@ -233,8 +233,10 @@ class Navigate:
             Nothing
         """
         oTestData = self.instruction.testdata_detailed
+        sDirectInput = ""
         print oTestData
-        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        if oTestData.has_key(Constants.DIRECT_INPUT):
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
 
         # press the required key strokes for navigating to search screen
         if sDirectInput=='CurrentPage-HBO':
