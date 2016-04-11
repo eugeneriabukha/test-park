@@ -204,8 +204,8 @@ class Navigate:
         # press the required key strokes for navigating to diagnostics screen
         Utils.PressListOfKeyStrokes(HBO_KEYSTROKES)
 
-        '''for iCounter in range(0,GUIDE_NO_DAYS):
-            Utils.PressListOfKeyStrokes([Constants.KEY_FWD])'''
+        for iCounter in range(0,GUIDE_NO_DAYS):
+            Utils.PressListOfKeyStrokes([Constants.KEY_FWD])
 
         for iCounter in range(0,10):
             Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD])
