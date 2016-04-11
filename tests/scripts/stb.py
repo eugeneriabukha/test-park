@@ -245,7 +245,7 @@ class Navigate:
         """
         oTestData = self.instruction.testdata_detailed
         sDirectInput = ""
-        print oTestData
+
         if oTestData.has_key(Constants.DIRECT_INPUT):
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
 
@@ -463,10 +463,6 @@ class Search:
             sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
             sGivenString = sGivenString.strip()
             sTitleSearch = sGivenString.splitlines()[0]
-
-            print sTitleGuide
-
-            print sTitleSearch
 
             if sTitleGuide in sTitleSearch:
                 sTitle = sTitleSearch.split(' ', 1)[1]
