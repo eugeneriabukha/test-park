@@ -82,7 +82,6 @@ class KeywordDriver(dict):
                 if(oInstructionName == Constants.LABEL):
                     sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION + Constants.DELIMITER_HIFEN + oInstructionValue
                     sInstructionName = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION
-                    dirLables[oInstructionValue] = 1
                     if oInstructionValue=="":
                         sLabel = str(iCounter) + Constants.DELIMITER_HIFEN + Constants.INSTRUCTION            
                 # segregate action of the provided instruction
@@ -123,7 +122,9 @@ class KeywordDriver(dict):
             if dirLables.has_key(oInstructionValue):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
-
+            else:
+                if oInstructionValue != '':
+                    dirLables[oInstructionValue] = 1
             # add the created instruction in keyword driver
             self[sLabel] = oInstruction
             iCounter = iCounter + 1
