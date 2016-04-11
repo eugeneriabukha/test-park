@@ -250,7 +250,7 @@ class Navigate:
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
 
         # press the required key strokes for navigating to search screen
-        if sDirectInput=='CurrentPage-HBO':
+        if sDirectInput=='HBO':
             Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
         else:
             Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
@@ -470,6 +470,7 @@ class Search:
 
             if sTitleGuide in sTitleSearch:
                 sTitle = sTitleSearch.split(' ', 1)[1]
+                Utils.SetHBOTitle(sTitle)
             else:
                 Logger.note.log('Title on the Guide does not match with Title on Search Results Screen')
                 return
@@ -764,6 +765,9 @@ class Search:
 
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
+
+        elif sType == 'HBO':
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,Utils.GetHBOTitle())
 
         if len(listOfDictSearchResults) == 0:
             Logger.note.error("The dictionary is empty and cannot be searched")

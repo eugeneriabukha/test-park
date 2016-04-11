@@ -143,6 +143,21 @@ class cUtils:
         """
         return [title for title in oSearchResults if title["Type"] == sInputType]
 
+    def GetTitleByTitle(self,oSearchResults,sInputTitle):
+        """
+        This function fetches the response title for the provided input type
+
+        Args:
+            oSearchResults (list):  list of dictionary with search results
+            sInputType: Title to search for
+        Returns:
+            (list):  list of title(s) which matches provided type
+
+        Raises:
+            Nothing
+        """
+        return [title for title in oSearchResults if title["Title"] == sInputTitle]
+
     def GetTitleByID(self,oSearchResults,sInputID):
         """
         This function fetches the response title for the provided input type
