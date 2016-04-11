@@ -213,10 +213,10 @@ class Navigate:
         for iCounter in range(0,4):
             Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT])
 
-        self.SetHBOMovieTitle(textOnScreen)
+        self.SetHBOMovieTitle()
 
 
-    def SetHBOMovieTitle(self,textOnScreen):
+    def SetHBOMovieTitle(self):
 
         oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
             width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
