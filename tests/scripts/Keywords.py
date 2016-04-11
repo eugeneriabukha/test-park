@@ -77,7 +77,7 @@ class Service:
     def TestCaseStart(self):
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        Logger.note.info(' "Test Case: %s" %(sDirectInput)')
+        Logger.note.info("Test Case: %s" %(sDirectInput))
 
     #=============================================================================#
     # Method: TestCaseEnd
