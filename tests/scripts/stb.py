@@ -232,8 +232,14 @@ class Navigate:
         Raises:
             Nothing
         """
+        oTestData = self.instruction.testdata_detailed
+        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        
         # press the required key strokes for navigating to search screen
-        Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+        if sDirectInput=='CurrentPage-HBO':
+            Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
+        else:
+            Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
