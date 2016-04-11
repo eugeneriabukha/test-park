@@ -216,7 +216,7 @@ class Navigate:
         oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
             width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
         textOnScreen = stbt.ocr(region = oShowTitle)
-        Utils.SetHBOTitle(textOnScreen)
+        Utils.SetHBOTitle(textOnScreen.splitlines()[0][:10])
 
 
     def Search(self):
