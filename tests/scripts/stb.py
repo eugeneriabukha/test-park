@@ -463,10 +463,11 @@ class Search:
             sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
             sGivenString = sGivenString.strip()
             sTitleSearch = sGivenString.splitlines()[0]
-            Logger.note.log("sTitleGuide")
-            Logger.note.log(sTitleGuide)
-            Logger.note.log("sTitleSearch")
-            Logger.note.log(sTitleSearch)
+
+            print sTitleGuide
+
+            print sTitleSearch
+            
             if sTitleGuide in sTitleSearch:
                 sTitle = sTitleSearch
             else:
