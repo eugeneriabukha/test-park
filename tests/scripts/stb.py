@@ -128,6 +128,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
+
 DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
 
 JUNKLIST = ["OQVOU","omfla"]
@@ -188,6 +189,8 @@ class Navigate:
             Logger.note.error( "Unable to navigate to Diagnostics screen")
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
+    '''
+
     def HBO(self):
         """
         Navigates to HBO screen and takes you to the last movie.
@@ -228,7 +231,7 @@ class Navigate:
                 break
             else:
                 Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
-
+    '''
 
     def Search(self):
         """
@@ -260,12 +263,13 @@ class Navigate:
         self.MatchSearchLogo()
 
     def MatchSearchLogo(self):
-        """ Updates actual result based on presence of Search image
+        """ 
+        Updates actual result based on presence of Search image
         """
         # if the search page do not exist, then exit the test case
         oSearchLogo = stbt.match(IMAGE_SEARCH)
         if oSearchLogo.match == True:
-            Logger.note.info( "Navigated to Search screen successfully")
+            Logger.note.info( "Navigated to search screen successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error( "Unable to navigate to search screen")
@@ -286,7 +290,6 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
-
 
     def GroupToProgram(self):
         """

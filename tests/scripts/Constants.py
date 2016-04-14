@@ -25,7 +25,6 @@
 #=============================================================================#
 
 class Constants(object):
-    HELLOA='HEllo'
     #Delimiter(s)
     DELIMITER_UNDERSCORE = "_"
     DELIMITER_SEMICOLON = ";"
