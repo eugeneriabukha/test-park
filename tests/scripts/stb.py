@@ -284,9 +284,12 @@ class Navigate:
         """
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        listDirectInput = sDirectInput.split(Constants.DELIMITER_COMMA)
+        Logger.note.debug("Direct Input Information:")
+        Logger.note.debug(listDirectInput)
 
         # press the required key strokes for navigating to search screen
-        Utils.PressListOfKeyStrokes([sDirectInput])
+        Utils.PressListOfKeyStrokes(listDirectInput)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
