@@ -120,6 +120,7 @@ REGION_RESULTS = {'x': 472, 'y': 115, 'width': 522, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
+REGION_DIAGNOSTICS_TITLE = {'x':204,'y': 58, 'width':200, 'height':53}
 REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
 REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
@@ -979,7 +980,7 @@ class Guide:
         Raises:
             Nothing
         """
-        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,SCREEN_GUIDE)
         return sFoundString
 
     def VerifyPage(self):
@@ -1037,7 +1038,7 @@ class Diagnostics:
         Raises:
             Nothing
         """
-        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
+        sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS_TITLE,SCREEN_DIAGNOSTICS)
         return sFoundString
 
     def VerifyPage(self):
@@ -1050,10 +1051,10 @@ class Diagnostics:
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName()
         if sTitle == SCREEN_DIAGNOSTICS:
-            Logger.note.info( "Navigated to Guide page successfully")
+            Logger.note.info( "Navigated to Diagnostics page successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
-            Logger.note.error( "Unable to navigate to Guide page")
+            Logger.note.error( "Unable to navigate to Diagnostics page")
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     def FetchDetails(self):
