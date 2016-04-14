@@ -181,7 +181,7 @@ class Navigate:
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
-        oDiagnostics.VerifyPage()
+        print oDiagnostics.VerifyPage()
 
     '''
 
@@ -1036,14 +1036,27 @@ class Diagnostics:
         Returns:
             Updates actual result based on the current screen details
         """
+        bInstructionFlag = False
+        try:
+            oInstruction = self.instruction
+            bInstructionFlag = True
+        except Exception as eError:
+            pass
+
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName()
         if sTitle == SCREEN_DIAGNOSTICS:
             Logger.note.info( "Navigated to Diagnostics page successfully")
-            self.instruction.actualresult = self.instruction.expectedresult
+            if bInstructionFlag == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
         else:
             Logger.note.error( "Unable to navigate to Diagnostics page")
-            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            if bInstructionFlag == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            else:
+                return False
 
     def FetchDetails(self):
         """
