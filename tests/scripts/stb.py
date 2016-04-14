@@ -84,6 +84,11 @@ DICT_STB_TYPES = {  TEXT_STB_TV : 4,
                     TEXT_STB_SPORTS : 2,
                     TEXT_STB_PERSON : 1 }
 
+# Screen related constants
+SCREEN_GUIDE = 'Guide'
+SCREEN_SEARCH = 'Search'
+SCREEN_DIAGNOSTICS = 'Diagnostics'
+
 # Image related constants
 IMAGE_SEARCH = "../images/Search.png"
 IMAGE_SUMMARY = "../images/Summary.png"
@@ -246,34 +251,21 @@ class Navigate:
         Raises:
             Nothing
         """
-        oTestData = self.instruction.testdata_detailed
-        sDirectInput = ""
-
-        if oTestData.has_key(Constants.DIRECT_INPUT):
-            sDirectInput = oTestData[Constants.DIRECT_INPUT]
-
+        #oTestData = self.instruction.testdata_detailed
+        #sDirectInput = ""
+        #if oTestData.has_key(Constants.DIRECT_INPUT):
+        #sDirectInput = oTestData[Constants.DIRECT_INPUT]
         # press the required key strokes for navigating to search screen
-        if sDirectInput=='HBO':
-            Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
-        else:
-            Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
+        #if sDirectInput=='HBO':
+        #else:
+        #Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
 
+        Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
-        self.MatchSearchLogo()
+        oSearch.VerifyPage()
 
-    def MatchSearchLogo(self):
-        """ 
-        Updates actual result based on presence of Search image
-        """
-        # if the search page do not exist, then exit the test case
-        oSearchLogo = stbt.match(IMAGE_SEARCH)
-        if oSearchLogo.match == True:
-            Logger.note.info( "Navigated to search screen successfully")
-            self.instruction.actualresult = self.instruction.expectedresult
-        else:
-            Logger.note.error( "Unable to navigate to search screen")
-            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+        #self.MatchSearchLogo()
 
     def DataDriven(self):
         """
@@ -423,7 +415,7 @@ class Search:
         option and its data
 
     """
-    def __init__(self,oInstruction):
+    def __init__(self,oInstruction = None):
         """
         Initializes the service class with information required for running the test
 
@@ -431,7 +423,24 @@ class Search:
             oInstruction: an instruction object with keyword, its respected expected result,
         option and its data
         """
-        self.instruction = oInstruction
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def VerifyPage(self):
+        """ 
+        Updates actual result based on presence of Search image
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        # if the search page do not exist, then exit the test case
+        oSearchLogo = stbt.match(IMAGE_SEARCH)
+        if oSearchLogo.match == True:
+            Logger.note.info( "Navigated to search screen successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error( "Unable to navigate to search screen")
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     def Title(self):
         """
@@ -447,7 +456,6 @@ class Search:
             Nothing
         """
         global global_wait
-
         
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
@@ -804,39 +812,6 @@ class Search:
         time.sleep(Constants.LONG_WAIT * 5)
         self.instruction.actualresult = self.instruction.expectedresult
 
-    # def Letter(self,cLetter=None):
-    #     """
-    #     Selects one of the popular search result at random
-
-    #     Args:
-    #         cLetter: if specified, searches of specified letter. if None, searches a char at random
-
-    #     Returns:
-    #         Nothing
-
-    #     Raises:
-    #         Passes or fails the test based on the comparison
-    #     """
-    #     if cLetter == None:
-    #         cRandChar = Utils.GetRandomLetter()
-    #         print "%s is selected at random to search on the search screen" %cRandChar
-    #     else:
-    #         cRandChar = cLetter
-    #         print "User Selected %s to search on the search screen" %cRandChar
-
-    #     lKeyStrokes = EncodeTitle(cRandChar,DEFAULT_SEARCH_CHAR)
-    #     Utils.PressListOfKeyStrokes(lKeyStrokes)
-    #     time.sleep(Constants.LONG_WAIT * 2)
-
-
-    #     bSucessFlag = self.FetchResults()
-    #     if bSucessFlag == False:
-    #         self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-    #         return
-
-    #     self.instruction.actualresult = self.instruction.expectedresult
-    #     print SEARCH_POSITIVE
-
     def CompareProgramCount(self):
         """
         Compare Program count to verify if there are exact number of movies/shows/teams/person
@@ -965,16 +940,16 @@ class FranchisePage:
             Logger.note.error(SUMMARYPAGE_TITLE_FAILURE)
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
-class Diagnostics:
+class Guide:
     """
-    Functions required for screen Diagnostics like fetching details from screen
+    Functions required for screen Guide like fetching details from screen
 
     Args:
         oInstruction: an instruction object with keyword, its respected expected result,
         option and its data
 
     """
-    def __init__(self,oInstruction):
+    def __init__(self,oInstruction = None):
         """
         Initializes the service class with information required for running the test
 
@@ -988,7 +963,98 @@ class Diagnostics:
         Raises:
             Nothing
         """
-        self.instruction = oInstruction
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def GetPageName(self):
+        """
+        Fetches the page name of the current screen
+
+        Args:
+            Nothing
+
+        Returns:
+            page name of the displayed page
+
+        Raises:
+            Nothing
+        """
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
+        return sFoundString
+
+    def VerifyPage(self):
+        """ 
+        Updates actual result based on presence of Guide image
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        # if the search page do not exist, then exit the test case
+        sTitle = self.GetPageName()
+        if sTitle == SCREEN_GUIDE:
+            Logger.note.info( "Navigated to Guide page successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error( "Unable to navigate to Guide page")
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+
+class Diagnostics:
+    """
+    Functions required for screen Diagnostics like fetching details from screen
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+    def __init__(self,oInstruction = None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def GetPageName(self):
+        """
+        Fetches the page name of the current page
+
+        Args:
+            Nothing
+
+        Returns:
+            page name of the displayed page
+
+        Raises:
+            Nothing
+        """
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,FRANCHISEPAGE_LIST)
+        return sFoundString
+
+    def VerifyPage(self):
+        """ 
+        Updates actual result based on presence of current image
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        # if the search page do not exist, then exit the test case
+        sTitle = self.GetPageName()
+        if sTitle == SCREEN_DIAGNOSTICS:
+            Logger.note.info( "Navigated to Guide page successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error( "Unable to navigate to Guide page")
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     def FetchDetails(self):
         """
@@ -1011,3 +1077,7 @@ class Diagnostics:
 # Required variables from the classes on the URL
 oNavigate = Navigate()
 oFranchisePage = FranchisePage()
+oSearch = Search()
+oGuide = Guide()
+oDiagnostics = Diagnostics()
+
