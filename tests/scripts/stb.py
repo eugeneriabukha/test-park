@@ -1031,7 +1031,16 @@ class Guide:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         if sDirectInput == TEXT_MOVIE:
-            print "movie"
+            oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
+                width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
+
+            while (1):
+                textOnScreen = stbt.ocr(region = oShowTitle)
+                if 'Movie' in textOnScreen:
+                    Utils.SetHBOTitle(textOnScreen.splitlines()[0][:12])
+                    break
+                else:
+                    Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
         elif sDirectInput == TEXT_TV_SHOW:
             print "tv show"
 
