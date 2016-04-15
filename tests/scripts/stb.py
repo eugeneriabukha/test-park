@@ -1017,27 +1017,21 @@ class Guide:
         Returns:
             Updates actual result based on the current screen details
         """
-        # press key forward for next 7 days
-        #for iCounter in range(0,GUIDE_NO_DAYS):
+        # press key forward for last program
         Utils.PressListOfKeyStrokes([Constants.KEY_FWD] * 9)
-
-        # 
-        #for iCounter in range(0,10):
         Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD] * 11)
-
-        #for iCounter in range(0,4):
         Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 5)
 
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         if sDirectInput == TEXT_MOVIE:
-            oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
-                width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
+            oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
+                height = REGION_GUIDEPROGRAM['height'])
 
             while (1):
-                textOnScreen = stbt.ocr(region = oShowTitle)
-                if 'Movie' in textOnScreen:
-                    Utils.SetHBOTitle(textOnScreen.splitlines()[0][:12])
+                sTextOnScreen = stbt.ocr(region = oProgramTitle)
+                if TEXT_MOVIE in textOnScreen:
+                    Utils.SetHBOTitle(sTextOnScreen.splitlines()[0][:12])
                     break
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
