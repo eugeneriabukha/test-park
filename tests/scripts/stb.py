@@ -181,10 +181,13 @@ class Navigate:
         Utils.PressListOfKeyStrokes(DIAGNOSTICS_KEYSTROKES)
 
         # this checks if we are on the right screen, and updates actual result
-        print oDiagnostics.VerifyPage()
+        bFlag = oDiagnostics.VerifyPage()
+        if bFlag == True:
+            self.instruction.actualresult == self.instruction.expectedresult
+        else:
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
     '''
-
     def HBO(self):
         """
         Navigates to HBO screen and takes you to the last movie.
@@ -240,21 +243,15 @@ class Navigate:
         Raises:
             Nothing
         """
-        #oTestData = self.instruction.testdata_detailed
-        #sDirectInput = ""
-        #if oTestData.has_key(Constants.DIRECT_INPUT):
-        #sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        # press the required key strokes for navigating to search screen
-        #if sDirectInput=='HBO':
-        #else:
-        #Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES)
-
         Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
         # this checks if we are on the right screen, and updates actual result
-        time.sleep(Constants.LONG_WAIT)
-        oSearch.VerifyPage()
+        time.sleep(Constants.MEDIUM_WAIT)
+        bFlag = oSearch.VerifyPage()
+        if bFlag == True:
+            self.instruction.actualresult == self.instruction.expectedresult
+        else:
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-        #self.MatchSearchLogo()
 
     def DataDriven(self):
         """
@@ -422,14 +419,28 @@ class Search:
         Returns:
             Updates actual result based on the current screen details
         """
+        bInstructionFlag = False
+
+        try:
+            oInstruction = self.instruction
+            bInstructionFlag = True
+        except Exception as eError:
+            pass
+
         # if the search page do not exist, then exit the test case
         oSearchLogo = stbt.match(IMAGE_SEARCH)
         if oSearchLogo.match == True:
             Logger.note.info( "Navigated to search screen successfully")
-            self.instruction.actualresult = self.instruction.expectedresult
+            if bInstructionFlag == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
         else:
             Logger.note.error( "Unable to navigate to search screen")
-            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            if bInstructionFlag == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            else:
+                return False
 
     def Title(self):
         """
@@ -978,14 +989,28 @@ class Guide:
         Returns:
             Updates actual result based on the current screen details
         """
+        bInstructionFlag = False
+
+        try:
+            oInstruction = self.instruction
+            bInstructionFlag = True
+        except Exception as eError:
+            pass
+
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName()
         if sTitle == SCREEN_GUIDE:
             Logger.note.info( "Navigated to Guide page successfully")
-            self.instruction.actualresult = self.instruction.expectedresult
+            if bInstructionFlag == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
         else:
             Logger.note.error( "Unable to navigate to Guide page")
-            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            if bInstructionFlag == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            else:
+                return False
 
 class Diagnostics:
     """
