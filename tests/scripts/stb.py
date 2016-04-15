@@ -1019,14 +1019,14 @@ class Guide:
         """
         # press key forward for next 7 days
         #for iCounter in range(0,GUIDE_NO_DAYS):
-        Utils.PressListOfKeyStrokes([Constants.KEY_FWD] * GUIDE_NO_DAYS)
+        Utils.PressListOfKeyStrokes([Constants.KEY_FWD] * 9)
 
         # 
         #for iCounter in range(0,10):
-        Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD] * 10)
+        Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD] * 11)
 
         #for iCounter in range(0,4):
-        Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 4)
+        Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 5)
 
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
@@ -1034,7 +1034,6 @@ class Guide:
             print "movie"
         elif sDirectInput == TEXT_TV_SHOW:
             print "tv show"
-
 
 class Diagnostics:
     """
