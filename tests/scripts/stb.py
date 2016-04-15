@@ -134,8 +134,6 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-DICT_EXPECTED_TYPE={'MOVIES':2 ,'SHOWS':4 ,'TEAMS':2, 'PERSONS': 1}
-
 JUNKLIST = ["OQVOU","omfla"]
 
 class Navigate:
@@ -1011,6 +1009,32 @@ class Guide:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             else:
                 return False
+
+    def NavigateLast(self):
+        """ 
+        Performs navigation within the guide
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        # press key forward for next 7 days
+        #for iCounter in range(0,GUIDE_NO_DAYS):
+        Utils.PressListOfKeyStrokes([Constants.KEY_FWD] * GUIDE_NO_DAYS)
+
+        # 
+        #for iCounter in range(0,10):
+        Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD] * 10)
+
+        #for iCounter in range(0,4):
+        Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 4)
+
+        oTestData = self.instruction.testdata_detailed
+        sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        if sDirectInput == TEXT_MOVIE:
+            print "movie"
+        elif sDirectInput == TEXT_TV_SHOW:
+            print "tv show"
+
 
 class Diagnostics:
     """
