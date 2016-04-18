@@ -573,10 +573,15 @@ class Search:
         Raises:
             Nothing
         """
+        # if there is only one result displayed, then its considered none
+        if len(lResults) <= 1:
+            Logger.note.error("No results displayed on the screen")
+            return False
+
+        # Remove unrequired junk items
         Logger.note.debug("Provided input for parsing:")
         Logger.note.debug(lResults)
 
-        # remove unrequired junk items
         for sJunkItem in JUNKLIST:
             if sJunkItem in lResults:
                 iIndex = lResults.remove(sJunkItem)
@@ -595,23 +600,19 @@ class Search:
             except Exception as eError:
                 continue
 
+        # if there was no known index listed, quit the program
         Logger.note.debug("Index Dictionary : %s" % dicIndex)
+        if len(dicIndex) == 0:
+            Logger.note.error("No known index to be analyzed. Kindly check the screenshot for more inputs")
+            return False
 
         # initialize required variables
         ResultsDict={}
         ListofDict=[]
         sTempType = ""
 
-        if len(lResults) == 0:
-            Logger.note.error("No results displayed on the screen")
-            return False
-
-        #iDictIndexLength = len(dicIndex)
-        #Logger.note.debug("Length : %d" % iDictIndexLength)
-
-        # check if MOST POPULAR SEARCHES is part of the fetched list
+        # fetch the first counter based on items in the list
         if TEXT_STB_MOST_POPULAR_SEARCHES in dicIndex:
-            # find out where to start based on presence of item : MOST POPULAR SEARCHES
             iFirstCounter = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES] + 1
         else:
             iFirstCounter = dicIndex.values()[0]
@@ -619,8 +620,17 @@ class Search:
 
         # Navigate from first counter to last counter
         for iCounter in range(iFirstCounter,iLastCounter):
+            sFoundText = ''
             sCapturedText = str(lResults[iCounter])
             Logger.note.debug("Inside for loop  %d : %s" % (iCounter,sCapturedText))
+            try:
+                sRegEx = '^[0-9O]\s(.+?)$'
+                sFoundText = re.search(sRegEx,sCapturedText).group(1)
+                Logger.note.debug("Found Text : %s" % sFoundText)
+            except AttributeError:
+                Logger.note.debug("No matching pattern found for the specified regEx search")
+                continue
+
 
 
 
