@@ -620,9 +620,6 @@ class Search:
 
 
 
-
-
-
         '''
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
