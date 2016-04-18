@@ -116,7 +116,7 @@ DICT_FRANCHISE_HEADER_IMAGES = {
 
 # Region related constants
 REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
-REGION_RESULTS = {'x': 480, 'y': 115, 'width': 522, 'height': 590}
+REGION_RESULTS = {'x': 472, 'y': 115, 'width': 522, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
@@ -565,9 +565,21 @@ class Search:
         Raises:
             Nothing
         """
+        Logger.note.debug("Provided input for parsing:")
+        Logger.note.debug(lResults)
+
+        # remove unrequired junk items
+        for sJunkItem in JUNKLIST:
+            if sJunkItem in lResults
+                iIndex = lResults.index(sJunkItem)
+                del lResults[iIndex]
+
+        Logger.note.debug("Input after removing junk list:")
+        Logger.note.debug(lResults)
+
         # Parse the results for most popular searches
         dicIndex = collections.OrderedDict()
-        
+
         # fetch index of headers
         for sResult in SEARCH_RESULTS:
             try:
@@ -580,7 +592,7 @@ class Search:
         sTempType = ""
 
         if len(lResults)==0:
-            Logger.note.error( "No Results displayed on the screen")
+            Logger.note.error( "No results displayed on the screen")
             return False
 
         if lResults[0] == SEARCH_RESULTS[0]:
@@ -624,12 +636,14 @@ class Search:
                 if re.search('^[0-9O]\s', sResult) == None: 
                     if sResult not in DICT_STB_TYPES.keys():
                         lResults.remove(sResult)    
-
+            
+            '''
             for sResult in lResults:
                 for junk in JUNKLIST:
                     if junk in sResult:
                         lResults.remove(sResult)
                         break
+            '''
 
             # Get the length of the Result string
             iLastCounter = len(lResults)
