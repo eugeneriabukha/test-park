@@ -586,19 +586,27 @@ class Search:
                 dicIndex[sResult] = iIndex
             except Exception as eError:
                 continue
+
+        # initialize required variables
         ResultsDict={}
         ListofDict=[]
         sTempType = ""
 
         if len(lResults)==0:
-            Logger.note.error( "No results displayed on the screen")
+            Logger.note.error("No results displayed on the screen")
             return False
 
+        iDictIndexLength = len(dicIndex)
+        Logger.note.debug("Length : %d" % iDictIndexLength)
+        
+
+        '''
         if lResults[0] == SEARCH_RESULTS[0]:
             lResults.remove(SEARCH_RESULTS[0])
             sTempType = Constants.EMPTY
             # Keeps the counter for the ID in the search results
             iIndexCounter = 0
+
 
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
@@ -606,6 +614,7 @@ class Search:
                     if junk in sCurrentLine:
                         lResults.remove(sCurrentLine)
                         break
+
 
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
@@ -636,13 +645,12 @@ class Search:
                     if sResult not in DICT_STB_TYPES.keys():
                         lResults.remove(sResult)    
             
-            '''
+
             for sResult in lResults:
                 for junk in JUNKLIST:
                     if junk in sResult:
                         lResults.remove(sResult)
                         break
-            '''
 
             # Get the length of the Result string
             iLastCounter = len(lResults)
@@ -669,6 +677,7 @@ class Search:
                         iIndexCounter = iIndexCounter + 1
                     except:
                         pass
+        '''
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
