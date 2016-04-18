@@ -642,7 +642,7 @@ class Search:
         for iCounter in range(iFirstCounter,iLastCounter):
             sCapturedText = str(lResults[iCounter])
             # if valid type is found as one of the item, reset type value and continue
-            if sCurrentLine in dicIndex:
+            if sCapturedText in dicIndex:
                 sTempType = sCapturedText
                 continue
 
