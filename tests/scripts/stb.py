@@ -593,6 +593,8 @@ class Search:
             except Exception as eError:
                 continue
 
+        Logger.note.debug("Index Dictionary : %s" % dicIndex)
+
         # initialize required variables
         ResultsDict={}
         ListofDict=[]
@@ -610,7 +612,7 @@ class Search:
             # find out where to start based on presence of item : MOST POPULAR SEARCHES
             iFirstCounter = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES] + 1
         else:
-            iFirstCounter = dicIndex[0]
+            iFirstCounter = dicIndex.values[0]
         iLastCounter = len(lResults)
 
         # Navigate from first counter to last counter
