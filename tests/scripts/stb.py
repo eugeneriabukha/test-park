@@ -648,7 +648,11 @@ class Search:
 
             # add the item into the result dictionary
             ResultsDict["ID"] = iIndexCounter
-            ResultsDict["Title"] = sCapturedText
+            # restricting number of characters to an upper limit
+            sTempTitle = sCapturedText[0:SEARCH_CHAR_UPPER_LIMIT]
+            sTempTitle = str(sTempTitle)
+            ResultsDict["Title"] = sTempTitle
+
             ResultsDict["Type"] = sTempType
             ListofDict.append(ResultsDict.copy())
             iIndexCounter = iIndexCounter + 1
