@@ -547,6 +547,8 @@ class Search:
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
             width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
+        Logger.note.debug("tesseract user words:%s" % SEARCH_RESULTS_EXTENDED)
+
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
         sGivenString = sGivenString.strip()
