@@ -53,14 +53,9 @@ GUIDE_NO_DAYS = 7
 SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_SEARCH]
 SEARCH_KEYSTROKES_ADVANCED = [Constants.KEY_RED,Constants.KEY_SELECT]
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
-SEARCH_RESULTS = ['MOST POPULAR SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
-SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES','TV','MOVIE','SPORTS','PERSON','CHANNEL']
-DIAGNOSTICS_LIST = [DIAGNOSTICS]
-FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
-DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
-'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
 
 # General constants
+
 TEXT_TV_SHOW = 'TV Show'
 TEXT_MOVIE = 'Movie'
 TEXT_GROUP = 'Group'
@@ -75,14 +70,25 @@ TEXT_PARENTALGUIDE = 'Parental Guide'
 TEXT_TAB_UNAVAILABLE = 'TAB_UNAVAILABLE'
 
 # STB Constants
+TEXT_STB_MOST_POPULAR_SEARCHES = 'MOST POPULAR SEARCHES'
 TEXT_STB_TV = "TV"
 TEXT_STB_MOVIE = "MOVIE"
 TEXT_STB_SPORTS = "SPORTS"
 TEXT_STB_PERSON = "PERSON"
+TEXT_STB_CHANNEL = "CHANNEL"
+
 DICT_STB_TYPES = {  TEXT_STB_TV : 4,
                     TEXT_STB_MOVIE : 2,
                     TEXT_STB_SPORTS : 2,
                     TEXT_STB_PERSON : 1 }
+
+SEARCH_RESULTS = [TEXT_STB_MOST_POPULAR_SEARCHES,TEXT_STB_TV,TEXT_STB_MOVIE,TEXT_STB_SPORTS,TEXT_STB_PERSON,TEXT_STB_CHANNEL]
+SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES',TEXT_STB_TV,TEXT_STB_MOVIE,TEXT_STB_SPORTS,TEXT_STB_PERSON,TEXT_STB_CHANNEL]
+DIAGNOSTICS_LIST = [DIAGNOSTICS]
+FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
+DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
+'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
+
 
 # Screen related constants
 SCREEN_GUIDE = 'Guide'
@@ -592,13 +598,30 @@ class Search:
         ListofDict=[]
         sTempType = ""
 
-        if len(lResults)==0:
+        if len(lResults) == 0:
             Logger.note.error("No results displayed on the screen")
             return False
 
-        iDictIndexLength = len(dicIndex)
-        Logger.note.debug("Length : %d" % iDictIndexLength)
-        
+        #iDictIndexLength = len(dicIndex)
+        #Logger.note.debug("Length : %d" % iDictIndexLength)
+
+        # check if MOST POPULAR SEARCHES is part of the fetched list
+        if TEXT_STB_MOST_POPULAR_SEARCHES in dicIndex:
+            # find out where to start based on presence of item : MOST POPULAR SEARCHES
+            iFirstCounter = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES] + 1
+        else:
+            iFirstCounter = 0
+        iLastCounter = len(lResults)
+
+        # Navigate from first counter to last counter
+        for iCounter in range(iFirstCounter,iLastCounter):
+            sCapturedText = lResults.index(iCounter)
+            Logger.note.debug("Inside for loop  %d : %d" % (iCounter,sCapturedText))
+
+
+
+
+
 
         '''
         if lResults[0] == SEARCH_RESULTS[0]:
