@@ -180,6 +180,9 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         bFlag = oDiagnostics.VerifyPage()
+        Logger.note.debug("bFlag")
+        Logger.note.debug(bFlag)
+
         if bFlag == True:
             self.instruction.actualresult == self.instruction.expectedresult
         else:
