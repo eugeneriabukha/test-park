@@ -180,17 +180,11 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         bFlag = oDiagnostics.VerifyPage()
-        Logger.note.debug("bFlag")
-        Logger.note.debug(bFlag)
 
         if bFlag == True:
-            self.instruction.actualresult == self.instruction.expectedresult
+            self.instruction.actualresult = self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-
-        Logger.note.debug("Actual Result:")
-        Logger.note.debug(self.instruction.actualresult)
-
 
     '''
     def HBO(self):
@@ -253,10 +247,9 @@ class Navigate:
         time.sleep(Constants.MEDIUM_WAIT)
         bFlag = oSearch.VerifyPage()
         if bFlag == True:
-            self.instruction.actualresult == self.instruction.expectedresult
+            self.instruction.actualresult = self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-
 
     def DataDriven(self):
         """
