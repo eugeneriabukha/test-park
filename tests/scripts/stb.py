@@ -140,7 +140,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD"]
+JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ"]
 
 class Navigate:
     """
@@ -615,7 +615,7 @@ class Search:
 
         # Navigate from first counter to last counter
         for iCounter in range(iFirstCounter,iLastCounter):
-            sCapturedText = lResults.index(iCounter)
+            sCapturedText = lResults[iCounter]
             Logger.note.debug("Inside for loop  %d : %d" % (iCounter,sCapturedText))
 
 
