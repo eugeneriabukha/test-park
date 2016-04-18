@@ -1027,7 +1027,6 @@ class Guide:
         if sDirectInput == TEXT_MOVIE:
             oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
                 height = REGION_GUIDEPROGRAM['height'])
-
             while (1):
                 sTextOnScreen = stbt.ocr(region = oProgramTitle)
                 if TEXT_MOVIE in textOnScreen:
