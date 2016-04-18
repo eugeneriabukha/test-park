@@ -570,7 +570,7 @@ class Search:
 
         # remove unrequired junk items
         for sJunkItem in JUNKLIST:
-            if sJunkItem in lResults
+            if sJunkItem in lResults:
                 iIndex = lResults.index(sJunkItem)
                 del lResults[iIndex]
 
