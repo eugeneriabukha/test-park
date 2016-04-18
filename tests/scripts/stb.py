@@ -134,7 +134,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla"]
+JUNKLIST = ["OQVOU","omfla","OCDVOU'l4bOD"]
 
 class Navigate:
     """
@@ -571,8 +571,7 @@ class Search:
         # remove unrequired junk items
         for sJunkItem in JUNKLIST:
             if sJunkItem in lResults:
-                iIndex = lResults.index(sJunkItem)
-                del lResults[iIndex]
+                iIndex = lResults.remove(sJunkItem)
 
         Logger.note.debug("Input after removing junk list:")
         Logger.note.debug(lResults)
