@@ -487,7 +487,6 @@ class Execution:
                     oExecutedInstruction.execute = False
                     raise Exception(sTemp)
 
-
             # directly pass the input for option: DirectInput
             elif arOptionDetail[0] == Constants.DIRECT_INPUT:
                 hTemp = { Constants.DIRECT_INPUT : oExecutedInstruction.testdata }

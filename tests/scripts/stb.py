@@ -185,6 +185,10 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
+        Logger.note.debug("Actual Result:")
+        Logger.note.debug(self.instruction.actualresult)
+
+
     '''
     def HBO(self):
         """
