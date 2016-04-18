@@ -609,7 +609,7 @@ class Search:
                     ListofDict.append(ResultsDict.copy())
                     iIndexCounter = iIndexCounter + 1
                 # Searches the pattern which starts with any alphanumber char followed by anything that is not space
-                elif re.search('^[a-zA-Z0-9]\S', sCurrentLine) != None:
+                elif re.search('^[a-zA-Z0-9]\s', sCurrentLine) != None:
                     ResultsDict["ID"] = iIndexCounter
                     ResultsDict["Title"] = sCurrentLine[0:SEARCH_CHAR_UPPER_LIMIT]
                     ResultsDict["Type"] = sTempType
