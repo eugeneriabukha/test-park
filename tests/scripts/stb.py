@@ -579,15 +579,13 @@ class Search:
             return False
 
         # Remove unrequired junk items
-        Logger.note.debug("Provided input for parsing:")
-        Logger.note.debug(lResults)
+        Logger.note.debug("Provided input for parsing: %s" % lResults)
 
         for sJunkItem in JUNKLIST:
             if sJunkItem in lResults:
                 iIndex = lResults.remove(sJunkItem)
 
-        Logger.note.debug("Input after removing junk list:")
-        Logger.note.debug(lResults)
+        Logger.note.debug("Input after removing junk list: %s" % lResults)
 
         # Parse the results for most popular searches
         dicIndex = collections.OrderedDict()
@@ -628,10 +626,12 @@ class Search:
                 sFoundText = re.search(sRegEx,sCapturedText).group(1)
                 Logger.note.debug("Found Text : %s" % sFoundText)
             except AttributeError:
+                sFoundText = sCapturedText
                 Logger.note.debug("No matching pattern found for the specified regEx search")
                 continue
+            lResults[iCounter] = sFoundText
 
-
+        Logger.note.debug("Input after pattern matching: %s" % lResults)
 
 
         '''
