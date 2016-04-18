@@ -616,7 +616,7 @@ class Search:
         # Navigate from first counter to last counter
         for iCounter in range(iFirstCounter,iLastCounter):
             sCapturedText = lResults[iCounter]
-            Logger.note.debug("Inside for loop  %d : %d" % (iCounter,sCapturedText))
+            Logger.note.debug("Inside for loop  %d : %d" % (str(iCounter),sCapturedText))
 
 
 
