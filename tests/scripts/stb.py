@@ -610,7 +610,7 @@ class Search:
             # find out where to start based on presence of item : MOST POPULAR SEARCHES
             iFirstCounter = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES] + 1
         else:
-            iFirstCounter = 0
+            iFirstCounter = dicIndex[0]
         iLastCounter = len(lResults)
 
         # Navigate from first counter to last counter
