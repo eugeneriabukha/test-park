@@ -1106,7 +1106,7 @@ class Guide:
                 height = REGION_GUIDEPROGRAM['height'])
             while (1):
                 sTextOnScreen = stbt.ocr(region = oProgramTitle)
-                if TEXT_MOVIE in textOnScreen:
+                if TEXT_MOVIE in sTextOnScreen:
                     Utils.SetHBOTitle(sTextOnScreen.splitlines()[0][:12])
                     break
                 else:
