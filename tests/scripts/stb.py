@@ -140,7 +140,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ"]
+JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN"]
 
 class Navigate:
     """
@@ -604,19 +604,16 @@ class Search:
             Logger.note.error("No known index to be analyzed. Kindly check the screenshot for more inputs")
             return False
 
-        # initialize required variables
-        ResultsDict={}
-        ListofDict=[]
-        sTempType = ""
-
+        iMostPopularSearchIndex = -1
         # fetch the first counter based on items in the list
         if TEXT_STB_MOST_POPULAR_SEARCHES in dicIndex:
             iFirstCounter = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES] + 1
+            iMostPopularSearchIndex = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES]
         else:
             iFirstCounter = dicIndex.values()[0]
         iLastCounter = len(lResults)
 
-        # Navigate from first counter to last counter
+        # Navigate from first counter to last counter and correct items based on pattern match
         for iCounter in range(iFirstCounter,iLastCounter):
             sFoundText = ''
             sCapturedText = str(lResults[iCounter])
@@ -633,6 +630,31 @@ class Search:
 
         Logger.note.debug("Input after pattern matching: %s" % lResults)
 
+        # initialize required variables
+        ResultsDict={}
+        ListofDict=[]
+        sTempType = ""
+        iIndexCounter = 1
+        if iMostPopularSearchIndex != -1:
+            iIndexCounter = iMostPopularSearchIndex
+        
+        # add items to final dictionary based on its type
+        for iCounter in range(iFirstCounter,iLastCounter):
+            sCapturedText = str(lResults[iCounter])
+            # if valid type is found as one of the item, reset type value and continue
+            if sCurrentLine in dicIndex:
+                sTempType = sCapturedText
+                continue
+
+            # add the item into the result dictionary
+            ResultsDict["ID"] = iIndexCounter
+            ResultsDict["Title"] = sCapturedText
+            ResultsDict["Type"] = sTempType
+            ListofDict.append(ResultsDict.copy())
+            iIndexCounter = iIndexCounter + 1
+
+        Logger.note.debug("Parsed result: %s" % ListofDict)
+
 
         '''
         if lResults[0] == SEARCH_RESULTS[0]:
@@ -648,7 +670,6 @@ class Search:
                     if junk in sCurrentLine:
                         lResults.remove(sCurrentLine)
                         break
-
 
             for sCurrentLine in lResults:
                 # Searches for the pattern match of any string that starts with number and followed by space
