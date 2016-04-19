@@ -1123,10 +1123,11 @@ class Guide:
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         if sDirectInput == TEXT_MOVIE:
             for iCounter in range(1,20):
-                sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM,FirstLineOnly=True)
+                sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM)
+                sMovieName = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM, FirstLineOnly=True)
                 Logger.note.debug("Text on screen: %s" % sText)
                 if TEXT_MOVIE in sText:
-                    Utils.SetHBOTitle(sText[:12])
+                    Utils.SetHBOTitle(sMovieName[:12])
                     break
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
