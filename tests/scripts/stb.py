@@ -486,11 +486,11 @@ class Search:
         """
         # To get more details on the fetched title
         sTitle = Utils.GetDynamicTitle()
-        Logger.note.debug("Current Global Variable: " % SEARCH_RESULTS_EXTENDED)
+        #Logger.note.debug("Current Global Variable: " % SEARCH_RESULTS_EXTENDED)
         #SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
 
         # fetch the 0th result region
-        sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,SEARCH_RESULTS_EXTENDED,True)
+        sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
         if sTitle in sFetchedTitle:
             sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
             Logger.note.debug("Newly Set Dynamic Title: %s" % sTitle)
@@ -516,8 +516,6 @@ class Search:
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
             width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
-        Logger.note.debug("tesseract user words: %s" % SEARCH_RESULTS_EXTENDED)
-
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
         sGivenString = sGivenString.strip()
@@ -770,10 +768,10 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
-            #sTitle = str(sTitle)
-            #lTitle = sTitle.split(" ")
-            #SEARCH_RESULTS_EXTENDED.extend(lTitle)
+            #SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+            sTitle = str(sTitle)
+            lTitle = sTitle.split(" ")
+            SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
     def VerifyPopularSearchResults(self):
         """
