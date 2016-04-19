@@ -469,7 +469,7 @@ class Search:
             return
 
         self.instruction.actualresult = self.instruction.expectedresult
-        Logger.note.info( SEARCH_POSITIVE)
+        Logger.note.info(SEARCH_POSITIVE)
 
     def FetchLastViewed(self):
         """
@@ -487,7 +487,7 @@ class Search:
         # To get more details on the fetched title
         sTitle = Utils.GetDynamicTitle()
         Logger.note.debug("Current Global Variable: " % SEARCH_RESULTS_EXTENDED)
-        SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+        #SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
 
         # fetch the 0th result region
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,SEARCH_RESULTS_EXTENDED,True)
