@@ -1122,11 +1122,12 @@ class Guide:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         if sDirectInput == TEXT_MOVIE:
-            while (1):
+            for iCounter in range(1,20):
                 sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM,FirstLineOnly=True)
                 Logger.note.debug("Text on screen: %s" % sText)
                 if TEXT_MOVIE in sText:
                     Utils.SetHBOTitle(sText[:12])
+                    break
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
             #oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
