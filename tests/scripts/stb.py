@@ -140,7 +140,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH']
+JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH',"'OGDV0m4bOJNr-'O"]
 
 class Navigate:
     """
@@ -626,12 +626,14 @@ class Search:
         # Navigate from first counter to last counter and correct items based on pattern match
         for iCounter in range(iFirstCounter,iLastCounter):
             sFoundText = ''
-            Logger.note.debug("Inside for loop  %d : %s" % (iCounter,sCapturedText))
+            sCapturedText = ''
 
+            # try to get rid of junk values in the list
             try:
                 sCapturedText = str(lResults[iCounter])
             except UnicodeEncodeError:
                 continue
+            Logger.note.debug("Inside for loop  %d : %s" % (iCounter,sCapturedText))
 
             try:
                 sRegEx = '^[0-9O]\s(.+?)$'
