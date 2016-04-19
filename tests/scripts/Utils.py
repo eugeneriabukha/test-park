@@ -39,23 +39,23 @@ class cUtils:
             time.sleep(global_wait)
         time.sleep(Constants.LONG_WAIT)
 
-    def SetHBOTitle(self,sHBOTitle):
+    def SetDynamicTitle(self,sTitle):
         """
-        This function saves the search HBO Title to be searched
+        This function saves the Dynamic Title which was searched
 
         Args:
-            sHBOTitle (string):  string containing the HBO search Title on screen
+            sTitle (string): string containing the  search Title on screen
         """
-        self.HBO_title = sHBOTitle
+        self.dynamicTitle = sTitle
 
-    def GetHBOTitle(self):
+    def GetDynamicTitle(self):
         """
-        This function fetches the string saved as HBO searched Title
+        This function fetches the string saved as dynamic Title
 
         Returns:
-            (string):  string containing the HBO search Title
+            (string):  string containing the dynamic Title
         """
-        return self.HBO_title
+        return self.dynamicTitle
 
     def SetSearchResults(self,oSearchResults):
         """

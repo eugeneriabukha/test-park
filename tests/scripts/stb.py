@@ -1118,32 +1118,36 @@ class Guide:
         Utils.PressListOfKeyStrokes([Constants.KEY_FWD] * 9)
         Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD] * 11)
         Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 5)
-
-        oTestData = self.instruction.testdata_detailed
-        sDirectInput = oTestData[Constants.DIRECT_INPUT]
-        if sDirectInput == TEXT_MOVIE:
-            for iCounter in range(1,20):
-                sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM)
-                sMovieName = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM, FirstLineOnly=True)
-                Logger.note.debug("Text on screen: %s" % sText)
-                if TEXT_MOVIE in sText:
-                    Utils.SetHBOTitle(sMovieName[:12])
-                    break
-                else:
-                    Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
-            #oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
-            #    height = REGION_GUIDEPROGRAM['height'])
-            #while (1):
-            #    sTextOnScreen = stbt.ocr(region = oProgramTitle)
-            #    if TEXT_MOVIE in sTextOnScreen:
-            #        Utils.SetHBOTitle(sTextOnScreen.splitlines()[0][:12])
-            #        break
-            #    else:
-            #        Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
-        elif sDirectInput == TEXT_TV_SHOW:
-            Logger.note.error("TV Show functionality still needs to be created")
-
         self.instruction.actualresult = self.instruction.expectedresult
+
+    def MoveAndFetchTitle(self):
+        """ 
+        Moves forward and fetches a show or movie title
+
+        Returns:
+            the fetched title from the screen
+        """
+        try:
+            oTestData = self.instruction.testdata_detailed
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            if sDirectInput == TEXT_MOVIE:
+                for iCounter in range(1,20):
+                    sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM)
+                    sMovieName = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM, FirstLineOnly=True)
+                    Logger.note.debug("Text on screen: %s" % sText)
+                    if TEXT_MOVIE in sText:
+                        Utils.SetDynamicTitle(sMovieName[:12])
+                        break
+                    else:
+                        Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
+            elif sDirectInput == TEXT_TV_SHOW:
+                # TODO : Still needs to be coded
+                Logger.note.error("TV Show functionality still needs to be created")
+            self.instruction.actualresult = self.instruction.expectedresult
+        except Exception as oException:
+            Logger.note.error("Unhandled Exception")
+            Logger.note.error(oException)
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
 class Diagnostics:
     """
