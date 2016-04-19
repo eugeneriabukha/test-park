@@ -1109,7 +1109,8 @@ class Guide:
         if sDirectInput == TEXT_MOVIE:
             while (1):
                 sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM,FirstLineOnly=True)
-                if sText == TEXT_MOVIE:
+                Logger.note.debug("Text on screen: %s" % sText)
+                if TEXT_MOVIE in sText:
                     Utils.SetHBOTitle(sText[:12])
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
