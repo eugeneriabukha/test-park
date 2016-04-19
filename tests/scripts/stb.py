@@ -140,7 +140,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN","OQVOW<\xa7QNH"]
+JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH']
 
 class Navigate:
     """
