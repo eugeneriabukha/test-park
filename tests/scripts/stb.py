@@ -559,6 +559,14 @@ class Search:
         lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
         Logger.note.debug("lResults:")
         Logger.note.debug(lResults)
+
+        for sCapturedText in lResults:
+            try:
+                sText = str(sCapturedText)
+            except UnicodeEncodeError:
+                del lResults.remove(sCapturedText)
+                Logger.note.debug("Removing item from list: %s" % sCapturedText)
+
         bSucessFlag = self.ParseResults(lResults)
         return bSucessFlag
 
@@ -618,8 +626,13 @@ class Search:
         # Navigate from first counter to last counter and correct items based on pattern match
         for iCounter in range(iFirstCounter,iLastCounter):
             sFoundText = ''
-            sCapturedText = str(lResults[iCounter])
             Logger.note.debug("Inside for loop  %d : %s" % (iCounter,sCapturedText))
+
+            try:
+                sCapturedText = str(lResults[iCounter])
+            except UnicodeEncodeError:
+                continue
+
             try:
                 sRegEx = '^[0-9O]\s(.+?)$'
                 sFoundText = re.search(sRegEx,sCapturedText).group(1)
