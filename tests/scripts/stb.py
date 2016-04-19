@@ -1116,7 +1116,9 @@ class Guide:
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
         elif sDirectInput == TEXT_TV_SHOW:
-            print "tv show"
+            Logger.note.error("TV Show functionality still needs to be created")
+
+        self.instruction.actualresult = self.instruction.expectedresult
 
 class Diagnostics:
     """
