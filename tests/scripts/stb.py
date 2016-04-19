@@ -564,7 +564,7 @@ class Search:
             try:
                 sText = str(sCapturedText)
             except UnicodeEncodeError:
-                del lResults.remove(sCapturedText)
+                lResults.remove(sCapturedText)
                 Logger.note.debug("Removing item from list: %s" % sCapturedText)
 
         bSucessFlag = self.ParseResults(lResults)
