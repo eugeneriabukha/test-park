@@ -769,7 +769,7 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+            listNew = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
             #sTitle = str(sTitle)
             #lTitle = sTitle.split(" ")
             #SEARCH_RESULTS_EXTENDED.extend(lTitle)
