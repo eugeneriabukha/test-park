@@ -486,6 +486,7 @@ class Search:
         """
         # To get more details on the fetched title
         sTitle = Utils.GetDynamicTitle()
+        Logger.note.debug("Current Global Variable: " % SEARCH_RESULTS_EXTENDED)
         SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
 
         # fetch the 0th result region
@@ -769,7 +770,7 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            listNew = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+            SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
             #sTitle = str(sTitle)
             #lTitle = sTitle.split(" ")
             #SEARCH_RESULTS_EXTENDED.extend(lTitle)
