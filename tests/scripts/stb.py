@@ -768,10 +768,11 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            #SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
-            sTitle = str(sTitle)
-            lTitle = sTitle.split(" ")
-            SEARCH_RESULTS_EXTENDED.extend(lTitle)
+            listReturn = Utils.ExtendArray(sTitle)
+            SEARCH_RESULTS_EXTENDED.extend(listReturn)
+            #sTitle = str(sTitle)
+            #lTitle = sTitle.split(" ")
+            #SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
     def VerifyPopularSearchResults(self):
         """
