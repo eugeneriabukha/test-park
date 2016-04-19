@@ -246,6 +246,8 @@ class cUtils:
             return sTextFound
         if FirstLineOnly == True:
             sTextFound = sTextFound.splitlines()[0]
+        
+        Logger.note.debug("Fetched text(s) from screen: %s" % sTextFound)
         return sTextFound
 
     def FetchRegion(self,REGION):
@@ -304,6 +306,26 @@ class cUtils:
 
         """
         return random.choice(string.letters).upper()
+
+    def ExtendArray(self,sTitleToExtend,listTo,sDelimiter = Constants.DELIMITER_SPACE):
+        """
+        this function extends the provided array with the provided text using the DELIMITER
+
+        Args:
+            sTitleToExtend: the title which has to be detailed out and added to list
+            listTo: list to which the details has to be added
+            sDelimiter: the delimiter to be used for split
+
+        Returns:
+            returns a upper case letter
+        """
+        Logger.note.debug("Provided Array: %s" % listTo)
+        sTitle = str(sTitleToExtend)
+        lTitle = sTitle.split(sDelimiter)
+        listTo.extend(lTitle)
+        Logger.note.debug("Extended Array: %s" % listTo)
+        return listTo
+
 
 
 # public instantition of the cUtils class to be used by other Classes

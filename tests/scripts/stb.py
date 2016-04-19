@@ -192,49 +192,6 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-    '''
-    def HBO(self):
-        """
-        Navigates to HBO screen and takes you to the last movie.
-
-        Args:
-            Nothing
-
-        Returns:
-            Nothing
-
-        Raises:
-            Nothing
-        """
-        # press the required key strokes for navigating to diagnostics screen
-        Utils.PressListOfKeyStrokes(HBO_KEYSTROKES)
-
-        for iCounter in range(0,GUIDE_NO_DAYS):
-            Utils.PressListOfKeyStrokes([Constants.KEY_FWD])
-
-        for iCounter in range(0,10):
-            Utils.PressListOfKeyStrokes([Constants.KEY_FRAMEFORWARD])
-
-        for iCounter in range(0,4):
-            Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT])
-
-        self.SetHBOMovieTitle()
-
-
-    def SetHBOMovieTitle(self):
-
-        oShowTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], 
-            width = REGION_GUIDEPROGRAM['width'], height = REGION_GUIDEPROGRAM['height'])
-
-        while (1):
-            textOnScreen = stbt.ocr(region = oShowTitle)
-            if 'Movie' in textOnScreen:
-                Utils.SetHBOTitle(textOnScreen.splitlines()[0][:12])
-                break
-            else:
-                Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
-    '''
-
     def Search(self):
         """
         Navigates to search screen. Updates actual result based on presence of Search image
@@ -473,24 +430,6 @@ class Search:
         if sTitle == Constants.RANDOM_LETTER:
             sTitle = Utils.GetRandomLetter()
 
-        '''
-        if sTitle == Constants.SEARCH_MOVIE_HBO:
-            sTitleGuide = Utils.GetHBOTitle()
-            # fetch the 0th result region
-            oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
-                width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
-            sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
-            sGivenString = sGivenString.strip()
-            sTitleSearch = sGivenString.splitlines()[0]
-
-            if sTitleGuide in sTitleSearch:
-                sTitle = sTitleSearch.split(' ', 1)[1]
-                Utils.SetHBOTitle(sTitle)
-            else:
-                Logger.note.log('Title on the Guide does not match with Title on Search Results Screen')
-                return
-        '''
-
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
@@ -532,6 +471,33 @@ class Search:
         self.instruction.actualresult = self.instruction.expectedresult
         Logger.note.info( SEARCH_POSITIVE)
 
+    def FetchLastViewed(self):
+        """
+        Fetches the last watched item only from the screen and adds the details to available variable
+
+        Args:
+            Nothing
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        # To get more details on the fetched title
+        sTitle = Utils.GetDynamicTitle()
+        SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+
+        # fetch the 0th result region
+        sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,SEARCH_RESULTS_EXTENDED,True)
+        if sTitle in sFetchedTitle:
+            sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
+            Logger.note.debug("Newly Set Dynamic Title: %s" % sTitle)
+            Utils.SetDynamicTitle(sTitle)
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error('Title on the Guide does not match with Title on Search Results Screen')
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
     def FetchResults(self):
         """
@@ -549,7 +515,7 @@ class Search:
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
             width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
-        Logger.note.debug("tesseract user words:%s" % SEARCH_RESULTS_EXTENDED)
+        Logger.note.debug("tesseract user words: %s" % SEARCH_RESULTS_EXTENDED)
 
         sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
@@ -803,9 +769,10 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            sTitle = str(sTitle)
-            lTitle = sTitle.split(" ")
-            SEARCH_RESULTS_EXTENDED.extend(lTitle)
+            SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
+            #sTitle = str(sTitle)
+            #lTitle = sTitle.split(" ")
+            #SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
     def VerifyPopularSearchResults(self):
         """

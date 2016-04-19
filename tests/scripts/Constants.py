@@ -34,6 +34,7 @@ class Constants(object):
     DELIMITER_HIFEN = "-"
     DELIMITER_STOP = "."
     DELIMITER_SLASH = "/"
+    DELIMITER_SPACE = " "
 
     # Keyword related
     TESTCASE_START = "TestCaseStart"
