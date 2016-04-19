@@ -195,7 +195,10 @@ class cUtils:
 
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
-            sTempTitle = str(self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title'])
+            Logger.note.debug("iCounter: %d" % iCounter)
+            sTitleInfo = self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title']
+            Logger.note.debug("Title: %d" % sTitleInfo)
+            sTempTitle = str(sTitleInfo)
             lActualResultTitles.append(sTempTitle)
             iCounter = iCounter + 1
 
