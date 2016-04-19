@@ -197,7 +197,7 @@ class cUtils:
         for eachSearchResult in lActualSearchResults:
             Logger.note.debug("iCounter: %d" % iCounter)
             sTitleInfo = self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title']
-            Logger.note.debug("Title: %d" % sTitleInfo)
+            Logger.note.debug("Title: %s" % sTitleInfo)
             sTempTitle = str(sTitleInfo)
             lActualResultTitles.append(sTempTitle)
             iCounter = iCounter + 1
