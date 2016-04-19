@@ -473,6 +473,7 @@ class Search:
         if sTitle == Constants.RANDOM_LETTER:
             sTitle = Utils.GetRandomLetter()
 
+        '''
         if sTitle == Constants.SEARCH_MOVIE_HBO:
             sTitleGuide = Utils.GetHBOTitle()
             # fetch the 0th result region
@@ -488,6 +489,7 @@ class Search:
             else:
                 Logger.note.log('Title on the Guide does not match with Title on Search Results Screen')
                 return
+        '''
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
@@ -854,9 +856,8 @@ class Search:
 
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-
-        elif sType == 'HBO':
-            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,Utils.GetHBOTitle())
+        #elif sType == 'HBO':
+        #    listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,Utils.GetHBOTitle())
 
         if len(listOfDictSearchResults) == 0:
             Logger.note.error("The dictionary is empty and cannot be searched")
@@ -1106,15 +1107,21 @@ class Guide:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         if sDirectInput == TEXT_MOVIE:
-            oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
-                height = REGION_GUIDEPROGRAM['height'])
             while (1):
-                sTextOnScreen = stbt.ocr(region = oProgramTitle)
-                if TEXT_MOVIE in sTextOnScreen:
-                    Utils.SetHBOTitle(sTextOnScreen.splitlines()[0][:12])
-                    break
+                sText = Utils.FetchTextOfRegion(REGION_GUIDEPROGRAM,FirstLineOnly=True)
+                if sText == TEXT_MOVIE:
+                    Utils.SetHBOTitle(sText[:12])
                 else:
                     Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
+            #oProgramTitle = stbt.Region(x = REGION_GUIDEPROGRAM['x'], y = REGION_GUIDEPROGRAM['y'], width = REGION_GUIDEPROGRAM['width'], 
+            #    height = REGION_GUIDEPROGRAM['height'])
+            #while (1):
+            #    sTextOnScreen = stbt.ocr(region = oProgramTitle)
+            #    if TEXT_MOVIE in sTextOnScreen:
+            #        Utils.SetHBOTitle(sTextOnScreen.splitlines()[0][:12])
+            #        break
+            #    else:
+            #        Utils.PressListOfKeyStrokes([Constants.KEY_LEFT])
         elif sDirectInput == TEXT_TV_SHOW:
             Logger.note.error("TV Show functionality still needs to be created")
 
