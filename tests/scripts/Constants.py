@@ -118,6 +118,8 @@ class Constants(object):
 
     # List of index(es)
     INDEX_TMS_MOVIES_PROGRAMS = "tms_movies_programs"
+    UNDERSCORE_COUNT = "_count"
+    SEARCH_TITLE = "?q=title:"
 
     # Datatable constants
     SEARCH_COL_TITLE = "Title"

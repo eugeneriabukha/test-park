@@ -139,7 +139,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
 
-JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH',"'OGDV0m4bOJNr-'O"]
+JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH',"'OGDV0m4bOJNr-'O","OQVOU'IbQN"]
 
 class Navigate:
     """
@@ -524,12 +524,25 @@ class Search:
         # split the different lines captured and strip spaces off each line
         lResults = sGivenString.splitlines()
         lResults = [sLine.strip() for sLine in lResults if sLine.strip()]
-        Logger.note.debug("lResults:")
-        Logger.note.debug(lResults)
+        # Remove unrequired junk items
+        Logger.note.debug("Provided input for parsing: %s" % lResults)
+        for sJunkItem in JUNKLIST:
+            if sJunkItem in lResults:
+                iIndex = lResults.remove(sJunkItem)
+        Logger.note.debug("Input after removing junk list: %s" % lResults)
 
+        # try to check the count for provided title
+        sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
+        sFullURL = sFullURL + Constants.UNDERSCORE_COUNT + Constants.SEARCH_TITLE
+        # remove junk characters from the list captured
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
+                args = {'Title': sText,}
+                sURL = sFullURL + '%(Title)s' % args
+                oDetail = Utils.GetHTTPResponse(sURL)
+                Logger.note.debug("Fetched Response: %s" % oDetail)
+
             except UnicodeEncodeError:
                 lResults.remove(sCapturedText)
                 Logger.note.debug("Removing item from list: %s" % sCapturedText)
@@ -554,15 +567,6 @@ class Search:
         if len(lResults) <= 1:
             Logger.note.error("No results displayed on the screen")
             return False
-
-        # Remove unrequired junk items
-        Logger.note.debug("Provided input for parsing: %s" % lResults)
-
-        for sJunkItem in JUNKLIST:
-            if sJunkItem in lResults:
-                iIndex = lResults.remove(sJunkItem)
-
-        Logger.note.debug("Input after removing junk list: %s" % lResults)
 
         # Parse the results for most popular searches
         dicIndex = collections.OrderedDict()
