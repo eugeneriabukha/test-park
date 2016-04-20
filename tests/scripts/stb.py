@@ -841,8 +841,8 @@ class Search:
 
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-        #elif sType == 'DYNAMIC':
-        #    listOfDictSearchResults = [str(Utils.GetDynamicTitle())]
+        elif sType == 'DYNAMIC':
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetDynamicTitle()))
 
         if len(listOfDictSearchResults) == 0:
             Logger.note.error("The dictionary is empty and cannot be searched")
