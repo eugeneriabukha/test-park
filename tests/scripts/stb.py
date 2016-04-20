@@ -538,12 +538,10 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
-                #args = {'Title': sText,}
-                args = {'Title': 'Captain',}
+                args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
                 Logger.note.debug("URL : %s" % sURL)
                 oDetail = Utils.GetHTTPResponse(sURL)
-                Logger.note.debug("Fetched Response: %s" % oDetail)
 
             except UnicodeEncodeError:
                 lResults.remove(sCapturedText)

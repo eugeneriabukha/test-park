@@ -124,15 +124,9 @@ class cUtils:
         Raises:
             Nothing
         """
-        oOpener = urllib2.build_opener()
-        oHeaders = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10/0.1',
-        }
-        oOpener.addheaders = oHeaders.items()
         Logger.note.debug("URL: %s" % sURL)
-        oResponse = oOpener.open(sURL)
-        Logger.note.debug("Response: %s" % oResponse)
-        #oResponse = urllib2.urlopen(sURL)
+        sURL = sURL.text.replace(" ", "%20")
+        oResponse = urllib2.urlopen(sURL)
         oJSON = json.load(oResponse)
         Logger.note.debug("JSON: %s" % oJSON)
         return oJSON
