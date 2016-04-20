@@ -557,6 +557,9 @@ class Search:
                 oDetail = Utils.GetHTTPResponse(sURL)
                 iTotalSearchCount = oDetail["count"]
                 Logger.note.debug("Total Count for %s : %s" % (sText,iTotalSearchCount))
+                if iTotalSearchCount == 0:
+                    lResults.remove(sCapturedText)
+                    Logger.note.debug("Remove item from the list: %s" % sCapturedText)
             except UnicodeEncodeError:
                 lResults.remove(sCapturedText)
                 Logger.note.debug("Removing item from list: %s" % sCapturedText)
