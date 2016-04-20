@@ -531,8 +531,7 @@ class Search:
                 iIndex = lResults.remove(sJunkItem)
         Logger.note.debug("Input after removing junk list: %s" % lResults)
 
-        lResults.extend(JUNKLIST)
-
+        # removing numbers prior to text
         for iCounter,sCapturedText in enumerate(lResults):
             try:
                 sRegEx = '^[0-9O]\s(.+?)$'
@@ -551,7 +550,7 @@ class Search:
         # create a new list for the list to be removed
         listOfJunkItems = []
 
-        # remove junk characters from the list captured
+        # find junk characters from the list captured
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
@@ -563,17 +562,13 @@ class Search:
                 Logger.note.debug("Total Count for %s : %s" % (sText,iTotalSearchCount))
                 if iTotalSearchCount == 0:
                     listOfJunkItems.append(sCapturedText)
-                    #lResults.remove(sCapturedText)
-                    #Logger.note.debug("Remove item from the list: %s" % sCapturedText)
             except UnicodeEncodeError:
                 listOfJunkItems.append(sCapturedText)
-                #lResults.remove(sCapturedText)
-                #Logger.note.debug("Removing item from list: %s" % sCapturedText)
 
+        # remove junk characters captured
         for sCapturedText in listOfJunkItems:
             lResults.remove(sCapturedText)
             Logger.note.debug("Removing item from list: %s" % sCapturedText)
-
 
         bSucessFlag = self.ParseResults(lResults)
         return bSucessFlag
@@ -620,33 +615,9 @@ class Search:
             iMostPopularSearchIndex = dicIndex[TEXT_STB_MOST_POPULAR_SEARCHES]
         else:
             iFirstCounter = dicIndex.values()[0]
-        iLastCounter = len(lResults)
-
-        # Navigate from first counter to last counter and correct items based on pattern match
-        for iCounter in range(iFirstCounter,iLastCounter):
-            sFoundText = ''
-            sCapturedText = ''
-
-            # try to get rid of junk values in the list
-            try:
-                sCapturedText = str(lResults[iCounter])
-            except UnicodeEncodeError:
-                continue
-            Logger.note.debug("Inside for loop  %d : %s" % (iCounter,sCapturedText))
-
-            try:
-                sRegEx = '^[0-9O]\s(.+?)$'
-                sFoundText = re.search(sRegEx,sCapturedText).group(1)
-                Logger.note.debug("Found Text : %s" % sFoundText)
-            except AttributeError:
-                sFoundText = sCapturedText
-                Logger.note.debug("No matching pattern found for the specified regEx search")
-                continue
-            lResults[iCounter] = sFoundText
-
-        Logger.note.debug("Input after pattern matching: %s" % lResults)
 
         # initialize required variables
+        iLastCounter = len(lResults)
         ResultsDict={}
         ListofDict=[]
         sTempType = ""
@@ -674,85 +645,6 @@ class Search:
             iIndexCounter = iIndexCounter + 1
 
         Logger.note.debug("Parsed result: %s" % ListofDict)
-
-
-        '''
-        if lResults[0] == SEARCH_RESULTS[0]:
-            lResults.remove(SEARCH_RESULTS[0])
-            sTempType = Constants.EMPTY
-            # Keeps the counter for the ID in the search results
-            iIndexCounter = 0
-
-
-            for sCurrentLine in lResults:
-                # Searches for the pattern match of any string that starts with number and followed by space
-                for junk in JUNKLIST:
-                    if junk in sCurrentLine:
-                        lResults.remove(sCurrentLine)
-                        break
-
-            for sCurrentLine in lResults:
-                # Searches for the pattern match of any string that starts with number and followed by space
-                if re.search('^[0-9O]\s', sCurrentLine) != None:
-                    #Gets the index and title by spliting the Current line
-                    sIndex = sCurrentLine.split(' ',1)[0]
-                    sTitle = sCurrentLine.split(' ',1)[1]
-                    ResultsDict["ID"] = iIndexCounter
-                    ResultsDict["Title"] = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-                    ResultsDict["Type"] = sTempType
-                    # Appending the results dict into the list
-                    ListofDict.append(ResultsDict.copy())
-                    iIndexCounter = iIndexCounter + 1
-                # Searches the pattern which starts with any alphanumber char followed by anything that is not space
-                elif re.search('^[a-zA-Z0-9]\s', sCurrentLine) != None:
-                    ResultsDict["ID"] = iIndexCounter
-                    ResultsDict["Title"] = sCurrentLine[0:SEARCH_CHAR_UPPER_LIMIT]
-                    ResultsDict["Type"] = sTempType
-                    ListofDict.append(ResultsDict.copy())
-                    iIndexCounter = iIndexCounter + 1
-                # Ignoring any other read on the search which is not alphanumeric
-                else:
-                    pass
-        # Parse the results when a search is made
-        else:
-            for sResult in lResults: 
-                if re.search('^[0-9O]\s', sResult) == None: 
-                    if sResult not in DICT_STB_TYPES.keys():
-                        lResults.remove(sResult)    
-            
-
-            for sResult in lResults:
-                for junk in JUNKLIST:
-                    if junk in sResult:
-                        lResults.remove(sResult)
-                        break
-
-            # Get the length of the Result string
-            iLastCounter = len(lResults)
-            iIndexCounter = 1
-            for iCounter in range(1, iLastCounter):
-                sCurrentLine = lResults[iCounter]
-                if sCurrentLine in dicIndex:
-                    sTempType = sCurrentLine
-                else:
-                    sIndex = iIndexCounter
-                    #Gets the title by spliting the Current line
-                    if sCurrentLine.strip(" ") == "":
-                        continue
-                    try:
-                        sTitle = sCurrentLine.split(' ',1)[1]
-                        ResultsDict["ID"] = sIndex
-                        sTempTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-                        sTempTitle = str(sTempTitle)
-                        ResultsDict["Title"] = sTempTitle
-                        ResultsDict["Type"] = sTempType
-                        # Appending the results dict into the list
-                        ListofDict.append(ResultsDict.copy())
-                        # incrementing the Index Counter which keeps track of the ID
-                        iIndexCounter = iIndexCounter + 1
-                    except:
-                        pass
-        '''
 
         # Set the Result set under utils
         if len(ListofDict) == 11:
