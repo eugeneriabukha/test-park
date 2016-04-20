@@ -540,6 +540,7 @@ class Search:
                 sText = str(sCapturedText)
                 args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
+                Logger.note.debug("URL : %s" % sURL)
                 oDetail = Utils.GetHTTPResponse(sURL)
                 Logger.note.debug("Fetched Response: %s" % oDetail)
 
