@@ -27,7 +27,6 @@ from collections import OrderedDict
 DEFAULT_SEARCH_CHAR = "P"
 SEARCH_NAVIGATION_SUCCESS = "Navigation Success: Search"
 SEARCH_NAVIGATION_FAILURE = "Navigation Failure: Search"
-SEARCH_CORRECT_NETFLIX_SETTING = "The existing setting of Netflix is correct. No further changes"
 POSITIVE_NETFLIX = "The existing setting of Netflix is correct. No further changes"
 NEGATIVE_NETFLIX = "The existing Netflix settings is NOT correct. Fixing the search results to incorporate Netflix settings"
 INCLUDE_NETFLIX = "Including Netflix"
@@ -37,8 +36,8 @@ SEARCH_POSITIVE = "Search performed successfully"
 SEARCH_NEGATIVE = "Search Failure: Error in performing search"
 POPULAR_SEARCH_RESULTS_MATCH = "The Top 10 most popular search results matches with expected results"
 POPULAR_SEARCH_RESULTS_FAILURE = "The most popular search results do not match"
-SUMMARYPAGE_TITLE_MATCH = "Correct Title is displayed"
-SUMMARYPAGE_TITLE_FAILURE = "Incorrect Title displayed"
+SUMMARYPAGE_TITLE_MATCH = "Correct title is displayed"
+SUMMARYPAGE_TITLE_FAILURE = "Incorrect title displayed"
 SINGLE_CHAR_SEARCH_RESULTS_MATCH = "Autosuggest with single char search has 4 shows, 2 movies, 2 teams and 1 person"
 SINGLE_CHAR_SEARCH_RESULTS_FAILURE = "Autosuggest with single char search has incorrect number of shows/movies/teams/person"
 # limit constants
@@ -343,7 +342,7 @@ class Navigate:
         # Fetch if the required tab is selected
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == sDestinationTabName:
-            Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
+            Logger.note.debug( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
@@ -448,7 +447,7 @@ class Search:
 
         # Check the current advanced search setting if it matches with the existing setting
         if(bIncludeNetflix == bActualNetflixStatus):
-            Logger.note.info(POSITIVE_NETFLIX)
+            Logger.note.debug(POSITIVE_NETFLIX)
         else:
             Logger.note.info( NEGATIVE_NETFLIX)
             # performing advanced search : netflix inclusion or removal
@@ -869,7 +868,7 @@ class Search:
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
         Utils.SetSelectedTitle(sTitle)
-        Logger.note.info( "The Selected Title is %s" % sTitle)
+        Logger.note.info( "Randomly selected title is <%s>" % sTitle)
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
