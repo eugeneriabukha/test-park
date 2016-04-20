@@ -427,8 +427,11 @@ class Search:
         if not sTitle:
             self.FetchPopularSearchResults()
 
+        # Random letter or stored values
         if sTitle == Constants.RANDOM_LETTER:
             sTitle = Utils.GetRandomLetter()
+        elif sTitle == Constants.STORED:
+            sTitle = Utils.GetDynamicTitle()
 
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
@@ -838,28 +841,27 @@ class Search:
 
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-        elif sType == 'DYNAMIC':
-            listOfDictSearchResults = [Utils.GetDynamicTitle()]
+        #elif sType == 'DYNAMIC':
+        #    listOfDictSearchResults = [str(Utils.GetDynamicTitle())]
 
         if len(listOfDictSearchResults) == 0:
             Logger.note.error("The dictionary is empty and cannot be searched")
             self.instruction.actualresult = Constants.STATUS_FAILURE
             return
 
-        Logger.note.debug("Complete List Of Dictionary:")
-        Logger.note.debug( listOfDictSearchResults)
+        Logger.note.debug("Complete List Of Dictionary : %s" % listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
 
         if iRandID == None:
             try:
                 iRandomID = random.randint(0, iLastCounter)
-                Logger.note.debug( "%s from the list is selected at random" %iRandomID)
+                Logger.note.debug( "%s from the list is selected at random" % iRandomID)
             except:
                 iRandomID = 0
 
         else:
             iRandomID = iRandID
-            Logger.note.info( "User Selected the %s from the list" %iRandomID)
+            Logger.note.info( "User Selected %s from the list" % iRandomID)
 
         dictSearchItem = listOfDictSearchResults[iRandomID]
         Logger.note.debug(dictSearchItem)
@@ -867,7 +869,7 @@ class Search:
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
         Utils.SetSelectedTitle(sTitle)
-        Logger.note.info( "The Selected Title is %s" %sTitle)
+        Logger.note.info( "The Selected Title is %s" % sTitle)
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])

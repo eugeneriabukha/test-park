@@ -69,8 +69,7 @@ class Constants(object):
     ABOVE = "!ABOVE!"
     EMPTY = "!EMPTY!"
     RANDOM_LETTER = "!RANDOM_LETTER!"
-    
-    SEARCH_MOVIE_HBO = "!SEARCH_MOVIE_HBO!"
+    STORED = "!STORED!"
 
     # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"
