@@ -531,8 +531,7 @@ class Search:
                 iIndex = lResults.remove(sJunkItem)
         Logger.note.debug("Input after removing junk list: %s" % lResults)
 
-        iCounter = 0
-        for sCapturedText in lResults:
+        for iCounter,sCapturedText in enumerate(lResults):
             try:
                 sRegEx = '^[0-9O]\s(.+?)$'
                 sFoundText = re.search(sRegEx,sCapturedText).group(1)
@@ -542,7 +541,6 @@ class Search:
                 Logger.note.debug("No matching pattern found for the specified regEx search")
                 continue
             lResults[iCounter] = sFoundText
-            iCounter = iCounter + 1
 
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
