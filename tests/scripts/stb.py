@@ -531,6 +531,8 @@ class Search:
                 iIndex = lResults.remove(sJunkItem)
         Logger.note.debug("Input after removing junk list: %s" % lResults)
 
+        lResults.extend(JUNKLIST)
+
         for iCounter,sCapturedText in enumerate(lResults):
             try:
                 sRegEx = '^[0-9O]\s(.+?)$'
