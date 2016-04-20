@@ -541,7 +541,7 @@ class Search:
                 sFoundText = sCapturedText
                 Logger.note.debug("No matching pattern found for the specified regEx search")
                 continue
-                lResults[iCounter] = sFoundText
+            lResults[iCounter] = sFoundText
             iCounter = iCounter + 1
 
         # try to check the count for provided title
