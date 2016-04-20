@@ -547,6 +547,10 @@ class Search:
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
         sFullURL = sFullURL + Constants.UNDERSCORE_COUNT + Constants.SEARCH_TITLE
+
+        # create a new list for the list to be removed
+        listOfJunkItems = []
+
         # remove junk characters from the list captured
         for sCapturedText in lResults:
             try:
@@ -558,11 +562,18 @@ class Search:
                 iTotalSearchCount = oDetail["count"]
                 Logger.note.debug("Total Count for %s : %s" % (sText,iTotalSearchCount))
                 if iTotalSearchCount == 0:
-                    lResults.remove(sCapturedText)
-                    Logger.note.debug("Remove item from the list: %s" % sCapturedText)
+                    listOfJunkItems.push(sCapturedText)
+                    #lResults.remove(sCapturedText)
+                    #Logger.note.debug("Remove item from the list: %s" % sCapturedText)
             except UnicodeEncodeError:
-                lResults.remove(sCapturedText)
-                Logger.note.debug("Removing item from list: %s" % sCapturedText)
+                listOfJunkItems.push(sCapturedText)
+                #lResults.remove(sCapturedText)
+                #Logger.note.debug("Removing item from list: %s" % sCapturedText)
+
+        for sCapturedText in listOfJunkItems:
+            lResults.remove(sCapturedText)
+            Logger.note.debug("Removing item from list: %s" % sCapturedText)
+
 
         bSucessFlag = self.ParseResults(lResults)
         return bSucessFlag
