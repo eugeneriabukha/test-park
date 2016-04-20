@@ -538,7 +538,8 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
-                args = {'Title': sText,}
+                #args = {'Title': sText,}
+                args = {'Title': 'Captain',}
                 sURL = sFullURL + '%(Title)s' % args
                 Logger.note.debug("URL : %s" % sURL)
                 oDetail = Utils.GetHTTPResponse(sURL)
