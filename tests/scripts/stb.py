@@ -914,6 +914,7 @@ class FranchisePage:
 
         # fetch expected title well in hand
         sExpectedTitle = Utils.GetSelectedTitle()
+        sExpectedTitle = sExpectedTitle.strip()
         Logger.note.info( "Expected Title: %s" %sExpectedTitle)
         try:
             dicRegion = DICT_FRANCHISE_TITLE[sPageName]
@@ -923,9 +924,10 @@ class FranchisePage:
 
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
+        sActualTitle = sActualTitle.strip()
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         if sActualTitle[0:20] ==sExpectedTitle[0:20]:
-            Logger.note.info( SUMMARYPAGE_TITLE_MATCH)
+            Logger.note.info(SUMMARYPAGE_TITLE_MATCH)
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error(SUMMARYPAGE_TITLE_FAILURE)
