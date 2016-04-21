@@ -520,7 +520,9 @@ class Search:
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
             width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
-        sGivenString = stbt.ocr(region = oResultsRegion, tesseract_user_words = SEARCH_RESULTS_EXTENDED)
+        sGivenString = stbt.ocr(region = oResultsRegion, 
+            mode = stbt.OcrMode.SINGLE_UNIFORM_BLOCK_OF_TEXT,
+            tesseract_user_words = SEARCH_RESULTS_EXTENDED)
         # trimming down unwanted space
         sGivenString = sGivenString.strip()
         # split the different lines captured and strip spaces off each line
