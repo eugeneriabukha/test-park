@@ -125,7 +125,8 @@ class cUtils:
             Nothing
         """
         Logger.note.debug("URL: %s" % sURL)
-        sURL = sURL.replace(" ", "%20")
+        sURL = sURL.replace("\"","")
+        sURL = sURL.replace(Constants.DELIMITER_SPACE, "%20")
         oResponse = urllib2.urlopen(sURL)
         oJSON = json.load(oResponse)
         Logger.note.debug("JSON: %s" % oJSON)
