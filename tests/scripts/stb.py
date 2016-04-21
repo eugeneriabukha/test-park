@@ -554,7 +554,8 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
-                sText = sText.replace(Constants.DELIMITER_COLON,"") # TODO: need to join the main function
+                sText = sText.replace(Constants.DELIMITER_COLON,"%20") # TODO: need to join the main function
+                sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
                 args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
                 Logger.note.debug("URL : %s" % sURL)
