@@ -547,6 +547,8 @@ class Search:
                 continue
             lResults[iCounter] = sFoundText
 
+        Logger.note.debug("List after removing numbers prior to text: %s" % lResults)
+
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
         sFullURL = sFullURL + Constants.UNDERSCORE_COUNT + Constants.SEARCH_TITLE
@@ -570,6 +572,7 @@ class Search:
                 if iTotalSearchCount == 0:
                     listOfJunkItems.append(sCapturedText)
             except UnicodeEncodeError:
+                Logger.note.debug("UnicodeEncodeError for : %s" % sText)
                 listOfJunkItems.append(sCapturedText)
 
         # remove junk characters captured
