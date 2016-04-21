@@ -515,6 +515,8 @@ class Search:
         Raises:
             Nothing
         """
+        Logger.note.debug("Tesseract Keywords: %s" % SEARCH_RESULTS_EXTENDED)
+
         # fetch the results region
         oResultsRegion = stbt.Region(x = REGION_RESULTS['x'], y = REGION_RESULTS['y'], 
             width = REGION_RESULTS['width'], height = REGION_RESULTS['height'])
