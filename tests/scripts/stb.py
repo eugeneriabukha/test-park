@@ -925,11 +925,11 @@ class FranchisePage:
         # fetch expected title well in hand
         sExpectedTitle = Utils.GetSelectedTitle()
         sExpectedTitle = sExpectedTitle.strip()
-        Logger.note.info( "Expected Title: %s" %sExpectedTitle)
+        Logger.note.info( "Expected Title: %s" % sExpectedTitle)
         try:
             dicRegion = DICT_FRANCHISE_TITLE[sPageName]
         except:
-            Logger.note.error( "Unrecognized page name: %s" %sPageName)
+            Logger.note.error( "Unrecognized page name: %s" % sPageName)
             return False
 
         # find title from the provided region

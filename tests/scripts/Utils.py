@@ -241,11 +241,12 @@ class cUtils:
         """
         # fetch the region based on the region dictionary
         oRegion = self.FetchRegion(REGION)
+        Logger.note.debug("Tesseract words : %s" % TESSERACT)
         # based on provided input, fetch the text on the provided region
         if TESSERACT == None:
-            sTextFound = stbt.ocr(region = oRegion)
+            sTextFound = stbt.ocr(region = oRegion, mode=stbt.OcrMode.SINGLE_UNIFORM_BLOCK_OF_TEXT,)
         else:
-            sTextFound = stbt.ocr(region = oRegion, tesseract_user_words = TESSERACT)
+            sTextFound = stbt.ocr(region = oRegion, mode=stbt.OcrMode.SINGLE_UNIFORM_BLOCK_OF_TEXT, tesseract_user_words = TESSERACT)
         # trim the text captured before returning
         sTextFound = sTextFound.strip()
         # fetch the first line only when asked for
