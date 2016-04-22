@@ -211,7 +211,7 @@ class cUtils:
 
         bSuccess = True
         dictExpected = OrderedDict({})
-        iLastCounter = len(lActualResultTitles) - 1
+        iLastCounter = len(lActualResultTitles)
         dictActual = OrderedDict({})
         for iCounter in range(0,iLastCounter):
             dictExpected[lExpectedResultTitles[iCounter]] = ""
