@@ -162,6 +162,7 @@ class cUtils:
         """
         return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
+    '''
     def GetTitleByID(self,oSearchResults,sInputID):
         """
         This function fetches the response title for the provided input type
@@ -176,6 +177,7 @@ class cUtils:
             Nothing
         """
         return [sTitle for sTitle in oSearchResults if sTitle["ID"] == int(sInputID)]
+    '''
 
     def CompareResults(self,dicExpectedSearchResults,lActualSearchResults):
         """
@@ -195,16 +197,17 @@ class cUtils:
         lExpectedResultTitles = dicExpectedSearchResults.keys()
         dicResults = {}
         listOfResults = []
-        iCounter = 0
+        #iCounter = 0
 
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
-            Logger.note.debug("iCounter: %d" % iCounter)
-            sTitleInfo = self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title']
+            #Logger.note.debug("iCounter: %d" % iCounter)
+            sTitleInfo = eachSearchResult['Title']
+            #sTitleInfo = self.GetTitleByID(lActualSearchResults,iCounter)[0]['Title']
             Logger.note.debug("Title: %s" % sTitleInfo)
             sTempTitle = str(sTitleInfo)
             lActualResultTitles.append(sTempTitle)
-            iCounter = iCounter + 1
+            #iCounter = iCounter + 1
 
         bSuccess = True
         dictExpected = OrderedDict({})
