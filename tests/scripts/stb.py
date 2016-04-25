@@ -316,21 +316,21 @@ class Navigate:
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
-                oImage = DICT_FRANCHISE_HEADER_IMAGES[sActiveTabName]
-                oMatch = stbt.press_until_match(Constants.KEY_UP, oImage, interval_secs=0, max_presses=100, match_parameters=None)
-                if oMatch.match == False:
-                    if bCalledFromInstructionSheet == True:
-                        self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                    return False
+                #oImage = DICT_FRANCHISE_HEADER_IMAGES[sActiveTabName]
+                #oMatch = stbt.press_until_match(Constants.KEY_UP, oImage, interval_secs=0, max_presses=100, match_parameters=None)
+                #if oMatch.match == False:
+                #    if bCalledFromInstructionSheet == True:
+                #        self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+                #    return False
 
         # To navigate in the top header, need to find out the current position and work accordingly
-        sKeyStroke = Constants.KEY_RIGHT
+        sKeyStroke = Constants.KEY_FRAMEFORWARD
         iCurrentPosition = hPositionMap[sActiveTabName]
         iDestinationPosition = hPositionMap[sDestinationTabName]
         iDifference = iDestinationPosition - iCurrentPosition
         # if the difference is negative, need to move left to reach destination
         if iDifference < 0:
-            sKeyStroke = Constants.KEY_LEFT
+            sKeyStroke = Constants.KEY_FRAMEBACK
 
         lKeyStrokes = []
         # to decide the number of moves to reach the destination, getting abs of difference
