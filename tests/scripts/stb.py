@@ -936,7 +936,8 @@ class FranchisePage:
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
         sActualTitle = sActualTitle.strip()
         Logger.note.info( "Actual Title: %s" %sActualTitle)
-        if sActualTitle[0:20].upper() ==sExpectedTitle[0:20].upper():
+        
+        if sActualTitle[0:20].upper() == sExpectedTitle[0:20].upper():
             Logger.note.info(SUMMARYPAGE_TITLE_MATCH)
             self.instruction.actualresult = self.instruction.expectedresult
         else:
