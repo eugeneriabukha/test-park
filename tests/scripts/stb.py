@@ -341,6 +341,10 @@ class Navigate:
 
         # Fetch if the required tab is selected
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
+        if sNewTabName == TEXT_TAB_UNAVAILABLE:
+            sNewTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
+
+        # check if we reached the tab
         if sNewTabName == sDestinationTabName:
             Logger.note.debug( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
