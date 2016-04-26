@@ -394,6 +394,7 @@ class Execution:
                 self.Execute(sPrevInstructionName,oInstruction)
             except CustomException as oException:
                 if oException.name == Constants.EXIT_TC_ON_ERROR:
+                    Logger.note.debug("Exitting test case because of an error in the current test step")
                     bRun = False
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
@@ -449,7 +450,7 @@ class Execution:
         # fetch instruction name
         # pre-dependency before running an instruction
         Logger.note.debug("Evaluting pre Dependency")
-        
+
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
