@@ -48,12 +48,10 @@ def atoi(text):
     return int(text) if text.isdigit() else text
 
 def natural_keys(text):
-
     return [ atoi(c) for c in re.split('(\d+)', text) ]
 #=============================================================================#
 # Class: KeywordDriver
 #=============================================================================#
-#
 class KeywordDriver(dict):
     #=============================================================================#
     # Method: __init__(self, oDataDriver)
@@ -398,7 +396,7 @@ class Execution:
                 if oException.name == Constants.EXIT_TC_ON_ERROR:
                     bRun = False
                 else:
-                    raise CustomException(Constants.EXIT_ON_ERROR)
+                    raise Exception(Constants.EXIT_ON_ERROR)
 
     #=============================================================================#
     # Method: get_previousLabel
