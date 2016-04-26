@@ -232,6 +232,7 @@ class Navigate:
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.LONG_WAIT)
+        self.instruction.actualresult = self.instruction.expectedresult
 
     def GroupToProgram(self):
         """
