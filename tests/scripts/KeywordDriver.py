@@ -431,17 +431,16 @@ class Execution:
 
         # pre-dependency before running an instruction
         Logger.note.debug("Evaluting pre Dependency")
-
-        try:
-            self.EvaluatePreDependency(oExecutedInstruction)
-        except CustomException as oException:
-            raise CustomException(oException.name)
+        self.EvaluatePreDependency(oExecutedInstruction)
 
         # instantiate a specific instruction and perform the execution
         if oExecutedInstruction.execute == True:
             oKeywordFactory = KeywordFactory(oExecutedInstruction)
             oKeywordFactory.Execute()
-            self.EvaluatePostDependency(oExecutedInstruction)
+            try:
+                self.EvaluatePostDependency(oExecutedInstruction)
+            except CustomException as oException:
+                raise CustomException(oException.name)
 
         # Update the changes to instruction
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
