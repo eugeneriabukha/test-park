@@ -440,7 +440,7 @@ class Execution:
             oKeywordFactory = KeywordFactory(oExecutedInstruction)
             oKeywordFactory.Execute()
         else:
-            Logger.note.debug("Skipping execution and post dependency of execution")
+            Logger.note.debug("Skipping execution of the instruction")
 
         # perform post dependency evaluation
         try:
