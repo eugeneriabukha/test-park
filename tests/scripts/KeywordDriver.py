@@ -431,7 +431,11 @@ class Execution:
 
         # pre-dependency before running an instruction
         Logger.note.debug("Evaluting pre Dependency")
-        self.EvaluatePreDependency(oExecutedInstruction)
+
+        try:
+            self.EvaluatePreDependency(oExecutedInstruction)
+        except CustomException as oException:
+            raise CustomException(oException.name)
 
         # instantiate a specific instruction and perform the execution
         if oExecutedInstruction.execute == True:
@@ -453,10 +457,8 @@ class Execution:
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
 
-        Logger.note.debug("oExecutedInstruction:")
-        Logger.note.debug(oExecutedInstruction.PrettyPrint())
-        Logger.note.debug("sInstructionName:")
-        Logger.note.debug(sInstructionName)
+        Logger.note.debug("sInstructionName: %s" %sInstructionName)
+        Logger.note.debug("oExecutedInstruction: %s" %oExecutedInstruction.PrettyPrint())
 
         # Fetch each option and execute based on provided options for the specific keyword
         for sOptionsKey in arSorted:
@@ -479,13 +481,24 @@ class Execution:
                     sDependencyStatus = self.instructionsDict[sTempLabel].get_status()
                 except KeyError:
                     sTemp = "The provided label do not exist <%s>" %(sTempLabel)
+                    Logger.note.info(sTemp)
+
+                    self.instructionsDict[sInstructionName] = oExecutedInstruction
                     raise Exception(sTemp)
 
                 # execute the current only if the dependent keyword was a success
                 if sDependencyStatus != Constants.STATUS_SUCCESS:
                     sTemp = "Dependency Failure : Dependent step failed for Instruction <"+ (sInstructionName)+">"
+                    Logger.note.info(sTemp)
                     oExecutedInstruction.execute = False
-                    raise Exception(sTemp)
+                    self.instructionsDict[sInstructionName] = oExecutedInstruction
+
+                    # if exit test case on error, raise appropriate exception
+                    if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
+                        raise CustomException(Constants.EXIT_TC_ON_ERROR)
+                    # if exit test case, raise appropriate exception
+                    elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
+                        raise CustomException(Constants.EXIT_ON_ERROR)
 
             # directly pass the input for option: DirectInput
             elif arOptionDetail[0] == Constants.DIRECT_INPUT:
@@ -524,8 +537,8 @@ class Execution:
             cv2.imwrite(sLabel+".png",oFrame)
             oExecutedInstruction.status = Constants.STATUS_FAILURE
             # if exit test case on error, raise appropriate exception
-            if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
-                raise CustomException(Constants.EXIT_TC_ON_ERROR)
-            # if exit test case, raise appropriate exception
-            elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
-                raise CustomException(Constants.EXIT_ON_ERROR)
+            #if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
+            #    raise CustomException(Constants.EXIT_TC_ON_ERROR)
+            ## if exit test case, raise appropriate exception
+            #elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
+            #    raise CustomException(Constants.EXIT_ON_ERROR)
