@@ -426,9 +426,6 @@ class Execution:
     def Execute(self,sPrevInstructionName,oExecutedInstruction):
         # perform pre-evaluation before running an instruction
         self.previousLabel = sPrevInstructionName
-
-        # pre-dependency before running an instruction
-        Logger.note.debug("Evaluting pre Dependency")
         self.EvaluatePreDependency(oExecutedInstruction)
 
         # instantiate a specific instruction and perform the execution
@@ -450,6 +447,9 @@ class Execution:
     #=============================================================================#
     def EvaluatePreDependency(self,oExecutedInstruction):
         # fetch instruction name
+        # pre-dependency before running an instruction
+        Logger.note.debug("Evaluting pre Dependency")
+        
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
