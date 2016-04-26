@@ -506,7 +506,8 @@ class Execution:
 
             # break if execution flag is false
             if oExecutedInstruction.execute == False:
-                break
+                Logger.note.debug("Quitting pre-dependency check and handling over to execute")
+                return
 
         # Fetch the data if directinput option is provided
         if ((oExecutedInstruction.options_detailed.has_key(Constants.DIRECT_INPUT)!= True) and (oExecutedInstruction.testdata != "")):
