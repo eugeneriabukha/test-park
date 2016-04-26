@@ -493,12 +493,12 @@ class Execution:
                     oExecutedInstruction.execute = False
                     self.instructionsDict[sInstructionName] = oExecutedInstruction
 
-                    # if exit test case on error, raise appropriate exception
-                    if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
-                        raise CustomException(Constants.EXIT_TC_ON_ERROR)
-                    # if exit test case, raise appropriate exception
-                    elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
-                        raise CustomException(Constants.EXIT_ON_ERROR)
+                    ## if exit test case on error, raise appropriate exception
+                    #if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
+                    #    raise CustomException(Constants.EXIT_TC_ON_ERROR)
+                    ## if exit test case, raise appropriate exception
+                    #elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
+                    #    raise CustomException(Constants.EXIT_ON_ERROR)
 
             # directly pass the input for option: DirectInput
             elif arOptionDetail[0] == Constants.DIRECT_INPUT:
@@ -537,8 +537,8 @@ class Execution:
             cv2.imwrite(sLabel+".png",oFrame)
             oExecutedInstruction.status = Constants.STATUS_FAILURE
             # if exit test case on error, raise appropriate exception
-            #if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
-            #    raise CustomException(Constants.EXIT_TC_ON_ERROR)
-            ## if exit test case, raise appropriate exception
-            #elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
-            #    raise CustomException(Constants.EXIT_ON_ERROR)
+            if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
+                raise CustomException(Constants.EXIT_TC_ON_ERROR)
+            # if exit test case, raise appropriate exception
+            elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
+                raise CustomException(Constants.EXIT_ON_ERROR)
