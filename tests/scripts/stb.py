@@ -209,7 +209,8 @@ class Navigate:
         time.sleep(Constants.MEDIUM_WAIT)
         bFlag = oSearch.VerifyPage()
         if bFlag == True:
-            self.instruction.actualresult = self.instruction.expectedresult
+            self.instruction.actualresult = 1
+            #self.instruction.expectedresult
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
