@@ -32,7 +32,7 @@ import urllib2
 #=============================================================================#
 
 # global variables
-global_wait = Constants.NO_WAIT
+global_wait = Constants.SHORT_WAIT # defaults to short wait
 
 #=============================================================================#
 # Class: Service
@@ -226,6 +226,16 @@ class Common:
             except ValueError:
                 global_wait = Constants.SHORT_WAIT
                 Logger.note.info( "Kindly check the value used for setting global wait. Defaulting to SHORT_WAIT" )
+
+    def WaitForSeconds(self):
+        """
+        This function sleeps the current test for provided number of seconds
+        """
+        # fetch value for the global wait
+        oTestData = self.instruction.testdata_detailed
+        iWait = oTestData[Constants.DIRECT_INPUT]
+        iWait = int(iWait)
+        time.sleep(Constants.MEDIUM_WAIT * iWait)
 
     #=============================================================================#
     # Method: PressViewTV
