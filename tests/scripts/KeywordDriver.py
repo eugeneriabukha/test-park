@@ -394,7 +394,7 @@ class Execution:
                 self.Execute(sPrevInstructionName,oInstruction)
             except CustomException as oException:
                 if oException.name == Constants.EXIT_TC_ON_ERROR:
-                    Logger.note.debug("Exitting test case because of an error in the current test step")
+                    Logger.note.debug("Exiting test case because of an error in the current test step")
                     bRun = False
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
@@ -427,16 +427,27 @@ class Execution:
     def Execute(self,sPrevInstructionName,oExecutedInstruction):
         # perform pre-evaluation before running an instruction
         self.previousLabel = sPrevInstructionName
-        self.EvaluatePreDependency(oExecutedInstruction)
+        bTakeScreenshot = True
+
+        # performing pre dependency check
+        try:
+            self.EvaluatePreDependency(oExecutedInstruction)
+        except CustomException as oException:
+            bTakeScreenshot = False
 
         # instantiate a specific instruction and perform the execution
         if oExecutedInstruction.execute == True:
             oKeywordFactory = KeywordFactory(oExecutedInstruction)
             oKeywordFactory.Execute()
-            try:
-                self.EvaluatePostDependency(oExecutedInstruction)
-            except CustomException as oException:
-                raise CustomException(oException.name)
+        else:
+            Logger.note.debug("Skipping execution and post dependency of execution")
+
+        # perform post dependency evaluation
+        try:
+            self.EvaluatePostDependency(oExecutedInstruction,bTakeScreenshot)
+        except CustomException as oException:
+            raise CustomException(oException.name)
+
 
         # Update the changes to instruction
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
@@ -449,7 +460,7 @@ class Execution:
     def EvaluatePreDependency(self,oExecutedInstruction):
         # fetch instruction name
         # pre-dependency before running an instruction
-        Logger.note.debug("Evaluting pre Dependency")
+        Logger.note.debug("Evaluting pre dependency")
 
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
         arTemp = oExecutedInstruction.get_options_detailed()
@@ -465,6 +476,8 @@ class Execution:
             # do not execute if the provided instruction is a comment
             if arOptionDetail[0] == Constants.COMMENT:
                 oExecutedInstruction.execute = False
+                self.instructionsDict[sInstructionName] = oExecutedInstruction
+                return
             # evaluate dependency for presence of option DependsOn
             elif arOptionDetail[0] == Constants.DEPENDS_ON:
                 # fetch previous label if DependsOn=Above
@@ -490,25 +503,13 @@ class Execution:
                     Logger.note.info(sTemp)
                     oExecutedInstruction.execute = False
                     self.instructionsDict[sInstructionName] = oExecutedInstruction
-
-                    ## if exit test case on error, raise appropriate exception
-                    #if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
-                    #    raise CustomException(Constants.EXIT_TC_ON_ERROR)
-                    ## if exit test case, raise appropriate exception
-                    #elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
-                    #    raise CustomException(Constants.EXIT_ON_ERROR)
+                    raise CustomException(Constants.DEPENDENCY_FAILURE)
 
             # directly pass the input for option: DirectInput
             elif arOptionDetail[0] == Constants.DIRECT_INPUT:
                 hTemp = { Constants.DIRECT_INPUT : oExecutedInstruction.testdata }
-                Logger.note.debug("Direct Input:")
-                Logger.note.debug(hTemp)
+                Logger.note.debug("Direct Input: %s" % hTemp)
                 oExecutedInstruction.set_testdata_detailed(hTemp)
-
-            # break if execution flag is false
-            if oExecutedInstruction.execute == False:
-                Logger.note.debug("Quitting pre-dependency check and handling over to execute")
-                return
 
         # Fetch the data if directinput option is provided
         if ((oExecutedInstruction.options_detailed.has_key(Constants.DIRECT_INPUT)!= True) and (oExecutedInstruction.testdata != "")):
@@ -522,18 +523,20 @@ class Execution:
     # Method: EvaluatePostDependency(self,oException)
     # Description: Evaluates the post dependecies of the provided instruction
     #=============================================================================#
-    def EvaluatePostDependency(self,oExecutedInstruction):
+    def EvaluatePostDependency(self,oExecutedInstruction,bTakeScreenshot):
         # if expected result matches actual result, then change status to success
         Logger.note.debug("Evaluting Post Dependency")
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
             Logger.note.debug("Sucess: Updated Status")
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
-            Logger.note.debug("Failure: See Screenshot")
-            sLabel = oExecutedInstruction.get_label()
-            #sFileName = sAction.replace(Constants.DELIMITER_STOP,Constants.DELIMITER_UNDERSCORE)
-            oFrame = stbt.get_frame()
-            cv2.imwrite(sLabel+".png",oFrame)
+            if bTakeScreenshot == True:
+                Logger.note.debug("Failure: See Screenshot")
+                sLabel = oExecutedInstruction.get_label()
+                oFrame = stbt.get_frame()
+                cv2.imwrite(sLabel+".png",oFrame)
+
+            # update status of the executed instruction
             oExecutedInstruction.status = Constants.STATUS_FAILURE
             # if exit test case on error, raise appropriate exception
             if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
