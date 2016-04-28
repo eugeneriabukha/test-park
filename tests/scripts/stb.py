@@ -122,6 +122,7 @@ IMAGE_CAST = "../images/Cast.png"
 IMAGE_CAST_SELECTED = "../images/CastSelected.png"
 IMAGE_REVIEWS = "../images/Reviews.png"
 IMAGE_PARENTALGUIDE = "../images/ParentalGuide.png"
+IMAGE_NONE = "../images/no_image.png"
 
 # Tesseract Related
 STB_TOP_PICKS = 'Top Picks'
@@ -1362,7 +1363,7 @@ class Movies:
         if sExpectedTitle == None:
             oTestData = self.instruction.testdata_detailed
             sExpectedTitle = oTestData[Constants.DIRECT_INPUT]
-            #sExpectedTitle = sExpectedTitle.strip()
+            sExpectedTitle = sExpectedTitle.strip()
 
         if sExpectedTitle in LIST_MOVIES:
             Logger.note.debug("A valid sub tab within the Movies : [%s]" % sExpectedTitle)
@@ -1390,6 +1391,25 @@ class Movies:
         else:
             Logger.note.error("Unknown sub tab of the Movies. Expected: %s | Actual: %s" %(sExpectedTitle,sActualTitle))
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+
+    def CountMissingImages(self):
+        """
+        Count the list of missing images found from the page
+
+        Returns:
+            count of missing images
+        """
+        iTotalCount = 0
+        for iCounter in range(0,20):
+            Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
+            # find a match and keep counting
+            oMatches = stbt.match(IMAGE_NONE)
+            bFlag = oMatches.match
+            Logger.note.debug("Match Found : [%s]" % bFlag)
+            if bFlag == True:
+                iTotalCount = iTotalCount + 1
+
+        Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
