@@ -1408,12 +1408,13 @@ class Movies:
 
         # fetch text from screen
         listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
-        Logger.note.debug("Text found by OCR: %s" % listOfCarousel)
 
         # If all the carousels exist, then pass else fail
         for sTitle in LIST_MOVIES:
             if sTitle not in listOfCarousel:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
+                return
+        
         self.instruction.actualresult = self.instruction.expectedresult
 
     def CountMissingImages(self):
