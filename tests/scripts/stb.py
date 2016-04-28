@@ -1318,17 +1318,16 @@ class Movies:
         oInstruction: an instruction object with keyword, its respected expected result,
         option and its data
     """
-    def VerifyCurrentPage(self,sExpectedTitle=None):
+    def VerifyCurrentPage(self):
         """
         Fetches the current page of the movies
 
         Returns:
             name of current tab which is selected
         """
-        if sExpectedTitle == None:
-            oTestData = self.instruction.testdata_detailed
-            sExpectedTitle = oTestData[Constants.DIRECT_INPUT]
-            sExpectedTitle = sExpectedTitle.strip()
+        oTestData = self.instruction.testdata_detailed
+        sExpectedTitle = oTestData[Constants.DIRECT_INPUT]
+        sExpectedTitle = sExpectedTitle.strip()
 
         if sExpectedTitle in LIST_MOVIES:
             Logger.note.debug("A valid sub tab within the Movies : [%s]" % sExpectedTitle)
