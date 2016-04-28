@@ -125,11 +125,11 @@ IMAGE_PARENTALGUIDE = "../images/ParentalGuide.png"
 IMAGE_NONE = "../images/no_image.png"
 
 # Tesseract Related
-STB_TOP_PICKS = 'Top Picks'
-STB_FREE_MOVIES = 'Free Movies'
-STB_IN_THEATRES = 'In Theatres'
+MOVIE_CAROUSEL_TOP_PICKS = 'Top Picks'
+MOVIE_CAROUSEL_FREE_MOVIES = 'Free Movies'
+MOVIE_CAROUSEL_IN_THEATRES = 'In Theatres'
 
-LIST_MOVIES = [STB_TOP_PICKS,STB_FREE_MOVIES,STB_IN_THEATRES]
+LIST_MOVIES = [MOVIE_CAROUSEL_TOP_PICKS,MOVIE_CAROUSEL_FREE_MOVIES,MOVIE_CAROUSEL_IN_THEATRES]
 
 # Image related lists
 IMAGES_SHOW_HEADER = [IMAGE_SUMMARY,IMAGE_EPISODES,IMAGE_CAST]
@@ -158,6 +158,7 @@ REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
 REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
 REGION_MOVIES_TOPNAV = {'x':32,'y':120, 'width':366, 'height':55}
+REGION_MOVIE_CAROUSEL = {'x':34,'y':150, 'width':160, 'height':500}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -1391,6 +1392,29 @@ class Movies:
         else:
             Logger.note.error("Unknown sub tab of the Movies. Expected: %s | Actual: %s" %(sExpectedTitle,sActualTitle))
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+
+    def GetCarouselList(self):
+        """
+        Fetches the list of carousel items in the page
+
+        Returns:
+            list of carousels
+        """
+        LIST_MOVIES_EXTENDED = []
+        for sTitle in LIST_MOVIES:
+            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+            LIST_MOVIES_EXTENDED.extend(lTitle)
+        Logger.note.debug("Tesseract Keywords for carousels in page: %s" % LIST_MOVIES_EXTENDED)
+
+        # fetch text from screen
+        listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
+        Logger.note.debug("Text found by OCR: %s" % listOfCarousel)
+
+        # If all the carousels exist, then pass else fail
+        for sTitle in LIST_MOVIES:
+            if sTitle not in listOfCarousel:
+                self.instruction.actualresult = Constants.STATUS_FAILURE
+        self.instruction.actualresult = self.instruction.expectedresult
 
     def CountMissingImages(self):
         """
