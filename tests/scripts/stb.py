@@ -1276,6 +1276,23 @@ class TopNav:
         option and its data
 
     """
+    def __init__(self,oInstruction=None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
     def GetCurrentTab(self):
         """
         Fetches the current tab of the top navigator
@@ -1318,6 +1335,23 @@ class Movies:
         oInstruction: an instruction object with keyword, its respected expected result,
         option and its data
     """
+    def __init__(self,oInstruction=None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
     def VerifyCurrentPage(self,sExpectedTitle=None):
         """
         Fetches the current page of the movies
