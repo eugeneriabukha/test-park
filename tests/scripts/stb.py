@@ -54,7 +54,6 @@ SEARCH_KEYSTROKES_ADVANCED = [Constants.KEY_RED,Constants.KEY_SELECT]
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
 
 # General constants
-
 TEXT_TV_SHOW = 'TV Show'
 TEXT_MOVIE = 'Movie'
 TEXT_GROUP = 'Group'
@@ -68,11 +67,31 @@ TEXT_REVIEWS = 'Reviews'
 TEXT_PARENTALGUIDE = 'Parental Guide'
 TEXT_TAB_UNAVAILABLE = 'TAB_UNAVAILABLE'
 
+TEXT_STB_MENU = 'MENU'
+TEXT_STB_HOME = 'HOME'
+TEXT_STB_SHOWS = 'SHOWS'
+TEXT_STB_SPORTS = "SPORTS"
+TEXT_STB_MOVIES = 'MOVIES'
+
+# Image URL(s)
+IMAGE_MENU = '../images/Menu.png'
+IMAGE_HOME = '../images/Home.png'
+IMAGE_SHOWS = '../images/Shows.png'
+IMAGE_SPORTS = '../images/Sports.png'
+IMAGE_MOVIES = '../images/Movies.png'
+
+DICT_TOPNAV_IMAGES = { 
+    TEXT_STB_MENU : IMAGE_MENU, 
+    TEXT_STB_HOME : IMAGE_HOME,
+    TEXT_STB_SHOWS : IMAGE_SHOWS,
+    TEXT_STB_SPORTS : IMAGE_SPORTS,
+    TEXT_STB_MOVIES : IMAGE_MOVIES
+    }
+
 # STB Constants
 TEXT_STB_MOST_POPULAR_SEARCHES = 'MOST POPULAR SEARCHES'
 TEXT_STB_TV = "TV"
 TEXT_STB_MOVIE = "MOVIE"
-TEXT_STB_SPORTS = "SPORTS"
 TEXT_STB_PERSON = "PERSON"
 TEXT_STB_CHANNEL = "CHANNEL"
 
@@ -87,7 +106,6 @@ DIAGNOSTICS_LIST = [DIAGNOSTICS]
 FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
-
 
 # Screen related constants
 SCREEN_GUIDE = 'Guide'
@@ -130,6 +148,7 @@ REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
+REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -138,6 +157,10 @@ DICT_FRANCHISE_TITLE = {
     TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
+
+POSITIONS_MOVIE = { TEXT_SUMMARY:0, TEXT_CAST:1, TEXT_REVIEWS:2, TEXT_PARENTALGUIDE:3 }
+POSITIONS_SHOW = { TEXT_SUMMARY:0, TEXT_EPISODES:1, TEXT_CAST:2, TEXT_PARENTALGUIDE:3 }
+POSITIONS_TOPNAV = {TEXT_STB_MENU:0,TEXT_STB_HOME:1,TEXT_STB_SHOWS:2,TEXT_STB_SPORTS:3,TEXT_STB_MOVIES:4}
 
 JUNKLIST = ["OQVOU","omfla","'OCDVOU'l4bOD","'OCDVOU'IbOJ","'OCDVOU'IbOJN",'OQVOW<\xa7QNH',"'OGDV0m4bOJNr-'O","OQVOU'IbQN"]
 
@@ -289,11 +312,11 @@ class Navigate:
         if(sPageName == TEXT_TV_SHOW):
             listOfImageHeaders = IMAGES_SHOW_HEADER
             listOfActiveImageHeaders = IMAGES_ACTIVE_SHOW_HEADER
-            hPositionMap = Constants.SHOW_POSITIONS
+            hPositionMap = POSITIONS_SHOW
         elif(sPageName == TEXT_MOVIE):
             listOfImageHeaders = IMAGES_MOVIE_HEADER
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
-            hPositionMap = Constants.MOVIE_POSITIONS
+            hPositionMap = POSITIONS_MOVIE
         else:
             Logger.note.info ("The page do not require any navigation. Page name [%s]" %sPageName)
             if bCalledFromInstructionSheet == True:
@@ -344,6 +367,89 @@ class Navigate:
         sNewTabName = oFranchisePage.GetCurrentTab(listOfActiveImageHeaders)
         if sNewTabName == TEXT_TAB_UNAVAILABLE:
             sNewTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
+
+        # check if we reached the tab
+        if sNewTabName == sDestinationTabName:
+            Logger.note.debug( "Navigation to destination tab [%s] successful" %sDestinationTabName)
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            return True
+        else:
+            Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            return False
+
+    def TopNav(self):
+        """
+        This function navigates the top navigation bar
+
+        Args:
+            sDestinationTabName: In the program top navigation, navigate to the specified tab name
+            (default) - Home
+        """
+        # fetch data from instruction sheet, else default to summary
+        sDirectInput = ""
+        bCalledFromInstructionSheet = False
+        try:
+            oTestData = self.instruction.testdata_detailed
+            bCalledFromInstructionSheet = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            sDirectInput = sDirectInput.strip()
+            sDirectInput = sDirectInput.upper()
+        except Exception as eError:
+            pass
+
+        if not sDirectInput:
+            if sDirectInput in DICT_TOPNAV_IMAGES:
+                Logger.note.debug("User has used a valid navigation scenario: %s" %sDirectInput)
+            else:
+                Logger.note.error("Please check the provided input for spelling mistakes: %s" %sDirectInput)
+                if bCalledFromInstructionSheet == True:
+                    self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+                return False
+
+        # if there is a value for direct input, else default it to Menu
+        if sDirectInput:
+            sDestinationTabName = sDirectInput
+        else:
+            sDestinationTabName = TEXT_MENU
+
+        # Fetch the current tab based on the page
+        sCurrentTabName = ""
+        sActiveTabName = ""
+
+        # Fetch the current active tab in the screen
+        sActiveTabName = oTopNav.GetCurrentTab()
+        if sActiveTabName == TEXT_TAB_UNAVAILABLE:
+            Logger.note.error( "Unable to fetch current tab name - Initial Tab")
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            return False
+
+        # Navigate from current menu to specified tab
+        sKeyStroke = Constants.KEY_FRAMEFORWARD
+        iCurrentPosition = POSITIONS_TOPNAV[sActiveTabName]
+        iDestinationPosition = POSITIONS_TOPNAV[sDestinationTabName]
+        iDifference = iDestinationPosition - iCurrentPosition
+        # if the difference is negative, need to move left to reach destination
+        if iDifference < 0:
+            sKeyStroke = Constants.KEY_FRAMEBACK
+
+        lKeyStrokes = []
+        # to decide the number of moves to reach the destination, getting abs of difference
+        iLastCounter = abs(iDifference)
+        for iCounter in range(0,iLastCounter):
+            lKeyStrokes.append(sKeyStroke)
+        Utils.PressListOfKeyStrokes(lKeyStrokes)
+
+        # Fetch if the required tab is selected
+        sNewTabName = oTopNav.GetCurrentTab()
+        if sNewTabName == TEXT_TAB_UNAVAILABLE:
+            Logger.note.debug( "Unable to verify current tab name - Final Tab")
+            if bCalledFromInstructionSheet == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            return False
 
         # check if we reached the tab
         if sNewTabName == sDestinationTabName:
@@ -1153,10 +1259,52 @@ class Diagnostics:
         Logger.note.info(sFoundString) # Print software version of the stb
         self.instruction.actualresult = self.instruction.expectedresult
 
+class TopNav:
+    """
+    Functions required for top navigation of the main menu
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+    def GetCurrentTab(self):
+        """
+        Fetches the current tab of the top navigator
+
+        Args:
+            Nothing
+
+        Returns:
+            name of current tab which is selected
+
+        Raises:
+            Nothing
+        """
+        # Specify the region and check if the image is available in the provided region
+        listOfImages = DICT_TOPNAV_IMAGES.values()
+        oRegion = Utils.MatchLogo(listOfImages,REGION_TOPNAV)
+        sTabName = ""
+
+        # if one of the provided logos was found, return the tab name or provide appropriate negative response
+        if oRegion == False:
+            Logger.note.debug("Tab unavailable at region level")
+            sTabName = TEXT_TAB_UNAVAILABLE
+        else:
+            sTabName = stbt.ocr(region = oRegion)
+        
+        if sTabName in DICT_TOPNAV_IMAGES:
+            Logger.note.debug("A valid tab found from OCR : %s" %sTabName)
+            return sTabName
+        else:
+            Logger.note.debug("OCR gave an unknown tab name : %s" % sTabName)
+            return TEXT_TAB_UNAVAILABLE
+
 # Required variables from the classes on the URL
 oNavigate = Navigate()
 oFranchisePage = FranchisePage()
 oSearch = Search()
 oGuide = Guide()
 oDiagnostics = Diagnostics()
+oTopNav = TopNav()
 

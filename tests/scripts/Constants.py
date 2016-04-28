@@ -135,5 +135,3 @@ class Constants(object):
 
     # Hashes
     OPTIONS_ORDER = { COMMENT : 1, DEPENDS_ON : 2, DIRECT_INPUT : 3, EXIT_ON_ERROR : 4, EXIT_TC_ON_ERROR : 5 }
-    MOVIE_POSITIONS = { 'Summary':0, 'Cast':1, 'Reviews':2, 'Parental Guide':3 }
-    SHOW_POSITIONS = { 'Summary':0, 'Episodes':1, 'Cast':2, 'Parental Guide':3 }
