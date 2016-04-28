@@ -1328,6 +1328,7 @@ class Movies:
         oTestData = self.instruction.testdata_detailed
         sExpectedTitle = oTestData[Constants.DIRECT_INPUT]
         sExpectedTitle = sExpectedTitle.strip()
+        Logger.note.debug("past here")
 
         if sExpectedTitle in LIST_MOVIES:
             Logger.note.debug("A valid sub tab within the Movies : [%s]" % sExpectedTitle)
