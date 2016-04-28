@@ -1292,11 +1292,11 @@ class TopNav:
             sTabName = TEXT_TAB_UNAVAILABLE
         else:
             sTabName = stbt.ocr(region = oRegion)
-        
-        if sTabName in DICT_TOPNAV_IMAGES:
-            Logger.note.debug("A valid tab found from OCR : %s" %sTabName)
             sTabName = sTabName.strip()
             sTabName = sTabName.upper()
+
+        if sTabName in DICT_TOPNAV_IMAGES:
+            Logger.note.debug("A valid tab found from OCR : %s" %sTabName)
             return sTabName
         else:
             Logger.note.debug("OCR gave an unknown tab name : %s" % sTabName)
