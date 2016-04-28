@@ -112,6 +112,8 @@ class Constants(object):
     KEY_SELECT = "KEY_SELECT"
     KEY_TV = "KEY_TV"
     KEY_UP = "KEY_UP"
+    KEY_PAGEDOWN = "KEY_PAGEDOWN"
+    KEY_PAGEUP = "KEY_PAGEUP"
 
     # List of URL(s)
     POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
