@@ -123,6 +123,13 @@ IMAGE_CAST_SELECTED = "../images/CastSelected.png"
 IMAGE_REVIEWS = "../images/Reviews.png"
 IMAGE_PARENTALGUIDE = "../images/ParentalGuide.png"
 
+# Tesseract Related
+STB_TOP_PICKS = 'Top Picks'
+STB_FREE_MOVIES = 'Free Movies'
+STB_IN_THEATRES = 'In Theatres'
+
+LIST_MOVIES = [STB_TOP_PICKS,STB_FREE_MOVIES,STB_IN_THEATRES]
+
 # Image related lists
 IMAGES_SHOW_HEADER = [IMAGE_SUMMARY,IMAGE_EPISODES,IMAGE_CAST]
 IMAGES_MOVIE_HEADER = [IMAGE_SUMMARY,IMAGE_CAST]
@@ -149,6 +156,7 @@ REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
 REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
+REGION_MOVIES_TOPNAV = {'x':32,'y':120, 'width':366, 'height':55}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -1301,6 +1309,53 @@ class TopNav:
         else:
             Logger.note.debug("OCR gave an unknown tab name : %s" % sTabName)
             return TEXT_TAB_UNAVAILABLE
+
+class Movies:
+    """
+    Functions required for the Movies tab
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+    """
+    def VerifyCurrentPage(self,sExpectedTitle=None):
+        """
+        Fetches the current page of the movies
+
+        Returns:
+            name of current tab which is selected
+        """
+        if sExpectedTitle == None:
+            oTestData = self.instruction.testdata_detailed
+            sExpectedTitle = oTestData[Constants.DIRECT_INPUT]
+            sExpectedTitle = sExpectedTitle.strip()
+
+        if sExpectedTitle in LIST_MOVIES:
+            Logger.note.debug("A valid sub tab within the Movies : [%s]" % sExpectedTitle)
+        else:
+            Logger.note.error("Unknown input provided for navigation within Movies : [%s]" % sExpectedTitle)
+
+        LIST_MOVIES_EXTENDED = []
+        for sTitle in LIST_MOVIES:
+            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+            LIST_MOVIES_EXTENDED.extend(lTitle)
+        
+        Logger.note.debug("Tesseract Keywords for Movies Top Nav: %s" % LIST_MOVIES_EXTENDED)
+        sActualTitle = Utils.FetchTextOfRegion(REGION_MOVIES_TOPNAV,LIST_MOVIES_EXTENDED,True)
+        sActualTitle = sActualTitle.strip()
+
+        if sActualTitle in LIST_MOVIES:
+            Logger.note.debug("A valid sub tab found within the Movies : [%s]" % sActualTitle)
+        else:
+            Logger.note.error("Unknown sub tab found within Movies : [%s]" % sActualTitle)
+
+        # verify expected and actual titles
+        if sExpectedTitle.upper() == sActualTitle.upper():
+            Logger.note.info("The user is in right sub tab of the Movies : %s" % sActualTitle)
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error("Unknown sub tab of the Movies. Expected: %s | Actual: %s" %(sExpectedTitle,sActualTitle))
+            self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
