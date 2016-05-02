@@ -1409,6 +1409,8 @@ class Movies:
 
         # fetch text from screen
         listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
+        for sTitle in listOfCarousel:
+            Logger.note.debug("For Loop Value: %s" % sTitle)
 
         # If all the carousels exist, then pass else fail
         LIST_MOVIES_UPPER = LIST_MOVIES
