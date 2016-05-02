@@ -1409,21 +1409,25 @@ class Movies:
 
         # fetch text from screen
         sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
-        listOfCarousel = sCarousel.split("\n")
-        listOfCarousel = [sText.strip() for sText in listOfCarousel]
+        #listOfCarousel = sCarousel.split("\n")
+        #listOfCarousel = [sText.strip() for sText in listOfCarousel]
 
-        for sTitle in listOfCarousel:
-            Logger.note.debug("For Loop Value: %s" % sTitle)
+        #for sTitle in listOfCarousel:
+        #    Logger.note.debug("Carousel Loop: %s" % sTitle)
 
         # If all the carousels exist, then pass else fail
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
-            Logger.note.debug("For Loop Value: %s" % sTitle)
-            if sTitle not in listOfCarousel:
-                Logger.note.debug("Not in list: %s" % sTitle)
-                self.instruction.actualresult = Constants.STATUS_FAILURE
-                return
+            #Logger.note.debug("Value: %s" % sTitle)
+            Logger.note.debug("Trying to find from string :%s" % sCarousel[sCarousel.find(sTitle):len(sTitle)])
+
+
+
+            #if sTitle not in listOfCarousel:
+            #    Logger.note.debug("Not in list: %s" % sTitle)
+            #    self.instruction.actualresult = Constants.STATUS_FAILURE
+            #    return
         
         self.instruction.actualresult = self.instruction.expectedresult
 
