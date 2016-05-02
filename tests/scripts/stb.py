@@ -1419,6 +1419,7 @@ class Movies:
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
+            print listOfCarousel
             Logger.note.debug("Trying to find from string :%s" % listOfCarousel[listOfCarousel.find(sTitle):len(sTitle)])
 
             #if sTitle not in listOfCarousel:
