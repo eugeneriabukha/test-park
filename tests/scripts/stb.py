@@ -1412,11 +1412,11 @@ class Movies:
 
         # If all the carousels exist, then pass else fail
         LIST_MOVIES_UPPER = LIST_MOVIES
-
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
             Logger.note.debug("For Loop Value: %s" % sTitle)
             if sTitle not in listOfCarousel:
+                Logger.note.debug("Not in list: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
         
