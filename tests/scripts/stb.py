@@ -1410,7 +1410,6 @@ class Movies:
         # fetch text from screen
         sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
         listOfCarousel = sCarousel.replace("\n","|")
-        Logger.note.debug("Carousel: %s" % listOfCarousel)
         #listOfCarousel = [sText.strip() for sText in listOfCarousel]
 
         #for sTitle in listOfCarousel:
@@ -1420,8 +1419,9 @@ class Movies:
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
+            sFindString = sCarousel
             #Logger.note.debug("Value: %s" % sTitle)
-            Logger.note.debug("Trying to find from string :%s" % sCarousel[sCarousel.find(sTitle):len(sTitle)])
+            Logger.note.debug("Trying to find from string :%s" % sFindString[sFindString.find(sTitle):len(sTitle)])
 
 
 
