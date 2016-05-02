@@ -1440,6 +1440,7 @@ class Movies:
                 iTotalCount = iTotalCount + 1
 
         Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
+        self.instruction.actualresult = self.instruction.expectedresult
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
