@@ -1411,7 +1411,10 @@ class Movies:
         listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
 
         # If all the carousels exist, then pass else fail
-        for sTitle in LIST_MOVIES:
+        LIST_MOVIES_UPPER = LIST_MOVIES
+        
+        [sText.upper() for sText in LIST_MOVIES_UPPER]
+        for sTitle in LIST_MOVIES_UPPER:
             if sTitle not in listOfCarousel:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
