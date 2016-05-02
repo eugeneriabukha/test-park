@@ -1408,7 +1408,9 @@ class Movies:
         Logger.note.debug("Tesseract Keywords for carousels in page: %s" % LIST_MOVIES_EXTENDED)
 
         # fetch text from screen
-        listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
+        sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
+        listOfCarousel = sCarousel.split("\n")
+        
         for sTitle in listOfCarousel:
             Logger.note.debug("For Loop Value: %s" % sTitle)
 
