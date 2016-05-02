@@ -1409,12 +1409,11 @@ class Movies:
 
         # fetch text from screen
         listOfCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
-        Logger.note.debug("Carousel: %s" % listOfCarousel)
 
         # If all the carousels exist, then pass else fail
         LIST_MOVIES_UPPER = LIST_MOVIES
 
-        [sText.upper() for sText in LIST_MOVIES_UPPER]
+        LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
             Logger.note.debug("For Loop Value: %s" % sTitle)
             if sTitle not in listOfCarousel:
