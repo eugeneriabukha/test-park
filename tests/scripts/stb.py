@@ -1420,6 +1420,8 @@ class Movies:
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
             sFindString = sCarousel
+            print sFindString
+            print sTitle
             #Logger.note.debug("Value: %s" % sTitle)
             Logger.note.debug("Trying to find from string :%s" % sFindString[sFindString.find(sTitle):len(sTitle)])
 
