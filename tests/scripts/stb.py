@@ -1425,7 +1425,7 @@ class Movies:
             count of missing images
         """
         iTotalCount = 0
-        for iCounter in range(0,20):
+        for iCounter in range(0,10):
             Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
             # find a match and keep counting
             oMatches = stbt.match(IMAGE_NONE)
