@@ -1403,6 +1403,7 @@ class Movies:
         LIST_MOVIES_EXTENDED = []
         for sTitle in LIST_MOVIES:
             lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+            [sText.upper() for sText in lTitle]
             LIST_MOVIES_EXTENDED.extend(lTitle)
         Logger.note.debug("Tesseract Keywords for carousels in page: %s" % LIST_MOVIES_EXTENDED)
 
