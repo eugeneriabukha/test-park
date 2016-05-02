@@ -127,7 +127,7 @@ IMAGE_NONE = "../images/no_image.png"
 # Tesseract Related
 MOVIE_CAROUSEL_TOP_PICKS = 'Top Picks'
 MOVIE_CAROUSEL_FREE_MOVIES = 'Free Movies'
-MOVIE_CAROUSEL_IN_THEATRES = 'In Theatres'
+MOVIE_CAROUSEL_IN_THEATRES = 'In Theaters'
 
 LIST_MOVIES = [MOVIE_CAROUSEL_TOP_PICKS,MOVIE_CAROUSEL_FREE_MOVIES,MOVIE_CAROUSEL_IN_THEATRES]
 
@@ -1410,22 +1410,15 @@ class Movies:
         # fetch text from screen
         sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
         listOfCarousel = sCarousel.replace("\n","|")
-        #listOfCarousel = [sText.strip() for sText in listOfCarousel]
-
-        #for sTitle in listOfCarousel:
-        #    Logger.note.debug("Carousel Loop: %s" % sTitle)
 
         # If all the carousels exist, then pass else fail
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
-            print listOfCarousel
-            Logger.note.debug("Trying to find from string :%s" % listOfCarousel[listOfCarousel.find(sTitle):len(sTitle)])
-
-            #if sTitle not in listOfCarousel:
-            #    Logger.note.debug("Not in list: %s" % sTitle)
-            #    self.instruction.actualresult = Constants.STATUS_FAILURE
-            #    return
+            if sTitle not in listOfCarousel:
+                Logger.note.debug("Not in list: %s" % sTitle)
+                self.instruction.actualresult = Constants.STATUS_FAILURE
+                return
         
         self.instruction.actualresult = self.instruction.expectedresult
 
