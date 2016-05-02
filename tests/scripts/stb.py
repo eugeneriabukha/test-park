@@ -1419,13 +1419,7 @@ class Movies:
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
-            sFindString = sCarousel
-            print sFindString
-            print sTitle
-            #Logger.note.debug("Value: %s" % sTitle)
-            Logger.note.debug("Trying to find from string :%s" % sFindString[sFindString.find(sTitle):len(sTitle)])
-
-
+            Logger.note.debug("Trying to find from string :%s" % listOfCarousel[listOfCarousel.find(sTitle):len(sTitle)])
 
             #if sTitle not in listOfCarousel:
             #    Logger.note.debug("Not in list: %s" % sTitle)
