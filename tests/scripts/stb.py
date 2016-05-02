@@ -1409,7 +1409,8 @@ class Movies:
 
         # fetch text from screen
         sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_MOVIES_EXTENDED)
-        #listOfCarousel = sCarousel.split("\n")
+        listOfCarousel = sCarousel.replace("\n","|")
+        Logger.note.debug("Carousel: %s" % listOfCarousel)
         #listOfCarousel = [sText.strip() for sText in listOfCarousel]
 
         #for sTitle in listOfCarousel:
