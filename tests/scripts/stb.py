@@ -154,7 +154,7 @@ REGION_NETFLIX = {'x': 1000, 'y': 200, 'width': 500, 'height':600}
 REGION_RESULTS = {'x': 472, 'y': 115, 'width': 522, 'height': 590}
 REGION_DIAGNOSTICS_LOGO = {'x': 204, 'y': 58, 'width': 154, 'height': 38}
 REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
-REGION_FRANCHISEPAGE = {'x':180,'y': 58, 'width':200, 'height':53}
+REGION_FRANCHISEPAGE = {'x':178,'y': 58, 'width':202, 'height':53}
 REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
 REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
@@ -355,12 +355,6 @@ class Navigate:
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
-                #oImage = DICT_FRANCHISE_HEADER_IMAGES[sActiveTabName]
-                #oMatch = stbt.press_until_match(Constants.KEY_UP, oImage, interval_secs=0, max_presses=100, match_parameters=None)
-                #if oMatch.match == False:
-                #    if bCalledFromInstructionSheet == True:
-                #        self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                #    return False
 
         # To navigate in the top header, need to find out the current position and work accordingly
         sKeyStroke = Constants.KEY_FRAMEFORWARD
@@ -614,8 +608,6 @@ class Search:
         """
         # To get more details on the fetched title
         sTitle = Utils.GetDynamicTitle()
-        #Logger.note.debug("Current Global Variable: " % SEARCH_RESULTS_EXTENDED)
-        #SEARCH_RESULTS_EXTENDED = Utils.ExtendArray(sTitle,SEARCH_RESULTS_EXTENDED)
 
         # fetch the 0th result region
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
@@ -831,8 +823,6 @@ class Search:
 
         # updated advanced options with collected expected results
         for sTitle in dictExpectedResult.keys():
-            #listReturn = Utils.ExtendArray(sTitle)
-            #SEARCH_RESULTS_EXTENDED.extend(listReturn)
             sTitle = str(sTitle)
             lTitle = sTitle.split(Constants.DELIMITER_SPACE)
             SEARCH_RESULTS_EXTENDED.extend(lTitle)
@@ -1506,9 +1496,60 @@ class Shows:
                 Logger.note.error("Carousel not found: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
-        
-        Logger.note.info("Found expected list of carousels in the page.")
+
+        Logger.note.info("Found expected list of carousels in the page")
         self.instruction.actualresult = self.instruction.expectedresult
+
+    def GetPageName(self):
+        """
+        Fetches the page name of the franchise page screen
+
+        Args:
+            Nothing
+
+        Returns:
+            page name of the displayed page
+
+        Raises:
+            Nothing
+        """
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,LIST_SHOWS)
+        return sFoundString
+
+    def VerifyPage(self):
+        """ 
+        Updates actual result based on presence of shows page
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        bInstructionFlag = False
+
+        try:
+            oInstruction = self.instruction
+            bInstructionFlag = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # if there is a value for direct input, else default it to Summary
+        if sDirectInput:
+            sTabName = sDirectInput
+        else:
+            sTabName = SHOWS_CAROUSEL_TRENDING_NOW
+
+        # if the search page do not exist, then exit the test case
+        sTitle = self.GetPageName()
+        if sTitle == sTabName:
+            Logger.note.info( "Verified presence in %s screen successfully" % sTabName)
+            if bInstructionFlag == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            return True
+        else:
+            Logger.note.error( "Unable to navigate to %s page" % sTabName)
+            if bInstructionFlag == True:
+                self.instruction.actualresult = Constants.STATUS_FAILURE
+            return False
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
@@ -1517,4 +1558,5 @@ oSearch = Search()
 oGuide = Guide()
 oDiagnostics = Diagnostics()
 oTopNav = TopNav()
-
+oMovies = Movies()
+oShows = Shows()
