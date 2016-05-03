@@ -1501,7 +1501,7 @@ class Shows:
         Logger.note.info("Found expected list of carousels in the page")
         self.instruction.actualresult = self.instruction.expectedresult
 
-    def GetPageName(self):
+    def GetPageName(self,sTabName):
         """
         Fetches the page name of the franchise page screen
 
@@ -1514,7 +1514,12 @@ class Shows:
         Raises:
             Nothing
         """
-        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,LIST_SHOWS,FirstLineOnly=True)
+        if sTabName == SHOWS_CAROUSEL_TRENDING_NOW:
+            oRegion = REGION_FRANCHISEPAGE
+        else:
+            oRegion = REGION_MOVIES_TOPNAV
+
+        sFoundString = Utils.FetchTextOfRegion(oRegion,LIST_SHOWS,FirstLineOnly=True)
         return sFoundString
 
     def VerifyPage(self):
@@ -1541,7 +1546,7 @@ class Shows:
             sTabName = SHOWS_CAROUSEL_TRENDING_NOW
 
         # if the search page do not exist, then exit the test case
-        sTitle = self.GetPageName()
+        sTitle = self.GetPageName(sTabName)
         if sTitle == sTabName:
             Logger.note.info( "Verified presence in %s screen successfully" % sTabName)
             if bInstructionFlag == True:
