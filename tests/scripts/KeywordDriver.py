@@ -441,6 +441,7 @@ class Execution:
             oKeywordFactory.Execute()
         else:
             Logger.note.debug("Skipping execution of the instruction")
+            bTakeScreenshot = False
 
         # perform post dependency evaluation
         try:
@@ -526,6 +527,7 @@ class Execution:
     def EvaluatePostDependency(self,oExecutedInstruction,bTakeScreenshot):
         # if expected result matches actual result, then change status to success
         Logger.note.debug("Evaluting Post Dependency")
+
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
             Logger.note.debug("Sucess: Updated Status")
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
