@@ -131,8 +131,8 @@ MOVIE_CAROUSEL_IN_THEATRES = 'In Theaters'
 LIST_MOVIES = [MOVIE_CAROUSEL_TOP_PICKS,MOVIE_CAROUSEL_FREE_MOVIES,MOVIE_CAROUSEL_IN_THEATRES]
 
 SHOWS_CAROUSEL_TRENDING_NOW = 'Trending Now'
-SHOWS_CAROUSEL_SERIES_PREMIERS = 'Series Premiers'
-SHOWS_CAROUSEL_SEASON_PREMIERS = 'Season Premiers'
+SHOWS_CAROUSEL_SERIES_PREMIERS = 'Series Premieres'
+SHOWS_CAROUSEL_SEASON_PREMIERS = 'Season Premieres'
 SHOWS_CAROUSEL_FINALES = 'Finales'
 LIST_SHOWS = [SHOWS_CAROUSEL_TRENDING_NOW,SHOWS_CAROUSEL_SERIES_PREMIERS,SHOWS_CAROUSEL_SEASON_PREMIERS,SHOWS_CAROUSEL_FINALES]
 
@@ -1510,11 +1510,6 @@ class Shows:
                 Logger.note.debug("Failed on Title: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
-
-            #if sTitle not in listOfCarousel:
-            #    Logger.note.debug("Not in list: %s" % sTitle)
-            #    self.instruction.actualresult = Constants.STATUS_FAILURE
-            #    return
         
         self.instruction.actualresult = self.instruction.expectedresult
 
