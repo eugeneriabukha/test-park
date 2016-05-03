@@ -1524,9 +1524,10 @@ class Shows:
             Updates actual result based on the current screen details
         """
         bInstructionFlag = False
+        sDirectInput = ""
 
         try:
-            oInstruction = self.instruction
+            oTestData = self.instruction.testdata_detailed
             bInstructionFlag = True
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
         except Exception as eError:
