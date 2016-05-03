@@ -1491,6 +1491,7 @@ class Shows:
         LIST_SHOWS_UPPER = LIST_SHOWS
         LIST_SHOWS_UPPER = [sText.upper() for sText in LIST_SHOWS_UPPER]
         for sTitle in LIST_SHOWS_UPPER:
+            Logger.note.debug("Testing for presence of carousel: %s" % sTitle)
             iNum = sCarousel.find(sTitle)
             if iNum == -1:
                 Logger.note.error("Carousel not found: %s" % sTitle)
@@ -1513,7 +1514,7 @@ class Shows:
         Raises:
             Nothing
         """
-        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,LIST_SHOWS)
+        sFoundString = Utils.FetchTextOfRegion(REGION_FRANCHISEPAGE,LIST_SHOWS,FirstLineOnly=True)
         return sFoundString
 
     def VerifyPage(self):
