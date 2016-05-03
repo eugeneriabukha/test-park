@@ -128,8 +128,13 @@ IMAGE_NONE = "../images/no_image.png"
 MOVIE_CAROUSEL_TOP_PICKS = 'Top Picks'
 MOVIE_CAROUSEL_FREE_MOVIES = 'Free Movies'
 MOVIE_CAROUSEL_IN_THEATRES = 'In Theaters'
-
 LIST_MOVIES = [MOVIE_CAROUSEL_TOP_PICKS,MOVIE_CAROUSEL_FREE_MOVIES,MOVIE_CAROUSEL_IN_THEATRES]
+
+SHOWS_CAROUSEL_TRENDING_NOW = 'Trending Now'
+SHOWS_CAROUSEL_SERIES_PREMIERS = 'Series Premiers'
+SHOWS_CAROUSEL_SEASON_PREMIERS = 'Season Premiers'
+SHOWS_CAROUSEL_FINALES = 'Finales'
+LIST_SHOWS = [SHOWS_CAROUSEL_TRENDING_NOW,SHOWS_CAROUSEL_SERIES_PREMIERS,SHOWS_CAROUSEL_SEASON_PREMIERS,SHOWS_CAROUSEL_FINALES]
 
 # Image related lists
 IMAGES_SHOW_HEADER = [IMAGE_SUMMARY,IMAGE_EPISODES,IMAGE_CAST]
@@ -1415,10 +1420,15 @@ class Movies:
         LIST_MOVIES_UPPER = LIST_MOVIES
         LIST_MOVIES_UPPER = [sText.upper() for sText in LIST_MOVIES_UPPER]
         for sTitle in LIST_MOVIES_UPPER:
-            if sTitle not in listOfCarousel:
-                Logger.note.debug("Not in list: %s" % sTitle)
+            iNum = sCarousel.find(sTitle)
+            if iNum == -1:
+                Logger.note.debug("Failed on Title: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
+            #if sTitle not in listOfCarousel:
+            #    Logger.note.debug("Not in list: %s" % sTitle)
+            #    self.instruction.actualresult = Constants.STATUS_FAILURE
+            #    return
         
         self.instruction.actualresult = self.instruction.expectedresult
 
@@ -1441,6 +1451,73 @@ class Movies:
 
         Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
         self.instruction.actualresult = self.instruction.expectedresult
+
+class Shows:
+    """
+    Functions required for the Movies tab
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+    """
+    def __init__(self,oInstruction=None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def GetCarouselList(self):
+        """
+        Fetches the list of carousel items in the page
+
+        Returns:
+            list of carousels
+        """
+        LIST_SHOWS_EXTENDED = []
+        for sTitle in LIST_SHOWS:
+            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+            lTitle = [sText.upper() for sText in lTitle]
+            LIST_SHOWS_EXTENDED.extend(lTitle)
+        Logger.note.debug("Tesseract Keywords for carousels in page: %s" % LIST_SHOWS_EXTENDED)
+
+        # fetch text from screen
+        sCarousel = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_SHOWS_EXTENDED)
+        sCarousel = sCarousel.replace("\n",Constants.DELIMITER_PIPE)
+        Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
+        sCarouselNew = Utils.FetchTextOfRegion(REGION_MOVIE_CAROUSEL,LIST_SHOWS_EXTENDED)
+        sCarouselNew = sCarouselNew.replace("\n",Constants.DELIMITER_PIPE)
+        sCarousel = sCarousel + Constants.DELIMITER_PIPE + sCarouselNew
+        Logger.note.debug("Complete Shows Carousel List: %s" % sCarousel)
+
+        # If all the carousels exist, then pass else fail
+        LIST_SHOWS_UPPER = LIST_SHOWS
+        LIST_SHOWS_UPPER = [sText.upper() for sText in LIST_SHOWS_UPPER]
+        for sTitle in LIST_SHOWS_UPPER:
+            iNum = sCarousel.find(sTitle)
+            if iNum == -1:
+                Logger.note.debug("Failed on Title: %s" % sTitle)
+                self.instruction.actualresult = Constants.STATUS_FAILURE
+                return
+
+            #if sTitle not in listOfCarousel:
+            #    Logger.note.debug("Not in list: %s" % sTitle)
+            #    self.instruction.actualresult = Constants.STATUS_FAILURE
+            #    return
+        
+        self.instruction.actualresult = self.instruction.expectedresult
+
+
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
