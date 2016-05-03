@@ -48,7 +48,6 @@ DIAGNOSTICS_KEYSTROKES =[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN
     Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_SELECT]
 HBO_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_3, Constants.KEY_0, Constants.KEY_0]
 GUIDE_NO_DAYS = 7
-#SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_SELECT]
 SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_SEARCH]
 SEARCH_KEYSTROKES_ADVANCED = [Constants.KEY_RED,Constants.KEY_SELECT]
 SEARCH_ADVANCED_OPTIONS = ['Netflix','including','Not','Including']
@@ -163,7 +162,7 @@ REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
 REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
 REGION_MOVIES_TOPNAV = {'x':32,'y':120, 'width':366, 'height':55}
-REGION_MOVIE_CAROUSEL = {'x':34,'y':150, 'width':160, 'height':500}
+REGION_MOVIE_CAROUSEL = {'x':30,'y':150, 'width':160, 'height':500}
 REGION_SHOW_CAROUSEL = {'x':27,'y':150, 'width':250, 'height':500}
 
 DICT_FRANCHISE_TITLE = {
@@ -1423,14 +1422,11 @@ class Movies:
         for sTitle in LIST_MOVIES_UPPER:
             iNum = sCarousel.find(sTitle)
             if iNum == -1:
-                Logger.note.debug("Failed on Title: %s" % sTitle)
+                Logger.note.error("Carousel not found: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
-            #if sTitle not in listOfCarousel:
-            #    Logger.note.debug("Not in list: %s" % sTitle)
-            #    self.instruction.actualresult = Constants.STATUS_FAILURE
-            #    return
-        
+
+        Logger.note.info("Found expected list of carousels in the page.")
         self.instruction.actualresult = self.instruction.expectedresult
 
     def CountMissingImages(self):
@@ -1507,13 +1503,12 @@ class Shows:
         for sTitle in LIST_SHOWS_UPPER:
             iNum = sCarousel.find(sTitle)
             if iNum == -1:
-                Logger.note.debug("Failed on Title: %s" % sTitle)
+                Logger.note.error("Carousel not found: %s" % sTitle)
                 self.instruction.actualresult = Constants.STATUS_FAILURE
                 return
         
+        Logger.note.info("Found expected list of carousels in the page.")
         self.instruction.actualresult = self.instruction.expectedresult
-
-
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
