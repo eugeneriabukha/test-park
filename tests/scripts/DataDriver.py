@@ -95,7 +95,7 @@ class DataDriver(dict):
         # Fetch the column headers for later usage
         arFieldNames = list()
 
-        Logger.note.debug('Reading the Instruction excel Sheet')
+        #Logger.note.debug('Reading the Instruction excel Sheet')
         xlWorkbook = xlrd.open_workbook(sPath)
         xlSheet = xlWorkbook.sheet_by_name(fSheetName)
         for rowNumber in range(0, xlSheet.nrows):

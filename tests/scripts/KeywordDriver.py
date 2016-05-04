@@ -72,7 +72,7 @@ class KeywordDriver(dict):
         sActualResult = ""
         sComments = ""
         dirLables={}
-        Logger.note.debug('Analyzing the data to create an instruction object')
+        #Logger.note.debug('Analyzing the data to create an instruction object')
         # Analyze the data to create an instruction object
         for sDDKey, oDDValue in oDataDriver.iteritems():
             for oInstructionName, oInstructionValue in oDDValue.iteritems():
@@ -328,8 +328,8 @@ class Options(dict):
         arOptions = sOptions.split(Constants.DELIMITER_SEMICOLON)
         hReturn = collections.OrderedDict()
         # analyze the provided list of options one by one
-        Logger.note.debug( 'Analysing list of options one by one' )
-        Logger.note.debug(arOptions)
+        #Logger.note.debug( 'Analysing list of options one by one' )
+        #Logger.note.debug(arOptions)
         for sOption in arOptions:
             arOptionDetail = sOption.split(Constants.DELIMITER_EQUAL)
             sOrder = ""
@@ -369,14 +369,14 @@ class Execution:
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
 
         # run each instruction one by one
-        Logger.note.debug('Instruction Dict')
-        Logger.note.debug(self.instructionsDict.items())
-        Logger.note.debug("Sorted Values in  Instruction Dict")
-        Logger.note.debug(self.instructionsDict.keys())
+        #Logger.note.debug('Instruction Dict')
+        #Logger.note.debug(self.instructionsDict.items())
+        #Logger.note.debug("Sorted Values in  Instruction Dict")
+        #Logger.note.debug(self.instructionsDict.keys())
         aList=sorted(self.instructionsDict.keys(),key=natural_keys)
-        Logger.note.debug(aList)
-        for instruction in (aList):
-            Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
+        #Logger.note.debug(aList)
+        #for instruction in (aList):
+        #    Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
 
         for sPresentInstructionName in (aList):
             sPrevInstructionName = sInstructionName
@@ -467,8 +467,8 @@ class Execution:
         arTemp = oExecutedInstruction.get_options_detailed()
         arSorted = sorted(arTemp,key=arTemp.get)
 
-        Logger.note.debug("sInstructionName: %s" %sInstructionName)
-        Logger.note.debug("oExecutedInstruction: %s" %oExecutedInstruction.PrettyPrint())
+        Logger.note.debug("Instruction Name: %s" %sInstructionName)
+        Logger.note.debug("Executed Instruction: %s" %oExecutedInstruction.PrettyPrint())
 
         # Fetch each option and execute based on provided options for the specific keyword
         for sOptionsKey in arSorted:
@@ -529,11 +529,11 @@ class Execution:
         Logger.note.debug("Evaluting Post Dependency")
 
         if oExecutedInstruction.expectedresult == oExecutedInstruction.actualresult:
-            Logger.note.debug("Sucess: Updated Status")
+            #Logger.note.debug("Sucess: Updated Status")
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
+            Logger.note.debug("ERROR: Expected result do not match actuals. Screenshot may be attached")
             if bTakeScreenshot == True:
-                Logger.note.debug("Failure: See Screenshot")
                 sLabel = oExecutedInstruction.get_label()
                 oFrame = stbt.get_frame()
                 cv2.imwrite(sLabel+".png",oFrame)
