@@ -100,8 +100,8 @@ class DataDriver(dict):
         xlSheet = xlWorkbook.sheet_by_name(fSheetName)
         for rowNumber in range(0, xlSheet.nrows):
             arLabel = xlSheet.row_values(rowNumber)
-            Logger.note.debug("Printing rows")
-            Logger.note.debug(arLabel)
+            #Logger.note.debug("Printing rows")
+            #Logger.note.debug(arLabel)
             arFieldNames = (arLabel)
             break
 
@@ -113,8 +113,8 @@ class DataDriver(dict):
             hInside = dict()
             for sFieldName in range(0,len(arFieldNames)):
                 arLabel = xlSheet.cell(rowNumber,sFieldName).value
-                Logger.note.debug("Printing rows")
-                Logger.note.debug(arLabel)
+                #Logger.note.debug("Printing rows")
+                #Logger.note.debug(arLabel)
                 hInside[arFieldNames[sFieldName]] = arLabel
             hReturn[iCounter] = hInside
             iCounter = iCounter + 1
@@ -164,7 +164,7 @@ class DataDriver(dict):
                     arRow.append(iCounter)
             elif len(arRowSplit) == 1:
                 arRow.append(arRowSplit[0])
-        Logger.note.debug('Rows in the excel Sheet are Analyzed and returned')
+        #Logger.note.debug('Rows in the excel Sheet are Analyzed and returned')
         return arRow
 
     #=============================================================================#
