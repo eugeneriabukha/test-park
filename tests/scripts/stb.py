@@ -1442,7 +1442,7 @@ class Movies:
 
         # default the value as 1 if there is no direct input
         if sDirectInput == "":
-            Logger.note.info("Entered Here %s" % sDirectInput)
+            Logger.note.info("No Direct Input so defaulting to 1")
             sDirectInput = 1
 
         iLastCounter = int(sDirectInput)
@@ -1607,7 +1607,8 @@ class Shows:
             pass
 
         # default the value as 1 if there is no direct input
-        if sDirectInput:
+        if sDirectInput == "":
+            Logger.note.info("No Direct Input so defaulting to 1")
             sDirectInput = 1
 
         iLastCounter = int(sDirectInput)
