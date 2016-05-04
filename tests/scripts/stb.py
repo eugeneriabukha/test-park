@@ -1423,11 +1423,32 @@ class Movies:
         """
         Count the list of missing images found from the page
 
+        Variables:
+            Number of times to check for missing images
+
         Returns:
             count of missing images
         """
+        bInstructionFlag = False
+        sDirectInput = ""
+
+        # fetch the direct input information from instruction sheet
+        try:
+            oTestData = self.instruction.testdata_detailed
+            bInstructionFlag = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # default the value as 1 if there is no direct input
+        if sDirectInput:
+            sDirectInput = 1
+
+        iLastCounter = int(sDirectInput)
+
+        # Keep a count of how many items found per screen
         iTotalCount = 0
-        for iCounter in range(0,12):
+        for iCounter in range(0,iLastCounter):
             Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
             # find a match and keep counting
             oMatches = stbt.match(IMAGE_NONE)
@@ -1436,8 +1457,16 @@ class Movies:
             if bFlag == True:
                 iTotalCount = iTotalCount + 1
 
+        iPercentage = iTotalCount/iLastCounter
         Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
-        self.instruction.actualresult = self.instruction.expectedresult
+
+        # Post status based on the number of failures observed
+        if iPercentage < 1:
+            Logger.note.info("There was not many failures observed on each page" )
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error("There was at least one failure observed for each page" )
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
 class Shows:
     """
@@ -1557,6 +1586,51 @@ class Shows:
             if bInstructionFlag == True:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
             return False
+
+    def CountMissingImages(self):
+        """
+        Count the list of missing images found from the page
+
+        Returns:
+            count of missing images
+        """
+        bInstructionFlag = False
+        sDirectInput = ""
+
+        # fetch the direct input information from instruction sheet
+        try:
+            oTestData = self.instruction.testdata_detailed
+            bInstructionFlag = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # default the value as 1 if there is no direct input
+        if sDirectInput:
+            sDirectInput = 1
+
+        iLastCounter = int(sDirectInput)
+
+        iTotalCount = 0
+        for iCounter in range(0,iLastCounter):
+            Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
+            # find a match and keep counting
+            oMatches = stbt.match(IMAGE_NONE)
+            bFlag = oMatches.match
+            Logger.note.debug("Match Found : [%s]" % bFlag)
+            if bFlag == True:
+                iTotalCount = iTotalCount + 1
+
+        iPercentage = iTotalCount/iLastCounter
+        Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
+
+        # Post status based on the number of failures observed
+        if iPercentage < 1:
+            Logger.note.info("There was not many failures observed on each page" )
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error("There was at least one failure observed for each page" )
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
