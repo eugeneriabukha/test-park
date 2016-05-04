@@ -532,7 +532,7 @@ class Execution:
             #Logger.note.debug("Sucess: Updated Status")
             oExecutedInstruction.status = Constants.STATUS_SUCCESS
         else:
-            Logger.note.debug("ERROR: Expected result do not match actuals. Screenshot may be attached")
+            Logger.note.debug("Expected result do not match actuals. Screenshot may be attached")
             if bTakeScreenshot == True:
                 sLabel = oExecutedInstruction.get_label()
                 oFrame = stbt.get_frame()
