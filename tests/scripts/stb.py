@@ -455,14 +455,14 @@ class Navigate:
         # Fetch if the required tab is selected
         sNewTabName = oTopNav.GetCurrentTab()
         if sNewTabName == TEXT_TAB_UNAVAILABLE:
-            Logger.note.debug( "Unable to verify current tab name - Final Tab")
+            Logger.note.error( "Unable to verify current tab name - Final Tab")
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             return False
 
         # check if we reached the tab
         if sNewTabName == sDestinationTabName:
-            Logger.note.debug( "Navigation to destination tab [%s] successful" %sDestinationTabName)
+            Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
@@ -1416,7 +1416,7 @@ class Movies:
 
         # verify expected and actual titles
         if sExpectedTitle.upper() == sActualTitle.upper():
-            Logger.note.info("The user is in right sub tab of the Movies : %s" % sActualTitle)
+            Logger.note.info("Navigated to <%s> sub tab of Movies" % sActualTitle)
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("Unknown sub tab of the Movies. Expected: %s | Actual: %s" %(sExpectedTitle,sActualTitle))
@@ -1497,7 +1497,7 @@ class Movies:
 
         # Post status based on the number of failures observed
         if iPercentage < 1:
-            Logger.note.info("There was not many failures observed on each page" )
+            Logger.note.info("Missing images was less than 10 percent on this page")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("There was at least one failure observed for each page" )
@@ -1612,12 +1612,12 @@ class Shows:
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName(sTabName)
         if sTitle == sTabName:
-            Logger.note.info( "Verified presence in %s screen successfully" % sTabName)
+            Logger.note.info( "Navigated to screen <%s> successfully" % sTabName)
             if bInstructionFlag == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             return True
         else:
-            Logger.note.error( "Unable to navigate to %s page" % sTabName)
+            Logger.note.error( "Unable to navigate to %s screen" % sTabName)
             if bInstructionFlag == True:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
             return False
@@ -1642,7 +1642,7 @@ class Shows:
 
         # default the value as 1 if there is no direct input
         if sDirectInput == "":
-            Logger.note.info("No Direct Input so defaulting to 1")
+            Logger.note.debug("No Direct Input so defaulting to 1")
             sDirectInput = 1
 
         iLastCounter = int(sDirectInput)
@@ -1662,7 +1662,7 @@ class Shows:
 
         # Post status based on the number of failures observed
         if iPercentage < 1:
-            Logger.note.info("There was not many failures observed on each page" )
+            Logger.note.info("Missing images was less than 10 percent on this page")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("There was at least one failure observed for each page" )
