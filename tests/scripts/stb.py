@@ -839,8 +839,16 @@ class Search:
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             sTitle = oProgramDetail['_source']['title']
+
+            # add extended words for tesseract keywords
+            sTitle = str(sTitle)
+            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+            SEARCH_RESULTS_EXTENDED.extend(lTitle)
+
+            # trim down for comparison
             sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
             sTitle = str(sTitle)
+
             iWeightForTitle = dicPopularSearch[eachTMSID]
             dictExpectedResult[sTitle] = iWeightForTitle
 
@@ -848,10 +856,10 @@ class Search:
         Utils.SetExpectedSearchResults(dictExpectedResult)
 
         # updated advanced options with collected expected results
-        for sTitle in dictExpectedResult.keys():
-            sTitle = str(sTitle)
-            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
-            SEARCH_RESULTS_EXTENDED.extend(lTitle)
+        #for sTitle in dictExpectedResult.keys():
+        #    sTitle = str(sTitle)
+        #    lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+        #    SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
         Logger.note.debug("Tesseract Extended: %s" % SEARCH_RESULTS_EXTENDED)
 
