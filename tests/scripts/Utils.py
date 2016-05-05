@@ -193,9 +193,11 @@ class cUtils:
             #iCounter = iCounter + 1
 
         bSuccess = True
-        dictExpected = OrderedDict({})
+        dictExpected = dict()
+        dictActual = dict()
+        #dictExpected = OrderedDict({})
         iLastCounter = len(lActualResultTitles)
-        dictActual = OrderedDict({})
+        #dictActual = OrderedDict({})
         for iCounter in range(0,iLastCounter):
             dictExpected[lExpectedResultTitles[iCounter]] = ""
             dictActual[lActualResultTitles[iCounter]] = ""
