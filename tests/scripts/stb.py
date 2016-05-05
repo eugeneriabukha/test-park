@@ -620,7 +620,7 @@ class Search:
             Logger.note.error('Title on the Guide does not match with Title on Search Results Screen')
             self.instruction.actualresult = Constants.STATUS_FAILURE
             return
-        
+
         sFetchedTitle = str(sFetchedTitle)
         lTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE)
         SEARCH_RESULTS_EXTENDED.extend(lTitle)
@@ -671,6 +671,21 @@ class Search:
             lResults[iCounter] = sFoundText
 
         Logger.note.debug("List after removing numbers prior to text: %s" % lResults)
+
+        # add a space if text captured without space
+        lResultsNew = []
+        for sItem in lResults:
+            sItem = str(sItem)
+            Logger.note.debug("String Before: %s" % sItem)
+            for sOneOfStrings in SEARCH_RESULTS_EXTENDED:
+                iNum = sItem.find(sOneOfStrings)
+                if iNum != -1:
+                    sItem = sItem.replace(sOneOfStrings, sOneOfStrings + Constants.DELIMITER_SPACE)
+            sItem = sItem.strip()
+            Logger.note.debug("String After: %s" % sItem)
+            lResultsNew.append(sItem)
+
+        lResults = lResultsNew
 
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
