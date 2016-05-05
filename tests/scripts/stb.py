@@ -682,7 +682,10 @@ class Search:
                 if len(sOneOfStrings) > 4:
                     iNum = sItem.find(sOneOfStrings)
                     if iNum != -1:
-                        sItem = sItem.replace(sOneOfStrings, sOneOfStrings + Constants.DELIMITER_SPACE)
+                        iFirst = iNum + len(sOneOfStrings)
+                        iLast = iFirst + 1
+                        if sItem[iFirst:iLast] != Constants.DELIMITER_SPACE:
+                            sItem = sItem.replace(sOneOfStrings, sOneOfStrings + Constants.DELIMITER_SPACE)
             sItem = sItem.strip()
             Logger.note.debug("String After: %s" % sItem)
             lResultsNew.append(sItem)
