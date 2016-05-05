@@ -619,6 +619,11 @@ class Search:
         else:
             Logger.note.error('Title on the Guide does not match with Title on Search Results Screen')
             self.instruction.actualresult = Constants.STATUS_FAILURE
+            return
+        
+        sFetchedTitle = str(sFetchedTitle)
+        lTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE)
+        SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
     def FetchResults(self):
         """
