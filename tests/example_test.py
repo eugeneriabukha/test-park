@@ -13,9 +13,9 @@ from scripts.KeywordFactory import *
 # Description: runs the list of keywords provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
-def test_run_keyworddriver():
+def test_keyworddriver():
     # Create an Object for DataDriver
-    oDataDriver = DataDriver("Instructions_RealTest.xls:Instructions")
+    oDataDriver = DataDriver("Instructions_Demo.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
