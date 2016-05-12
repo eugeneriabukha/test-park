@@ -15,6 +15,18 @@ from scripts.KeywordFactory import *
 #=============================================================================#
 def test_keyworddriver():
     # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_Smoke.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+#=============================================================================#
+# Method: test_run_demo()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_demo():
+    # Create an Object for DataDriver
     oDataDriver = DataDriver("Instructions_Demo.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
