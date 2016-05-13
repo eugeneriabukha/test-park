@@ -358,26 +358,39 @@ class Execution:
     # Description: first function to be called when the class is instantiated
     #=============================================================================#
     def __init__(self,dicInstructions):
-        # initialize the provided list of instructions
+        """
+        Initializes the execution class with information required for running the test
+
+        Args:
+            dicInstructions: dictionary of instructions to execute
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
+        self.perform_execution()
+
+    def perform_execution(self):
+        """
+        Functions required for performing Navigation
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+            option and its data
+
+        """
         sPrevInstructionName = ""
         sInstructionName = ""
         bRun = True
 
         # check if its start of a test case and perform actions accordingly
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
-
+        aList = sorted(self.instructionsDict.keys(),key=natural_keys)
         # run each instruction one by one
-        #Logger.note.debug('Instruction Dict')
-        #Logger.note.debug(self.instructionsDict.items())
-        #Logger.note.debug("Sorted Values in  Instruction Dict")
-        #Logger.note.debug(self.instructionsDict.keys())
-        aList=sorted(self.instructionsDict.keys(),key=natural_keys)
-        #Logger.note.debug(aList)
-        #for instruction in (aList):
-        #    Logger.note.debug(self.instructionsDict[instruction].PrettyPrint())
-
         for sPresentInstructionName in (aList):
             sPrevInstructionName = sInstructionName
             oInstruction = self.instructionsDict[sPresentInstructionName]
@@ -398,6 +411,12 @@ class Execution:
                     bRun = False
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
+
+        # fetching result after execution
+        for sPresentInstructionName in (aList):
+            oInstruction = self.instructionsDict[sPresentInstructionName]
+            sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
+            Logger.note.debug(sInstructionName)
 
     #=============================================================================#
     # Method: get_previousLabel
