@@ -379,8 +379,7 @@ class Execution:
         Functions required for performing Navigation
 
         Args:
-            oInstruction: an instruction object with keyword, its respected expected result,
-            option and its data
+            NA
 
         """
         sPrevInstructionName = ""
@@ -412,11 +411,22 @@ class Execution:
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
 
+    def FetchResults(self):
+        """
+        Fetch results from the keyword driver and set it into an excel sheet
+
+        Args:
+            NA
+
+        """
+        sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
+        aList = sorted(self.instructionsDict.keys(),key=natural_keys)
         # fetching result after execution
         for sPresentInstructionName in (aList):
             oInstruction = self.instructionsDict[sPresentInstructionName]
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             Logger.note.debug(sInstructionName)
+            Logger.note.debug(oInstruction.PrettyPrint())
 
     #=============================================================================#
     # Method: get_previousLabel
