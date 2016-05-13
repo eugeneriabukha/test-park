@@ -372,7 +372,7 @@ class Execution:
         """
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
-        self.perform_execution()
+        self.PerformExecution()
         self.FetchResults()
 
     def PerformExecution(self):
