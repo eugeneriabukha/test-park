@@ -502,6 +502,7 @@ class Execution:
                 if sDependencyStatus != Constants.STATUS_SUCCESS:
                     sTemp = "Dependency Failure : Dependent step failed for Instruction <"+ (sInstructionName)+">"
                     Logger.note.info(sTemp)
+                    oExecutedInstruction.status = Constants.STATUS_SKIPPED
                     oExecutedInstruction.execute = False
                     self.instructionsDict[sInstructionName] = oExecutedInstruction
                     raise CustomException(Constants.DEPENDENCY_FAILURE)

@@ -62,6 +62,8 @@ class Constants(object):
     STATUS_SUCCESS = "Success"
     STATUS_FAILURE = "Failure"
     STATUS_NOT_EXECUTED = "NotExecuted"
+    STATUS_SKIPPED = "Skipped"
+
     #Option related
     COMMENT = "Comment"
     EXIT_ON_ERROR = "ExitOnError"
