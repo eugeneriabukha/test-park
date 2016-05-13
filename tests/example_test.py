@@ -9,7 +9,7 @@ from scripts.KeywordDriver import *
 from scripts.KeywordFactory import *
 
 #=============================================================================#
-# Method: test_run_keyworddriver()
+# Method: test_keyworddriver()
 # Description: runs the list of keywords provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
@@ -28,6 +28,18 @@ def test_keyworddriver():
 def test_z_demo():
     # Create an Object for DataDriver
     oDataDriver = DataDriver("Instructions_Demo.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+#=============================================================================#
+# Method: test_()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_testing():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_Testing.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()

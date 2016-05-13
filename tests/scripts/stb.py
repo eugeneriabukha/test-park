@@ -251,6 +251,8 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
+        self.instruction.actualresult = 'Failure1'
+
     def DataDriven(self):
         """
         Navigates to provided screen based on the data provided as direct input
