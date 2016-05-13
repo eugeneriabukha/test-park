@@ -373,8 +373,9 @@ class Execution:
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
         self.perform_execution()
+        self.FetchResults()
 
-    def perform_execution(self):
+    def PerformExecution(self):
         """
         Functions required for performing Navigation
 
