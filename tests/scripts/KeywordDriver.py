@@ -373,8 +373,8 @@ class Execution:
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             Logger.note.debug(oInstruction.PrettyPrint())
 
-        Logger.note.debug(self.ExpectedMessages.Message)
-        Logger.note.debug(self.ActualMessages.Message)
+        Logger.note.debug(self.ExpectedMessages.Message())
+        Logger.note.debug(self.ActualMessages.Message())
 
     #=============================================================================#
     # Method: get_previousLabel
@@ -589,7 +589,6 @@ class MessageManager:
         sReturnString = ""
         for sValue in self.details.values():
             sReturnString = sReturnString + Constants.DELIMITER_PIPE + sValue
-            print sReturnString
         #sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
         Logger.note.debug("Complete Message: <%s>" % sReturnString)
         return sReturnString
