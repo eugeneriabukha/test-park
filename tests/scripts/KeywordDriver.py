@@ -426,8 +426,8 @@ class Execution:
         for sPresentInstructionName in (aList):
             oInstruction = self.instructionsDict[sPresentInstructionName]
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
-            Logger.note.debug(sInstructionName)
             Logger.note.debug(oInstruction.PrettyPrint())
+            
 
     #=============================================================================#
     # Method: get_previousLabel
