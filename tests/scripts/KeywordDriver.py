@@ -570,7 +570,7 @@ class Execution:
 
             # update status of the executed instruction
             # if no screenshot is needed, its a skipped instruction
-            if bTakeScreenshot == True:
+            if bTakeScreenshot == False:
                 oExecutedInstruction.status = Constants.STATUS_SKIPPED
             else:
                 oExecutedInstruction.status = Constants.STATUS_FAILURE
