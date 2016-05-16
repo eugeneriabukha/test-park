@@ -584,8 +584,11 @@ class MessageManager:
         Provides the message with new line seperator for each message
 
         Returns:
-            Nothing
+            the complete constructed message in message manager
         """
-        sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
+        sReturnString = ""
+        for sValue in self.details.values():
+            sReturnString = sReturnString + Constants.DELIMITER_PIPE + sValue
+        #sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
         Logger.note.debug("Complete Message: <%s>" % sReturnString)
         return sReturnString
