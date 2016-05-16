@@ -146,7 +146,7 @@ class KeywordDriver(dict):
         sTCEnd = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_END
         for instructionRow in dTemp.values():
             # fetch action for collecting counters
-            sAction = instructionRow.get_action()
+            sAction = instructionRow.action
             bMatchTCStart = re.search(sTCStart,sAction)
             bMatchTCEnd = re.search(sTCEnd,sAction)
             # increase counters based on test case start and end
@@ -157,7 +157,7 @@ class KeywordDriver(dict):
 
         # raise an exception if number of start do not have its end
         if iCountTCStart != iCountTCEnd:
-            Logger.note.info('Every test case start do NOT have an end or vice versa. Kindly check instructions sheet')
+            #Logger.note.info('Every test case start do NOT have an end or vice versa. Kindly check instructions sheet')
             raise Exception("Every test case start do NOT have an end or vice versa. Kindly check instructions sheet")
 
         return True
@@ -220,67 +220,11 @@ class Instruction:
         self.execute = True
 
     #=============================================================================#
-    # Method: get_label
-    # Description: getter for label
-    #=============================================================================#
-    def get_label(self):
-        return self.label
-
-    #=============================================================================#
-    # Method: get_comments
-    # Description: getter for comments
-    #=============================================================================#
-    def get_comments(self):
-        return self.comments
-
-    #=============================================================================#
-    # Method: get_action
-    # Description: getter for action
-    #=============================================================================#
-    def get_action(self):
-        return self.action
-
-    #=============================================================================#
-    # Method: get_testdata
-    # Description: getter for testdata
-    #=============================================================================#
-    def get_testdata(self):
-        return self.testdata
-
-    #=============================================================================#
-    # Method: get_testdata_detailed
-    # Description: getter for testdata_detailed
-    #=============================================================================#
-    def get_testdata_detailed(self):
-        return self.testdata_detailed
-
-    #=============================================================================#
     # Method: get_options_detailed
     # Description: getter for options_detailed
     #=============================================================================#
     def get_options_detailed(self):
         return self.options_detailed
-
-    #=============================================================================#
-    # Method: get_expectedresult
-    # Description: getter for expectedresult
-    #=============================================================================#
-    def get_expectedresult(self):
-        return self.expectedresult
-
-    #=============================================================================#
-    # Method: get_actualresult
-    # Description: getter for actualresult
-    #=============================================================================#
-    def get_actualresult(self):
-        return self.actualresult
-
-    #=============================================================================#
-    # Method: get_status
-    # Description: getter for status
-    #=============================================================================#
-    def get_status(self):
-        return self.status
 
     #=============================================================================#
     # Method: set_testdata_detailed(self,testdata_detailed)
@@ -289,19 +233,6 @@ class Instruction:
     def set_testdata_detailed(self,testdata_detailed):
         self.testdata_detailed = testdata_detailed
 
-    #=============================================================================#
-    # Method: set_actualresult(self,actualresult)
-    # Description: setter for actualresult
-    #=============================================================================#
-    def set_actualresult(self,actualresult):
-        self.actualresult = actualresult
-
-    #=============================================================================#
-    # Method: set_status(self,status)
-    # Description: setter for status
-    #=============================================================================#
-    def set_status(self,status):
-        self.status = status
     #=============================================================================#
     # Method: get_variables(self)
     # Description: pretty prints the list of available variables
@@ -372,6 +303,15 @@ class Execution:
         """
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
+
+        # Set expected messages
+        oExpectedMM = MessageManager(Constants.EXPECTED_RESULT)
+        self.ExpectedMessages = oExpectedMM
+
+        # collect actual messages
+        oActualMM = MessageManager(Constants.ACTUAL_RESULT)
+        self.ActualMessages = oActualMM
+
         self.PerformExecution()
         self.FetchResults()
 
@@ -392,6 +332,9 @@ class Execution:
         aList = sorted(self.instructionsDict.keys(),key=natural_keys)
         # run each instruction one by one
         for sPresentInstructionName in (aList):
+            self.ExpectedMessages.Add(sPresentInstructionName,"1")
+            self.ActualMessages.Add(sPresentInstructionName,"2")
+
             sPrevInstructionName = sInstructionName
             oInstruction = self.instructionsDict[sPresentInstructionName]
             # fetch the instruction name for the provided item
@@ -412,6 +355,8 @@ class Execution:
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
 
+        self.ActualMessages.Add("10-Instruction","10-Instruction")
+
     def FetchResults(self):
         """
         Fetch results from the keyword driver and set it into an excel sheet
@@ -428,6 +373,8 @@ class Execution:
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             Logger.note.debug(oInstruction.PrettyPrint())
 
+        Logger.note.debug(self.ExpectedMessages.Message)
+        Logger.note.debug(self.ActualMessages.Message)
 
     #=============================================================================#
     # Method: get_previousLabel
@@ -519,7 +466,7 @@ class Execution:
 
                 # fetch status of dependent keyword
                 try:
-                    sDependencyStatus = self.instructionsDict[sTempLabel].get_status()
+                    sDependencyStatus = self.instructionsDict[sTempLabel].status
                 except KeyError:
                     sTemp = "The provided label do not exist <%s>" %(sTempLabel)
                     Logger.note.info(sTemp)
@@ -564,7 +511,7 @@ class Execution:
         else:
             Logger.note.debug("Expected result do not match actuals. Screenshot may be attached")
             if bTakeScreenshot == True:
-                sLabel = oExecutedInstruction.get_label()
+                sLabel = oExecutedInstruction.label
                 oFrame = stbt.get_frame()
                 cv2.imwrite(sLabel+".png",oFrame)
 
@@ -581,3 +528,63 @@ class Execution:
             # if exit test case, raise appropriate exception
             elif(oExecutedInstruction.options_detailed.has_key(Constants.EXIT_ON_ERROR)):
                 raise CustomException(Constants.EXIT_ON_ERROR)
+
+class MessageManager:
+    """
+    Common Functions required for managing messages
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+    """
+    def __init__(self,sLabel,sDelimiter=Constants.DELIMITER_PIPE):
+        """
+        Initializes the MessageManager class with information required provided information
+
+        Args:
+            sLabel: Label the message type
+            sDetails: add details for provided label
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        self.label = sLabel
+        self.delimiter = sDelimiter
+        self.details = collections.OrderedDict()
+        Logger.note.debug("Created a new message manager with Name <%s>" % self.label)
+
+    def Add(self,sLabelName,sDetails):
+        """
+        Adds the provided message in provided MM
+
+        Args:
+            sDetails: add details on the existing message manager
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if sDetails != None:
+            if sLabelName in self.details:
+                sExistingValue = self.details[sLabelName]
+                sNewValue = sExistingValue + Constants.DELIMITER_SEMICOLON + sDetails
+                self.details[sLabelName] = sNewValue
+            else:
+                self.details[sLabelName] = sDetails
+        Logger.note.debug("Added message <%s> to label <%s>" % (sDetails,sLabelName))
+
+    def Message(self):
+        """
+        Provides the message with new line seperator for each message
+
+        Returns:
+            Nothing
+        """
+        sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
+        Logger.note.debug("Complete Message: <%s>" % sReturnString)
