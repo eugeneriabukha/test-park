@@ -588,3 +588,4 @@ class MessageManager:
         """
         sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
         Logger.note.debug("Complete Message: <%s>" % sReturnString)
+        return sReturnString
