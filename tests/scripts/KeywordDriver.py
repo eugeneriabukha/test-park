@@ -427,7 +427,7 @@ class Execution:
             oInstruction = self.instructionsDict[sPresentInstructionName]
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             Logger.note.debug(oInstruction.PrettyPrint())
-            
+
 
     #=============================================================================#
     # Method: get_previousLabel
@@ -513,7 +513,6 @@ class Execution:
             elif arOptionDetail[0] == Constants.DEPENDS_ON:
                 # fetch previous label if DependsOn=Above
                 if arOptionDetail[1] == Constants.ABOVE:
-                    Logger.note.debug("Fetching previous label")
                     sTempLabel = self.previousLabel
                 else:
                     sTempLabel = [sKey for sKey, sValue in self.instructionsDict.iteritems() if arOptionDetail[1] in sKey][0]
@@ -570,7 +569,12 @@ class Execution:
                 cv2.imwrite(sLabel+".png",oFrame)
 
             # update status of the executed instruction
-            oExecutedInstruction.status = Constants.STATUS_FAILURE
+            # if no screenshot is needed, its a skipped instruction
+            if bTakeScreenshot == True:
+                oExecutedInstruction.status = Constants.STATUS_SKIPPED
+            else:
+                oExecutedInstruction.status = Constants.STATUS_FAILURE
+
             # if exit test case on error, raise appropriate exception
             if oExecutedInstruction.options_detailed.has_key(Constants.EXIT_TC_ON_ERROR):
                 raise CustomException(Constants.EXIT_TC_ON_ERROR)
