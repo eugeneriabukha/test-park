@@ -70,7 +70,7 @@ class KeywordDriver(dict):
         sOptions = ""
         sExpectedResult = ""
         sActualResult = ""
-        sExpectedResult = ""
+        sExpectedMessage = ""
         sComments = ""
         dirLables={}
         #Logger.note.debug('Analyzing the data to create an instruction object')
