@@ -97,6 +97,9 @@ class KeywordDriver(dict):
                 # segregate actual result of the provided instruction
                 elif(oInstructionName == Constants.ACTUAL_RESULT):
                     pass
+                # segregate expected message of the provided instruction
+                elif(oInstructionName == Constants.EXPECTED_MESSAGE):
+                    sExpectedMessage = oInstructionValue
                 # segregate comments of the provided instruction
                 elif(oInstructionName == Constants.COMMENTS):
                     sComments = oInstructionValue
@@ -116,7 +119,7 @@ class KeywordDriver(dict):
                 iTCCounter = iTCCounter + 1
 
             # Create an instruction object before passing
-            oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult)
+            oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage)
             if dirLables.has_key(''.join(sLabel.split(Constants.DELIMITER_HIFEN)[1:])):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
@@ -207,7 +210,7 @@ class Instruction:
     # Returns:
     # Usage Examples:
     #=============================================================================#
-    def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult):
+    def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage):
         self.label = sLabel
         self.comments = sComments
         self.action = sAction
@@ -216,6 +219,7 @@ class Instruction:
         self.options_detailed = Options(sOptions)
         self.expectedresult = sExpectedResult
         self.actualresult = ""
+        self.expectedmessage = sExpectedMessage
         self.status = Constants.STATUS_NOT_EXECUTED
         self.execute = True
 
@@ -326,7 +330,6 @@ class Execution:
         """
         sPrevInstructionName = ""
         sInstructionName = ""
-        #sCurrentTestCase = ""
         bRun = True
 
         # check if its start of a test case and perform actions accordingly
@@ -334,14 +337,13 @@ class Execution:
         aList = sorted(self.instructionsDict.keys(),key=natural_keys)
         # run each instruction one by one
         for sPresentInstructionName in (aList):
-            self.ExpectedMessages.Add(sPresentInstructionName,"1")
-
             sPrevInstructionName = sInstructionName
             oInstruction = self.instructionsDict[sPresentInstructionName]
 
             # update current test case name if found
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 self.CurrentTestCase = sPresentInstructionName
+                self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
             # fetch the instruction name for the provided item
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
@@ -360,8 +362,6 @@ class Execution:
                     bRun = False
                 else:
                     raise Exception(Constants.EXIT_ON_ERROR)
-
-        self.ActualMessages.Add("10-Instruction","10-Instruction")
 
     def FetchResults(self):
         """
@@ -579,7 +579,7 @@ class MessageManager:
         if sDetails != None:
             if sLabelName in self.details:
                 sExistingValue = self.details[sLabelName]
-                sNewValue = sExistingValue + Constants.DELIMITER_SEMICOLON + sDetails
+                sNewValue = sExistingValue + Constants.DELIMITER_SEMICOLON + Constants.DELIMITER_SPACE + sDetails
                 self.details[sLabelName] = sNewValue
             else:
                 self.details[sLabelName] = sDetails

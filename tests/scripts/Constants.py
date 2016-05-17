@@ -51,6 +51,7 @@ class Constants(object):
     OPTIONS = "Options"
     EXPECTED_RESULT = "ExpectedResult"
     ACTUAL_RESULT = "ActualResult"
+    EXPECTED_MESSAGE = "ExpectedMessage"
     COMMENTS = "Comments"
     INSTRUCTION = "Instruction"
     DEPENDENCY_FAILURE = "DependencyFailure"
