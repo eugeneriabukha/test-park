@@ -580,7 +580,7 @@ class MessageManager:
         if sDetails != None:
             if sLabelName in self.details:
                 sExistingValue = self.details[sLabelName]
-                sNewValue = sExistingValue + Constants.DELIMITER_SEMICOLON + Constants.DELIMITER_SPACE + sDetails
+                sNewValue = sExistingValue + Constants.DELIMITER_SEMICOLON + sDetails
                 self.details[sLabelName] = sNewValue
             else:
                 self.details[sLabelName] = sDetails
