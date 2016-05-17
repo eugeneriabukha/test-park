@@ -1631,6 +1631,7 @@ class Shows:
         """
         bInstructionFlag = False
         sDirectInput = ""
+        sMessage = ""
 
         try:
             oTestData = self.instruction.testdata_detailed
@@ -1648,15 +1649,21 @@ class Shows:
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName(sTabName)
         if sTitle == sTabName:
-            Logger.note.info( "Navigated to screen <%s> successfully" % sTabName)
+            sMessage = "Navigated to screen <%s> successfully" % sTabName
+            Logger.note.info(sMessage)
             if bInstructionFlag == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            return True
+                return sMessage
+            else:
+                return True
         else:
-            Logger.note.error( "Unable to navigate to %s screen" % sTabName)
+            sMessage = "Unable to navigate to %s screen" % sTabName
+            Logger.note.error(sMessage)
             if bInstructionFlag == True:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
-            return False
+                return sMessage
+            else:
+                return False
 
     def CountMissingImages(self):
         """
