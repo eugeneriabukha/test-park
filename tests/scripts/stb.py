@@ -346,9 +346,11 @@ class Navigate:
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
             hPositionMap = POSITIONS_MOVIE
         else:
-            Logger.note.info ("The page do not require any navigation. Page name [%s]" %sPageName)
+            sMessage = "The page do not require any navigation. Page name [%s]" %sPageName
+            Logger.note.info(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
+                return sMessage
             return True
 
         # Fetch the current tab based on the page
