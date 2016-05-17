@@ -87,7 +87,7 @@ class KeywordFactory:
     oObject = oClass(self.instruction)
     sOutput = getattr(oObject,sMethodName)()
     Logger.note.debug("Output for execution of keyword <%s.%s> is %s" %(sClassName,sMethodName,sOutput))
-    return sOutput
+    #return sOutput
 
 #=============================================================================#
 # End Of Class: KeywordFactory

@@ -311,12 +311,12 @@ class Execution:
         self.CurrentTestCase = ""
 
         # Set expected messages
-        oExpectedMM = MessageManager(Constants.EXPECTED_RESULT)
-        self.ExpectedMessages = oExpectedMM
+        #oExpectedMM = MessageManager(Constants.EXPECTED_RESULT)
+        #self.ExpectedMessages = oExpectedMM
 
         # collect actual messages
-        oActualMM = MessageManager(Constants.ACTUAL_RESULT)
-        self.ActualMessages = oActualMM
+        #oActualMM = MessageManager(Constants.ACTUAL_RESULT)
+        #self.ActualMessages = oActualMM
 
         self.PerformExecution()
         self.FetchResults()
@@ -344,7 +344,7 @@ class Execution:
             # update current test case name if found
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 self.CurrentTestCase = sPresentInstructionName
-                self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
+                #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
             # fetch the instruction name for the provided item
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
@@ -380,8 +380,8 @@ class Execution:
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             Logger.note.debug(oInstruction.PrettyPrint())
 
-        Logger.note.debug(self.ExpectedMessages.Message())
-        Logger.note.debug(self.ActualMessages.Message())
+        #Logger.note.debug(self.ExpectedMessages.Message())
+        #Logger.note.debug(self.ActualMessages.Message())
 
     #=============================================================================#
     # Method: get_previousLabel
@@ -423,7 +423,7 @@ class Execution:
         if oExecutedInstruction.execute == True:
             oKeywordFactory = KeywordFactory(oExecutedInstruction)
             sReturnValue = oKeywordFactory.Execute()
-            self.ActualMessages.Add(self.CurrentTestCase,sReturnValue)
+            #self.ActualMessages.Add(self.CurrentTestCase,sReturnValue)
         else:
             Logger.note.debug("Skipping execution of the instruction")
             bTakeScreenshot = False

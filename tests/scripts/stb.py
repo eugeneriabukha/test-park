@@ -226,12 +226,8 @@ class Navigate:
 
         if bFlag == True:
             self.instruction.actualresult = self.instruction.expectedresult
-            sMessage = "Navigated to Diagnostics screen successfully"
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            sMessage = "Unable to navigate to Diagnostics screen"
-
-        return sMessage
 
     def Search(self):
         """
@@ -246,20 +242,16 @@ class Navigate:
         Raises:
             Nothing
         """
-        sMessage = ""
         Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.MEDIUM_WAIT)
         bFlag = oSearch.VerifyPage()
         if bFlag == True:
             self.instruction.actualresult = self.instruction.expectedresult
-            sMessage = "Navigated to Search screen successfully"
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            sMessage = "Unable to navigate to Search screen"
 
         #self.instruction.actualresult = 'Failure1' 
-        return sMessage
 
     def DataDriven(self):
         """
@@ -271,17 +263,14 @@ class Navigate:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         listDirectInput = sDirectInput.split(Constants.DELIMITER_COMMA)
-        Logger.note.debug("Direct Input Information:")
-        Logger.note.debug(listDirectInput)
+        Logger.note.debug("Direct Input Information: %s" % listDirectInput)
 
         # press the required key strokes for navigating to search screen
         Utils.PressListOfKeyStrokes(listDirectInput)
 
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.MEDIUM_WAIT)
-        sMessage = "Dynamic navigation successful"
         self.instruction.actualresult = self.instruction.expectedresult
-        return sMessage
 
     def GroupToProgram(self):
         """
@@ -297,7 +286,7 @@ class Navigate:
             Nothing
         """
         Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
-        time.sleep(Constants.LONG_WAIT)
+        time.sleep(Constants.MEDIUM_WAIT)
 
     def Program(self):
         """
@@ -350,7 +339,7 @@ class Navigate:
             Logger.note.info(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-                return sMessage
+                return
             return True
 
         # Fetch the current tab based on the page
@@ -363,11 +352,13 @@ class Navigate:
             sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
             # if required tab was not found on all available list of images, then return a false message
             if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
-                sMessage = "No matching images available on both active and non active headers. Kindly check the images"
+                sMessage = "Sub Tab Navigation - Failure"
                 Logger.note.error(sMessage)
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                return sMessage
+                    return sMessage
+                else:
+                    return False
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
@@ -399,13 +390,16 @@ class Navigate:
             Logger.note.debug(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            return sMessage
+            else:
+                return True
         else:
             sMessage = "Navigation to destination tab [%s] failure" %sDestinationTabName
             Logger.note.error(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            return sMessage
+                return sMessage
+            else:
+                return False
 
     def TopNav(self):
         """
@@ -436,7 +430,8 @@ class Navigate:
                 Logger.note.error(sMessage)
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                return sMessage
+                else:
+                    return False
 
         # if there is a value for direct input, else default it to Menu
         if sDirectInput:
@@ -455,7 +450,8 @@ class Navigate:
             Logger.note.error(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            return sMessage
+            else:
+                return False
 
         # Navigate from current menu to specified tab
         sKeyStroke = Constants.KEY_FRAMEFORWARD
@@ -480,7 +476,8 @@ class Navigate:
             Logger.note.error(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            return sMessage
+            else:
+                return False
 
         # check if we reached the tab
         if sNewTabName == sDestinationTabName:
@@ -488,13 +485,16 @@ class Navigate:
             Logger.note.info(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            return sMessage
+            else:
+                return True
         else:
             sMessage = "Navigation to destination tab [%s] failure" %sDestinationTabName
             Logger.note.error(sMessage)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            return sMessage
+                return sMessage
+            else:
+                return False
 
 class Search:
     """
@@ -539,7 +539,6 @@ class Search:
             Logger.note.info(sMessage)
             if bInstructionFlag == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-                return sMessage
             else:
                 return True
         else:
