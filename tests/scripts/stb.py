@@ -258,7 +258,7 @@ class Navigate:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
             sMessage = "Unable to navigate to Search screen"
 
-        self.instruction.actualresult = 'Failure1' 
+        #self.instruction.actualresult = 'Failure1' 
         return sMessage
 
     def DataDriven(self):
