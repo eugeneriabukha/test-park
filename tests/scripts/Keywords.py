@@ -97,6 +97,7 @@ class Service:
     #=============================================================================#
     def SampleDummyKeyword(self):
         Logger.note.info( "Sample Dummy Keyword" )
+        return "Sample Dummy Keyword"
 
     #=============================================================================#
     # Method: FailureKeyword
@@ -107,6 +108,7 @@ class Service:
     def FailureKeyword(self):
         Logger.note.info( "FailureKeyword" )
         self.instruction.actualresult = "UnExpectedResult"
+        return "UnExpectedResult"
 
 #=============================================================================#
 # End Of Class: Service

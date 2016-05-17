@@ -242,16 +242,20 @@ class Navigate:
         Raises:
             Nothing
         """
+        sMessage = ""
         Utils.PressListOfKeyStrokes([Constants.KEY_SEARCH])
         # this checks if we are on the right screen, and updates actual result
         time.sleep(Constants.MEDIUM_WAIT)
         bFlag = oSearch.VerifyPage()
         if bFlag == True:
             self.instruction.actualresult = self.instruction.expectedresult
+            sMessage = "Navigated to Search screen successfully"
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            sMessage = "Unable to navigate to Search screen"
 
-        self.instruction.actualresult = 'Failure1'
+        self.instruction.actualresult = 'Failure1' 
+        return sMessage
 
     def DataDriven(self):
         """
@@ -270,7 +274,7 @@ class Navigate:
         Utils.PressListOfKeyStrokes(listDirectInput)
 
         # this checks if we are on the right screen, and updates actual result
-        time.sleep(Constants.LONG_WAIT)
+        time.sleep(Constants.MEDIUM_WAIT)
         self.instruction.actualresult = self.instruction.expectedresult
 
     def GroupToProgram(self):
