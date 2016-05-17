@@ -592,9 +592,8 @@ class MessageManager:
         Returns:
             the complete constructed message in message manager
         """
-        sReturnString = ""
-        #for sValue in self.details.values():
-        #    sReturnString = sReturnString + Constants.DELIMITER_PIPE + sValue
-        sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
-        Logger.note.debug("Complete Message: <%s>" % sReturnString)
-        return sReturnString
+        #sReturnString = ""
+        #sReturnString = self.delimiter.join(['{}'.format(sValue) for sValue in self.details.values()])
+        #Logger.note.debug("Complete Message: <%s>" % sReturnString)
+        #return sReturnString
+        return self.details
