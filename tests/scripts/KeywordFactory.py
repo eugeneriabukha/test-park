@@ -1,5 +1,6 @@
 import importlib
 from Constants import Constants
+from Logger import *
 from CustomException import CustomException
 #=============================================================================#
 # File: KeywordFactory.py
@@ -84,7 +85,9 @@ class KeywordFactory:
     oModule = __import__('scripts.'+ sModuleName, fromlist=['*'])
     oClass = getattr(oModule,sClassName)
     oObject = oClass(self.instruction)
-    getattr(oObject,sMethodName)()
+    sOutput = getattr(oObject,sMethodName)()
+    Logger.note.debug("Output for execution of keyword <%s.%s> is %s" %(sClassName,sMethodName,sOutput))
+    return sOutput
 
 #=============================================================================#
 # End Of Class: KeywordFactory
