@@ -740,6 +740,8 @@ class Search:
                 sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
+                sText = sText.replace(Constants.DELIMITER_OPENBRACE,"%20") # TODO: need to join the main function
+                sText = sText.replace(Constants.DELIMITER_CLOSERACE,"%20") # TODO: need to join the main function
                 args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
                 Logger.note.debug("URL : %s" % sURL)
