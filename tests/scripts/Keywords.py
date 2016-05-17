@@ -108,7 +108,7 @@ class Service:
     def FailureKeyword(self):
         Logger.note.info( "FailureKeyword" )
         self.instruction.actualresult = "UnExpectedResult"
-        return "UnExpectedResult"
+        return "UnExpectedResult is not an expected result"
 
 #=============================================================================#
 # End Of Class: Service

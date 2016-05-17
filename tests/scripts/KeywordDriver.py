@@ -303,6 +303,7 @@ class Execution:
         """
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
+        self.CurrentTestCase = ""
 
         # Set expected messages
         oExpectedMM = MessageManager(Constants.EXPECTED_RESULT)
@@ -325,6 +326,7 @@ class Execution:
         """
         sPrevInstructionName = ""
         sInstructionName = ""
+        #sCurrentTestCase = ""
         bRun = True
 
         # check if its start of a test case and perform actions accordingly
@@ -333,10 +335,14 @@ class Execution:
         # run each instruction one by one
         for sPresentInstructionName in (aList):
             self.ExpectedMessages.Add(sPresentInstructionName,"1")
-            self.ActualMessages.Add(sPresentInstructionName,"2")
 
             sPrevInstructionName = sInstructionName
             oInstruction = self.instructionsDict[sPresentInstructionName]
+
+            # update current test case name if found
+            if bool(re.search(sTCStart, oInstruction.action)) == True:
+                self.CurrentTestCase = sPresentInstructionName
+
             # fetch the instruction name for the provided item
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
             try:
@@ -415,7 +421,8 @@ class Execution:
         # instantiate a specific instruction and perform the execution
         if oExecutedInstruction.execute == True:
             oKeywordFactory = KeywordFactory(oExecutedInstruction)
-            oKeywordFactory.Execute()
+            sReturnValue = oKeywordFactory.Execute()
+            self.ActualMessages.Add(self.CurrentTestCase,sReturnValue)
         else:
             Logger.note.debug("Skipping execution of the instruction")
             bTakeScreenshot = False
@@ -425,7 +432,6 @@ class Execution:
             self.EvaluatePostDependency(oExecutedInstruction,bTakeScreenshot)
         except CustomException as oException:
             raise CustomException(oException.name)
-
 
         # Update the changes to instruction
         sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oExecutedInstruction][0]
