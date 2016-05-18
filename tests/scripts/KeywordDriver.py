@@ -400,6 +400,7 @@ class Execution:
         lStatus = []
         dicTCStatus = collections.OrderedDict()
         sTestCaseName = ""
+        iTotalElapsed = 0
 
         # fetching result after execution
         for sPresentInstructionName in (aList):
@@ -414,6 +415,7 @@ class Execution:
                 dicTCStatus[sTestCaseName] = ""
                 Logger.note.debug("TestCase Start: %s" %sTestCaseName)
                 sElapsedTime = oInstruction.elapsed_time
+                iTotalElapsed = iTotalElapsed + sElapsedTime
                 Logger.note.debug("Elapsed time: %s" % sElapsedTime)
                 sStartTime = oInstruction.start_time
                 Logger.note.debug("Start time: %s" % sStartTime)
@@ -434,7 +436,8 @@ class Execution:
                 if bTCFlag == True:
                     lStatus.append(oInstruction.status)
             
-        Logger.note.debug("Test Case Dictionary: %s" %dicTCStatus)
+        Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
+        Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
 
         #Logger.note.debug(self.ExpectedMessages.Message())
