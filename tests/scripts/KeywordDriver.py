@@ -413,8 +413,10 @@ class Execution:
                 sTestCaseName = oInstruction.testdata
                 dicTCStatus[sTestCaseName] = ""
                 Logger.note.debug("TestCase Start: %s" %sTestCaseName)
-                Logger.note.debug("Elapsed time: %s", %oInstruction.elapsed_time)
-                Logger.note.debug("Start time: %s", %oInstruction.start_time)
+                sElapsedTime = oInstruction.elapsed_time
+                Logger.note.debug("Elapsed time: %s", % sElapsedTime)
+                sStartTime = oInstruction.start_time
+                Logger.note.debug("Start time: %s", % sStartTime)
 
             elif re.search(sTCEnd, oInstruction.action):
                 bTCFlag = False
