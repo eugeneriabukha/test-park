@@ -348,7 +348,8 @@ class Execution:
             # update current test case name if found
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
-                Logger.note.debug("Start Time: %s" % tStartTime)
+                tFormatStartTime = time.ctime(int(tStartTime))
+                Logger.note.debug("Start Time: %s" % tFormatStartTime)
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
                 tDeltaSeconds = (time.time() - tStartTime)
                 Logger.note.debug("Elapsed Time: %.2f seconds" % tDeltaSeconds)
