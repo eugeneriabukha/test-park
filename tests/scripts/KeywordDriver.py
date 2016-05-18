@@ -333,6 +333,7 @@ class Execution:
         sPrevInstructionName = ""
         sInstructionName = ""
         bRun = True
+        tStartTime = ""
 
         # check if its start of a test case and perform actions accordingly
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
@@ -347,7 +348,7 @@ class Execution:
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
-                Logger.note.debug("--- %s seconds ---" % (time.time() - start_time))
+                Logger.note.debug("--- %s seconds ---" % (time.time() - tStartTime))
                 #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
