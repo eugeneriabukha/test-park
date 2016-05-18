@@ -349,8 +349,8 @@ class Execution:
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
-                tDeltaSeconds = str(datetime.timedelta(seconds=(time.time() - tStartTime)))
-                Logger.note.debug("--- %s seconds ---" % tDeltaSeconds)
+                tDeltaSeconds = (time.time() - tStartTime)
+                Logger.note.debug("--- %.2f seconds ---" % tDeltaSeconds)
                 #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
