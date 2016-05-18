@@ -348,9 +348,10 @@ class Execution:
             # update current test case name if found
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
+                Logger.note.debug("Start Time: %s" % tStartTime)
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
                 tDeltaSeconds = (time.time() - tStartTime)
-                Logger.note.debug("--- %.2f seconds ---" % tDeltaSeconds)
+                Logger.note.debug("Elapsed Time: %.2f seconds" % tDeltaSeconds)
                 #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
