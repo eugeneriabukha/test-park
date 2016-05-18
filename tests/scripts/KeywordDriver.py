@@ -4,6 +4,7 @@ from KeywordFactory import KeywordFactory
 from CustomException import CustomException
 from Logger import *
 import collections
+import time
 import os
 import re
 import cv2
@@ -308,8 +309,8 @@ class Execution:
         """
         self.instructionsDict = dicInstructions
         self.previousLabel = ""
-        self.CurrentTestCase = ""
 
+        #self.CurrentTestCase = ""
         # Set expected messages
         #oExpectedMM = MessageManager(Constants.EXPECTED_RESULT)
         #self.ExpectedMessages = oExpectedMM
@@ -335,6 +336,7 @@ class Execution:
 
         # check if its start of a test case and perform actions accordingly
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
+        sTCEnd = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_END
         aList = sorted(self.instructionsDict.keys(),key=natural_keys)
         # run each instruction one by one
         for sPresentInstructionName in (aList):
@@ -343,7 +345,10 @@ class Execution:
 
             # update current test case name if found
             if bool(re.search(sTCStart, oInstruction.action)) == True:
-                self.CurrentTestCase = sPresentInstructionName
+                tStartTime = time.time()
+            elif bool(re.search(sTCEnd, oInstruction.action)) == True:
+                Logger.note.debug("--- %s seconds ---" % (time.time() - start_time))
+                #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
             # fetch the instruction name for the provided item
