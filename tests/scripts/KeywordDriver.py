@@ -5,6 +5,7 @@ from CustomException import CustomException
 from Logger import *
 import collections
 import time
+import datetime
 import os
 import re
 import cv2
@@ -348,7 +349,8 @@ class Execution:
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
-                Logger.note.debug("--- %s seconds ---" % (time.time() - tStartTime))
+                tDeltaSeconds = str(datetime.timedelta(seconds=(time.time() - tStartTime)))
+                Logger.note.debug("--- %s seconds ---" % tDeltaSeconds)
                 #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
