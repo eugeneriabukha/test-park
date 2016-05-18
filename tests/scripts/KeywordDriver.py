@@ -415,7 +415,7 @@ class Execution:
                 dicTCStatus[sTestCaseName] = ""
                 Logger.note.debug("TestCase Start: %s" %sTestCaseName)
                 sElapsedTime = oInstruction.elapsed_time
-                iTotalElapsed = iTotalElapsed + int(sElapsedTime)
+                iTotalElapsed = iTotalElapsed + float(sElapsedTime)
                 Logger.note.debug("Elapsed time: %s" % sElapsedTime)
                 sStartTime = oInstruction.start_time
                 Logger.note.debug("Start time: %s" % sStartTime)
