@@ -373,12 +373,44 @@ class Execution:
 
         """
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
+        sTCEnd = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_END
         aList = sorted(self.instructionsDict.keys(),key=natural_keys)
+        iTCCounter = 0
+        bTCFlag = False
+        lStatus = []
+        dicTCStatus = collections.OrderedDict()
+        sTestCaseName = ""
+
         # fetching result after execution
         for sPresentInstructionName in (aList):
             oInstruction = self.instructionsDict[sPresentInstructionName]
             sInstructionName = [sKey for sKey, sValue in self.instructionsDict.items() if sValue == oInstruction][0]
-            Logger.note.debug(oInstruction.PrettyPrint())
+            #Logger.note.debug(oInstruction.PrettyPrint())
+
+            if re.search(sTCStart, oInstruction.action):
+                iTCCounter = iTCCounter + 1
+                bTCFlag = True
+                sTestCaseName = oInstruction.testdata
+                dicTCStatus[sTestCaseName] = ""
+                Logger.note.debug("TestCase Start: %s" %sTestCaseName)
+            elif re.search(sTCEnd, oInstruction.action):
+                bTCFlag = False
+                if Constants.STATUS_FAILURE in lStatus:
+                    dicTCStatus[sTestCaseName] = Constants.STATUS_FAILURE
+                elif Constants.STATUS_SKIPPED in lStatus:
+                    dicTCStatus[sTestCaseName] = Constants.STATUS_SKIPPED
+                else:
+                    dicTCStatus[sTestCaseName] = Constants.STATUS_SUCCESS
+
+                del lStatus[:]
+
+                Logger.note.debug("TestCase End: %s" %sTestCaseName)
+            else:
+                if bTCFlag == True:
+                    lStatus.append(oInstruction.status)
+            
+        Logger.note.debug("Test Case Dictionary: %s" %dicTCStatus)
+
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
