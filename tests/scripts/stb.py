@@ -251,8 +251,6 @@ class Navigate:
         else:
             self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
 
-        self.instruction.actualresult = 'Failure1' 
-
     def DataDriven(self):
         """
         Navigates to provided screen based on the data provided as direct input
@@ -263,13 +261,14 @@ class Navigate:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         listDirectInput = sDirectInput.split(Constants.DELIMITER_COMMA)
-        Logger.note.debug("Direct Input Information: %s" % listDirectInput)
+        Logger.note.debug("Direct Input Information:")
+        Logger.note.debug(listDirectInput)
 
         # press the required key strokes for navigating to search screen
         Utils.PressListOfKeyStrokes(listDirectInput)
 
         # this checks if we are on the right screen, and updates actual result
-        time.sleep(Constants.MEDIUM_WAIT)
+        time.sleep(Constants.LONG_WAIT)
         self.instruction.actualresult = self.instruction.expectedresult
 
     def GroupToProgram(self):
@@ -286,7 +285,7 @@ class Navigate:
             Nothing
         """
         Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
-        time.sleep(Constants.MEDIUM_WAIT)
+        time.sleep(Constants.LONG_WAIT)
 
     def Program(self):
         """
@@ -305,7 +304,6 @@ class Navigate:
 
         # fetch data from instruction sheet, else default to summary
         sDirectInput = ""
-        sMessage = ""
         bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
@@ -335,11 +333,9 @@ class Navigate:
             listOfActiveImageHeaders = IMAGES_ACTIVE_MOVIE_HEADER
             hPositionMap = POSITIONS_MOVIE
         else:
-            sMessage = "The page do not require any navigation. Page name [%s]" %sPageName
-            Logger.note.info(sMessage)
+            Logger.note.info ("The page do not require any navigation. Page name [%s]" %sPageName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-                return
             return True
 
         # Fetch the current tab based on the page
@@ -352,13 +348,10 @@ class Navigate:
             sCurrentTabName = oFranchisePage.GetCurrentTab(listOfImageHeaders)
             # if required tab was not found on all available list of images, then return a false message
             if sCurrentTabName == TEXT_TAB_UNAVAILABLE:
-                sMessage = "Sub Tab Navigation - Failure"
-                Logger.note.error(sMessage)
+                Logger.note.error( "No matching images available on both active and non active headers. Kindly check the images")
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                    return sMessage
-                else:
-                    return False
+                return False
             else:
                 # To navigate in the franchise header, should go all the way up to the header and make it active
                 sActiveTabName = sCurrentTabName
@@ -386,20 +379,15 @@ class Navigate:
 
         # check if we reached the tab
         if sNewTabName == sDestinationTabName:
-            sMessage = "Navigation to destination tab [%s] successful" %sDestinationTabName
-            Logger.note.debug(sMessage)
+            Logger.note.debug( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            else:
-                return True
+            return True
         else:
-            sMessage = "Navigation to destination tab [%s] failure" %sDestinationTabName
-            Logger.note.error(sMessage)
+            Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                return sMessage
-            else:
-                return False
+            return False
 
     def TopNav(self):
         """
@@ -411,7 +399,6 @@ class Navigate:
         """
         # fetch data from instruction sheet, else default to summary
         sDirectInput = ""
-        sMessage = ""
         bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
@@ -426,12 +413,10 @@ class Navigate:
             if sDirectInput in DICT_TOPNAV_IMAGES:
                 Logger.note.debug("User has used a valid navigation scenario: %s" %sDirectInput)
             else:
-                sMessage = "Please check the provided input for spelling mistakes: %s" %sDirectInput
-                Logger.note.error(sMessage)
+                Logger.note.error("Please check the provided input for spelling mistakes: %s" %sDirectInput)
                 if bCalledFromInstructionSheet == True:
                     self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                else:
-                    return False
+                return False
 
         # if there is a value for direct input, else default it to Menu
         if sDirectInput:
@@ -446,12 +431,10 @@ class Navigate:
         # Fetch the current active tab in the screen
         sActiveTabName = oTopNav.GetCurrentTab()
         if sActiveTabName == TEXT_TAB_UNAVAILABLE:
-            sMessage = "Unable to fetch current tab name - Initial Tab"
-            Logger.note.error(sMessage)
+            Logger.note.error( "Unable to fetch current tab name - Initial Tab")
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            else:
-                return False
+            return False
 
         # Navigate from current menu to specified tab
         sKeyStroke = Constants.KEY_FRAMEFORWARD
@@ -472,29 +455,22 @@ class Navigate:
         # Fetch if the required tab is selected
         sNewTabName = oTopNav.GetCurrentTab()
         if sNewTabName == TEXT_TAB_UNAVAILABLE:
-            sMessage = "Unable to verify current tab name - Final Tab"
-            Logger.note.error(sMessage)
+            Logger.note.error( "Unable to verify current tab name - Final Tab")
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-            else:
-                return False
+            return False
 
         # check if we reached the tab
         if sNewTabName == sDestinationTabName:
-            sMessage = "Navigation to destination tab [%s] successful" %sDestinationTabName
-            Logger.note.info(sMessage)
+            Logger.note.info( "Navigation to destination tab [%s] successful" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-            else:
-                return True
+            return True
         else:
-            sMessage = "Navigation to destination tab [%s] failure" %sDestinationTabName
-            Logger.note.error(sMessage)
+            Logger.note.error( "Navigation to destination tab [%s] failure" %sDestinationTabName)
             if bCalledFromInstructionSheet == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                return sMessage
-            else:
-                return False
+            return False
 
 class Search:
     """
@@ -524,7 +500,6 @@ class Search:
             Updates actual result based on the current screen details
         """
         bInstructionFlag = False
-        sMessage = ""
 
         try:
             oInstruction = self.instruction
@@ -535,18 +510,15 @@ class Search:
         # if the search page do not exist, then exit the test case
         oSearchLogo = stbt.match(IMAGE_SEARCH)
         if oSearchLogo.match == True:
-            sMessage = "Navigated to search screen successfully"
-            Logger.note.info(sMessage)
+            Logger.note.info( "Navigated to search screen successfully")
             if bInstructionFlag == True:
                 self.instruction.actualresult = self.instruction.expectedresult
             else:
                 return True
         else:
-            sMessage = "Unable to navigate to search screen"
-            Logger.note.error(sMessage)
+            Logger.note.error( "Unable to navigate to search screen")
             if bInstructionFlag == True:
                 self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
-                return sMessage
             else:
                 return False
 
@@ -564,8 +536,7 @@ class Search:
             Nothing
         """
         global global_wait
-        sMessage = ""
-
+        
         # fetch data from the instruction
         oTestData = self.instruction.testdata_detailed
         for dValue in oTestData.values():
@@ -598,7 +569,7 @@ class Search:
         if(bIncludeNetflix == bActualNetflixStatus):
             Logger.note.debug(POSITIVE_NETFLIX)
         else:
-            Logger.note.info(NEGATIVE_NETFLIX)
+            Logger.note.info( NEGATIVE_NETFLIX)
             # performing advanced search : netflix inclusion or removal
             Utils.PressListOfKeyStrokes(SEARCH_KEYSTROKES_ADVANCED)
 
@@ -611,18 +582,16 @@ class Search:
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
         if textOnScreen.find(sLookForMessage) == -1:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            Logger.note.error(SEARCH_NEGATIVE)
-            return SEARCH_NEGATIVE
+            Logger.note.error( SEARCH_NEGATIVE)
+            return
         
         bSucessFlag = self.FetchResults()
         if bSucessFlag == False:
-            sMessage = "Unable to fetch results from the screen"
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
-            return sMessage
+            return
 
         self.instruction.actualresult = self.instruction.expectedresult
         Logger.note.info(SEARCH_POSITIVE)
-        return SEARCH_POSITIVE
 
     def FetchLastViewed(self):
         """
@@ -637,7 +606,6 @@ class Search:
         Raises:
             Nothing
         """
-        sMessage = ""
         # To get more details on the fetched title
         sTitle = Utils.GetDynamicTitle()
 
@@ -649,10 +617,9 @@ class Search:
             Utils.SetDynamicTitle(sTitle)
             self.instruction.actualresult = self.instruction.expectedresult
         else:
-            sMessage = 'Title on the Guide does not match with Title on Search Results Screen'
-            Logger.note.error(sMessage)
+            Logger.note.error('Title on the Guide does not match with Title on Search Results Screen')
             self.instruction.actualresult = Constants.STATUS_FAILURE
-            return sMessage
+            return
 
         sFetchedTitle = str(sFetchedTitle)
         lTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE)
@@ -741,8 +708,6 @@ class Search:
                 sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
-                sText = sText.replace(Constants.DELIMITER_OPENBRACE,"%20") # TODO: need to join the main function
-                sText = sText.replace(Constants.DELIMITER_CLOSEBRACE,"%20") # TODO: need to join the main function
                 args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
                 Logger.note.debug("URL : %s" % sURL)
@@ -1630,7 +1595,6 @@ class Shows:
         """
         bInstructionFlag = False
         sDirectInput = ""
-        sMessage = ""
 
         try:
             oTestData = self.instruction.testdata_detailed
@@ -1648,21 +1612,15 @@ class Shows:
         # if the search page do not exist, then exit the test case
         sTitle = self.GetPageName(sTabName)
         if sTitle == sTabName:
-            sMessage = "Navigated to screen <%s> successfully" % sTabName
-            Logger.note.info(sMessage)
+            Logger.note.info( "Navigated to screen <%s> successfully" % sTabName)
             if bInstructionFlag == True:
                 self.instruction.actualresult = self.instruction.expectedresult
-                return sMessage
-            else:
-                return True
+            return True
         else:
-            sMessage = "Unable to navigate to %s screen" % sTabName
-            Logger.note.error(sMessage)
+            Logger.note.error( "Unable to navigate to %s screen" % sTabName)
             if bInstructionFlag == True:
                 self.instruction.actualresult = Constants.STATUS_FAILURE
-                return sMessage
-            else:
-                return False
+            return False
 
     def CountMissingImages(self):
         """
