@@ -72,7 +72,7 @@ class KeywordDriver(dict):
         sOptions = ""
         sExpectedResult = ""
         sActualResult = ""
-        sExpectedMessage = ""
+        #sExpectedMessage = ""
         sComments = ""
         dirLables={}
         #Logger.note.debug('Analyzing the data to create an instruction object')
@@ -101,8 +101,8 @@ class KeywordDriver(dict):
                 elif(oInstructionName == Constants.ACTUAL_RESULT):
                     pass
                 # segregate expected message of the provided instruction
-                elif(oInstructionName == Constants.EXPECTED_MESSAGE):
-                    sExpectedMessage = oInstructionValue
+                #elif(oInstructionName == Constants.EXPECTED_MESSAGE):
+                    #sExpectedMessage = oInstructionValue
                 # segregate comments of the provided instruction
                 elif(oInstructionName == Constants.COMMENTS):
                     sComments = oInstructionValue
@@ -122,7 +122,8 @@ class KeywordDriver(dict):
                 iTCCounter = iTCCounter + 1
 
             # Create an instruction object before passing
-            oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage)
+            #oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage)
+            oInstruction = Instruction(sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult)
             if dirLables.has_key(''.join(sLabel.split(Constants.DELIMITER_HIFEN)[1:])):
                 sTemp = "Label cannot be duplicated <%s>. Please check row <%s> in instruction sheet" %(sLabel,iCounter)
                 raise Exception(sTemp)
@@ -213,7 +214,8 @@ class Instruction:
     # Returns:
     # Usage Examples:
     #=============================================================================#
-    def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage):
+    #def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult,sExpectedMessage):
+    def __init__(self,sLabel,sComments,sAction,sTestData,sOptions,sExpectedResult):
         self.label = sLabel
         self.comments = sComments
         self.action = sAction
@@ -222,7 +224,9 @@ class Instruction:
         self.options_detailed = Options(sOptions)
         self.expectedresult = sExpectedResult
         self.actualresult = ""
-        self.expectedmessage = sExpectedMessage
+        self.elapsed_time = ""
+        self.start_time = ""
+        #self.expectedmessage = sExpectedMessage
         self.status = Constants.STATUS_NOT_EXECUTED
         self.execute = True
 
@@ -335,6 +339,7 @@ class Execution:
         sInstructionName = ""
         bRun = True
         tStartTime = ""
+        sCurrentTestCase = ""
 
         # check if its start of a test case and perform actions accordingly
         sTCStart = Constants.SERVICE + Constants.DELIMITER_STOP + Constants.TESTCASE_START
@@ -349,10 +354,15 @@ class Execution:
             if bool(re.search(sTCStart, oInstruction.action)) == True:
                 tStartTime = time.time()
                 tFormatStartTime = time.ctime(int(tStartTime))
+                sCurrentTestCase = sPresentInstructionName
                 Logger.note.debug("Start Time: %s" % tFormatStartTime)
             elif bool(re.search(sTCEnd, oInstruction.action)) == True:
                 tDeltaSeconds = (time.time() - tStartTime)
+                tTrimDownDeltaSeconds = "%.2f" % tDeltaSeconds
                 Logger.note.debug("Elapsed Time: %.2f seconds" % tDeltaSeconds)
+                oTCInstruction = self.instructionsDict[sCurrentTestCase]
+                oTCInstruction.start_time = tFormatStartTime
+                oTCInstruction.elapsed_time = tTrimDownDeltaSeconds
                 #self.CurrentTestCase = sPresentInstructionName
                 #self.ExpectedMessages.Add(sPresentInstructionName,oInstruction.expectedmessage)
 
@@ -403,6 +413,9 @@ class Execution:
                 sTestCaseName = oInstruction.testdata
                 dicTCStatus[sTestCaseName] = ""
                 Logger.note.debug("TestCase Start: %s" %sTestCaseName)
+                Logger.note.debug("Elapsed time: %s", %oInstruction.elapsed_time)
+                Logger.note.debug("Start time: %s", %oInstruction.start_time)
+
             elif re.search(sTCEnd, oInstruction.action):
                 bTCFlag = False
                 if Constants.STATUS_FAILURE in lStatus:
