@@ -39,6 +39,7 @@ class Constants(object):
     DELIMITER_EXCLAMATION = "!"
     DELIMITER_OPENBRACE = "("
     DELIMITER_CLOSEBRACE = ")"
+    DEILIMITER_STAR = "*"
 
     # Keyword related
     TESTCASE_START = "TestCaseStart"

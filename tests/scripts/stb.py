@@ -261,14 +261,22 @@ class Navigate:
         oTestData = self.instruction.testdata_detailed
         sDirectInput = oTestData[Constants.DIRECT_INPUT]
         listDirectInput = sDirectInput.split(Constants.DELIMITER_COMMA)
-        Logger.note.debug("Direct Input Information:")
-        Logger.note.debug(listDirectInput)
+        listDerived = []
+        for listItem in listDirectInput:
+            lExtension = listItem.split(Constants.DEILIMITER_STAR)
+            if len(lExtension) == 2:
+                lExtendedList = [lExtension[0]] * lExtension[1]
+                listDerived.extend(lExtendedList)
+            else:
+                listDerived.append(listItem)
+
+        Logger.note.debug("Derived Direct Input Information: %s" % listDerived)
 
         # press the required key strokes for navigating to search screen
-        Utils.PressListOfKeyStrokes(listDirectInput)
+        Utils.PressListOfKeyStrokes(listDerived)
 
         # this checks if we are on the right screen, and updates actual result
-        time.sleep(Constants.LONG_WAIT)
+        #time.sleep(Constants.SHORT_WAIT)
         self.instruction.actualresult = self.instruction.expectedresult
 
     def GroupToProgram(self):
