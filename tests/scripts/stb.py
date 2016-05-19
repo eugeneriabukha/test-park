@@ -266,7 +266,7 @@ class Navigate:
             lExtension = listItem.split(Constants.DEILIMITER_STAR)
             if len(lExtension) == 2:
                 iTimes = int(float(lExtension[1]))
-                lExtendedList = ['%d' % lExtension[0]] * iTimes
+                lExtendedList = ['%s' % lExtension[0]] * iTimes
                 listDerived.extend(lExtendedList)
             else:
                 listDerived.append(listItem)
