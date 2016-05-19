@@ -1658,7 +1658,7 @@ class Shows:
 
         iTotalCount = 0
         for iCounter in range(0,iLastCounter):
-            Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
+            #Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
             # find a match and keep counting
             oMatches = stbt.match(IMAGE_NONE)
             bFlag = oMatches.match
