@@ -399,6 +399,8 @@ class Execution:
         bTCFlag = False
         lStatus = []
         dicTCStatus = collections.OrderedDict()
+        dicTCElapsedTime = collections.OrderedDict()
+        dicTCCreatedTime = collections.OrderedDict()
         sTestCaseName = ""
         iTotalElapsed = 0
 
@@ -419,6 +421,8 @@ class Execution:
                 Logger.note.debug("Elapsed time: %s" % sElapsedTime)
                 sStartTime = oInstruction.start_time
                 Logger.note.debug("Start time: %s" % sStartTime)
+                dicTCElapsedTime[sTestCaseName] = sElapsedTime
+                dicTCCreatedTime[sTestCaseName] = sStartTime
 
             elif re.search(sTCEnd, oInstruction.action):
                 bTCFlag = False
@@ -437,6 +441,9 @@ class Execution:
                     lStatus.append(oInstruction.status)
             
         Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
+        Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
+        Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
+
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
 
