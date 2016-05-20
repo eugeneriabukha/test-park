@@ -441,11 +441,15 @@ class Execution:
                     lStatus.append(oInstruction.status)
             
         Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
-        Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
-        Logger.note.debug("Test Case Dictionary: %s" % dicTCStatus)
+        Logger.note.debug("Test Case Dictionary: %s" % dicTCElapsedTime)
+        Logger.note.debug("Test Case Dictionary: %s" % dicTCCreatedTime)
 
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
+        listOfTestCases = dicTCStatus.keys()
+        Logger.note.info("Test Case Name|Execution Status|Executed Time|Elapsed Time")
+        for eachTestCase in listOfTestCases:
+            Logger.note.info("%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
