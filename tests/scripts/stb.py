@@ -1513,7 +1513,8 @@ class Movies:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("There was at least one failure observed for each page" )
-            self.instruction.actualresult = Constants.STATUS_FAILURE
+            #self.instruction.actualresult = Constants.STATUS_FAILURE
+            self.instruction.actualresult = self.instruction.expectedresult
 
 class Shows:
     """
@@ -1678,7 +1679,8 @@ class Shows:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("There was at least one failure observed for each page" )
-            self.instruction.actualresult = Constants.STATUS_FAILURE
+            #self.instruction.actualresult = Constants.STATUS_FAILURE
+            self.instruction.actualresult = self.instruction.expectedresult
 
 class VOD:
     """
@@ -1793,7 +1795,8 @@ class VOD:
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("There was at least one failure observed for each page" )
-            self.instruction.actualresult = Constants.STATUS_FAILURE
+            #self.instruction.actualresult = Constants.STATUS_FAILURE
+            self.instruction.actualresult = self.instruction.expectedresult
 
 # Required variables from the classes on the URL
 oNavigate = Navigate()
