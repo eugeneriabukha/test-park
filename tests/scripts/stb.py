@@ -64,6 +64,7 @@ TEXT_EPISODES = 'Episodes'
 TEXT_CAST = 'Cast'
 TEXT_REVIEWS = 'Reviews'
 TEXT_PARENTALGUIDE = 'Parental Guide'
+TEXT_VOD = 'Video On Demand (VOD)'
 TEXT_TAB_UNAVAILABLE = 'TAB_UNAVAILABLE'
 
 TEXT_STB_MENU = 'MENU'
@@ -102,6 +103,7 @@ DICT_STB_TYPES = {  TEXT_STB_TV : 4,
 SEARCH_RESULTS = [TEXT_STB_MOST_POPULAR_SEARCHES,TEXT_STB_TV,TEXT_STB_MOVIE,TEXT_STB_SPORTS,TEXT_STB_PERSON,TEXT_STB_CHANNEL]
 SEARCH_RESULTS_EXTENDED = ['MOST','POPULAR','SEARCHES',TEXT_STB_TV,TEXT_STB_MOVIE,TEXT_STB_SPORTS,TEXT_STB_PERSON,TEXT_STB_CHANNEL]
 DIAGNOSTICS_LIST = [DIAGNOSTICS]
+VOD_LIST = ['Video','On','Demand','(VOD)']
 FRANCHISEPAGE_LIST=['TV','Show','Group','Movie','Sports','Person']
 DIAGNOSTICS_LHS = ['Model','Receiver','ID','Smart','Card','Secure','Location','Name','DNASP','Switch',
 'Software','Version','Boot','Strap','Available','Joey','Software','Application','Transceiver','Firmware']
@@ -1514,7 +1516,7 @@ class Movies:
 
 class Shows:
     """
-    Functions required for the Movies tab
+    Functions required for the Shows tab
 
     Args:
         oInstruction: an instruction object with keyword, its respected expected result,
@@ -1677,6 +1679,121 @@ class Shows:
             Logger.note.error("There was at least one failure observed for each page" )
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
+class VOD:
+    """
+    Functions required for the VOD tab
+
+    Args:
+        oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+    """
+    def __init__(self,oInstruction=None):
+        """
+        Initializes the service class with information required for running the test
+
+        Args:
+            oInstruction: an instruction object with keyword, its respected expected result,
+        option and its data
+
+        Returns:
+            Nothing
+
+        Raises:
+            Nothing
+        """
+        if oInstruction != None:
+            self.instruction = oInstruction
+
+    def GetPageName(self):
+        """
+        Fetches the page name of the current page
+
+        Args:
+            Nothing
+
+        Returns:
+            page name of the displayed page
+
+        Raises:
+            Nothing
+        """
+        sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS_LOGO,VOD_LIST)
+        return sFoundString
+
+    def VerifyPage(self):
+        """ 
+        Updates actual result based on presence of current image
+
+        Returns:
+            Updates actual result based on the current screen details
+        """
+        bInstructionFlag = False
+        try:
+            oInstruction = self.instruction
+            bInstructionFlag = True
+        except Exception as eError:
+            pass
+
+        # if the search page do not exist, then exit the test case
+        sTitle = self.GetPageName()
+        if sTitle == TEXT_VOD:
+            Logger.note.info( "Navigated to VOD page successfully")
+            if bInstructionFlag == True:
+                self.instruction.actualresult = self.instruction.expectedresult
+            else:
+                return True
+        else:
+            Logger.note.error( "Unable to navigate to VOD page")
+            if bInstructionFlag == True:
+                self.instruction.actualresult = Constants.STATUS_NAVIGATION_FAILURE
+            else:
+                return False
+
+    def CountMissingImages(self):
+        """
+        Count the list of missing images found from the page
+
+        Returns:
+            count of missing images
+        """
+        bInstructionFlag = False
+        sDirectInput = ""
+
+        # fetch the direct input information from instruction sheet
+        try:
+            oTestData = self.instruction.testdata_detailed
+            bInstructionFlag = True
+            sDirectInput = oTestData[Constants.DIRECT_INPUT]
+        except Exception as eError:
+            pass
+
+        # default the value as 1 if there is no direct input
+        if sDirectInput == "":
+            Logger.note.debug("No Direct Input so defaulting to 1")
+            sDirectInput = 1
+
+        iLastCounter = int(sDirectInput)
+
+        iTotalCount = 0
+        for iCounter in range(0,iLastCounter):
+            # find a match and keep counting
+            oMatches = stbt.match(IMAGE_NONE)
+            bFlag = oMatches.match
+            Logger.note.debug("Match Found : [%s]" % bFlag)
+            if bFlag == True:
+                iTotalCount = iTotalCount + 1
+
+        iPercentage = iTotalCount/iLastCounter
+        Logger.note.debug("Total Matches Found : [%s]" % iTotalCount)
+
+        # Post status based on the number of failures observed
+        if iPercentage < 1:
+            Logger.note.info("Missing images was less than 10 percent on this page")
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error("There was at least one failure observed for each page" )
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+
 # Required variables from the classes on the URL
 oNavigate = Navigate()
 oFranchisePage = FranchisePage()
@@ -1686,3 +1803,4 @@ oDiagnostics = Diagnostics()
 oTopNav = TopNav()
 oMovies = Movies()
 oShows = Shows()
+oVOD = VOD()
