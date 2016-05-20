@@ -166,6 +166,7 @@ REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
 REGION_MOVIES_TOPNAV = {'x':32,'y':120, 'width':366, 'height':55}
 REGION_MOVIE_CAROUSEL = {'x':30,'y':150, 'width':160, 'height':500}
 REGION_SHOW_CAROUSEL = {'x':20,'y':150, 'width':300, 'height':600}
+REGION_VOD = {'x':170,'y':57, 'width':340, 'height':48}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -1717,7 +1718,7 @@ class VOD:
         Raises:
             Nothing
         """
-        sFoundString = Utils.FetchTextOfRegion(REGION_DIAGNOSTICS_LOGO,VOD_LIST)
+        sFoundString = Utils.FetchTextOfRegion(REGION_VOD, VOD_LIST)
         return sFoundString
 
     def VerifyPage(self):
