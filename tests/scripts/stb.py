@@ -623,6 +623,9 @@ class Search:
 
         # fetch the 0th result region
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
+        Logger.note.debug("Title: %s" %sTitle)
+        Logger.note.debug("Fetched new title: %s" %sFetchedTitle)
+        
         if sTitle in sFetchedTitle:
             sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
             Logger.note.debug("Newly Set Dynamic Title: %s" % sTitle)
