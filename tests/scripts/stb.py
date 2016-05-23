@@ -45,7 +45,7 @@ SEARCH_CHAR_UPPER_LIMIT = 30
 
 # list constants
 DIAGNOSTICS_KEYSTROKES =[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,
-    Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_SELECT]
+    Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_RIGHT,Constants.KEY_SELECT]
 HBO_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_3, Constants.KEY_0, Constants.KEY_0]
 GUIDE_NO_DAYS = 7
 SEARCH_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_SEARCH]
@@ -625,7 +625,7 @@ class Search:
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
         Logger.note.debug("Title: %s" %sTitle)
         Logger.note.debug("Fetched new title: %s" %sFetchedTitle)
-        
+
         if sTitle in sFetchedTitle:
             sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
             Logger.note.debug("Newly Set Dynamic Title: %s" % sTitle)
