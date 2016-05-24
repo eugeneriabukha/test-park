@@ -566,6 +566,9 @@ class Search:
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
 
+        # save the searched title for future reference
+        Utils.SetSearchedTitle(sTitle)
+
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
@@ -871,13 +874,6 @@ class Search:
 
         # save the expected results into utils for future retrieval
         Utils.SetExpectedSearchResults(dictExpectedResult)
-
-        # updated advanced options with collected expected results
-        #for sTitle in dictExpectedResult.keys():
-        #    sTitle = str(sTitle)
-        #    lTitle = sTitle.split(Constants.DELIMITER_SPACE)
-        #    SEARCH_RESULTS_EXTENDED.extend(lTitle)
-
         Logger.note.debug("Tesseract Extended: %s" % SEARCH_RESULTS_EXTENDED)
 
     def VerifyPopularSearchResults(self):
@@ -901,7 +897,7 @@ class Search:
         bStatus = Utils.CompareResults(dicExpected,listActual)
         if bStatus == True:
             self.instruction.actualresult = self.instruction.expectedresult
-            Logger.note.info( POPULAR_SEARCH_RESULTS_MATCH)
+            Logger.note.info(POPULAR_SEARCH_RESULTS_MATCH)
         else:
 
             self.instruction.actualresult = Constants.STATUS_FAILURE
@@ -923,11 +919,26 @@ class Search:
 
         # fetch data from instruction sheet, else default to summary
         sDirectInput = ""
+        sTitle = ""
+        sType = ""
+        sID = ""
+
         bCalledFromInstructionSheet = False
         try:
             oTestData = self.instruction.testdata_detailed
             bCalledFromInstructionSheet = True
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
+            '''
+            if Constants.DELIMITER_EQUAL in sDirectInput:
+                arDirectInput = sDirectInput.split(Constants.DELIMITER_EQUAL)
+                if arDirectInput[0] == "Type":
+                    sType = arDirectInput[1].upper()
+                elif arDirectInput[0] == "Title":
+                    sTitle = arDirectInput[1].upper()
+                else:
+                    Logger.note.error("Unknown Input Type: %s" % arDirectInput[0])
+            else:
+            '''
             # capitalize the provided input
             sDirectInput = sDirectInput.upper()
         except Exception as eError:
@@ -941,16 +952,22 @@ class Search:
 
         # select the specified title or a random title from the list of programs
         listOfDictSearchResults = Utils.GetSearchResults()
-
-        if sType in DICT_STB_TYPES:
-            listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
-        elif sType == 'DYNAMIC':
-            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetDynamicTitle()))
-
         if len(listOfDictSearchResults) == 0:
             Logger.note.error("The dictionary is empty and cannot be searched")
             self.instruction.actualresult = Constants.STATUS_FAILURE
             return
+
+        '''
+        # if there is a value for sType, then work on finding an item of specified type
+        if sType:
+        '''
+        # If its a known type, work on the input
+        if sType in DICT_STB_TYPES:
+            listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
+        elif sType == Constants.DYNAMIC:
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetDynamicTitle()))
+        elif sType == Constants.SEARCHED:
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetSearchedTitle()))
 
         Logger.note.debug("Complete List Of Dictionary : %s" % listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
@@ -971,12 +988,25 @@ class Search:
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
+        Logger.note.info( "Randomly selected title for type <%s> is <%s>" % (sType,sTitle))
+        
+        '''
+        elif sTitle:
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(sTitle))
+            dictSearchItem = listOfDictSearchResults[0]
+            Logger.note.debug(dictSearchItem)
+            # fetch the title and save it for future
+            sID = dictSearchItem["ID"]
+            Logger.note.debug( "Provided Title is <%s>" % sTitle)
+        '''
+
         Utils.SetSelectedTitle(sTitle)
-        Logger.note.info( "Randomly selected title is <%s>" % sTitle)
+
         # generate the key for the specified program and select the program
         sKey = "KEY_" + str(sID)
         Utils.PressListOfKeyStrokes([sKey])
         time.sleep(Constants.LONG_WAIT * 5)
+
         self.instruction.actualresult = self.instruction.expectedresult
 
     def CompareProgramCount(self):

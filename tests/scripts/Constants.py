@@ -79,6 +79,8 @@ class Constants(object):
     RANDOM_LETTER = "!RANDOM_LETTER!"
     STORED = "!STORED!"
     NETFLIX = "!NETFLIX!"
+    DYNAMIC = "DYNAMIC"
+    SEARCHED = "!SEARCHED!"
 
     # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"

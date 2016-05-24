@@ -39,6 +39,24 @@ class cUtils:
             time.sleep(global_wait)
         time.sleep(Constants.LONG_WAIT)
 
+    def SetSearchedTitle(self,sTitle):
+        """
+        This function saves the Searched Title 
+
+        Args:
+            sTitle (string): string containing the searched Title on screen
+        """
+        self.searchedTitle = sTitle
+
+    def GetSearchedTitle(self):
+        """
+        This function fetches the string saved as searched Title
+
+        Returns:
+            (string):  string containing the searched Title
+        """
+        return self.GetSearchedTitle
+
     def SetDynamicTitle(self,sTitle):
         """
         This function saves the Dynamic Title which was searched
