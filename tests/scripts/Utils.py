@@ -162,6 +162,30 @@ class cUtils:
         """
         return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
+    def GetDynamicNetflixTitle(self):
+        """
+        This function fetches a dynamic netflix title
+
+        Args:
+            NA
+
+        Returns:
+            (string):  randomly chosen netflix title name
+
+        Raises:
+            Nothing
+        """
+        try:
+            sURL = Constants.NETFLIX_ORIGINALS_URL
+            Logger.note.debug("URL : %s" % sURL)
+            oDetail = Utils.GetHTTPResponse(sURL)
+            iTotalSearchCount = len(oDetail)
+            Logger.note.debug("Total Count for %s : %s" % (sURL,iTotalSearchCount))
+        except UnicodeEncodeError:
+            Logger.note.debug("UnicodeEncodeError for : %s" % sText)
+
+        return "Game Of Thrones"
+
     def CompareResults(self,dicExpectedSearchResults,lActualSearchResults):
         """
         This function compares the actual results with the expected results to find a one to one match

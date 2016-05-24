@@ -78,6 +78,7 @@ class Constants(object):
     EMPTY = "!EMPTY!"
     RANDOM_LETTER = "!RANDOM_LETTER!"
     STORED = "!STORED!"
+    NETFLIX = "!NETFLIX!"
 
     # status constants
     STATUS_NAVIGATION_FAILURE = "NavigationFailure"
@@ -125,6 +126,7 @@ class Constants(object):
     # List of URL(s)
     POPULAR_SEARCH_URL = "http://tms-catalog-ext.dishanywhere.com:5228/get_popular_search/"
     TMS_BASE_URL = "http://tms-catalog.dishanywhere.com:9200/"
+    NETFLIX_ORIGINALS_URL = "http://aws-qa-supair-admin.metacloud.media/api_netflix_originals_list/"
 
     # List of index(es)
     INDEX_TMS_MOVIES_PROGRAMS = "tms_movies_programs"
