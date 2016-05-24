@@ -11,7 +11,8 @@ import json
 import stbt
 from Keywords import *
 from collections import OrderedDict
-import random
+from random import seed, shuffle, random, randint, choice 
+#import random
 import string
 import sys
 from Logger import *
