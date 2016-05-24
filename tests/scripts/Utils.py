@@ -181,10 +181,12 @@ class cUtils:
             oDetail = Utils.GetHTTPResponse(sURL)
             iTotalSearchCount = len(oDetail)
             Logger.note.debug("Total Count for %s : %s" % (sURL,iTotalSearchCount))
+            sRandomDetail = choice(oDetail)
+            Logger.note.debug("Randomly chosen item: %s" % (sRandomDetail))
         except UnicodeEncodeError:
             Logger.note.debug("UnicodeEncodeError for : %s" % sText)
 
-        return "Game Of Thrones"
+        return "P"
 
     def CompareResults(self,dicExpectedSearchResults,lActualSearchResults):
         """

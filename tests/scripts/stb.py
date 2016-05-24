@@ -566,7 +566,6 @@ class Search:
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
 
-
         # once the title is fetched, get the keystrokes for the title
         lKeyStrokes = EncodeTitle(sTitle,DEFAULT_SEARCH_CHAR)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
