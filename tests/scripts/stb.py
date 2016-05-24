@@ -1144,6 +1144,22 @@ class FranchisePage:
             Logger.note.error(SUMMARYPAGE_TITLE_FAILURE)
             self.instruction.actualresult = Constants.STATUS_FAILURE
 
+    def VerifyWatchOnNetflix(self):
+        """
+        Verifies if the "Watch On Netflix" button is visible in the page
+
+        Args:
+            Nothing
+
+        Returns:
+            (boolean) based on execution
+
+        Raises:
+            Nothing
+        """
+        sPageName = self.GetPageName()
+
+
 class Guide:
     """
     Functions required for screen Guide like fetching details from screen
