@@ -11,8 +11,7 @@ import json
 import stbt
 from Keywords import *
 from collections import OrderedDict
-from random import seed, shuffle, random, randint, choice 
-#import random
+import random
 import string
 import sys
 from Logger import *
@@ -182,7 +181,7 @@ class cUtils:
             oDetail = Utils.GetHTTPResponse(sURL)
             iTotalSearchCount = len(oDetail)
             Logger.note.debug("Total Count for %s : %s" % (sURL,iTotalSearchCount))
-            sRandomDetail = choice(oDetail)
+            sRandomDetail = random.choice(oDetail)
             Logger.note.debug("Randomly chosen item: %s" % (sRandomDetail))
         except UnicodeEncodeError:
             Logger.note.debug("UnicodeEncodeError for : %s" % sText)
