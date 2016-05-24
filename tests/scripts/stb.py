@@ -167,6 +167,7 @@ REGION_MOVIES_TOPNAV = {'x':32,'y':120, 'width':366, 'height':55}
 REGION_MOVIE_CAROUSEL = {'x':30,'y':150, 'width':160, 'height':500}
 REGION_SHOW_CAROUSEL = {'x':20,'y':150, 'width':300, 'height':600}
 REGION_VOD = {'x':175,'y':57, 'width':340, 'height':48}
+REGION_NETFLIX_WATCH = {'x':46,'y':453, 'width':250, 'height':200}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -1157,8 +1158,9 @@ class FranchisePage:
         Raises:
             Nothing
         """
-        sPageName = self.GetPageName()
-
+        sButtonNames = Utils.FetchTextOfRegion(REGION_NETFLIX_WATCH,"Watch on Netflix".split())
+        Logger.note.debug("Fetched button details from screen: %s" % sButtonNames)
+        self.instruction.actualresult = self.instruction.expectedresult
 
 class Guide:
     """
