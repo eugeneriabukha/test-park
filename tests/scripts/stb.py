@@ -969,7 +969,7 @@ class Search:
         elif sType == Constants.SEARCHED:
             sPrevSearchedTitle = str(Utils.GetSearchedTitle())
             Logger.note.debug("Fetched Previously Searched Title : %s" % sPrevSearchedTitle)
-            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle))
+            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle)
 
         Logger.note.debug("Complete List Of Dictionary : %s" % listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
