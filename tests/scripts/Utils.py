@@ -55,7 +55,7 @@ class cUtils:
         Returns:
             (string):  string containing the searched Title
         """
-        return self.GetSearchedTitle
+        return self.searchedTitle
 
     def SetDynamicTitle(self,sTitle):
         """
