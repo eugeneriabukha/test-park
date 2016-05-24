@@ -175,18 +175,22 @@ class cUtils:
         Raises:
             Nothing
         """
+        # store a netflix original title as default return value
+        sRandomTitle = "A Very Murray Christmas"
         try:
             sURL = Constants.NETFLIX_ORIGINALS_URL
             Logger.note.debug("URL : %s" % sURL)
             oDetail = Utils.GetHTTPResponse(sURL)
             iTotalSearchCount = len(oDetail)
             Logger.note.debug("Total Count for %s : %s" % (sURL,iTotalSearchCount))
-            sRandomDetail = random.choice(oDetail)
-            Logger.note.debug("Randomly chosen item: %s" % (sRandomDetail))
+            oRandomDetail = random.choice(oDetail)
+            Logger.note.debug("Randomly chosen item: %s" % (oRandomDetail))
+            sRandomTitle = oRandomDetail["title"]
+            Logger.note.debug("Randomly chosen title: %s" % (sRandomTitle))
         except UnicodeEncodeError:
             Logger.note.debug("UnicodeEncodeError for : %s" % sText)
 
-        return "P"
+        return sRandomTitle
 
     def CompareResults(self,dicExpectedSearchResults,lActualSearchResults):
         """
