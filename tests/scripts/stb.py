@@ -731,7 +731,7 @@ class Search:
                 sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
                 sText = re.sub('[^0-9a-zA-Z\s]+', "", sText)
-                sText = sText.decode('unicode_escape').encode('ascii','ignore')
+                sText = Utils.RemoveNonAscii(sText)
                 #sText = sText.replace(Constants.DELIMITER_SINGLE_QUOTE,"") # TODO: need to join the main function
                 #sText = sText.replace(Constants.DELIMITER_AMBERSENT,"") # TODO: need to join the main function
                 #sText = sText.replace(Constants.DELIMITER_COMMA,"") # TODO: need to join the main function

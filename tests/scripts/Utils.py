@@ -368,6 +368,19 @@ class cUtils:
         Logger.note.debug("Extended Array: %s" % listReturn)
         return listReturn
 
+    def RemoveNonAscii(sInputString):
+        """
+        this function removes the non ascii characters and provides back the string
+
+        Args:
+            sInputString: input string which has non ascii characters to be removed
+
+        Returns:
+            returns a string with non ascii removed
+        """
+        return "".join(sString for sString in sInputString if ord(sString)<128)
+
+
 # public instantition of the cUtils class to be used by other Classes
 Utils = cUtils()
 
