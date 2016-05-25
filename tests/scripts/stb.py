@@ -7,6 +7,8 @@
 
 """
 
+# -*- coding: utf-8 -*-
+
 from KeywordDriver import Instruction
 from Constants import Constants
 from Encode import EncodeTitle
