@@ -22,6 +22,7 @@ import re
 import random
 import elasticsearch
 import cv2
+import sys
 
 from collections import OrderedDict
 
