@@ -1,3 +1,5 @@
+# coding=utf-8
+
 """
 .. module:: stb
    :platform: Unix, Windows
@@ -6,8 +8,6 @@
 .. moduleauthor:: Vinoth Kumar Ravichandran <vinoth.ravichandran@echostar.com>, Prithvi Manikonda <Prithvi.Manikonda@echostar.com>
 
 """
-
-# coding=utf-8
 
 from KeywordDriver import Instruction
 from Constants import Constants
