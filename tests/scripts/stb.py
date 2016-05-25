@@ -725,7 +725,7 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = "Project Mc²"
-                sText = str(sCapturedText)
+                #sText = str(sCapturedText)
                 sText = sText.replace(Constants.DELIMITER_COLON,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
                 sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
