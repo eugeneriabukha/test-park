@@ -981,6 +981,7 @@ class Search:
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetDynamicTitle()))
         elif sType == Constants.SEARCHED:
             sPrevSearchedTitle = str(Utils.GetSearchedTitle())
+            sPrevSearchedTitle = Utils.RemoveNonAscii(sPrevSearchedTitle)
             Logger.note.debug("Fetched Previously Searched Title : %s" % sPrevSearchedTitle)
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle)
 
