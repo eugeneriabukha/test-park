@@ -40,6 +40,8 @@ class Constants(object):
     DELIMITER_OPENBRACE = "("
     DELIMITER_CLOSEBRACE = ")"
     DEILIMITER_STAR = "*"
+    DELIMITER_SINGLE_QUOTE = "'"
+    DELIMITER_AMBERSENT = "&"
 
     # Keyword related
     TESTCASE_START = "TestCaseStart"
