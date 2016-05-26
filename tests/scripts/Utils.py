@@ -178,7 +178,7 @@ class cUtils:
         Raises:
             Nothing
         """
-        return [title for title in oSearchResults if title["Title"].find(sInputTitle)]
+        return [sTitle for sTitle in oSearchResults if ((sTitle["Title"].find(sInputTitle)) || (sTitle["Title"] == sInputTitle))]
         #return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
     def GetDynamicNetflixTitle(self):
