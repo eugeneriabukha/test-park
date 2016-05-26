@@ -729,11 +729,11 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
-                sText = sText.replace(Constants.DELIMITER_COLON,"%20") # TODO: need to join the main function
-                sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
-                sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
-                sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
-                sText = re.sub('[^0-9a-zA-Z\s]+', "", sText)
+                #sText = sText.replace(Constants.DELIMITER_COLON,"%20") # TODO: need to join the main function
+                #sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
+                #sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
+                #sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
+                sText = re.sub('[^0-9a-zA-Z\s]+', "%20", sText)
                 sText = Utils.RemoveNonAscii(sText)
                 #sText = sText.replace(Constants.DELIMITER_SINGLE_QUOTE,"") # TODO: need to join the main function
                 #sText = sText.replace(Constants.DELIMITER_AMBERSENT,"") # TODO: need to join the main function
