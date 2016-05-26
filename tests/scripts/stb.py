@@ -983,6 +983,7 @@ class Search:
             sPrevSearchedTitle = str(Utils.GetSearchedTitle())
             sPrevSearchedTitle = Utils.RemoveNonAscii(sPrevSearchedTitle)
             Logger.note.debug("Fetched Previously Searched Title : %s" % sPrevSearchedTitle)
+            Logger.note.debug("Dictionary before filtering: %s" % listOfDictSearchResults)
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle)
 
         Logger.note.debug("Complete List Of Dictionary : %s" % listOfDictSearchResults)
