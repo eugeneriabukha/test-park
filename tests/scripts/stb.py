@@ -569,7 +569,7 @@ class Search:
             sTitle = Utils.GetDynamicTitle()
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
-            sTitle = "E-Team"
+            sTitle = "AJIN: Demi-Human"
 
         # save the searched title for future reference
         Utils.SetSearchedTitle(sTitle)
