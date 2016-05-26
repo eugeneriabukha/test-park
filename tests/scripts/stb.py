@@ -569,7 +569,6 @@ class Search:
             sTitle = Utils.GetDynamicTitle()
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
-            sTitle = "Trailer Park Boys: Drunk, High and Unemployed: Live In Austin"
 
         # save the searched title for future reference
         Utils.SetSearchedTitle(sTitle)
