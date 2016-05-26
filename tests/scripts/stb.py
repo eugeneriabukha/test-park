@@ -569,7 +569,7 @@ class Search:
             sTitle = Utils.GetDynamicTitle()
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
-            sTitle = "Chris D'Elia: Incorrigible"
+            sTitle = "Crouching Tiger, Hidden Dragon: Sword of Destiny"
 
         # save the searched title for future reference
         Utils.SetSearchedTitle(sTitle)
