@@ -986,7 +986,7 @@ class Search:
             Logger.note.debug("Dictionary before filtering: %s" % listOfDictSearchResults)
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle)
 
-        Logger.note.debug("Complete List Of Dictionary : %s" % listOfDictSearchResults)
+        Logger.note.debug("Dictionary after filtering: %s" % listOfDictSearchResults)
         iLastCounter = len(listOfDictSearchResults) - 1
 
         if iRandID == None:
