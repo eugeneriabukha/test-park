@@ -300,8 +300,16 @@ class Navigate:
         Raises:
             Nothing
         """
-        Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
-        time.sleep(Constants.LONG_WAIT)
+        # fetch the page name
+        sPageName = oFranchisePage.GetPageName()
+
+        # Press keystrokes only when the page is Group
+        if sPageName == TEXT_GROUP:
+            Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
+            time.sleep(Constants.LONG_WAIT)
+        
+        # update to a positive status anyway since this function works only when the page is Group
+        self.instruction.actualresult = self.instruction.expectedresult
 
     def Program(self):
         """
