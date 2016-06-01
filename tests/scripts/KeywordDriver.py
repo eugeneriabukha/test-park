@@ -270,8 +270,6 @@ class Options(dict):
         arOptions = sOptions.split(Constants.DELIMITER_SEMICOLON)
         hReturn = collections.OrderedDict()
         # analyze the provided list of options one by one
-        #Logger.note.debug( 'Analysing list of options one by one' )
-        #Logger.note.debug(arOptions)
         for sOption in arOptions:
             arOptionDetail = sOption.split(Constants.DELIMITER_EQUAL)
             sOrder = ""
@@ -447,9 +445,9 @@ class Execution:
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
         listOfTestCases = dicTCStatus.keys()
-        Logger.note.info("Test Case Name|Execution Status|Executed Time|Elapsed Time")
+        Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time")
         for eachTestCase in listOfTestCases:
-            Logger.note.info("%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
+            Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
