@@ -162,6 +162,7 @@ REGION_DIAGNOSTICS = {'x': 270, 'y': 447, 'width': 474, 'height': 41}
 REGION_FRANCHISEPAGE = {'x':178,'y': 58, 'width':175, 'height':53}
 REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
 REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
+REGION_SPORTS_GROUP2_TITLE = {'x':5,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
@@ -176,6 +177,7 @@ DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
     TEXT_MOVIE : REGION_PROGRAM_TITLE,
     TEXT_GROUP : REGION_SPORTS_GROUP_TITLE,
+    "Group2" : REGION_SPORTS_GROUP2_TITLE,
     TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
     TEXT_PERSON : REGION_PERSON_TITLE,
     }
@@ -1157,6 +1159,11 @@ class FranchisePage:
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
         sActualTitle = sActualTitle.strip()
+        if sActualTitle == "":
+            dicRegion = DICT_FRANCHISE_TITLE["Group2"]
+            sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
+            sActualTitle = sActualTitle.strip()
+
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         
         if sActualTitle[0:20].upper() == sExpectedTitle[0:20].upper():
@@ -1569,7 +1576,7 @@ class Movies:
 
         # default the value as 1 if there is no direct input
         if sDirectInput == "":
-            Logger.note.info("No Direct Input so defaulting to 1")
+            Logger.note.debug("No Direct Input so defaulting to 1")
             sDirectInput = 1
 
         iLastCounter = int(sDirectInput)
