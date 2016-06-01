@@ -616,6 +616,8 @@ class Search:
             Logger.note.error( SEARCH_NEGATIVE)
             return
         
+        time.sleep(Constants.LONG_WAIT)
+
         bSucessFlag = self.FetchResults()
         if bSucessFlag == False:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
@@ -1168,7 +1170,7 @@ class FranchisePage:
 
         if len(sActualTitleNew) > len(sActualTitle):
             sActualTitle = sActualTitleNew
-        
+
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         
         if sActualTitle[0:20].upper() == sExpectedTitle[0:20].upper():
