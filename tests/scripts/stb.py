@@ -307,7 +307,7 @@ class Navigate:
         if sPageName == TEXT_GROUP:
             Utils.PressListOfKeyStrokes([Constants.KEY_SELECT])
             time.sleep(Constants.LONG_WAIT)
-        
+
         # update to a positive status anyway since this function works only when the page is Group
         self.instruction.actualresult = self.instruction.expectedresult
 
@@ -1181,7 +1181,12 @@ class FranchisePage:
         """
         sButtonNames = Utils.FetchTextOfRegion(REGION_NETFLIX_WATCH,"Watch on Netflix".split())
         Logger.note.debug("Fetched button details from screen: %s" % sButtonNames)
-        self.instruction.actualresult = self.instruction.expectedresult
+        if sButtonNames.find("WatchonNetflix") != -1:
+            Logger.note.error("Verify On Netflix button was found on the page successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.error("Verify On Netflix button was NOT found on the page")
+            self.instruction.actualresult = Constants.STATUS_FAILURE
 
 class Guide:
     """
