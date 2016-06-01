@@ -1159,11 +1159,16 @@ class FranchisePage:
         # find title from the provided region
         sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
         sActualTitle = sActualTitle.strip()
-        if sActualTitle == "":
-            dicRegion = DICT_FRANCHISE_TITLE["Group2"]
-            sActualTitle = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
-            sActualTitle = sActualTitle.strip()
 
+        sActualTitleNew = ""
+        if sPageName == TEXT_GROUP:
+            dicRegion = DICT_FRANCHISE_TITLE["Group2"]
+            sActualTitleNew = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
+            sActualTitleNew = sActualTitleNew.strip()
+
+        if len(sActualTitleNew) > len(sActualTitle):
+            sActualTitle = sActualTitleNew
+        
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         
         if sActualTitle[0:20].upper() == sExpectedTitle[0:20].upper():
