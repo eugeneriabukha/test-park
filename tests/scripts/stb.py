@@ -1196,7 +1196,7 @@ class FranchisePage:
         sButtonNames = Utils.FetchTextOfRegion(REGION_NETFLIX_WATCH,"Watch on Netflix".split())
         Logger.note.debug("Fetched button details from screen: %s" % sButtonNames)
         if sButtonNames.find("WatchonNetflix") != -1:
-            Logger.note.error("Verify On Netflix button was found on the page successfully")
+            Logger.note.info("Verify On Netflix button was found on the page successfully")
             self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("Verify On Netflix button was NOT found on the page")
