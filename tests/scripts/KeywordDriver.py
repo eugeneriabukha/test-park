@@ -445,7 +445,7 @@ class Execution:
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
         listOfTestCases = dicTCStatus.keys()
-        Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time")
+        Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
         for eachTestCase in listOfTestCases:
             Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
