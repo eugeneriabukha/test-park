@@ -20,6 +20,7 @@ def test_smoke():
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
 
+'''
 def test_regression_sample1():
 	print "test_regression_sample1"
 
@@ -28,3 +29,4 @@ def test_smoke_1():
 
 def test_smoke_2():
 	print "test_smoke_2"
+'''
