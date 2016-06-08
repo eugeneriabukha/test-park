@@ -9,8 +9,8 @@ from scripts.KeywordDriver import *
 from scripts.KeywordFactory import *
 
 #=============================================================================#
-# Method: test_keyworddriver()
-# Description: runs the list of keywords provided in the instruction sheet
+# Method: test_smoke()
+# Description: runs the list of smoke test cases provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
 def test_smoke():
@@ -19,3 +19,12 @@ def test_smoke():
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
+
+def test_regression_sample1():
+	print "test_regression_sample1"
+
+def test_smoke_1():
+	print "test_smoke_1"
+
+def test_smoke_2():
+	print "test_smoke_2"
