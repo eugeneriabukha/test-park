@@ -13,13 +13,14 @@ from scripts.KeywordFactory import *
 # Description: runs the list of keywords provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
-def test_keyworddriver():
+def test_smoke():
     # Create an Object for DataDriver
     oDataDriver = DataDriver("Instructions_Smoke.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
 
+'''
 #=============================================================================#
 # Method: test_run_demo()
 # Description: runs the list of keywords provided in the instruction sheet
@@ -43,3 +44,4 @@ def test_z_testing():
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
+'''
