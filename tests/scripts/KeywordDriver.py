@@ -459,7 +459,7 @@ class Execution:
 
         logging.debug('This message should go to the log file')
 
-        f = open(LOG_FILENAME, 'rt')
+        f = open(LOG_FILENAME, 'w')
         try:
             body = f.read()
         finally:
