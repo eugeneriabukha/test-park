@@ -1011,7 +1011,13 @@ class Search:
             iRandomID = iRandID
             Logger.note.info( "User Selected %s from the list" % iRandomID)
 
-        dictSearchItem = listOfDictSearchResults[iRandomID]
+        try:
+            dictSearchItem = listOfDictSearchResults[iRandomID]
+        except IndexError:
+            Logger.note.error("The dictionary is empty and cannot be searched")
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+            return
+
         Logger.note.debug(dictSearchItem)
         # fetch the title and save it for future
         sTitle = dictSearchItem["Title"]
