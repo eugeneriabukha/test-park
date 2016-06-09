@@ -452,14 +452,14 @@ class Execution:
 
         import logging
 
-        LOG_FILENAME = 'logging_example.out'
+        LOG_FILENAME = 'logging_example.log'
         logging.basicConfig(filename=LOG_FILENAME,
                             level=logging.DEBUG,
                             )
 
         logging.debug('This message should go to the log file')
 
-        f = open(LOG_FILENAME, 'w')
+        f = open(LOG_FILENAME, 'r')
         try:
             body = f.read()
         finally:
