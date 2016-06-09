@@ -451,22 +451,25 @@ class Execution:
 
 
         import logging
+        import sys
 
-        LOG_FILENAME = 'logging_example.log'
-        logging.basicConfig(filename=LOG_FILENAME,
-                            level=logging.DEBUG,
-                            )
+        LEVELS = { 'debug':logging.DEBUG,
+                    'info':logging.INFO,
+                    'warning':logging.WARNING,
+                    'error':logging.ERROR,
+                    'critical':logging.CRITICAL,
+                    }
 
-        logging.debug('This message should go to the log file')
 
-        f = open(LOG_FILENAME, 'r')
-        try:
-            body = f.read()
-        finally:
-            f.close()
+        level_name = 'info'
+        level = LEVELS.get(level_name, logging.NOTSET)
+        logging.basicConfig(level=level)
 
-        print 'FILE:'
-        print body
+        logging.debug('This is a debug message')
+        logging.info('This is an info message')
+        logging.warning('This is a warning message')
+        logging.error('This is an error message')
+        logging.critical('This is a critical error message')
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
