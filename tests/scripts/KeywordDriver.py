@@ -449,22 +449,6 @@ class Execution:
         for eachTestCase in listOfTestCases:
             Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
-
-        LOG_FILENAME = 'logging_example.log'
-        f = open(LOG_FILENAME, 'w')
-
-        import logging
-
-        logging.basicConfig(filename=LOG_FILENAME,
-                            level=logging.DEBUG,
-                            )
-
-        logging.debug('This is a debug message')
-        logging.info('This is an info message')
-        logging.warning('This is a warning message')
-        logging.error('This is an error message')
-        logging.critical('This is a critical error message')
-
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
 
