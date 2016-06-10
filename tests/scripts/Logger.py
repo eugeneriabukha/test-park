@@ -4,7 +4,7 @@ import logging.config
 import sys
 import os
 
-RESULT_LEVEL = 25
+RESULT = 25
 
 class cLogger:
     def __init__(self,logLevel=None):
