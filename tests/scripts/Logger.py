@@ -8,7 +8,7 @@ RESULT = 25
 
 class cLogger:
     def __init__(self,logLevel=None):
-		logging.addLevelName(RESULT_LEVEL,"RESULT_LEVEL")
+		logging.addLevelName(RESULT,"RESULT")
 		logging.config.fileConfig('/var/lib/stbt/test-pack/tests/scripts/logging.conf',disable_existing_loggers=False)
 		self.note = logging.getLogger(__name__)
 		self.note1 = logging.getLogger("resultLogger")
