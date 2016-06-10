@@ -445,9 +445,13 @@ class Execution:
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
         listOfTestCases = dicTCStatus.keys()
-        Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
+        #Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
+        #for eachTestCase in listOfTestCases:
+        #    Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
+
+        Logger.note.log(RESULT_LEVEL,"|Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
         for eachTestCase in listOfTestCases:
-            Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
+            Logger.note.log(RESULT_LEVEL,"|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
