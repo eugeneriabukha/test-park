@@ -715,7 +715,7 @@ class Search:
             sItem = str(sItem)
             Logger.note.debug("String Before: %s" % sItem)
             for sOneOfStrings in SEARCH_RESULTS_EXTENDED:
-                if len(sOneOfStrings) > 4:
+                if len(sOneOfStrings) > 300:
                     iNum = sItem.find(sOneOfStrings)
                     if iNum != -1:
                         iFirst = iNum + len(sOneOfStrings)
