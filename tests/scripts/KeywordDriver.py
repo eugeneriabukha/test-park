@@ -454,7 +454,7 @@ class Execution:
         #for eachTestCase in listOfTestCases:
         #    Logger.note1.log(RESULT,"%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
-        Logger.note1.log(RESULT,"Execution Status|Test Case Name")
+        Logger.note1.log(RESULT,"Run Status|Test Case Name")
         for eachTestCase in listOfTestCases:
             Logger.note1.log(RESULT,"%s|%s" %(dicTCStatus[eachTestCase],eachTestCase))
 
