@@ -445,10 +445,6 @@ class Execution:
         Logger.note.debug("Total Elapsed Time: %s" % iTotalElapsed)
 
         listOfTestCases = dicTCStatus.keys()
-        #Logger.note.info("|Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
-        #for eachTestCase in listOfTestCases:
-        #    Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
-
         # DO NOT DELETE : Existing Format
         #Logger.note1.log(RESULT,"Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
         #for eachTestCase in listOfTestCases:
@@ -457,9 +453,6 @@ class Execution:
         Logger.note1.log(RESULT,"Run Status|Test Case Name")
         for eachTestCase in listOfTestCases:
             Logger.note1.log(RESULT,"%s|%s" %(dicTCStatus[eachTestCase],eachTestCase))
-
-        #Logger.note.debug(self.ExpectedMessages.Message())
-        #Logger.note.debug(self.ActualMessages.Message())
 
     #=============================================================================#
     # Method: get_previousLabel
