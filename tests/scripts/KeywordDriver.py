@@ -449,9 +449,14 @@ class Execution:
         #for eachTestCase in listOfTestCases:
         #    Logger.note.info("|%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
 
-        Logger.note1.log(RESULT,"Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
+        # DO NOT DELETE : Existing Format
+        #Logger.note1.log(RESULT,"Test Case Name|Execution Status|Executed Time|Elapsed Time(seconds)")
+        #for eachTestCase in listOfTestCases:
+        #    Logger.note1.log(RESULT,"%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
+
+        Logger.note1.log(RESULT,"Execution Status|Test Case Name")
         for eachTestCase in listOfTestCases:
-            Logger.note1.log(RESULT,"%s|%s|%s|%s" %(eachTestCase,dicTCStatus[eachTestCase],dicTCCreatedTime[eachTestCase],dicTCElapsedTime[eachTestCase]))
+            Logger.note1.log(RESULT,"%s|%s" %(dicTCStatus[eachTestCase],eachTestCase))
 
         #Logger.note.debug(self.ExpectedMessages.Message())
         #Logger.note.debug(self.ActualMessages.Message())
