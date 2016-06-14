@@ -709,7 +709,7 @@ class Search:
         Logger.note.debug("List after removing numbers prior to text: %s" % lResults)
 
         # add a space if text captured without space
-        
+        '''
         lResultsNew = []
         for sItem in lResults:
             sItem = str(sItem)
@@ -727,7 +727,7 @@ class Search:
             lResultsNew.append(sItem)
 
         lResults = lResultsNew
-        
+        '''
 
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
