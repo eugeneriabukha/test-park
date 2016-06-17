@@ -1204,6 +1204,9 @@ class FranchisePage:
         if sButtonNames.find("WatchonNetflix") != -1:
             Logger.note.info("Verify On Netflix button was found on the page successfully")
             self.instruction.actualresult = self.instruction.expectedresult
+        elif sButtonNames.find("Watch on Netflix") != -1:
+            Logger.note.info("Verify On Netflix button was found on the page successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
         else:
             Logger.note.error("Verify On Netflix button was NOT found on the page")
             self.instruction.actualresult = Constants.STATUS_FAILURE
