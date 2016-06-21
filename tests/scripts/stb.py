@@ -956,17 +956,6 @@ class Search:
             oTestData = self.instruction.testdata_detailed
             bCalledFromInstructionSheet = True
             sDirectInput = oTestData[Constants.DIRECT_INPUT]
-            '''
-            if Constants.DELIMITER_EQUAL in sDirectInput:
-                arDirectInput = sDirectInput.split(Constants.DELIMITER_EQUAL)
-                if arDirectInput[0] == "Type":
-                    sType = arDirectInput[1].upper()
-                elif arDirectInput[0] == "Title":
-                    sTitle = arDirectInput[1].upper()
-                else:
-                    Logger.note.error("Unknown Input Type: %s" % arDirectInput[0])
-            else:
-            '''
             # capitalize the provided input
             sDirectInput = sDirectInput.upper()
         except Exception as eError:
@@ -985,10 +974,6 @@ class Search:
             self.instruction.actualresult = Constants.STATUS_FAILURE
             return
 
-        '''
-        # if there is a value for sType, then work on finding an item of specified type
-        if sType:
-        '''
         # If its a known type, work on the input
         if sType in DICT_STB_TYPES:
             listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sType)
@@ -1027,16 +1012,6 @@ class Search:
         sTitle = dictSearchItem["Title"]
         sID = dictSearchItem["ID"]
         Logger.note.info( "Randomly selected title for type <%s> is <%s>" % (sType,sTitle))
-        
-        '''
-        elif sTitle:
-            listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(sTitle))
-            dictSearchItem = listOfDictSearchResults[0]
-            Logger.note.debug(dictSearchItem)
-            # fetch the title and save it for future
-            sID = dictSearchItem["ID"]
-            Logger.note.debug( "Provided Title is <%s>" % sTitle)
-        '''
 
         Utils.SetSelectedTitle(sTitle)
 
