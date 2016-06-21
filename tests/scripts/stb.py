@@ -644,6 +644,7 @@ class Search:
 
         # fetch the 0th result region
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
+        sFetchedTitle = sFetchedTitle.lstrip("O ")
         Logger.note.debug("Title: %s" %sTitle)
         Logger.note.debug("Fetched new title: %s" %sFetchedTitle)
 
