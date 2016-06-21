@@ -21,22 +21,64 @@ def test_smoke():
     oKeywordDriver.Execute()
 
 #=============================================================================#
-# Method: test_run_demo()
+# Method: test_z_03_mostPopular()
 # Description: runs the list of keywords provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
-def test_z_demo():
+def test_z_03_mostPopular():
     # Create an Object for DataDriver
-    oDataDriver = DataDriver("Instructions_Demo.xls:Instructions")
+    oDataDriver = DataDriver("Instructions_TestCase03_MostPopular.xls:Instructions")
     oKeywordDriver = KeywordDriver(oDataDriver)
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
 
-#def test_regression_sample1():
-#	print "test_regression_sample1"
-#
-#def test_smoke_1():
-#	print "test_smoke_1"
-#
-#def test_smoke_2():
-#	print "test_smoke_2"
+#=============================================================================#
+# Method: test_z_05_09_singleCharacterSearch()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_05_09_singleCharacterSearch():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_TestCase05-09.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+#=============================================================================#
+# Method: test_z_10_HBO()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_10_HBO():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_TestCase10_HBO.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+#=============================================================================#
+# Method: test_z_11_13()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_11_13():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_TestCase11-13.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+#=============================================================================#
+# Method: test_z_11_13_HBO()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_14_Netflix():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_TestCase14_Netflix.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
+
+
+
