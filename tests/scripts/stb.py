@@ -646,12 +646,13 @@ class Search:
         # fetch the 0th result region
         sFetchedTitle = Utils.FetchTextOfRegion(REGION_RESULTS,FirstLineOnly=True)
         sFetchedTitle = sFetchedTitle.lstrip("O ")
-        sFetchedTitle = sFetchedTitle
+        sFetchedTitle = sFetchedTitle.lstrip("0 ")
         Logger.note.debug("Title: %s" %sTitle)
         Logger.note.debug("Fetched new title: %s" %sFetchedTitle)
 
         if sTitle.upper() in sFetchedTitle.upper():
-            sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
+            #sTitle = sFetchedTitle.split(Constants.DELIMITER_SPACE,1)[1]
+            sTitle = sFetchedTitle
             Logger.note.debug("Newly Set Dynamic Title: %s" % sTitle)
             Utils.SetDynamicTitle(sTitle)
             self.instruction.actualresult = self.instruction.expectedresult
