@@ -227,6 +227,12 @@ class cUtils:
             Logger.note.debug("Randomly chosen item: %s" % (oRandomDetail))
             sRandomTitle = oRandomDetail["title"]
             sType = oRandomDetail["tms_id"][0:2]
+            if sType == "MV":
+                sType = "MOVIE"
+            elif sType == "SH":
+                sType = "TV"
+            else:
+                sType = "TV"
             Logger.note.debug("Provided type: %s" % sType)
             Utils.SetType(sType)
             Logger.note.debug("Randomly chosen title: %s" % (sRandomTitle))

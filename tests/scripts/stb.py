@@ -980,9 +980,14 @@ class Search:
         elif sType == Constants.DYNAMIC:
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,str(Utils.GetDynamicTitle()))
         elif sType == Constants.SEARCHED:
+            sSearchedType = Utils.GetType()
+            listOfDictSearchResults = Utils.GetTitleByType(listOfDictSearchResults,sSearchedType)
+            # use previously searched title
             sPrevSearchedTitle = str(Utils.GetSearchedTitle())
             sPrevSearchedTitle = Utils.RemoveNonAscii(sPrevSearchedTitle)
             Logger.note.debug("Fetched Previously Searched Title : %s" % sPrevSearchedTitle)
+
+            # fetch details before filtering
             Logger.note.debug("Dictionary before filtering: %s" % listOfDictSearchResults)
             listOfDictSearchResults = Utils.GetTitleByTitle(listOfDictSearchResults,sPrevSearchedTitle)
 
