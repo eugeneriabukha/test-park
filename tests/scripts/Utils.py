@@ -198,7 +198,7 @@ class cUtils:
         """
         return [sTitle for sTitle in oSearchResults if ((sTitle["Title"].find(sInputTitle)!=-1) 
             or (sTitle["Title"] == sInputTitle) 
-            or (sTitle["Title"][0][15].upper() == sInputTitle[0][15].upper()
+            or (sTitle["Title"][0:15].upper() == sInputTitle[0:15].upper()
                 ))]
         #return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
@@ -226,7 +226,7 @@ class cUtils:
             oRandomDetail = random.choice(oDetail)
             Logger.note.debug("Randomly chosen item: %s" % (oRandomDetail))
             sRandomTitle = oRandomDetail["title"]
-            sType = oRandomDetail["tms_id"][0][2]
+            sType = oRandomDetail["tms_id"][0:2]
             Logger.note.debug("Provided type: %s" % sType)
             Utils.SetType(sType)
             Logger.note.debug("Randomly chosen title: %s" % (sRandomTitle))
@@ -254,7 +254,7 @@ class cUtils:
         lExpectedResultTitles = dicExpectedSearchResults.keys()
         dicResults = {}
         listOfResults = []
-        
+
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
             #Logger.note.debug("iCounter: %d" % iCounter)
