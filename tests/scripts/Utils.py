@@ -202,6 +202,31 @@ class cUtils:
                 ))]
         #return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
+    def GetTitleByNetflixTitle(self,oSearchResults,sInputTitle):
+        """
+        This function fetches the title which exactly matches with netflix title
+
+        Args:
+            oSearchResults (list):  list of dictionary with search results
+            sInputType: Title to search for
+        Returns:
+            (list):  list of title(s) which matches provided type
+
+        Raises:
+            Nothing
+        """
+        [lSmall for lSmall in oSearchResults if (lSmall["Title"] == sInputTitle)]
+        Logger.note.debug(lSmall)
+        iLen = len(lSmall)
+        Logger.note.debug("Length of the filtered result: %s" %iLen)
+
+        if len(oSearchResults) == 1:
+            return oSearchResults
+        elif iLen==1:
+            return lSmall
+        else:
+            return sTitle for sTitle in oSearchResults if (sTitle["Title"][0:15].upper() == sInputTitle[0:15].upper())
+
     def GetDynamicNetflixTitle(self):
         """
         This function fetches a dynamic netflix title
