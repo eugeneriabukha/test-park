@@ -93,6 +93,24 @@ class cUtils:
         """
         return self.search_results
 
+    def SetType(self,sType):
+        """
+        This function saves the latest searched type
+
+        Args:
+            sType (string): value to be saved as type 
+        """
+        self.type = sType
+
+    def GetType(self):
+        """
+        This function fetches the values saved as type
+
+        Returns:
+            (string): saved value as type 
+        """
+        return self.type
+
     def SetExpectedSearchResults(self,dicSearchResults):
         """
         This function saves the expected search results
@@ -208,7 +226,11 @@ class cUtils:
             oRandomDetail = random.choice(oDetail)
             Logger.note.debug("Randomly chosen item: %s" % (oRandomDetail))
             sRandomTitle = oRandomDetail["title"]
+            sType = oRandomDetail["tms_id"][0][2]
+            Logger.note.debug("Provided type: %s" % sType)
+            Utils.SetType(sType)
             Logger.note.debug("Randomly chosen title: %s" % (sRandomTitle))
+            Logger.note.debug("GetType: %s" %Utils.GetType())
         except UnicodeEncodeError:
             Logger.note.debug("UnicodeEncodeError for : %s" % sText)
 
@@ -232,8 +254,7 @@ class cUtils:
         lExpectedResultTitles = dicExpectedSearchResults.keys()
         dicResults = {}
         listOfResults = []
-        #iCounter = 0
-
+        
         # Fetching the titles on the screen into a list lActualResultTitles
         for eachSearchResult in lActualSearchResults:
             #Logger.note.debug("iCounter: %d" % iCounter)
