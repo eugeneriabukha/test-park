@@ -180,7 +180,7 @@ class cUtils:
         """
         return [sTitle for sTitle in oSearchResults if ((sTitle["Title"].find(sInputTitle)!=-1) 
             or (sTitle["Title"] == sInputTitle) 
-            or (sTitle["Title"][0,15].upper() == sInputTitle[0,15].upper()
+            or (sTitle["Title"][0][15].upper() == sInputTitle[0][15].upper()
                 ))]
         #return [title for title in oSearchResults if title["Title"] == sInputTitle]
 
