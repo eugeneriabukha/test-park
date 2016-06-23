@@ -215,7 +215,7 @@ class cUtils:
         Raises:
             Nothing
         """
-        [lSmall for lSmall in oSearchResults if (lSmall["Title"] == sInputTitle)]
+        lSmall = [lSmall for lSmall in oSearchResults if (lSmall["Title"] == sInputTitle)]
         Logger.note.debug(lSmall)
         iLen = len(lSmall)
         Logger.note.debug("Length of the filtered result: %s" %iLen)
@@ -225,7 +225,7 @@ class cUtils:
         elif iLen==1:
             return lSmall
         else:
-            return sTitle for sTitle in oSearchResults if (sTitle["Title"][0:15].upper() == sInputTitle[0:15].upper())
+            return [sTitle for sTitle in oSearchResults if (sTitle["Title"][0:15].upper() == sInputTitle[0:15].upper())]
 
     def GetDynamicNetflixTitle(self):
         """
