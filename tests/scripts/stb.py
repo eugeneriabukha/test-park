@@ -164,6 +164,7 @@ REGION_PROGRAM_TITLE = {'x':310,'y': 140, 'width':350, 'height':45}
 REGION_SPORTS_GROUP_TITLE = {'x':265,'y': 110, 'width':719, 'height':163}
 REGION_SPORTS_GROUP2_TITLE = {'x':5,'y': 110, 'width':719, 'height':163}
 REGION_PERSON_TITLE = {'x':206,'y': 120, 'width':350, 'height':45}
+REGION_PERSON2_TITLE = {'x':70,'y': 120, 'width':350, 'height':45}
 REGION_FRANCHISE_HEADER = {'x':338,'y':42, 'width':648, 'height':69}
 REGION_GUIDEPROGRAM = {'x':990,'y':176, 'width':260, 'height':120}
 REGION_TOPNAV = {'x':374,'y':44, 'width':626, 'height':76}
@@ -180,6 +181,7 @@ DICT_FRANCHISE_TITLE = {
     "Group2" : REGION_SPORTS_GROUP2_TITLE,
     TEXT_SPORTS : REGION_SPORTS_GROUP_TITLE,
     TEXT_PERSON : REGION_PERSON_TITLE,
+    "Person2" : REGION_PERSON2_TITLE,
     }
 
 POSITIONS_MOVIE = { TEXT_SUMMARY:0, TEXT_CAST:1, TEXT_REVIEWS:2, TEXT_PARENTALGUIDE:3 }
@@ -477,6 +479,9 @@ class Navigate:
         for iCounter in range(0,iLastCounter):
             lKeyStrokes.append(sKeyStroke)
         Utils.PressListOfKeyStrokes(lKeyStrokes)
+
+        # a hard wait until the dust settles
+        time.sleep(3)
 
         # Fetch if the required tab is selected
         sNewTabName = oTopNav.GetCurrentTab()
@@ -1161,6 +1166,10 @@ class FranchisePage:
         sActualTitleNew = ""
         if sPageName == TEXT_GROUP:
             dicRegion = DICT_FRANCHISE_TITLE["Group2"]
+            sActualTitleNew = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
+            sActualTitleNew = sActualTitleNew.strip()
+        elif sPageName == TEXT_PERSON:
+            dicRegion = DICT_FRANCHISE_TITLE["Person2"]
             sActualTitleNew = Utils.FetchTextOfRegion(dicRegion,sExpectedTitle.split(),FirstLineOnly = True)
             sActualTitleNew = sActualTitleNew.strip()
 
