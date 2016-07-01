@@ -1178,7 +1178,15 @@ class FranchisePage:
 
         Logger.note.info( "Actual Title: %s" %sActualTitle)
         
+        sExpectedTitleUpper = sExpectedTitle.upper()
+        sActualTitleUpper = sActualTitle.upper()
+        iNum = sActualTitleUpper.find(sExpectedTitleUpper)
+
+        # try to see if expected matches actuals or expected is found in actual
         if sActualTitle[0:20].upper() == sExpectedTitle[0:20].upper():
+            Logger.note.info(SUMMARYPAGE_TITLE_MATCH)
+            self.instruction.actualresult = self.instruction.expectedresult
+        elif iNum != -1:
             Logger.note.info(SUMMARYPAGE_TITLE_MATCH)
             self.instruction.actualresult = self.instruction.expectedresult
         else:
