@@ -595,6 +595,7 @@ class Search:
             sTitle = Utils.GetDynamicNetflixTitle()
         elif sTitle == TEXT_SPORTS:
             sTitle = random.choice(LIST_SPORTS)
+            Logger.note.debug("New title: %s" %sTitle)
 
         # save the searched title for future reference
         Utils.SetSearchedTitle(sTitle)
