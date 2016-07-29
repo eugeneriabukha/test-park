@@ -69,7 +69,7 @@ def test_z_11_13():
     oKeywordDriver.Execute()
 
 #=============================================================================#
-# Method: test_z_11_13_HBO()
+# Method: test_z_14_Netflix()
 # Description: runs the list of keywords provided in the instruction sheet
 # Returns: NA
 #=============================================================================#
@@ -80,5 +80,15 @@ def test_z_14_Netflix():
     # Starts the Exectution of the instuction set
     oKeywordDriver.Execute()
 
-
+#=============================================================================#
+# Method: test_z_15_Sports()
+# Description: runs the list of keywords provided in the instruction sheet
+# Returns: NA
+#=============================================================================#
+def test_z_15_Sports():
+    # Create an Object for DataDriver
+    oDataDriver = DataDriver("Instructions_TestCase15_Sports.xls:Instructions")
+    oKeywordDriver = KeywordDriver(oDataDriver)
+    # Starts the Exectution of the instuction set
+    oKeywordDriver.Execute()
 
