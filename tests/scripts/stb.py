@@ -140,6 +140,15 @@ SHOWS_CAROUSEL_SEASON_PREMIERS = 'Season Premieres'
 SHOWS_CAROUSEL_FINALES = 'Finales'
 LIST_SHOWS = [SHOWS_CAROUSEL_TRENDING_NOW,SHOWS_CAROUSEL_SERIES_PREMIERS,SHOWS_CAROUSEL_SEASON_PREMIERS,SHOWS_CAROUSEL_FINALES]
 
+# Sports list for switching
+SPORT_NBA = 'NBA Basketball'
+SPORT_NFL = 'NFL Football'
+SPORT_MLB = 'MLB Baseball'
+SPORT_MLS = 'MLS Soccer'
+SPORT_COLLEGE_FOOTBALL = 'College Football'
+SPORT_COLLEGE_BASKETBALL = 'College Basketball'
+LIST_SPORTS = [SPORT_NBA,SPORT_NFL,SPORT_MLB,SPORT_MLS,SPORT_COLLEGE_FOOTBALL,SPORT_COLLEGE_BASKETBALL]
+
 # Image related lists
 IMAGES_SHOW_HEADER = [IMAGE_SUMMARY,IMAGE_EPISODES,IMAGE_CAST]
 IMAGES_MOVIE_HEADER = [IMAGE_SUMMARY,IMAGE_CAST]
@@ -584,6 +593,8 @@ class Search:
             sTitle = Utils.GetDynamicTitle()
         elif sTitle == Constants.NETFLIX:
             sTitle = Utils.GetDynamicNetflixTitle()
+        elif sTitle == TEXT_SPORTS:
+            sTitle = random.choice(LIST_SPORTS)
 
         # save the searched title for future reference
         Utils.SetSearchedTitle(sTitle)
@@ -717,27 +728,6 @@ class Search:
 
         Logger.note.debug("List after removing numbers prior to text: %s" % lResults)
 
-        # add a space if text captured without space
-        '''
-        lResultsNew = []
-        for sItem in lResults:
-            sItem = str(sItem)
-            Logger.note.debug("String Before: %s" % sItem)
-            for sOneOfStrings in SEARCH_RESULTS_EXTENDED:
-                if len(sOneOfStrings) > 300:
-                    iNum = sItem.find(sOneOfStrings)
-                    if iNum != -1:
-                        iFirst = iNum + len(sOneOfStrings)
-                        iLast = iFirst + 1
-                        if sItem[iFirst:iLast] != Constants.DELIMITER_SPACE:
-                            sItem = sItem.replace(sOneOfStrings, sOneOfStrings + Constants.DELIMITER_SPACE)
-            sItem = sItem.strip()
-            Logger.note.debug("String After: %s" % sItem)
-            lResultsNew.append(sItem)
-
-        lResults = lResultsNew
-        '''
-
         # try to check the count for provided title
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
         sFullURL = sFullURL + Constants.UNDERSCORE_COUNT + Constants.SEARCH_TITLE
@@ -749,17 +739,8 @@ class Search:
         for sCapturedText in lResults:
             try:
                 sText = str(sCapturedText)
-                #sText = sText.replace(Constants.DELIMITER_COLON,"%20") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_HIFEN,"%20") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_SLASH,"%20") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_EXCLAMATION,"%20") # TODO: need to join the main function
                 sText = re.sub('[^0-9a-zA-Z\s]+', "%20", sText)
                 sText = Utils.RemoveNonAscii(sText)
-                #sText = sText.replace(Constants.DELIMITER_SINGLE_QUOTE,"") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_AMBERSENT,"") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_COMMA,"") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_OPENBRACE,"") # TODO: need to join the main function
-                #sText = sText.replace(Constants.DELIMITER_CLOSEBRACE,"") # TODO: need to join the main function
 
                 args = {'Title': sText,}
                 sURL = sFullURL + '%(Title)s' % args
@@ -1773,7 +1754,6 @@ class Shows:
 
         iTotalCount = 0
         for iCounter in range(0,iLastCounter):
-            #Utils.PressListOfKeyStrokes([Constants.KEY_PAGEDOWN])
             # find a match and keep counting
             oMatches = stbt.match(IMAGE_NONE)
             bFlag = oMatches.match
