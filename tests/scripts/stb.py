@@ -182,6 +182,8 @@ REGION_MOVIE_CAROUSEL = {'x':30,'y':150, 'width':160, 'height':500}
 REGION_SHOW_CAROUSEL = {'x':20,'y':150, 'width':300, 'height':600}
 REGION_VOD = {'x':175,'y':57, 'width':340, 'height':48}
 REGION_NETFLIX_WATCH = {'x':46,'y':453, 'width':250, 'height':200}
+REGION_SPORTS_FIRST_CAROUSEL = {'x':39,'y':304, 'width':320, 'height':36}
+REGION_SPORTS_SECOND_CAROUSEL = {'x':39,'y':495, 'width':320, 'height':36}
 
 DICT_FRANCHISE_TITLE = {
     TEXT_TV_SHOW : REGION_PROGRAM_TITLE,
@@ -1199,6 +1201,35 @@ class FranchisePage:
         else:
             Logger.note.error("Verify On Netflix button was NOT found on the page")
             self.instruction.actualresult = Constants.STATUS_FAILURE
+
+    def MoveOnTitleCarousel(self):
+        """
+        Verifies for presence of title carousel and move right on the same
+
+        Args:
+            Nothing
+
+        Returns:
+            (boolean) based on execution
+
+        Raises:
+            Nothing
+        """
+        sCarouselName = Utils.FetchTextOfRegion(REGION_SPORTS_FIRST_CAROUSEL,"TEAMS UPCOMING GAMES ON DISH".split())
+        sSecondCarouselName = Utils.FetchTextOfRegion(REGION_SPORTS_SECOND_CAROUSEL,"TEAMS UPCOMING GAMES ON DISH".split())
+        Logger.note.debug("First Carousel Name: %s" % sCarouselName)
+        Logger.note.debug("Second Carousel Name: %s" % sSecondCarouselName)
+        if sCarouselName.find("TEAMS") != -1:
+            Logger.note.debug("Teams carousel was found on the page successfully")
+            self.instruction.actualresult = self.instruction.expectedresult
+        elif sSecondCarouselName.find("TEAMS") != -1:
+            Logger.note.debug("Teams carousel was found on the page successfully")
+            Utils.PressListOfKeyStrokes([Constants.KEY_DOWN])
+            self.instruction.actualresult = self.instruction.expectedresult
+        else:
+            Logger.note.debug("Teams carousel was NOT found on the page")
+            self.instruction.actualresult = Constants.STATUS_FAILURE
+        Utils.PressListOfKeyStrokes([Constants.KEY_RIGHT] * 5)
 
 class Guide:
     """
