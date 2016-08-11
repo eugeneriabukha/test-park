@@ -163,7 +163,11 @@ class cUtils:
         Logger.note.debug("URL: %s" % sURL)
         sURL = sURL.replace('"',"")
         sURL = sURL.replace(Constants.DELIMITER_SPACE, "%20")
-        oResponse = urllib2.urlopen(sURL)
+        try:
+            oResponse = urllib2.urlopen(sURL)
+        except Exception as eError:
+            return False
+        
         oJSON = json.load(oResponse)
         Logger.note.debug("JSON: %s" % oJSON)
         return oJSON

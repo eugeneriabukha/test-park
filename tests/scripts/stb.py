@@ -875,19 +875,20 @@ class Search:
                     }
             sURL = sFullURL + '%(TMS_ID)s' % args
             oProgramDetail = Utils.GetHTTPResponse(sURL)
-            sTitle = oProgramDetail['_source']['title']
+            if oProgramDetail != False:
+                sTitle = oProgramDetail['_source']['title']
 
-            # add extended words for tesseract keywords
-            sTitle = str(sTitle)
-            lTitle = sTitle.split(Constants.DELIMITER_SPACE)
-            SEARCH_RESULTS_EXTENDED.extend(lTitle)
+                # add extended words for tesseract keywords
+                sTitle = str(sTitle)
+                lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+                SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
-            # trim down for comparison
-            sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-            sTitle = str(sTitle)
+                # trim down for comparison
+                sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                sTitle = str(sTitle)
 
-            iWeightForTitle = dicPopularSearch[eachTMSID]
-            dictExpectedResult[sTitle] = iWeightForTitle
+                iWeightForTitle = dicPopularSearch[eachTMSID]
+                dictExpectedResult[sTitle] = iWeightForTitle
 
         # save the expected results into utils for future retrieval
         Utils.SetExpectedSearchResults(dictExpectedResult)
