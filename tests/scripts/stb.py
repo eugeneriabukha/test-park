@@ -630,6 +630,10 @@ class Search:
             sLookForMessage = NOT_INCLUDE_NETFLIX
 
         textOnScreen = stbt.ocr(region = oAdvancedSearchRegion, tesseract_user_words = SEARCH_ADVANCED_OPTIONS)
+
+        Logger.note.debug("Fetched text from screen: %s" %textOnScreen)
+        Logger.note.debug("Looking for: %s" %sLookForMessage)
+
         if textOnScreen.find(sLookForMessage) == -1:
             self.instruction.actualresult = Constants.STATUS_SEARCH_FAILURE
             Logger.note.error( SEARCH_NEGATIVE)
