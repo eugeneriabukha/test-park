@@ -881,9 +881,11 @@ class Search:
             oProgramDetail = Utils.GetHTTPResponse(sURL)
             if oProgramDetail != False:
                 sTitle = oProgramDetail['_source']['title']
-
                 # add extended words for tesseract keywords
-                sTitle = str(sTitle)
+                try:
+                    sTitle = str(sTitle)
+                except Exception as eError:
+                    pass
                 lTitle = sTitle.split(Constants.DELIMITER_SPACE)
                 SEARCH_RESULTS_EXTENDED.extend(lTitle)
 
