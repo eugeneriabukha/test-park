@@ -884,7 +884,7 @@ class Search:
                 # add extended words for tesseract keywords
                 try:
                     sTitle = str(sTitle)
-                except Exception as eError:
+                except UnicodeEncodeError:
                     pass
                 lTitle = sTitle.split(Constants.DELIMITER_SPACE)
                 SEARCH_RESULTS_EXTENDED.extend(lTitle)
