@@ -891,7 +891,10 @@ class Search:
 
                 # trim down for comparison
                 sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
-                sTitle = str(sTitle)
+                try:
+                    sTitle = str(sTitle)
+                except UnicodeEncodeError:
+                    pass
 
                 iWeightForTitle = dicPopularSearch[eachTMSID]
                 dictExpectedResult[sTitle] = iWeightForTitle
