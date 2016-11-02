@@ -870,6 +870,8 @@ class Search:
             iWeight = eachPopularSearchItem["weight"]
             sTMSID = eachPopularSearchItem["tms_id"]
             dicPopularSearch[sTMSID] = iWeight
+        Logger.note.debug("Most Popular TMSIDs and its weight:")
+        Logger.note.debug(dicPopularSearch)
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
