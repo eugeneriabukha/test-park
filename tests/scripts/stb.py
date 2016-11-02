@@ -898,6 +898,8 @@ class Search:
 
                 iWeightForTitle = dicPopularSearch[eachTMSID]
                 dictExpectedResult[sTitle] = iWeightForTitle
+        Logger.note.debug("Saved Ordered Dictionary of Expected Items:")
+        Logger.note.debug(dictExpectedResult)
 
         # save the expected results into utils for future retrieval
         Utils.SetExpectedSearchResults(dictExpectedResult)
