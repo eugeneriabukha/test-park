@@ -875,6 +875,7 @@ class Search:
 
         sFullURL = Constants.TMS_BASE_URL + ((Constants.INDEX_TMS_MOVIES_PROGRAMS + Constants.DELIMITER_SLASH) * 2)
 
+        """ TO SOLVE DUPLICATION ISSUE
         dictExpectedResult = OrderedDict({})
         for eachTMSID in dicPopularSearch.keys():
             args = {'TMS_ID': eachTMSID,
@@ -900,6 +901,34 @@ class Search:
 
                 iWeightForTitle = dicPopularSearch[eachTMSID]
                 dictExpectedResult[sTitle] = iWeightForTitle
+        Logger.note.debug("Saved Ordered Dictionary of Expected Items:")
+        Logger.note.debug(dictExpectedResult)
+        """
+
+        dictExpectedResult = OrderedDict({})
+        for eachTMSID in dicPopularSearch.keys():
+            args = {'TMS_ID': eachTMSID,
+                    }
+            sURL = sFullURL + '%(TMS_ID)s' % args
+            oProgramDetail = Utils.GetHTTPResponse(sURL)
+            if oProgramDetail != False:
+                sTitle = oProgramDetail['_source']['title']
+                # add extended words for tesseract keywords
+                try:
+                    sTitle = str(sTitle)
+                except UnicodeEncodeError:
+                    pass
+                lTitle = sTitle.split(Constants.DELIMITER_SPACE)
+                SEARCH_RESULTS_EXTENDED.extend(lTitle)
+
+                # trim down for comparison
+                sTitle = sTitle[0:SEARCH_CHAR_UPPER_LIMIT]
+                try:
+                    sTitle = str(sTitle)
+                except UnicodeEncodeError:
+                    pass
+
+                dictExpectedResult[eachTMSID] = sTitle
         Logger.note.debug("Saved Ordered Dictionary of Expected Items:")
         Logger.note.debug(dictExpectedResult)
 

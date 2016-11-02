@@ -286,7 +286,8 @@ class cUtils:
         """
         # declaration of required variables for comparison
         lActualResultTitles =[]
-        lExpectedResultTitles = dicExpectedSearchResults.keys()
+        #lExpectedResultTitles = dicExpectedSearchResults.keys() TO SOLVE DUPLICATION ISSUE ON THE TITLE NAME
+        lExpectedResultTitles = dicExpectedSearchResults.values()
         dicResults = {}
         listOfResults = []
 
