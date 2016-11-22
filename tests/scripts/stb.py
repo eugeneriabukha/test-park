@@ -47,7 +47,7 @@ SINGLE_CHAR_SEARCH_RESULTS_FAILURE = "Autosuggest with single char search has in
 SEARCH_CHAR_UPPER_LIMIT = 30
 
 # list constants
-DIAGNOSTICS_KEYSTROKES =[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,
+DIAGNOSTICS_KEYSTROKES =[Constants.KEY_EPG,Constants.KEY_MENU,Constants.KEY_DOWN,Constants.KEY_RIGHT,Constants.KEY_RIGHT,
     Constants.KEY_SELECT,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_DOWN,Constants.KEY_RIGHT,Constants.KEY_RIGHT,Constants.KEY_SELECT]
 HBO_KEYSTROKES = [Constants.KEY_EPG,Constants.KEY_3, Constants.KEY_0, Constants.KEY_0]
 GUIDE_NO_DAYS = 7
